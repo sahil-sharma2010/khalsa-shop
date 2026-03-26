@@ -892,9 +892,10 @@ function allowLocation() {
   } else { showError("⚠️ Geolocation is not supported."); document.getElementById("l_live_loc").value = ""; }
 }
 function showPosition(position) {
-  document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=$${position.coords.latitude},${position.coords.longitude}`;
+  document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`;
   autoSaveAndProceed();
 }
+
 function showLocationError(error) {
   document.getElementById("l_live_loc").value = ""; showError("⚠️ Error getting location.");
 }
