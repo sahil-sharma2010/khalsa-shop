@@ -121,7 +121,16 @@ body{margin:0;font-family:sans-serif;background:linear-gradient(#f1f3f6,#e0e0e0)
 /* Cards & Inputs */
 .history-card { background: white; margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #ff416c; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left; }
 .cart-card{display:flex;background:white;margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
-.review-box{background:white;margin:10px 0;padding:12px;border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left;}
+
+/* Review Box with Long Press Feedback */
+.review-box {
+  background: white; margin: 10px 0; padding: 12px; border-radius: 8px; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left; position: relative;
+  user-select: none; /* Prevents text selection on long press */
+  -webkit-user-select: none;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.review-box:active { transform: scale(0.97); opacity: 0.8; } /* Feedback during long press */
 
 input, textarea{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:8px; box-sizing: border-box; background:#fff; font-family: sans-serif;}
 input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-color: #ddd;}
@@ -150,11 +159,14 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 .delivery-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: #ff416c; font-weight: bold; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
 .total-row { display: flex; justify-content: space-between; font-size: 22px; color: #00c853; font-weight: 900; }
 
-.review-name-tag { font-weight: bold; font-size: 13px; color: #2196F3; margin-bottom: 5px; }
-.app-review-name-tag { font-weight: bold; font-size: 13px; color: #9c27b0; margin-bottom: 5px; }
+.review-name-tag { font-weight: bold; font-size: 13px; color: #2196F3; margin-bottom: 5px; padding-right: 60px; }
+.app-review-name-tag { font-weight: bold; font-size: 13px; color: #9c27b0; margin-bottom: 5px; padding-right: 60px; }
 .stats-box { font-weight: bold; font-size: 15px; padding: 5px; background: #f0f8ff; border-radius: 8px; display: inline-block; margin-bottom: 10px; }
 
 .developer-tag { text-align: center; color: #888; margin-top: 40px; font-size: 15px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; grid-column: span 2; }
+
+/* Filter Warning */
+.filter-warning { color: red; font-size: 12px; font-weight: bold; display: none; text-align: left; margin-bottom: 5px; }
 </style>
 </head>
 
@@ -275,6 +287,9 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
     <a onclick="toggleLanguage()" style="font-weight: normal;" class="translatable" data-en="🌐 Language (Hindi)" data-hi="🌐 भाषा (English)">🌐 Language (Hindi)</a>
     <a onclick="showReportPage()" style="font-weight: bold; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
     <a onclick="showDeveloperPage()" style="font-weight: normal;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</a>
+    
+    <a onclick="openTestingModal()" class="translatable" data-en="🛠️ Testing" data-hi="🛠️ टेस्टिंग" style="font-weight: bold; color: #ff9800;">🛠️ Testing</a>
+    
     <a onclick="showTerms()" style="font-weight: normal;" class="translatable" data-en="📄 Terms & Conditions" data-hi="📄 नियम और शर्तें">📄 Terms & Conditions</a>
   </div>
   
@@ -336,6 +351,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
     <span onclick="appRate(1)">☆</span><span onclick="appRate(2)">☆</span><span onclick="appRate(3)">☆</span><span onclick="appRate(4)">☆</span><span onclick="appRate(5)">☆</span>
   </div>
   
+  <p id="appReviewWarning" class="filter-warning translatable" data-en="⚠️ Unsafe word detected!" data-hi="⚠️ आपत्तिजनक शब्द मिला!">⚠️ Unsafe word detected!</p>
   <textarea id="appReviewText" class="translatable-ph" data-en="Write your app review & feature suggestions here..." data-hi="अपनी ऐप समीक्षा और सुझाव यहां लिखें..." placeholder="Write your app review & feature suggestions here..." style="height: 100px;"></textarea>
   <button class="modal-btn translatable" onclick="saveAppReview()" style="background: linear-gradient(45deg, #9c27b0, #ea80fc);" data-en="Submit Feedback" data-hi="प्रतिक्रिया जमा करें">Submit Feedback</button>
 
@@ -377,6 +393,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
     <span onclick="rate(1)">☆</span><span onclick="rate(2)">☆</span><span onclick="rate(3)">☆</span><span onclick="rate(4)">☆</span><span onclick="rate(5)">☆</span>
   </div>
 
+  <p id="itemReviewWarning" class="filter-warning translatable" data-en="⚠️ Unsafe word detected!" data-hi="⚠️ आपत्तिजनक शब्द मिला!">⚠️ Unsafe word detected!</p>
   <textarea id="reviewText" class="translatable-ph" data-en="Write your review here..." data-hi="अपनी समीक्षा यहां लिखें..." placeholder="Write your review here..."></textarea>
   <button class="full-btn translatable" onclick="saveReview()" style="background:#2196F3; color:white;" data-en="Submit Item Review" data-hi="आइटम समीक्षा सबमिट करें">Submit Item Review</button>
   <button class="back-btn translatable" onclick="back()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
@@ -444,11 +461,16 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 </div>
 
 <script>
-// 🌟 Google Apps Script URL for Auto Email 🌟
+// 🌟 Google Apps Script URLs 🌟
 const GAS_URL = "https://script.google.com/macros/s/AKfycbzXP3-WyKrIuvoFb6_cA6UxPKf_KhFt8_Vmz9fuPWMiTiugL-8ZRpAdIogjADKpFLa0/exec";
+const REVIEWS_API_URL = "https://script.google.com/macros/s/AKfycbwwT2GJ-nNrhpjWgaur_w22zujsqVPRfdtTbm2ZgMIg89pb-QKhPp5rRoqVy0zJ3Cfz/exec";
 
-// 🌟 Bad Words List 🌟
-const BAD_WORDS = ["porn", "sex", "nude", "fake", "scam", "stupid", "idiot", "bitch", "fuck", "asshole", "bastard"];
+// 🌟 Banned Words Dictionary 🌟
+const BANNED_WORDS = [
+  "porn", "sex", "nude", "scam", "stupid", "idiot", "bitch", "fuck", "asshole", "bastard", "dick", "cock", "pussy",
+  "madarchod", "bhenchod", "chutiya", "randi", "gandu", "kamina", "bhosdike", "bhosdi", "harami", "kutta",
+  "kill", "murder", "suicide", "terrorist", "spam", "hack", "fraud"
+];
 
 let item="", internalItemName="", price=70, qty=1, cartData=[];
 let img = document.getElementById("img");
@@ -459,8 +481,56 @@ let detail = document.getElementById("detail");
 let waitingForWhatsAppReturn = false;
 let isHindiLanguage = false;
 
+// 🛡️ 1-Hour Ban System
+function checkBanStatus() {
+  let banTime = localStorage.getItem("khalsaOrderBan");
+  if (banTime) {
+    let diff = Date.now() - parseInt(banTime);
+    if (diff < 3600000) { 
+      let remainingMins = Math.ceil((3600000 - diff) / 60000);
+      return remainingMins;
+    } else {
+      localStorage.removeItem("khalsaOrderBan"); 
+    }
+  }
+  return 0;
+}
+
+function applyOrderBan() {
+  localStorage.setItem("khalsaOrderBan", Date.now().toString());
+}
+
+// 🛡️ Advanced Filter Engine 
+function filterText(text) {
+  let hasBadWord = false;
+  let detectedWord = "";
+  let cleanText = text;
+
+  BANNED_WORDS.forEach(word => {
+    let patternStr = word.split('').map(char => char + '+\\s*\\W*').join('');
+    let regex = new RegExp(patternStr, 'gi');
+    if (regex.test(cleanText)) {
+      hasBadWord = true;
+      detectedWord = word;
+      cleanText = cleanText.replace(regex, '****');
+    }
+  });
+
+  return { clean: cleanText, isBad: hasBadWord, word: detectedWord };
+}
+
+document.getElementById("reviewText").addEventListener("input", function() {
+  let result = filterText(this.value);
+  document.getElementById("itemReviewWarning").style.display = result.isBad ? "block" : "none";
+});
+
+document.getElementById("appReviewText").addEventListener("input", function() {
+  let result = filterText(this.value);
+  document.getElementById("appReviewWarning").style.display = result.isBad ? "block" : "none";
+});
+
+
 window.onload = function() {
-  // 🌟 1st of the Month Marquee Check 🌟
   let today = new Date();
   if (today.getDate() === 1) {
     let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
@@ -494,7 +564,6 @@ window.onload = function() {
     document.getElementById("l_email").value = savedData.email || "";
     lockInputs(); 
   }
-  loadAppReviews(); 
   updateLanguageUI();
 };
 
@@ -617,44 +686,31 @@ function showTopCustomers() {
   }
 }
 
-// 🌟 Bad Word Notification System 🌟
-function checkContent(text) {
-  let lowerText = text.toLowerCase();
-  let foundWord = null;
-  
-  for(let word of BAD_WORDS) {
-    if(lowerText.includes(word)) {
-      foundWord = word; break;
-    }
-  }
-  
-  // Checking for basic emojis
-  let emojiRegex = /[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
-  if(!foundWord && emojiRegex.test(text)) {
-    foundWord = "Emoji";
-  }
-  
-  return foundWord;
-}
-
 function triggerReportAlert(word, fullText) {
-  showError("This is the last warning; action will be taken if you come again");
+  showError("🚫 You used banned words. You are blocked from ordering for 1 hour!");
+  applyOrderBan();
   
   let user = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
   let userName = user.name || "Guest User";
   let userPhone = user.phone || "No Phone";
 
-  // Save to "Your Report"
   let reports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
   reports.unshift({ date: new Date().toLocaleString(), word: word, text: fullText });
   localStorage.setItem("khalsaUserReports", JSON.stringify(reports));
 
-  // Send Email to Developer via Background Fetch
+  let uniqueTimeId = new Date().getTime(); 
+
   fetch(GAS_URL, {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: userName, phone: userPhone, word: word, review: fullText })
+    body: JSON.stringify({ 
+        name: userName, 
+        phone: userPhone, 
+        word: word, 
+        review: fullText,
+        uniqueId: uniqueTimeId 
+    })
   }).catch(err => console.log("Report Error"));
 }
 
@@ -696,51 +752,13 @@ function showAppReviewScreen() {
   hideAll();
   document.getElementById("searchContainerBox").style.display="none";
   document.getElementById("appReviewSection").style.display="block";
+  loadAppReviews();
 }
 
 function showContactScreen() {
   hideAll();
   document.getElementById("searchContainerBox").style.display="none";
   document.getElementById("contactSection").style.display="block";
-}
-
-function showAllReviews() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("allReviewsPage").style.display = "block";
-  let box = document.getElementById("allReviewsContainer");
-  box.innerHTML = "";
-
-  let itemData = JSON.parse(localStorage.getItem("reviews")) || {};
-  let appData = JSON.parse(localStorage.getItem("khalsaAppReviews")) || [];
-  let hasReviews = false;
-
-  appData.forEach(r => {
-    hasReviews = true;
-    let starIcons = "⭐".repeat(r.rating);
-    let rName = r.name ? r.name : "Guest User";
-    box.innerHTML += `<div class="review-box" style="border-left: 4px solid #9c27b0;">
-      <div class="app-review-name-tag">👤 ${rName} (App Review)</div>
-      <b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right;">${r.date}</span><br> 
-      <span style="color:#444; font-size:14px; display:block; margin-top:5px; font-weight:500;">${r.text}</span>
-    </div>`;
-  });
-
-  for (let itemName in itemData) {
-    itemData[itemName].forEach(r => {
-      hasReviews = true;
-      let starIcons = "⭐".repeat(r.rating);
-      let rName = r.name ? r.name : "Guest User";
-      box.innerHTML += `<div class="review-box" style="border-left: 3px solid gold;">
-        <div class="review-name-tag">👤 ${rName} (Item: ${itemName})</div>
-        <b>${starIcons}</b> <br> <span style="color:#555; font-size:14px;">${r.text}</span>
-      </div>`;
-    });
-  }
-
-  if(!hasReviews) {
-    box.innerHTML = "<p style='text-align:center; color:#777; font-weight:bold; margin-top: 20px;'>" + (isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!") + "</p>";
-  }
 }
 
 function lockInputs() {
@@ -939,6 +957,12 @@ function saveOrderToHistory(finalTotalAmt, orderDetails) {
 }
 
 function placeDirectOrder(){
+  let banMins = checkBanStatus();
+  if (banMins > 0) {
+    showError(`🚫 You are blocked! Try again in ${banMins} minutes.`);
+    return;
+  }
+
   if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError("⚠️ PLEASE GET LIVE LOCATION IN LOGIN OPTIONS"); return; }
@@ -1021,71 +1045,50 @@ function back() {
   hideAll();
   document.getElementById("searchContainerBox").style.display="flex"; 
   document.getElementById("menu").style.display="grid";
+  document.getElementById("itemReviewWarning").style.display = "none";
+  document.getElementById("appReviewWarning").style.display = "none";
 }
+
+// ==========================================
+// 🌟 GOOGLE SHEETS GLOBAL REVIEWS LOGIC 🌟
+// ==========================================
 
 let rating=0;
 function rate(n){ 
   rating=n; let stars = document.getElementById("itemStarContainer").children;
-  for(let i=0; i<5; i++){
-    if(i < n) { stars[i].innerText="★"; stars[i].style.color="gold"; } else { stars[i].innerText="☆"; stars[i].style.color="#ccc"; }
-  }
-}
-
-function saveReview(){
-  let text=document.getElementById("reviewText").value;
-  if(text==""){ showError("⚠️ Write a review first!"); return; }
-  if(rating==0){ showError("⚠️ Select a star rating!"); return; }
-
-  // 🌟 Filter Check 🌟
-  let badWord = checkContent(text);
-  if(badWord) {
-    triggerReportAlert(badWord, text);
-    return; // Block saving
-  }
-
-  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  let reviewerName = (user && user.name) ? user.name : "Guest User";
-
-  let data=JSON.parse(localStorage.getItem("reviews")) || {};
-  if(!data[internalItemName]) data[internalItemName]=[];
-  data[internalItemName].push({rating:rating, text:text, name:reviewerName});
-  localStorage.setItem("reviews",JSON.stringify(data));
-  
-  document.getElementById("reviewText").value=""; rate(0); 
-  showSuccessMsg("✅ Review submitted!"); loadReviews();
-}
-
-function loadReviews(){
-  let data=JSON.parse(localStorage.getItem("reviews")) || {};
-  let box=document.getElementById("reviews"); box.innerHTML="";
-  let statsBox = document.getElementById("itemReviewStats");
-  
-  if(data[internalItemName]){
-    let totalR = data[internalItemName].length;
-    let sum = 0;
-    
-    data[internalItemName].forEach(r=>{
-      sum += r.rating;
-      let starIcons = "⭐".repeat(r.rating);
-      let rName = r.name ? r.name : "Guest User";
-      box.innerHTML+=`<div class="review-box" style="border-left: 3px solid gold;"><div class="review-name-tag">👤 ${rName}</div><b>${starIcons}</b> <br> <span style="color:#555; font-size:14px;">${r.text}</span></div>`;
-    });
-    
-    let avg = (sum / totalR).toFixed(1);
-    statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${totalR} | औसत: ${avg} ⭐` : `Total Reviews: ${totalR} | Avg: ${avg} ⭐`;
-    statsBox.style.display = "inline-block";
-  } else { 
-    box.innerHTML=`<p style='color:#777; font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; 
-    statsBox.style.display = "none";
-  }
+  for(let i=0; i<5; i++){ stars[i].innerText = (i<n) ? "★" : "☆"; stars[i].style.color = (i<n) ? "gold" : "#ccc"; }
 }
 
 let appRatingVal = 0;
 function appRate(n) {
   appRatingVal = n; let stars = document.getElementById("appStarContainer").children;
-  for(let i=0; i<5; i++){
-    if(i < n) { stars[i].innerText = "★"; stars[i].style.color = "#9c27b0"; } else { stars[i].innerText = "☆"; stars[i].style.color = "#ccc"; }
-  }
+  for(let i=0; i<5; i++){ stars[i].innerText = (i<n) ? "★" : "☆"; stars[i].style.color = (i<n) ? "#9c27b0" : "#ccc"; }
+}
+
+function saveReview(){
+  let text = document.getElementById("reviewText").value;
+  if(text.trim() === ""){ showError("⚠️ Write a review first!"); return; }
+  if(rating == 0){ showError("⚠️ Select a star rating!"); return; }
+
+  let filterData = filterText(text);
+  if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("reviewText").value = filterData.clean; document.getElementById("itemReviewWarning").style.display = "none"; return; }
+
+  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+  let reviewerName = (user && user.name) ? user.name : "Guest User";
+  let reviewerId = (user && user.phone) ? user.phone : "Guest";
+
+  let payload = {
+    id: new Date().getTime().toString(), action: "add", type: "ITEM", productId: internalItemName, rating: rating,
+    reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN')
+  };
+
+  document.getElementById("loadingScreen").style.display = "flex";
+  fetch(REVIEWS_API_URL, {
+    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload)
+  }).then(() => {
+    document.getElementById("loadingScreen").style.display = "none"; document.getElementById("reviewText").value=""; rate(0); 
+    showSuccessMsg("✅ Review submitted!"); setTimeout(loadReviews, 1500);
+  }).catch(e => { document.getElementById("loadingScreen").style.display = "none"; showError("Error saving. Please try again."); });
 }
 
 function saveAppReview() {
@@ -1093,50 +1096,186 @@ function saveAppReview() {
   if(text.trim() === "") { showError("⚠️ Write your feedback!"); return; }
   if(appRatingVal === 0) { showError("⚠️ Select a star rating!"); return; }
 
-  // 🌟 Filter Check 🌟
-  let badWord = checkContent(text);
-  if(badWord) {
-    triggerReportAlert(badWord, text);
-    return; // Block saving
-  }
+  let filterData = filterText(text);
+  if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("appReviewText").value = filterData.clean; document.getElementById("appReviewWarning").style.display = "none"; return; }
 
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
   let reviewerName = (user && user.name) ? user.name : "Guest User";
+  let reviewerId = (user && user.phone) ? user.phone : "Guest";
 
-  let data = JSON.parse(localStorage.getItem("khalsaAppReviews")) || [];
-  let dateStr = new Date().toLocaleDateString();
-  data.unshift({rating: appRatingVal, text: text, date: dateStr, name: reviewerName}); 
-  localStorage.setItem("khalsaAppReviews", JSON.stringify(data));
+  let payload = {
+    id: new Date().getTime().toString(), action: "add", type: "APP", productId: "APP", rating: appRatingVal,
+    reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN')
+  };
 
-  document.getElementById("appReviewText").value = ""; appRate(0);
-  showSuccessMsg("🎉 Thank you!"); loadAppReviews();
+  document.getElementById("loadingScreen").style.display = "flex";
+  fetch(REVIEWS_API_URL, {
+    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload)
+  }).then(() => {
+    document.getElementById("loadingScreen").style.display = "none"; document.getElementById("appReviewText").value = ""; appRate(0);
+    showSuccessMsg("🎉 Thank you!"); setTimeout(loadAppReviews, 1500);
+  }).catch(e => { document.getElementById("loadingScreen").style.display = "none"; showError("Error saving. Please try again."); });
+}
+
+// ⏱️ LONG PRESS DELETE LOGIC
+let pressTimer;
+function startPress(id) {
+  pressTimer = setTimeout(() => {
+    if(confirm("🗑️ Do you want to delete this review?")) {
+      deleteReview(id);
+    }
+  }, 2000); // 2 Seconds Long Press
+}
+function cancelPress() {
+  clearTimeout(pressTimer);
+}
+
+function deleteReview(id) {
+  document.getElementById("loadingScreen").style.display = "flex";
+  fetch(REVIEWS_API_URL, {
+    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id })
+  }).then(() => {
+    document.getElementById("loadingScreen").style.display = "none"; showSuccessMsg("🗑️ Review Deleted");
+    setTimeout(() => {
+      if(document.getElementById("detail").style.display === "block") loadReviews();
+      else if(document.getElementById("appReviewSection").style.display === "block") loadAppReviews();
+      else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews();
+    }, 1500);
+  });
+}
+
+let globalAllReviews = [];
+function fetchAllReviewsFromDB(callback) {
+  fetch(REVIEWS_API_URL + "?t=" + new Date().getTime())
+    .then(res => res.json())
+    .then(data => { globalAllReviews = data; callback(); })
+    .catch(err => { console.log(err); callback(true); });
+}
+
+function loadReviews(){
+  let box = document.getElementById("reviews"); let statsBox = document.getElementById("itemReviewStats"); box.innerHTML = "Loading reviews...";
+  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
+
+  fetchAllReviewsFromDB((error) => {
+    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
+    let itemReviews = globalAllReviews.filter(r => r.type === "ITEM" && r.productId === internalItemName); itemReviews.reverse(); 
+
+    if (itemReviews.length > 0) {
+      let sum = 0;
+      itemReviews.forEach(r => {
+        sum += parseInt(r.rating); let starIcons = "⭐".repeat(parseInt(r.rating));
+        
+        let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
+        let longPressCode = isMyReview ? `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"` : "";
+        let deleteHint = isMyReview ? `<div style="font-size:10px; color:#d32f2f; margin-top:8px; font-weight:bold;">💡 Long press (2s) to delete</div>` : "";
+
+        box.innerHTML += `<div class="review-box" style="border-left: 3px solid gold;" ${longPressCode}>
+          <div class="review-name-tag">👤 ${r.userName}</div>
+          <b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right;">${r.createdAt}</span><br> 
+          <span style="color:#555; font-size:14px;">${r.reviewText}</span>
+          ${deleteHint}
+        </div>`;
+      });
+      let avg = (sum / itemReviews.length).toFixed(1);
+      statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${itemReviews.length} | औसत: ${avg} ⭐` : `Total Reviews: ${itemReviews.length} | Avg: ${avg} ⭐`;
+      statsBox.style.display = "inline-block";
+    } else {
+      box.innerHTML = `<p style='color:#777; font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none";
+    }
+  });
 }
 
 function loadAppReviews() {
-  let data = JSON.parse(localStorage.getItem("khalsaAppReviews")) || [];
-  let box = document.getElementById("appReviewsList"); box.innerHTML = "";
-  let statsBox = document.getElementById("appReviewStats");
-  
-  if(data.length > 0){
-    let totalR = data.length;
-    let sum = 0;
-    
-    data.forEach(r => {
-      sum += r.rating;
-      let starIcons = "⭐".repeat(r.rating);
-      let rName = r.name ? r.name : "Guest User";
-      box.innerHTML += `<div class="review-box" style="border-left: 4px solid #9c27b0;"><div class="app-review-name-tag">👤 ${rName}</div><b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right;">${r.date}</span><br><span style="color:#444; font-size:14px; display:block; margin-top:5px; font-weight:500;">${r.text}</span></div>`;
-    });
-    
-    let avg = (sum / totalR).toFixed(1);
-    statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${totalR} | औसत: ${avg} ⭐` : `Total Reviews: ${totalR} | Avg: ${avg} ⭐`;
-    statsBox.style.display = "inline-block";
-  } else {
-    box.innerHTML = `<p style='color:#777; font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!"}</p>`;
-    statsBox.style.display = "none";
-  }
-}
-</script>
+  let box = document.getElementById("appReviewsList"); let statsBox = document.getElementById("appReviewStats"); box.innerHTML = "Loading...";
+  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
 
+  fetchAllReviewsFromDB((error) => {
+    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
+    let appRev = globalAllReviews.filter(r => r.type === "APP"); appRev.reverse();
+
+    if(appRev.length > 0) {
+      let sum = 0;
+      appRev.forEach(r => {
+        sum += parseInt(r.rating); let starIcons = "⭐".repeat(parseInt(r.rating));
+        
+        let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
+        let longPressCode = isMyReview ? `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"` : "";
+        let deleteHint = isMyReview ? `<div style="font-size:10px; color:#d32f2f; margin-top:8px; font-weight:bold;">💡 Long press (2s) to delete</div>` : "";
+
+        box.innerHTML += `<div class="review-box" style="border-left: 4px solid #9c27b0;" ${longPressCode}>
+          <div class="app-review-name-tag">👤 ${r.userName}</div>
+          <b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right; margin-right: 10px;">${r.createdAt}</span><br>
+          <span style="color:#444; font-size:14px; display:block; margin-top:5px; font-weight:500;">${r.reviewText}</span>
+          ${deleteHint}
+        </div>`;
+      });
+      let avg = (sum / appRev.length).toFixed(1);
+      statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${appRev.length} | औसत: ${avg} ⭐` : `Total Reviews: ${appRev.length} | Avg: ${avg} ⭐`;
+      statsBox.style.display = "inline-block";
+    } else {
+      box.innerHTML = `<p style='color:#777; font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!"}</p>`; statsBox.style.display = "none";
+    }
+  });
+}
+
+function showAllReviews() {
+  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("allReviewsPage").style.display = "block";
+  let box = document.getElementById("allReviewsContainer"); box.innerHTML = "Loading all reviews...";
+  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
+
+  fetchAllReviewsFromDB((error) => {
+    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
+    let revs = [...globalAllReviews].reverse();
+    if(revs.length > 0) {
+      revs.forEach(r => {
+        let starIcons = "⭐".repeat(parseInt(r.rating));
+        let color = r.type === "APP" ? "#9c27b0" : "gold"; let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
+
+        let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
+        let longPressCode = isMyReview ? `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"` : "";
+        let deleteHint = isMyReview ? `<div style="font-size:10px; color:#d32f2f; margin-top:8px; font-weight:bold;">💡 Long press (2s) to delete</div>` : "";
+
+        box.innerHTML += `<div class="review-box" style="border-left: 4px solid ${color};" ${longPressCode}>
+          <div class="app-review-name-tag" style="color:${color}">👤 ${r.userName} (${tag})</div>
+          <b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right; margin-right: 10px;">${r.createdAt}</span><br> 
+          <span style="color:#444; font-size:14px; display:block; margin-top:5px; font-weight:500;">${r.reviewText}</span>
+          ${deleteHint}
+        </div>`;
+      });
+    } else {
+      box.innerHTML = "<p style='text-align:center; color:#777; font-weight:bold; margin-top: 20px;'>No reviews yet!</p>";
+    }
+  });
+}
+
+// 🛠️ TESTING SYSTEM START
+function openTestingModal() { document.getElementById("testPass").value = ""; document.getElementById("testingPassModal").style.display = "flex"; }
+function closeTestingModal() { document.getElementById("testingPassModal").style.display = "none"; }
+function checkTestingPass() {
+  let pass = document.getElementById("testPass").value;
+  if(pass === "0276"){ closeTestingModal(); document.getElementById("testingActionModal").style.display = "flex"; }
+  else { showError(isHindiLanguage ? "❌ गलत पासवर्ड" : "❌ Wrong Password"); }
+}
+function closeTestingActionModal() { document.getElementById("testingActionModal").style.display = "none"; }
+
+function placeTestingOrder() {
+  let banMins = checkBanStatus();
+  if (banMins > 0) { showError(`🚫 You are blocked! Try again in ${banMins} minutes.`); return; }
+  if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
+  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+  if (!user || !user.liveLoc) { showError("⚠️ Please Login first"); return; }
+  let orderDetails = ""; let totalPrice = 0; let totalQty = 0;
+  cartData.forEach(i => { totalPrice += (i.price * i.qty); totalQty += i.qty; orderDetails += `${i.internalName} (x${i.qty}), `; });
+  let deliveryCharge = totalQty > 6 ? 10 : 15; let finalTotal = totalPrice + deliveryCharge;
+  let msg = `🛠️ *TESTING ORDER*\n\n*Items:* ${orderDetails}\n*Total:* ₹${finalTotal}\n\n*Customer:* ${user.name}\n*Phone:* ${user.phone}\n*Address:* ${user.address}\n*Loc:* ${user.liveLoc}`;
+
+  closeTestingActionModal(); document.getElementById("loadingScreen").style.display = "flex";
+  setTimeout(() => {
+    document.getElementById("loadingScreen").style.display = "none"; waitingForWhatsAppReturn = true;
+    window.location.href = "https://wa.me/917988300872?text=" + encodeURIComponent(msg);
+  }, 1500); 
+}
+// 🛠️ TESTING SYSTEM END
+</script>
 </body>
 </html>
