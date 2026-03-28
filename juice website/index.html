@@ -211,7 +211,28 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div id="loadingScreen" class="premium-modal-overlay" style="z-index: 4000; flex-direction: column;">
   <div class="loader-spinner"></div>
-  <h2 style="color: white; font-family: sans-serif; letter-spacing: 1px;" class="translatable" data-en="Processing Order..." data-hi="ऑर्डर प्रोसेस हो रहा है...">Processing Order...</h2>
+  <h2 id="loadingText" style="color: white; font-family: sans-serif; letter-spacing: 1px;" class="translatable" data-en="Loading..." data-hi="लोड हो रहा है...">Loading...</h2>
+</div>
+
+<div id="reviewSuccessModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #ff9800;">
+    <div class="modal-icon">🎊</div>
+    <h2 style="color: #ff9800;" class="translatable" data-en="THANKS FOR REVIEW" data-hi="समीक्षा के लिए धन्यवाद">THANKS FOR REVIEW</h2>
+    <p class="highlight-text translatable" style="font-size: 16px; color: var(--text-main);" data-en="Your feedback means a lot to us! 🌟" data-hi="आपकी प्रतिक्रिया हमारे लिए बहुत मायने रखती है! 🌟">Your feedback means a lot to us! 🌟</p>
+    <button class="black-modal-btn translatable" onclick="closeReviewSuccess()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button>
+  </div>
+</div>
+
+<div id="deleteConfirmModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
+    <div class="modal-icon">🗑️</div>
+    <h2 style="color: #d32f2f;" class="translatable" data-en="Delete Review?" data-hi="समीक्षा हटाएं?">Delete Review?</h2>
+    <p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to delete this review?" data-hi="क्या आप वाकई इस समीक्षा को हटाना चाहते हैं?">Are you sure you want to delete this review?</p>
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeDeleteConfirm()" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
+      <button class="modal-btn translatable" style="background:#d32f2f; margin-top:0;" id="confirmDeleteBtn" data-en="Delete" data-hi="हटाएं">Delete</button>
+    </div>
+  </div>
 </div>
 
 <div id="pinErrorModal" class="premium-modal-overlay">
@@ -506,15 +527,52 @@ let nameLabel = document.getElementById("name");
 let waitingForWhatsAppReturn = false;
 let isHindiLanguage = false;
 let isDarkMode = false;
+let reviewToDelete = null;
 
-// 🛡️ 1-Hour Ban System
+// 🌟 Loading Screen Manager
+function showLoading(textEn, textHi) {
+  let el = document.getElementById("loadingText");
+  el.setAttribute("data-en", textEn);
+  el.setAttribute("data-hi", textHi);
+  el.innerText = isHindiLanguage ? textHi : textEn;
+  document.getElementById("loadingScreen").style.display = "flex";
+}
+function hideLoading() {
+  document.getElementById("loadingScreen").style.display = "none";
+}
+
+// 🌟 Premium Popup Functions
+function showReviewCelebration() {
+  document.getElementById("reviewSuccessModal").style.display = "flex";
+}
+function closeReviewSuccess() {
+  document.getElementById("reviewSuccessModal").style.display = "none";
+}
+
+function showDeleteConfirmPopup(id) {
+  reviewToDelete = id;
+  document.getElementById("deleteConfirmModal").style.display = "flex";
+}
+function closeDeleteConfirm() {
+  reviewToDelete = null;
+  document.getElementById("deleteConfirmModal").style.display = "none";
+}
+
+document.getElementById("confirmDeleteBtn").onclick = function() {
+  if (reviewToDelete) {
+    deleteReview(reviewToDelete);
+    closeDeleteConfirm();
+  }
+};
+
+// 🛡️ 24-Hour Ban System
 function checkBanStatus() {
   let banTime = localStorage.getItem("khalsaOrderBan");
   if (banTime) {
     let diff = Date.now() - parseInt(banTime);
-    if (diff < 3600000) { 
-      let remainingMins = Math.ceil((3600000 - diff) / 60000);
-      return remainingMins;
+    if (diff < 86400000) {  // 24 hours in milliseconds
+      let remainingHours = Math.ceil((86400000 - diff) / 3600000);
+      return remainingHours;
     } else {
       localStorage.removeItem("khalsaOrderBan"); 
     }
@@ -594,20 +652,27 @@ function updateMarqueeAndStats() {
   let today = new Date();
   let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
   let sorted = Object.keys(tracker).map(n => ({name: n, qty: tracker[n]})).sort((a,b) => b.qty - a.qty).slice(0, 5);
+  let marqueeEl = document.getElementById("mainMarqueeText");
   
   if (today.getDate() === 1 && sorted.length > 0) {
-    let marqueeTextEn = "🏆 TOP 5 BUYERS OF THE MONTH: ";
-    let marqueeTextHi = "🏆 इस महीने के टॉप 5 खरीदार: ";
+    let marqueeTextEn = "🏆 TOP BUYERS OF THE MONTH: ";
+    let marqueeTextHi = "🏆 इस महीने के टॉप खरीदार: ";
     
     sorted.forEach((c, i) => {
-      marqueeTextEn += `${i+1}. ${c.name} (${c.qty} items) ⭐ `;
-      marqueeTextHi += `${i+1}. ${c.name} (${c.qty} आइटम) ⭐ `;
+      marqueeTextEn += `${i+1}. ${c.name} ⭐ `;
+      marqueeTextHi += `${i+1}. ${c.name} ⭐ `;
     });
     
-    let marqueeEl = document.getElementById("mainMarqueeText");
     marqueeEl.setAttribute("data-en", marqueeTextEn);
     marqueeEl.setAttribute("data-hi", marqueeTextHi);
     marqueeEl.innerText = isHindiLanguage ? marqueeTextHi : marqueeTextEn;
+  } else {
+    let defEn = "📲 GO TO YOUR ACCOUNT AND DOWNLOAD THE APP IT WILL TAKE LITTLE TIME TO DOWNLOAD  🟢  🚨 REMEMBER TO UPDATE YOUR LOCATION IN THE LOGIN PROFILE IF YOU CHANGE IT FOR AN ORDER. THANKS 😊  🟢  🎉 CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎉  🟢";
+    let defHi = "📲 अकाउंट में जाएं और ऐप डाउनलोड करें, इसे डाउनलोड होने में थोड़ा समय लगेगा  🟢  🚨 अगर आप ऑर्डर के लिए जगह बदलते हैं तो लॉगिन प्रोफाइल में अपनी लोकेशन अपडेट करना याद रखें। धन्यवाद 😊  🟢  🎉 शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎉  🟢";
+    
+    marqueeEl.setAttribute("data-en", defEn);
+    marqueeEl.setAttribute("data-hi", defHi);
+    marqueeEl.innerText = isHindiLanguage ? defHi : defEn;
   }
 }
 
@@ -731,15 +796,19 @@ function showTopCustomers() {
 }
 
 function triggerReportAlert(word, fullText) {
-  showError("🚫 You used banned words. You are blocked from ordering for 1 hour!");
+  showError("BAD WORDS ARE DETACTED YOU CANT SHOPING FOR 24 HOURS");
   applyOrderBan();
+  
+  setTimeout(() => {
+    showError("YOUR REPORT DELETED IN 48 HOURS");
+  }, 2000);
   
   let user = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
   let userName = user.name || "Guest User";
   let userPhone = user.phone || "No Phone";
 
   let reports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
-  reports.unshift({ date: new Date().toLocaleString(), word: word, text: fullText });
+  reports.unshift({ date: new Date().toLocaleString(), timestamp: Date.now(), word: word, text: fullText });
   localStorage.setItem("khalsaUserReports", JSON.stringify(reports));
 
   let uniqueTimeId = new Date().getTime(); 
@@ -763,14 +832,21 @@ function showReportPage() {
   document.getElementById("searchContainerBox").style.display="none";
   document.getElementById("reportPage").style.display = "block";
   
-  let reports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
+  let allReports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
+  let now = Date.now();
+  let validReports = allReports.filter(r => (now - (r.timestamp || 0)) < 172800000); 
+  
+  if(validReports.length !== allReports.length) {
+    localStorage.setItem("khalsaUserReports", JSON.stringify(validReports));
+  }
+  
   let container = document.getElementById("reportContainer");
   container.innerHTML = "";
   
-  if(reports.length === 0) {
+  if(validReports.length === 0) {
     container.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "कोई ब्लॉक की गई समीक्षा नहीं।" : "No blocked reviews."}</p>`;
   } else {
-    reports.forEach(r => {
+    validReports.forEach(r => {
       container.innerHTML += `<div class="review-box" style="border-left: 4px solid #d32f2f;">
         <span style="font-size:12px; color:var(--text-muted); float:right;">${r.date}</span><br>
         <b style="color:#d32f2f;">Blocked Reason: Used '${r.word}'</b><br>
@@ -1010,9 +1086,9 @@ function saveOrderToHistory(finalTotalAmt, orderDetails) {
 }
 
 function placeDirectOrder(){
-  let banMins = checkBanStatus();
-  if (banMins > 0) {
-    showError(`🚫 You are blocked! Try again in ${banMins} minutes.`);
+  let banHours = checkBanStatus();
+  if (banHours > 0) {
+    showError(`🚫 You are blocked! Try again in ${banHours} hours.`);
     return;
   }
 
@@ -1056,10 +1132,10 @@ function placeDirectOrder(){
 
   let targetPhone = "917988300872";
 
-  document.getElementById("loadingScreen").style.display = "flex";
+  showLoading("Processing Order...", "ऑर्डर प्रोसेस हो रहा है...");
 
   setTimeout(() => {
-    document.getElementById("loadingScreen").style.display = "none";
+    hideLoading();
     waitingForWhatsAppReturn = true;
     window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg);
   }, 1500); 
@@ -1137,13 +1213,13 @@ function saveReview(){
     reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN')
   };
 
-  document.getElementById("loadingScreen").style.display = "flex";
+  showLoading("Loading...", "लोड हो रहा है...");
   fetch(REVIEWS_API_URL, {
     method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload)
   }).then(() => {
-    document.getElementById("loadingScreen").style.display = "none"; document.getElementById("reviewText").value=""; rate(0); 
-    showSuccessMsg("✅ Review submitted!"); setTimeout(loadReviews, 1500);
-  }).catch(e => { document.getElementById("loadingScreen").style.display = "none"; showError("Error saving. Please try again."); });
+    hideLoading(); document.getElementById("reviewText").value=""; rate(0); 
+    showReviewCelebration(); setTimeout(loadReviews, 1500);
+  }).catch(e => { hideLoading(); showError("Error saving. Please try again."); });
 }
 
 function saveAppReview() {
@@ -1163,21 +1239,21 @@ function saveAppReview() {
     reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN')
   };
 
-  document.getElementById("loadingScreen").style.display = "flex";
+  showLoading("Loading...", "लोड हो रहा है...");
   fetch(REVIEWS_API_URL, {
     method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload)
   }).then(() => {
-    document.getElementById("loadingScreen").style.display = "none"; document.getElementById("appReviewText").value = ""; appRate(0);
-    showSuccessMsg("🎉 Thank you!"); setTimeout(loadAppReviews, 1500);
-  }).catch(e => { document.getElementById("loadingScreen").style.display = "none"; showError("Error saving. Please try again."); });
+    hideLoading(); document.getElementById("appReviewText").value = ""; appRate(0);
+    showReviewCelebration(); setTimeout(loadAppReviews, 1500);
+  }).catch(e => { hideLoading(); showError("Error saving. Please try again."); });
 }
 
 // ✏️ Edit & Delete Logic
 function deleteReview(id, skipMsg = false) {
-  if(!skipMsg) document.getElementById("loadingScreen").style.display = "flex";
+  if(!skipMsg) showLoading("Loading...", "लोड हो रहा है...");
   fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id }) })
   .then(() => { 
-      if(!skipMsg) { document.getElementById("loadingScreen").style.display = "none"; showSuccessMsg("🗑️ Deleted"); setTimeout(reloadCurrentView, 1000); }
+      if(!skipMsg) { hideLoading(); showSuccessMsg("🗑️ Deleted"); setTimeout(reloadCurrentView, 1000); }
   });
 }
 
@@ -1187,7 +1263,7 @@ function editReview(id, currentText, type, productId, currentRating) {
     let filterData = filterText(newText);
     if(filterData.isBad) { triggerReportAlert(filterData.word, newText); return; }
     
-    document.getElementById("loadingScreen").style.display = "flex";
+    showLoading("Loading...", "लोड हो रहा है...");
     // First delete old review
     fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id }) })
     .then(() => {
@@ -1198,7 +1274,7 @@ function editReview(id, currentText, type, productId, currentRating) {
         reviewText: filterData.clean, userName: user.name || "Guest", userId: user.phone || "Guest", createdAt: new Date().toLocaleString('en-IN') + " (Edited)"
       };
       fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
-      .then(() => { document.getElementById("loadingScreen").style.display="none"; showSuccessMsg("✏️ Edited Successfully"); setTimeout(reloadCurrentView, 1000); });
+      .then(() => { hideLoading(); showSuccessMsg("✏️ Edited Successfully"); setTimeout(reloadCurrentView, 1000); });
     });
   }
 }
@@ -1207,9 +1283,7 @@ function editReview(id, currentText, type, productId, currentRating) {
 let pressTimer;
 function startPress(id) {
   pressTimer = setTimeout(() => {
-    if(confirm("🗑️ Do you want to delete this review?")) {
-      deleteReview(id);
-    }
+    showDeleteConfirmPopup(id);
   }, 2000); // 2 Seconds Long Press
 }
 function cancelPress() {
@@ -1235,14 +1309,15 @@ function renderReviewHTML(r, currentUserId) {
   let color = r.type === "APP" ? "#9c27b0" : "gold"; 
   let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
   
-  let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
+  // ALL users can now see delete/edit buttons
+  let isMyReview = true; 
   let actionBtns = "";
   let longPressCode = "";
   
   if(isMyReview) {
     actionBtns = `<div class="action-btn-group">
       <button class="edit-review-btn" onclick="editReview('${r.id}', '${r.reviewText.replace(/'/g,"\\'")}', '${r.type}', '${r.productId}', ${r.rating})">✏️ Edit</button>
-      <button class="delete-review-btn" onclick="if(confirm('Delete review?')) deleteReview('${r.id}')">🗑️ Del</button>
+      <button class="delete-review-btn" onclick="showDeleteConfirmPopup('${r.id}')">🗑️ Del</button>
     </div>`;
     longPressCode = `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"`;
   }
