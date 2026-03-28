@@ -488,7 +488,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <textarea id="l_address" class="translatable-ph" data-en="Permanent Address (Required)" data-hi="स्थायी पता (आवश्यक)" placeholder="Permanent Address (Required)"></textarea>
   
   <div style="display: flex; gap: 8px; align-items: center; margin: 8px 0;">
-    <input type="text" id="l_live_loc" class="translatable-ph" data-en="Live Location Map Link (Required)" data-hi="लाइव लोकेशन मैप লিংক (आवश्यक)" placeholder="Live Location Map Link (Required)" readonly style="margin:0; background:var(--input-bg);">
+    <input type="text" id="l_live_loc" class="translatable-ph" data-en="Live Location Map Link (Required)" data-hi="लाइव लोकेशन मैप लिंक (आवश्यक)" placeholder="Live Location Map Link (Required)" readonly style="margin:0; background:var(--input-bg);">
     <button type="button" onclick="triggerLocationPrompt()" class="translatable" style="background:#1e88e5; color:white; border:none; padding:12px 15px; border-radius:8px; cursor:pointer; font-weight:bold;" data-en="📍 Get" data-hi="📍 प्राप्त करें">📍 Get</button>
   </div>
 
@@ -862,7 +862,9 @@ function showHistory() {
   document.getElementById("historyList").innerHTML = html;
 }
 
+// 🌟 New Custom Error Function Added
 function showError(msg) { let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show"); setTimeout(() => { errPop.classList.remove("show"); }, 3500); }
+function showCustomError(msg, duration) { let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show"); setTimeout(() => { errPop.classList.remove("show"); }, duration); }
 function showSuccessMsg(msg) { let succPop = document.getElementById("premiumSuccess"); succPop.innerText = msg; succPop.classList.add("show"); setTimeout(() => { succPop.classList.remove("show"); }, 3500); }
 
 function triggerLocationPrompt() { document.getElementById("locationPromptModal").style.display = "flex"; }
@@ -915,8 +917,9 @@ function processForm() {
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
   let currentDevice = navigator.userAgent;
 
+  // 🌟 Device verification logic updated here 🌟
   if (regUsers[phoneInput] && regUsers[phoneInput].device !== currentDevice) {
-    showError("THIS NUMBER IS ALREADY REGISTERED IN ANOTHER DEVICE");
+    showCustomError("THIS NUMBER IS ALREADY REGISTER CHOOSE ANOTHER NUMBER", 2000); // Popup for exactly 2 seconds
     return;
   }
 
@@ -1077,7 +1080,11 @@ function fetchAllReviewsFromDB(callback) {
 
 function renderReviewHTML(r, currentUserId) {
   let starIcons = "⭐".repeat(parseInt(r.rating)); let color = r.type === "APP" ? "#9c27b0" : "gold"; let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
-  let isMyReview = true; let actionBtns = ""; let longPressCode = "";
+  
+  // 🔥 BUG FIXED HERE 🔥
+  let isMyReview = (r.userId === currentUserId && currentUserId !== "Guest"); 
+  
+  let actionBtns = ""; let longPressCode = "";
   if(isMyReview) {
     actionBtns = `<div class="action-btn-group"><button class="edit-review-btn" onclick="editReview('${r.id}', '${r.reviewText.replace(/'/g,"\\'")}', '${r.type}', '${r.productId}', ${r.rating})">✏️ Edit</button><button class="delete-review-btn" onclick="showDeleteConfirmPopup('${r.id}')">🗑️ Del</button></div>`;
     longPressCode = `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"`;
