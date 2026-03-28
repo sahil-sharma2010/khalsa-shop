@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -489,7 +488,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <textarea id="l_address" class="translatable-ph" data-en="Permanent Address (Required)" data-hi="स्थायी पता (आवश्यक)" placeholder="Permanent Address (Required)"></textarea>
   
   <div style="display: flex; gap: 8px; align-items: center; margin: 8px 0;">
-    <input type="text" id="l_live_loc" class="translatable-ph" data-en="Live Location Map Link (Required)" data-hi="लाइव लोकेशन मैप लिंक (आवश्यक)" placeholder="Live Location Map Link (Required)" readonly style="margin:0; background:var(--input-bg);">
+    <input type="text" id="l_live_loc" class="translatable-ph" data-en="Live Location Map Link (Required)" data-hi="लाइव लोकेशन मैप লিংক (आवश्यक)" placeholder="Live Location Map Link (Required)" readonly style="margin:0; background:var(--input-bg);">
     <button type="button" onclick="triggerLocationPrompt()" class="translatable" style="background:#1e88e5; color:white; border:none; padding:12px 15px; border-radius:8px; cursor:pointer; font-weight:bold;" data-en="📍 Get" data-hi="📍 प्राप्त करें">📍 Get</button>
   </div>
 
@@ -514,6 +513,11 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 const GAS_URL = "https://script.google.com/macros/s/AKfycbzXP3-WyKrIuvoFb6_cA6UxPKf_KhFt8_Vmz9fuPWMiTiugL-8ZRpAdIogjADKpFLa0/exec";
 const REVIEWS_API_URL = "https://script.google.com/macros/s/AKfycbwwT2GJ-nNrhpjWgaur_w22zujsqVPRfdtTbm2ZgMIg89pb-QKhPp5rRoqVy0zJ3Cfz/exec";
 
+// ==========================================
+// 🚨 YAHAN APNA GOOGLE SHEET WEB APP URL PASTE KAREIN 👇
+// ==========================================
+const GLOBAL_STATS_API_URL = "YOUR_GOOGLE_SHEET_URL_HERE"; 
+
 // 🌟 Banned Words Dictionary 🌟
 const BANNED_WORDS = [
   "porn", "sex", "nude", "scam", "stupid", "idiot", "bitch", "fuck", "asshole", "bastard", "dick", "cock", "pussy",
@@ -529,6 +533,25 @@ let waitingForWhatsAppReturn = false;
 let isHindiLanguage = false;
 let isDarkMode = false;
 let reviewToDelete = null;
+
+// Global Stats Store
+let globalStats = { customers: [], products: [] };
+
+function fetchGlobalStatsAndSetMarquee() {
+  if(GLOBAL_STATS_API_URL === "" || GLOBAL_STATS_API_URL.includes("YOUR_GOOGLE_SHEET_URL_HERE")) {
+    updateMarqueeAndStats(); // Fallback to local if URL not set
+    return;
+  }
+  fetch(GLOBAL_STATS_API_URL)
+    .then(res => res.json())
+    .then(data => {
+      globalStats = data;
+      updateMarqueeAndStats();
+    }).catch(err => {
+      console.log("Error fetching global stats", err);
+      updateMarqueeAndStats();
+    });
+}
 
 // 🌟 Loading Screen Manager
 function showLoading(textEn, textHi) {
@@ -587,7 +610,8 @@ document.getElementById("appReviewText").addEventListener("input", function() {
 });
 
 window.onload = function() {
-  updateMarqueeAndStats();
+  fetchGlobalStatsAndSetMarquee(); // Start fetch immediately
+  
   let savedData = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (savedData) {
     document.getElementById("l_name").value = savedData.name || "";
@@ -614,16 +638,26 @@ function toggleTheme() {
 
 function updateMarqueeAndStats() {
   let today = new Date();
-  let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
-  let sorted = Object.keys(tracker).map(n => ({name: n, qty: tracker[n]})).sort((a,b) => b.qty - a.qty).slice(0, 5);
   let marqueeEl = document.getElementById("mainMarqueeText");
-  if (today.getDate() === 1 && sorted.length > 0) {
+  
+  // Choose data source (Global if available, otherwise Local fallback)
+  let customerList = [];
+  if (globalStats.customers && globalStats.customers.length > 0) {
+      customerList = [...globalStats.customers].sort((a,b) => b.qty - a.qty).slice(0,5);
+  } else {
+      let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
+      customerList = Object.keys(tracker).map(n => ({name: n, qty: tracker[n]})).sort((a,b) => b.qty - a.qty).slice(0, 5);
+  }
+
+  // 1st Date Logic
+  if (today.getDate() === 1 && customerList.length > 0) {
     let marqueeTextEn = "🏆 TOP BUYERS OF THE MONTH: ";
     let marqueeTextHi = "🏆 इस महीने के टॉप खरीदार: ";
-    sorted.forEach((c, i) => { marqueeTextEn += `${i+1}. ${c.name} ⭐ `; marqueeTextHi += `${i+1}. ${c.name} ⭐ `; });
+    customerList.forEach((c, i) => { marqueeTextEn += `${i+1}. ${c.name} ⭐ `; marqueeTextHi += `${i+1}. ${c.name} ⭐ `; });
     marqueeEl.setAttribute("data-en", marqueeTextEn); marqueeEl.setAttribute("data-hi", marqueeTextHi);
     marqueeEl.innerText = isHindiLanguage ? marqueeTextHi : marqueeTextEn;
   } else {
+    // Other days Default Headline
     let defEn = "📲 GO TO YOUR ACCOUNT AND DOWNLOAD THE APP IT WILL TAKE LITTLE TIME TO DOWNLOAD  🟢  🚨 REMEMBER TO UPDATE YOUR LOCATION IN THE LOGIN PROFILE IF YOU CHANGE IT FOR AN ORDER. THANKS 😊  🟢  🎉 CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎉  🟢";
     let defHi = "📲 अकाउंट में जाएं और ऐप डाउनलोड करें, इसे डाउनलोड होने में थोड़ा समय लगेगा  🟢  🚨 अगर आप ऑर्डर के लिए जगह बदलते हैं तो लॉगिन प्रोफाइल में अपनी लोकेशन अपडेट करना याद रखें। धन्यवाद 😊  🟢  🎉 शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎉  🟢";
     marqueeEl.setAttribute("data-en", defEn); marqueeEl.setAttribute("data-hi", defHi);
@@ -646,6 +680,7 @@ function updateLanguageUI() {
     loadReviews(); 
   }
   if(document.getElementById("cart").style.display === "block") { showCart(); }
+  updateMarqueeAndStats(); // Update headline language if needed
 }
 
 function doSearch() {
@@ -667,26 +702,52 @@ function doSearch() {
 function showTerms() { hideAll(); document.getElementById("termsModal").style.display = "flex"; }
 function closeTerms() { document.getElementById("termsModal").style.display = "none"; showAccountPage(); }
 
+// 🌟 GLOBAL BEST SELLER 🌟
 function showBestSeller() {
-  hideAll(); let sales = JSON.parse(localStorage.getItem("khalsaSalesTracker")) || {};
+  hideAll(); 
+  document.getElementById("bestSellerModal").style.display = "flex";
+  let titleNode = document.getElementById("bs_productName"); 
+  let countNode = document.getElementById("bs_soldCount");
+  
   let bestItem = ""; let maxSales = 0;
-  for(let key in sales) { if(sales[key] > maxSales) { maxSales = sales[key]; bestItem = key; } }
-  let titleNode = document.getElementById("bs_productName"); let countNode = document.getElementById("bs_soldCount");
-  if(bestItem === "") { titleNode.innerText = isHindiLanguage ? "अभी तक कोई बिक्री नहीं हुई!" : "No sales yet!"; countNode.innerText = ""; } 
-  else {
+
+  if(globalStats.products && globalStats.products.length > 0) {
+      let sortedProducts = [...globalStats.products].sort((a,b) => b.sold - a.sold);
+      bestItem = sortedProducts[0].name;
+      maxSales = sortedProducts[0].sold;
+  } else {
+      // Local fallback
+      let sales = JSON.parse(localStorage.getItem("khalsaSalesTracker")) || {};
+      for(let key in sales) { if(sales[key] > maxSales) { maxSales = sales[key]; bestItem = key; } }
+  }
+  
+  if(bestItem === "" || maxSales === 0) { 
+    titleNode.innerText = isHindiLanguage ? "अभी तक कोई बिक्री नहीं हुई!" : "No sales yet!"; 
+    countNode.innerText = ""; 
+  } else {
     let displayItem = bestItem; let node = document.querySelector(`.item h3[data-en="${bestItem}"]`);
     if(node && isHindiLanguage) displayItem = node.getAttribute('data-hi');
-    titleNode.innerText = "🏆 " + displayItem; countNode.innerText = isHindiLanguage ? `कुल बिका: ${maxSales} यूनिट्स 🔥` : `Total Sold: ${maxSales} Units 🔥`;
+    titleNode.innerText = "🏆 " + displayItem; 
+    countNode.innerText = isHindiLanguage ? `कुल बिका: ${maxSales} यूनिट्स 🔥` : `Total Sold: ${maxSales} Units 🔥`;
   }
-  document.getElementById("bestSellerModal").style.display = "flex";
 }
 function closeBestSeller() { document.getElementById("bestSellerModal").style.display = "none"; showAccountPage(); }
 
+// 🌟 GLOBAL TOP CUSTOMERS 🌟
 function showTopCustomers() {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("topCustomersPage").style.display = "block";
-  let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
-  let list = document.getElementById("topCustomersList"); list.innerHTML = "";
-  let sortedCustomers = Object.keys(tracker).map(name => { return { name: name, qty: tracker[name] }; }).sort((a, b) => b.qty - a.qty).slice(0, 5);
+  let list = document.getElementById("topCustomersList"); 
+  list.innerHTML = "";
+  
+  let sortedCustomers = [];
+  if(globalStats.customers && globalStats.customers.length > 0) {
+      sortedCustomers = [...globalStats.customers].sort((a, b) => b.qty - a.qty).slice(0, 5);
+  } else {
+      // Local fallback
+      let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
+      sortedCustomers = Object.keys(tracker).map(name => { return { name: name, qty: tracker[name] }; }).sort((a, b) => b.qty - a.qty).slice(0, 5);
+  }
+
   if(sortedCustomers.length === 0) { list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`; } 
   else {
     sortedCustomers.forEach((c, index) => {
@@ -775,12 +836,14 @@ function showCart(){
   if(!isUserLoggedIn()){ showError(isHindiLanguage ? "⚠️ कृपया पहले लॉगिन करें! ℹ️" : "PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("cart").style.display="block";
   let html="", totalPrice=0, totalQty=0;
+  
   cartData.forEach((i, index)=>{
     let t=i.price*i.qty; totalPrice+=t; totalQty+=i.qty;
     let displayItem = i.name; let node = document.querySelector(`.item h3[data-en="${i.internalName}"]`);
     if(node && isHindiLanguage) displayItem = node.getAttribute('data-hi'); else if(node && !isHindiLanguage) displayItem = node.getAttribute('data-en');
-    html+=`<div class="cart-card"><img src="${i.img}" width="60" style="border-radius:8px;"><div style="flex-grow:1;"><div style="font-weight:bold;">${displayItem}</div><div style="color:var(--text-muted); font-size:14px;">₹${i.price} x ${i.qty} = <b>₹${t}</b></div></div><button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button></div>`;
+    html+=`<div class="cart-card"><img src="${i.img}" style="width:40px; height:40px; border-radius:8px; object-fit:contain; flex-shrink:0;"><div style="flex-grow:1;"><div style="font-weight:bold; font-size:14px;">${displayItem}</div><div style="color:var(--text-muted); font-size:13px;">₹${i.price} x ${i.qty} = <b>₹${t}</b></div></div><button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button></div>`;
   });
+  
   if(cartData.length === 0){
     document.getElementById("cartItems").innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "आपका कार्ट खाली है 🛒" : "Your Cart is empty 🛒"}</p>`; document.getElementById("total").innerHTML = "";
   } else {
@@ -812,7 +875,6 @@ function allowLocation() {
   } else { showError("⚠️ Geolocation is not supported."); document.getElementById("l_live_loc").value = ""; }
 }
 
-// Fixed: Now showPosition only fills the location and waits for the user to click Login & Save
 function showPosition(position) {
   document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`;
   showSuccessMsg("📍 Location fetched! Now click Login & Save.");
@@ -820,7 +882,6 @@ function showPosition(position) {
 function showLocationError(error) { document.getElementById("l_live_loc").value = ""; showError("⚠️ Error getting location."); }
 function closePinErrorPopup() { document.getElementById("pinErrorModal").style.display = "none"; }
 
-// 🚀 FIXED PROCESS FORM WITH DEVICE LOCKING AND EMAIL CHECK
 function processForm() {
   let nameInput = document.getElementById("l_name").value.trim();
   let phoneInput = document.getElementById("l_phone").value.trim();
@@ -937,9 +998,6 @@ function back() {
   document.getElementById("itemReviewWarning").style.display = "none"; document.getElementById("appReviewWarning").style.display = "none";
 }
 
-// ==========================================
-// 🌟 GOOGLE SHEETS GLOBAL REVIEWS LOGIC 🌟
-// ==========================================
 let rating=0;
 function rate(n){ 
   rating=n; let stars = document.getElementById("itemStarContainer").children;
