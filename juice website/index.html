@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="google-site-verification" content="vMaq06ZyTK5hm0XDf6VQE7fuDNmWDM2ahOhfDB6rLQ8" />
-<title>KHALSA SHOP</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KHALSA SHOP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
-body{margin:0;font-family:sans-serif;background:linear-gradient(#f1f3f6,#e0e0e0); padding-bottom: 80px;}
+/* 🌟 Theme Variables 🌟 */
+:root {
+  --bg-main: linear-gradient(#f1f3f6, #e0e0e0);
+  --bg-card: white;
+  --text-main: #333;
+  --text-muted: #666;
+  --border-color: #ddd;
+  --input-bg: #fff;
+  --box-shadow: rgba(0,0,0,0.05);
+}
+
+.dark-mode {
+  --bg-main: linear-gradient(#1a1a1a, #121212);
+  --bg-card: #242424;
+  --text-main: #f1f1f1;
+  --text-muted: #aaa;
+  --border-color: #444;
+  --input-bg: #333;
+  --box-shadow: rgba(0,0,0,0.3);
+}
+
+body { margin:0; font-family:sans-serif; background:var(--bg-main); color:var(--text-main); padding-bottom: 80px; transition: 0.3s; }
 
 /* Sticky Header Bar */
-.top-sticky-bar { position: sticky; top: 0; z-index: 900; background: white; }
+.top-sticky-bar { position: sticky; top: 0; z-index: 900; background: var(--bg-card); transition: 0.3s; }
 .header{background:linear-gradient(45deg,#ff4b2b,#ff416c);color:white;padding:15px;text-align:center;font-size:22px;font-weight:bold; margin:0; display:block; border:none;}
 
 /* Premium Scrolling Marquee CSS */
 .marquee-wrapper {
-  background: white; padding: 10px 0; overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 3px solid #ff416c; display: flex; align-items: center;
+  background: var(--bg-card); padding: 10px 0; overflow: hidden;
+  box-shadow: 0 4px 10px var(--box-shadow); border-bottom: 3px solid #ff416c; display: flex; align-items: center; transition: 0.3s;
 }
 .marquee-text {
   display: inline-block; white-space: nowrap; font-weight: 800; font-size: 14px;
@@ -25,10 +47,10 @@ body{margin:0;font-family:sans-serif;background:linear-gradient(#f1f3f6,#e0e0e0)
 
 /* Search Bar */
 .search-container {
-  display: flex; gap: 8px; padding: 10px 15px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.05); justify-content: center;
+  display: flex; gap: 8px; padding: 10px 15px; background: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); justify-content: center; transition: 0.3s;
 }
 .search-input {
-  flex-grow: 1; max-width: 250px; padding: 12px 15px; border: 2px solid #ddd; border-radius: 20px; font-size: 14px; font-family: sans-serif; outline: none; transition: 0.3s;
+  flex-grow: 1; max-width: 250px; padding: 12px 15px; border: 2px solid var(--border-color); border-radius: 20px; font-size: 14px; font-family: sans-serif; outline: none; transition: 0.3s; background: var(--input-bg); color: var(--text-main);
 }
 .search-input:focus { border-color: #ff416c; }
 .search-btn {
@@ -37,40 +59,40 @@ body{margin:0;font-family:sans-serif;background:linear-gradient(#f1f3f6,#e0e0e0)
 
 /* Flipkart Style Bottom Navigation */
 .bottom-nav {
-  position: fixed; bottom: 0; left: 0; width: 100%; background: white;
+  position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
   display: flex; justify-content: space-around; padding: 10px 0;
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.1); z-index: 1000; border-top-left-radius: 20px; border-top-right-radius: 20px;
+  box-shadow: 0 -4px 15px var(--box-shadow); z-index: 1000; border-top-left-radius: 20px; border-top-right-radius: 20px; transition: 0.3s;
 }
 .nav-item {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: bold; color: #555; background: transparent; border: none; cursor: pointer; transition: 0.2s;
+  font-size: 13px; font-weight: bold; color: var(--text-muted); background: transparent; border: none; cursor: pointer; transition: 0.2s;
 }
 .nav-item:active { transform: scale(0.9); color: #ff416c; }
 .nav-item span { font-size: 24px; margin-bottom: 4px; }
 
 /* Premium Account Page List */
 .account-list-container {
-  background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 15px; border: 1px solid #ddd; text-align: left;
+  background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px var(--box-shadow); overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; transition: 0.3s;
 }
 .account-list-container a {
-  display: block; padding: 16px; border-bottom: 1px solid #eee; color: #333; cursor: pointer; font-size: 15px; transition: 0.2s;
+  display: block; padding: 16px; border-bottom: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; font-size: 15px; transition: 0.2s; text-decoration: none;
 }
-.account-list-container a:active { background-color: #f0f8ff; }
+.account-list-container a:active { background-color: rgba(255, 65, 108, 0.1); }
 .account-list-container a:last-child { border-bottom: none; }
 
 .menu{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;padding:15px;margin-top:5px;}
-.item{background:white;border-radius:15px;padding:15px;text-align:center;cursor:pointer;transition:0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.05);}
+.item{background:var(--bg-card);border-radius:15px;padding:15px;text-align:center;cursor:pointer;transition:0.3s; box-shadow: 0 4px 8px var(--box-shadow); color: var(--text-main);}
 .item:active{transform:scale(0.95);opacity:0.8;}
 .item img{width:100%;height:150px;object-fit:contain;}
-.detail{display:none;padding:15px;margin-top:10px;}
+.detail{display:none;padding:15px;margin-top:10px; color: var(--text-main);}
 .detail img{width:100%;max-height:250px;object-fit:contain;}
 
 .full-btn, .back-btn, .qty-btn{ transition:0.2s; }
 .full-btn:active, .back-btn:active, .qty-btn:active{ transform:scale(0.95); }
 
-.full-btn{width:100%;padding:12px;background:gold;border:none;font-weight:bold;margin-top:10px;cursor:pointer; border-radius: 8px;}
-.back-btn{width:100%;padding:10px;background:black;color:white;margin-top:10px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;}
-.qty-btn{padding:5px 15px;margin:5px;background:black;color:white;border:none; border-radius: 5px; font-size: 18px;}
+.full-btn{width:100%;padding:12px;background:gold;border:none;font-weight:bold;margin-top:10px;cursor:pointer; border-radius: 8px; color: black;}
+.back-btn{width:100%;padding:10px;background:#222;color:white;margin-top:10px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;}
+.qty-btn{padding:5px 15px;margin:5px;background:#222;color:white;border:none; border-radius: 5px; font-size: 18px;}
 
 /* Premium Toast Error & Success CSS */
 .premium-popup {
@@ -89,24 +111,24 @@ body{margin:0;font-family:sans-serif;background:linear-gradient(#f1f3f6,#e0e0e0)
   animation: fadeIn 0.3s ease-in-out;
 }
 .premium-modal {
-  background: white; padding: 25px 20px; border-radius: 20px; text-align: center;
-  width: 85%; max-width: 350px; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  background: var(--bg-card); color: var(--text-main); padding: 25px 20px; border-radius: 20px; text-align: center;
+  width: 85%; max-width: 350px; box-shadow: 0 15px 35px var(--box-shadow);
   transform: scale(0.8); animation: popUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 .modal-icon { font-size: 50px; margin-bottom: 10px; animation: bounce 1.2s infinite alternate; }
-.premium-modal h2 { color: #00c853; margin: 0 0 5px 0; font-size: 22px; }
-.premium-modal p { color: #555; margin: 5px 0; font-size: 14px; }
-.highlight-text { font-weight: bold; font-size: 18px; margin-top: 15px; }
+.premium-modal h2 { margin: 0 0 5px 0; font-size: 22px; }
+.premium-modal p { color: var(--text-muted); margin: 5px 0; font-size: 14px; }
+.highlight-text { font-weight: bold; font-size: 18px; margin-top: 15px; color: var(--text-main); }
 
 .black-modal-btn {
   background: #111; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 16px;
-  margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px var(--box-shadow);
 }
 .modal-btn {
   background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px; 
   font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%;
 }
-.premium-account { margin: 20px auto; padding: 20px; border: 2px solid #333; border-radius: 12px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+.premium-account { margin: 20px auto; padding: 20px; border: 2px solid var(--border-color); border-radius: 12px; background-color: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); transition: 0.3s; }
 
 @keyframes popUp { to { transform: scale(1); } }
 @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
@@ -119,31 +141,38 @@ body{margin:0;font-family:sans-serif;background:linear-gradient(#f1f3f6,#e0e0e0)
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* Cards & Inputs */
-.history-card { background: white; margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #ff416c; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left; }
-.cart-card{display:flex;background:white;margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
+.history-card { background: var(--bg-card); margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #ff416c; box-shadow: 0 4px 10px var(--box-shadow); text-align: left; transition: 0.3s; }
+.cart-card{display:flex;background:var(--bg-card);margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.3s; }
 
 /* Review Box with Long Press Feedback */
 .review-box {
-  background: white; margin: 10px 0; padding: 12px; border-radius: 8px; 
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left; position: relative;
+  background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; 
+  box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative;
   user-select: none; /* Prevents text selection on long press */
   -webkit-user-select: none;
-  transition: transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s, opacity 0.2s, background 0.3s;
 }
-.review-box:active { transform: scale(0.97); opacity: 0.8; } /* Feedback during long press */
+.review-box:active { transform: scale(0.97); opacity: 0.8; }
 
-input, textarea{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:8px; box-sizing: border-box; background:#fff; font-family: sans-serif;}
-input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-color: #ddd;}
+input, textarea{width:100%;padding:12px;margin:8px 0;border:1px solid var(--border-color);border-radius:8px; box-sizing: border-box; background:var(--input-bg); color: var(--text-main); font-family: sans-serif; transition: 0.3s;}
+input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: var(--text-muted); border-color: var(--border-color);}
 
 /* Star Rating */
 .star-rating { font-size: 35px; cursor: pointer; color: #ccc; margin: 10px 0; }
 .star-rating span { transition: 0.2s; display: inline-block; }
 .star-rating span:hover { transform: scale(1.2); }
 
+/* Review Action Buttons */
+.action-btn-group { position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; }
+.delete-review-btn { background: transparent; color: #d32f2f; border: 1px solid #d32f2f; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; transition: 0.2s; }
+.edit-review-btn { background: transparent; color: #1976d2; border: 1px solid #1976d2; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; transition: 0.2s; }
+.delete-review-btn:active { background: #d32f2f; color: white; }
+.edit-review-btn:active { background: #1976d2; color: white; }
+
 /* Sections */
 .app-review-section, .contact-section {
-  background: white; margin: 20px 15px; padding: 25px 20px; border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center;
+  background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px;
+  box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s;
 }
 .app-review-section { border-top: 5px solid #9c27b0; }
 .contact-section { border-top: 5px solid #00c853; }
@@ -153,17 +182,17 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 .remove-btn { background: #ff4b2b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px; }
 
 .cart-summary-box {
-  background: white; padding: 15px; border-radius: 12px; margin: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #eee; text-align: left;
+  background: var(--bg-card); padding: 15px; border-radius: 12px; margin: 15px 0; box-shadow: 0 4px 15px var(--box-shadow); border: 1px solid var(--border-color); text-align: left; transition: 0.3s;
 }
-.summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 16px; color: #555; }
-.delivery-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: #ff416c; font-weight: bold; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 16px; color: var(--text-muted); }
+.delivery-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: #ff416c; font-weight: bold; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
 .total-row { display: flex; justify-content: space-between; font-size: 22px; color: #00c853; font-weight: 900; }
 
 .review-name-tag { font-weight: bold; font-size: 13px; color: #2196F3; margin-bottom: 5px; padding-right: 60px; }
 .app-review-name-tag { font-weight: bold; font-size: 13px; color: #9c27b0; margin-bottom: 5px; padding-right: 60px; }
-.stats-box { font-weight: bold; font-size: 15px; padding: 5px; background: #f0f8ff; border-radius: 8px; display: inline-block; margin-bottom: 10px; }
+.stats-box { font-weight: bold; font-size: 15px; padding: 5px; background: rgba(33, 150, 243, 0.1); border-radius: 8px; display: inline-block; margin-bottom: 10px; }
 
-.developer-tag { text-align: center; color: #888; margin-top: 40px; font-size: 15px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; grid-column: span 2; }
+.developer-tag { text-align: center; color: var(--text-muted); margin-top: 40px; font-size: 15px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; grid-column: span 2; }
 
 /* Filter Warning */
 .filter-warning { color: red; font-size: 12px; font-weight: bold; display: none; text-align: left; margin-bottom: 5px; }
@@ -189,7 +218,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
   <div class="premium-modal" style="border-top: 5px solid #ff0000;">
     <div class="modal-icon" style="animation: none;">🚫</div>
     <h2 style="color: #ff0000; font-size: 22px;" class="translatable" data-en="DELIVERY UNAVAILABLE" data-hi="डिलीवरी उपलब्ध नहीं है">DELIVERY UNAVAILABLE</h2>
-    <p class="highlight-text" style="color: #333; font-size: 15px; line-height: 1.5;">
+    <p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);">
       <span class="translatable" data-en="ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER" data-hi="केवल 127041 और 125033 पिन कोड ही मान्य हैं">ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER</span><br><br>
       <span style="color:#ff0000; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span>
     </p>
@@ -222,7 +251,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
   <div class="premium-modal" style="border-top: 5px solid #2196F3;">
     <div class="modal-icon">📄</div>
     <h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
-    <p style="font-size: 12px; text-align: justify; line-height: 1.5; color: #444;" class="translatable" data-en="By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms." data-hi="खालसा शॉप का उपयोग करके, आप हमारे नियमों और शर्तों का पालन करने के लिए सहमत हैं। वेबसाइट के माध्यम से दिए गए सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं, इसलिए सही और पूर्ण विवरण प्रदान करना महत्वपूर्ण है। हम गलत जानकारी के कारण होने वाली देरी या समस्याओं के लिए जिम्मेदार नहीं हैं। वस्तुओं की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं। यदि कोई ऑर्डर अमान्य या संदिग्ध लगता है तो हम उसे रद्द करने का अधिकार सुरक्षित रखते हैं। नकली या अधूरे ऑर्डर अस्वीकार किए जा सकते हैं। हमारी सेवा का उपयोग जारी रखकर, आप इन शर्तों को स्वीकार करते हैं।">
+    <p style="font-size: 12px; text-align: justify; line-height: 1.5; color: var(--text-muted);" class="translatable" data-en="By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms." data-hi="खालसा शॉप का उपयोग करके, आप हमारे नियमों और शर्तों का पालन करने के लिए सहमत हैं। वेबसाइट के माध्यम से दिए गए सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं, इसलिए सही और पूर्ण विवरण प्रदान करना महत्वपूर्ण है। हम गलत जानकारी के कारण होने वाली देरी या समस्याओं के लिए जिम्मेदार नहीं हैं। वस्तुओं की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं। यदि कोई ऑर्डर अमान्य या संदिग्ध लगता है तो हम उसे रद्द करने का अधिकार सुरक्षित रखते हैं। नकली या अधूरे ऑर्डर अस्वीकार किए जा सकते हैं। हमारी सेवा का उपयोग जारी रखकर, आप इन शर्तों को स्वीकार करते हैं।">
       By using Khalsa Shop, you agree to follow our terms and conditions...
     </p>
     <button class="modal-btn translatable" onclick="closeTerms()" data-en="I Accept" data-hi="मैं स्वीकार करता हूँ">I Accept</button>
@@ -233,8 +262,8 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
   <div class="premium-modal" style="border-top: 5px solid gold;">
     <div class="modal-icon">🏆</div>
     <h2 style="color: gold;" class="translatable" data-en="BEST SELLER" data-hi="सबसे ज्यादा बिकने वाला">BEST SELLER</h2>
-    <p class="highlight-text" id="bs_productName" style="color: #333; font-size: 22px; margin: 10px 0;"></p>
-    <p id="bs_soldCount" style="color: #666; font-size: 15px; font-weight: bold;"></p>
+    <p class="highlight-text" id="bs_productName" style="font-size: 22px; margin: 10px 0; color: var(--text-main);"></p>
+    <p id="bs_soldCount" style="color: var(--text-muted); font-size: 15px; font-weight: bold;"></p>
     <button class="black-modal-btn translatable" onclick="closeBestSeller()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button>
   </div>
 </div>
@@ -284,12 +313,10 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
     <a onclick="showAllReviews()" style="font-weight: normal;" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</a>
     <a onclick="showBestSeller()" style="font-weight: normal;" class="translatable" data-en="🏆 Best Seller" data-hi="🏆 सबसे ज्यादा बिकने वाला">🏆 Best Seller</a>
     <a onclick="showTopCustomers()" style="font-weight: normal;" class="translatable" data-en="👑 Highest Buying Customer" data-hi="👑 सबसे ज्यादा खरीदने वाले ग्राहक">👑 Highest Buying Customer</a>
-    <a onclick="toggleLanguage()" style="font-weight: normal;" class="translatable" data-en="🌐 Language (Hindi)" data-hi="🌐 भाषा (English)">🌐 Language (Hindi)</a>
+    <a onclick="toggleLanguage()" style="font-weight: normal;" class="translatable" data-en="🌐 Language (Hindi/English)" data-hi="🌐 भाषा (Hindi/English)">🌐 Language (Hindi/English)</a>
+    <a onclick="toggleTheme()" style="font-weight: normal;" class="translatable" data-en="🌙 Theme (Dark/Light)" data-hi="🌙 थीम (डार्क/लाइट)">🌙 Theme (Dark/Light)</a>
     <a onclick="showReportPage()" style="font-weight: bold; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
     <a onclick="showDeveloperPage()" style="font-weight: normal;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</a>
-    
-    <a onclick="openTestingModal()" class="translatable" data-en="🛠️ Testing" data-hi="🛠️ टेस्टिंग" style="font-weight: bold; color: #ff9800;">🛠️ Testing</a>
-    
     <a onclick="showTerms()" style="font-weight: normal;" class="translatable" data-en="📄 Terms & Conditions" data-hi="📄 नियम और शर्तें">📄 Terms & Conditions</a>
   </div>
   
@@ -298,7 +325,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 
 <div class="detail" id="reportPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</h2>
-  <p style="text-align: center; font-size: 13px; color: #666;" class="translatable" data-en="Records of blocked reviews" data-hi="ब्लॉक की गई समीक्षाओं का रिकॉर्ड">Records of blocked reviews</p>
+  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Records of blocked reviews" data-hi="ब्लॉक की गई समीक्षाओं का रिकॉर्ड">Records of blocked reviews</p>
   
   <div id="reportContainer"></div>
   
@@ -307,7 +334,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 
 <div class="detail" id="topCustomersPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff9800;" class="translatable" data-en="👑 Top 5 Customers" data-hi="👑 टॉप 5 ग्राहक">👑 Top 5 Customers</h2>
-  <p style="text-align: center; font-size: 13px; color: #666;" class="translatable" data-en="Our most loyal shoppers!" data-hi="हमारे सबसे वफादार खरीदार!">Our most loyal shoppers!</p>
+  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Our most loyal shoppers!" data-hi="हमारे सबसे वफादार खरीदार!">Our most loyal shoppers!</p>
   
   <div id="topCustomersList"></div>
   
@@ -317,17 +344,17 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 <div class="detail" id="developerPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff4b2b;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</h2>
   
-  <div class="premium-account" style="border-color: #ff4b2b; text-align: left; background: white; margin-bottom: 10px; padding: 15px; border-radius: 8px;">
+  <div class="premium-account" style="border-color: #ff4b2b; text-align: left; margin-bottom: 10px; padding: 15px; border-radius: 8px;">
     <p style="margin: 5px 0; font-size: 15px;"><strong>Website Developed & Managed By:</strong> Sahil Sharma</p>
     <p style="margin: 5px 0; font-size: 15px;"><strong>Brand:</strong> Khalsa Shop</p>
     <p style="margin: 5px 0; font-size: 15px;"><strong>Developed Date:</strong> 20-03-2026</p>
-    <p style="margin: 5px 0; font-size: 15px;"><strong>Email:</strong> sahilvats0009@gmail.com</p>
+    <p style="margin: 5px 0; font-size: 15px;"><strong>Email:</strong> sureshkumar803@gmail.com</p>
 
-    <h3 style="color: #333; margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px;">DEVELOPER FULL BIO</h3>
-    <p style="font-size: 14px; color: #555; line-height: 1.5;">This website is developed by Sahil Sharma,<br>Focused on creating fast, clean and user-friendly online shopping experiences.<br>Khalsa Shop website is designed with modern UI/UX principles, smooth navigation and mobile-friendly layout.</p>
+    <h3 style="margin-top: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">DEVELOPER FULL BIO</h3>
+    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">This website is developed by Sahil Sharma,<br>Focused on creating fast, clean and user-friendly online shopping experiences.<br>Khalsa Shop website is designed with modern UI/UX principles, smooth navigation and mobile-friendly layout.</p>
 
-    <h3 style="color: #333; margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px;">TECHNICAL DETAILS</h3>
-    <ul style="font-size: 14px; color: #555; padding-left: 20px; line-height: 1.6;">
+    <h3 style="margin-top: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">TECHNICAL DETAILS</h3>
+    <ul style="font-size: 14px; color: var(--text-muted); padding-left: 20px; line-height: 1.6;">
         <li>HTML5, CSS3, JavaScript</li>
         <li>Responsive Design</li>
         <li>Secure Checkout UI</li>
@@ -338,7 +365,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
     </ul>
   </div>
   
-  <p style="text-align: center; font-size: 13px; font-weight: bold; color: #555; margin-bottom: 20px;" class="translatable" data-en="CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS" data-hi="पूरी जानकारी के लिए स्क्रीन पर दिख रहे ईमेल पर संपर्क करें">CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS</p>
+  <p style="text-align: center; font-size: 13px; font-weight: bold; color: var(--text-muted); margin-bottom: 20px;" class="translatable" data-en="CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS" data-hi="पूरी जानकारी के लिए स्क्रीन पर दिख रहे ईमेल पर संपर्क करें">CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS</p>
   
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
@@ -355,7 +382,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
   <textarea id="appReviewText" class="translatable-ph" data-en="Write your app review & feature suggestions here..." data-hi="अपनी ऐप समीक्षा और सुझाव यहां लिखें..." placeholder="Write your app review & feature suggestions here..." style="height: 100px;"></textarea>
   <button class="modal-btn translatable" onclick="saveAppReview()" style="background: linear-gradient(45deg, #9c27b0, #ea80fc);" data-en="Submit Feedback" data-hi="प्रतिक्रिया जमा करें">Submit Feedback</button>
 
-  <h3 style="margin-top:25px; border-bottom: 2px solid #eee; padding-bottom:8px; color: #333; text-align: left;" class="translatable" data-en="Community Feedback" data-hi="समुदाय की प्रतिक्रिया">Community Feedback</h3>
+  <h3 style="margin-top:25px; border-bottom: 2px solid var(--border-color); padding-bottom:8px; text-align: left;" class="translatable" data-en="Community Feedback" data-hi="समुदाय की प्रतिक्रिया">Community Feedback</h3>
   
   <div id="appReviewStats" class="stats-box" style="color: #9c27b0;"></div>
   
@@ -367,7 +394,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
   <h2 class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</h2>
   <div class="contact-card">
     <p>👤 <strong class="translatable" data-en="Name:" data-hi="नाम:">Name:</strong> SURESH KUMAR</p>
-    <p>📧 <strong class="translatable" data-en="Email:" data-hi="ईमेल:">Email:</strong> <a href="mailto:sahilvats0009@gmail.com" class="contact-link">sahilvats0009@gmail.com</a></p>
+    <p>📧 <strong class="translatable" data-en="Email:" data-hi="ईमेल:">Email:</strong> <a href="mailto:sureshkumar803@gmail.com" style="color: #2196F3;">sureshkumar803@gmail.com</a></p>
     <div class="party-highlight translatable" data-en="🎊 Available for Weddings, Parties & Other Functions! 🎊" data-hi="🎊 शादियों, पार्टियों और अन्य कार्यों के लिए उपलब्ध! 🎊">
       🎊 Available for Weddings, Parties & Other Functions! 🎊
     </div>
@@ -395,10 +422,10 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 
   <p id="itemReviewWarning" class="filter-warning translatable" data-en="⚠️ Unsafe word detected!" data-hi="⚠️ आपत्तिजनक शब्द मिला!">⚠️ Unsafe word detected!</p>
   <textarea id="reviewText" class="translatable-ph" data-en="Write your review here..." data-hi="अपनी समीक्षा यहां लिखें..." placeholder="Write your review here..."></textarea>
-  <button class="full-btn translatable" onclick="saveReview()" style="background:#2196F3; color:white;" data-en="Submit Item Review" data-hi="आइटम समीक्षा सबमिट करें">Submit Item Review</button>
+  <button class="full-btn translatable" onclick="saveReview()" style="background:#2196F3; color:black;" data-en="Submit Item Review" data-hi="आइटम समीक्षा सबमिट करें">Submit Item Review</button>
   <button class="back-btn translatable" onclick="back()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
 
-  <h3 style="margin-top:20px; border-bottom: 2px solid #ddd; padding-bottom:5px;" class="translatable" data-en="Customer Reviews" data-hi="ग्राहक समीक्षाएं">Customer Reviews</h3>
+  <h3 style="margin-top:20px; border-bottom: 2px solid var(--border-color); padding-bottom:5px;" class="translatable" data-en="Customer Reviews" data-hi="ग्राहक समीक्षाएं">Customer Reviews</h3>
   
   <div id="itemReviewStats" class="stats-box" style="color: #2196F3;"></div>
   
@@ -426,7 +453,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
 
 <div class="detail" id="allReviewsPage">
   <h2 style="text-align: center; color: #9c27b0;" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</h2>
-  <p style="text-align: center; font-size: 13px; color: #666;" class="translatable" data-en="Here is what our customers are saying!" data-hi="यहाँ हमारे ग्राहक क्या कह रहे हैं!">Here is what our customers are saying!</p>
+  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Here is what our customers are saying!" data-hi="यहाँ हमारे ग्राहक क्या कह रहे हैं!">Here is what our customers are saying!</p>
   <div id="allReviewsContainer"></div>
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
@@ -440,7 +467,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
   <textarea id="l_address" class="translatable-ph" data-en="Permanent Address (Required)" data-hi="स्थायी पता (आवश्यक)" placeholder="Permanent Address (Required)"></textarea>
   
   <div style="display: flex; gap: 8px; align-items: center; margin: 8px 0;">
-    <input type="text" id="l_live_loc" class="translatable-ph" data-en="Live Location Map Link (Required)" data-hi="लाइव लोकेशन मैप लिंक (आवश्यक)" placeholder="Live Location Map Link (Required)" readonly style="margin:0; background:#f0f8ff;">
+    <input type="text" id="l_live_loc" class="translatable-ph" data-en="Live Location Map Link (Required)" data-hi="लाइव लोकेशन मैप लिंक (आवश्यक)" placeholder="Live Location Map Link (Required)" readonly style="margin:0; background:var(--input-bg);">
     <button type="button" onclick="triggerLocationPrompt()" class="translatable" style="background:#1e88e5; color:white; border:none; padding:12px 15px; border-radius:8px; cursor:pointer; font-weight:bold;" data-en="📍 Get" data-hi="📍 प्राप्त करें">📍 Get</button>
   </div>
 
@@ -455,7 +482,7 @@ input[readonly], textarea[readonly] {background: #f5f5f5; color: #777; border-co
   <button class="full-btn translatable" id="logoutBtn" onclick="logoutUser()" style="background:#d32f2f; color:white; display:none; margin-bottom:10px;" data-en="🚪 Logout & Clear Data" data-hi="🚪 लॉगआउट और डेटा हटाएं">🚪 Logout & Clear Data</button>
 
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
-  <p style="text-align:center; font-weight:bold; margin-top:10px; color:#555; font-size:12px;" class="translatable" data-en="PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉" data-hi="कृपया अपना पूरा पता दर्ज करें धन्यवाद 🎉">
+  <p style="text-align:center; font-weight:bold; margin-top:10px; color:var(--text-muted); font-size:12px;" class="translatable" data-en="PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉" data-hi="कृपया अपना पूरा पता दर्ज करें धन्यवाद 🎉">
     PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉
   </p>
 </div>
@@ -475,11 +502,10 @@ const BANNED_WORDS = [
 let item="", internalItemName="", price=70, qty=1, cartData=[];
 let img = document.getElementById("img");
 let nameLabel = document.getElementById("name");
-let menu = document.getElementById("menu");
-let detail = document.getElementById("detail");
 
 let waitingForWhatsAppReturn = false;
 let isHindiLanguage = false;
+let isDarkMode = false;
 
 // 🛡️ 1-Hour Ban System
 function checkBanStatus() {
@@ -529,28 +555,8 @@ document.getElementById("appReviewText").addEventListener("input", function() {
   document.getElementById("appReviewWarning").style.display = result.isBad ? "block" : "none";
 });
 
-
 window.onload = function() {
-  let today = new Date();
-  if (today.getDate() === 1) {
-    let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
-    let sorted = Object.keys(tracker).map(n => ({name: n, qty: tracker[n]})).sort((a,b) => b.qty - a.qty).slice(0, 5);
-    
-    if (sorted.length > 0) {
-      let marqueeTextEn = "🏆 TOP 5 BUYERS OF THE MONTH: ";
-      let marqueeTextHi = "🏆 इस महीने के टॉप 5 खरीदार: ";
-      
-      sorted.forEach((c, i) => {
-        marqueeTextEn += `${i+1}. ${c.name} (${c.qty} items) ⭐ `;
-        marqueeTextHi += `${i+1}. ${c.name} (${c.qty} आइटम) ⭐ `;
-      });
-      
-      let marqueeEl = document.getElementById("mainMarqueeText");
-      marqueeEl.setAttribute("data-en", marqueeTextEn);
-      marqueeEl.setAttribute("data-hi", marqueeTextHi);
-      marqueeEl.innerText = isHindiLanguage ? marqueeTextHi : marqueeTextEn;
-    }
-  }
+  updateMarqueeAndStats();
 
   let savedData = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (savedData) {
@@ -564,8 +570,46 @@ window.onload = function() {
     document.getElementById("l_email").value = savedData.email || "";
     lockInputs(); 
   }
+  
+  if(localStorage.getItem("khalsaTheme") === "dark") {
+    isDarkMode = true;
+    document.body.classList.add("dark-mode");
+  }
+  
   updateLanguageUI();
 };
+
+function toggleTheme() {
+  isDarkMode = !isDarkMode;
+  if(isDarkMode) {
+    document.body.classList.add("dark-mode");
+    localStorage.setItem("khalsaTheme", "dark");
+  } else {
+    document.body.classList.remove("dark-mode");
+    localStorage.setItem("khalsaTheme", "light");
+  }
+}
+
+function updateMarqueeAndStats() {
+  let today = new Date();
+  let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
+  let sorted = Object.keys(tracker).map(n => ({name: n, qty: tracker[n]})).sort((a,b) => b.qty - a.qty).slice(0, 5);
+  
+  if (today.getDate() === 1 && sorted.length > 0) {
+    let marqueeTextEn = "🏆 TOP 5 BUYERS OF THE MONTH: ";
+    let marqueeTextHi = "🏆 इस महीने के टॉप 5 खरीदार: ";
+    
+    sorted.forEach((c, i) => {
+      marqueeTextEn += `${i+1}. ${c.name} (${c.qty} items) ⭐ `;
+      marqueeTextHi += `${i+1}. ${c.name} (${c.qty} आइटम) ⭐ `;
+    });
+    
+    let marqueeEl = document.getElementById("mainMarqueeText");
+    marqueeEl.setAttribute("data-en", marqueeTextEn);
+    marqueeEl.setAttribute("data-hi", marqueeTextHi);
+    marqueeEl.innerText = isHindiLanguage ? marqueeTextHi : marqueeTextEn;
+  }
+}
 
 function toggleLanguage() {
   isHindiLanguage = !isHindiLanguage;
@@ -592,7 +636,7 @@ function updateLanguageUI() {
     }
   });
   
-  if(detail.style.display === "block" && internalItemName !== "") {
+  if(document.getElementById("detail").style.display === "block" && internalItemName !== "") {
     let currentItemNode = document.querySelector(`.item h3[data-en="${internalItemName}"]`);
     if(currentItemNode) nameLabel.innerText = currentItemNode.getAttribute('data-' + lang);
     loadReviews(); 
@@ -674,13 +718,13 @@ function showTopCustomers() {
   }).sort((a, b) => b.qty - a.qty).slice(0, 5);
 
   if(sortedCustomers.length === 0) {
-    list.innerHTML = `<p style='text-align:center; color:#777; font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`;
+    list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`;
   } else {
     sortedCustomers.forEach((c, index) => {
       let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "⭐";
       list.innerHTML += `<div class="review-box" style="border-left: 4px solid gold; font-size: 15px;">
-        <b style="color: #333;">${medal} Rank ${index + 1}: ${c.name}</b> <br> 
-        <span style="color:#555; display: inline-block; margin-top: 5px;">Total Items Bought: <b>${c.qty}</b> 🛍️</span>
+        <b style="color: var(--text-main);">${medal} Rank ${index + 1}: ${c.name}</b> <br> 
+        <span style="color:var(--text-muted); display: inline-block; margin-top: 5px;">Total Items Bought: <b>${c.qty}</b> 🛍️</span>
       </div>`;
     });
   }
@@ -724,13 +768,13 @@ function showReportPage() {
   container.innerHTML = "";
   
   if(reports.length === 0) {
-    container.innerHTML = `<p style='text-align:center; color:#777; font-weight:bold;'>${isHindiLanguage ? "कोई ब्लॉक की गई समीक्षा नहीं।" : "No blocked reviews."}</p>`;
+    container.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "कोई ब्लॉक की गई समीक्षा नहीं।" : "No blocked reviews."}</p>`;
   } else {
     reports.forEach(r => {
       container.innerHTML += `<div class="review-box" style="border-left: 4px solid #d32f2f;">
-        <span style="font-size:12px; color:#888; float:right;">${r.date}</span><br>
+        <span style="font-size:12px; color:var(--text-muted); float:right;">${r.date}</span><br>
         <b style="color:#d32f2f;">Blocked Reason: Used '${r.word}'</b><br>
-        <span style="color:#555; font-size:14px; display:block; margin-top:5px;">"${r.text}"</span>
+        <span style="color:var(--text-muted); font-size:14px; display:block; margin-top:5px;">"${r.text}"</span>
       </div>`;
     });
   }
@@ -831,8 +875,9 @@ function removeFromCart(index) {
 
 function showCart(){
   if(!isUserLoggedIn()){
-    showError(isHindiLanguage ? "⚠️ कृपया पहले लॉगिन करें! पिनकोड सही होना चाहिए।" : "⚠️ Please login first! Make sure pincode is valid.");
-    showLogin(); return;
+    showError(isHindiLanguage ? "⚠️ कृपया पहले लॉगिन करें! ℹ️" : "PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️");
+    setTimeout(showLogin, 2000); 
+    return;
   }
   hideAll(); document.getElementById("searchContainerBox").style.display="none";
   document.getElementById("cart").style.display="block";
@@ -850,14 +895,14 @@ function showCart(){
       <img src="${i.img}" width="60" style="border-radius:8px;">
       <div style="flex-grow:1;">
         <div style="font-weight:bold;">${displayItem}</div>
-        <div style="color:#555; font-size:14px;">₹${i.price} x ${i.qty} = <b>₹${t}</b></div>
+        <div style="color:var(--text-muted); font-size:14px;">₹${i.price} x ${i.qty} = <b>₹${t}</b></div>
       </div>
       <button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button>
     </div>`;
   });
 
   if(cartData.length === 0){
-    document.getElementById("cartItems").innerHTML = `<p style='text-align:center; color:#777; font-weight:bold;'>${isHindiLanguage ? "आपका कार्ट खाली है 🛒" : "Your Cart is empty 🛒"}</p>`;
+    document.getElementById("cartItems").innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "आपका कार्ट खाली है 🛒" : "Your Cart is empty 🛒"}</p>`;
     document.getElementById("total").innerHTML = "";
   } else {
     document.getElementById("cartItems").innerHTML=html;
@@ -869,7 +914,7 @@ function showCart(){
         <div class="summary-row"><span>${isHindiLanguage?"उपयोगकर्ता:":"Subtotal:"}</span> <span>₹${totalPrice}</span></div>
         <div class="delivery-row"><span>${isHindiLanguage?"डिलीवरी शुल्क:":"Delivery Charge:"}</span> <span>₹${deliveryCharge}</span></div>
         <div class="total-row"><span>${isHindiLanguage?"कुल:":"Total:"}</span> <span>₹${finalTotal}</span></div>
-        <div class="delivery-note">${isHindiLanguage?"(6 आइटम तक ₹15, 6 से अधिक के लिए ₹10)":"(₹15 for up to 6 items, ₹10 for more than 6 items)"}</div>
+        <div class="delivery-note" style="color:var(--text-muted); font-size:12px; margin-top:5px;">${isHindiLanguage?"(6 आइटम तक ₹15, 6 से अधिक के लिए ₹10)":"(₹15 for up to 6 items, ₹10 for more than 6 items)"}</div>
       </div>
     `;
   }
@@ -882,7 +927,7 @@ function showHistory() {
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
   let html = "";
   if(history.length === 0) {
-    html = `<p style='color:#777; font-weight:bold; text-align:center; margin-top:20px;'>${isHindiLanguage ? "अभी तक कोई ऑर्डर नहीं दिया गया है।" : "No orders placed yet."}</p>`;
+    html = `<p style='color:var(--text-muted); font-weight:bold; text-align:center; margin-top:20px;'>${isHindiLanguage ? "अभी तक कोई ऑर्डर नहीं दिया गया है।" : "No orders placed yet."}</p>`;
   } else {
     history.forEach(h => {
       html += `<div class="history-card"><div class="h-date">📅 ${h.date}</div><div class="h-items">🛍️ ${h.items}</div><div class="h-total">💰 ${h.total}</div></div>`;
@@ -930,6 +975,10 @@ function autoSaveAndProceed() {
   if (nameInput === "" || addressInput === "" || houseInput === "" || galiInput === "" || pinInput === "") { showError("⚠️ Fill all required details!"); return; }
   if (!/^\d{10}$/.test(phoneInput)) { showError("⚠️ Phone number 10 digits only!"); return; }
 
+  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
+  if(regUsers[phoneInput] && regUsers[phoneInput] !== nameInput) { showError("⚠️ Number already registered to another name!"); return; }
+  regUsers[phoneInput] = nameInput; localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
+
   localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, house: houseInput, gali: galiInput, pin: pinInput, email: emailInput }));
   lockInputs(); showSuccessMsg("🎉 READY FOR SHOPPING"); setTimeout(() => { showAccountPage(); }, 1500);
 }
@@ -944,6 +993,10 @@ function processForm(){
   if (liveLocInput === "" || liveLocInput.includes("Fetching")) { showError("⚠️ Please get live location first!"); return; }
   if (nameInput === "" || addressInput === "" || houseInput === "" || galiInput === "" || pinInput === "") { showError("⚠️ Fill all required details!"); return; }
   if (!/^\d{10}$/.test(phoneInput)) { showError("⚠️ Phone number 10 digits only!"); return; }
+
+  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
+  if(regUsers[phoneInput] && regUsers[phoneInput] !== nameInput) { showError("⚠️ Number already registered to another name!"); return; }
+  regUsers[phoneInput] = nameInput; localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
 
   localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, house: houseInput, gali: galiInput, pin: pinInput, email: emailInput }));
   lockInputs(); showSuccessMsg("👤 Login Successful!"); setTimeout(() => { showAccountPage(); }, 2000);
@@ -965,7 +1018,7 @@ function placeDirectOrder(){
 
   if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError("⚠️ PLEASE GET LIVE LOCATION IN LOGIN OPTIONS"); return; }
+  if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError("PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
   if (user.pin !== "127041" && user.pin !== "125033") { document.getElementById("pinErrorModal").style.display = "flex"; return; }
 
   let orderDetails = ""; let totalPrice = 0; let totalQty = 0;
@@ -1001,12 +1054,14 @@ function placeDirectOrder(){
 
   let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nAddress: ${user.address}\nHouse No: ${user.house}, Gali No: ${user.gali}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
 
+  let targetPhone = "917988300872";
+
   document.getElementById("loadingScreen").style.display = "flex";
 
   setTimeout(() => {
     document.getElementById("loadingScreen").style.display = "none";
     waitingForWhatsAppReturn = true;
-    window.location.href = "https://wa.me/919416845322?text=" + encodeURIComponent(msg);
+    window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg);
   }, 1500); 
 }
 
@@ -1117,7 +1172,38 @@ function saveAppReview() {
   }).catch(e => { document.getElementById("loadingScreen").style.display = "none"; showError("Error saving. Please try again."); });
 }
 
-// ⏱️ LONG PRESS DELETE LOGIC
+// ✏️ Edit & Delete Logic
+function deleteReview(id, skipMsg = false) {
+  if(!skipMsg) document.getElementById("loadingScreen").style.display = "flex";
+  fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id }) })
+  .then(() => { 
+      if(!skipMsg) { document.getElementById("loadingScreen").style.display = "none"; showSuccessMsg("🗑️ Deleted"); setTimeout(reloadCurrentView, 1000); }
+  });
+}
+
+function editReview(id, currentText, type, productId, currentRating) {
+  let newText = prompt("Edit your review:", currentText);
+  if (newText !== null && newText.trim() !== "") {
+    let filterData = filterText(newText);
+    if(filterData.isBad) { triggerReportAlert(filterData.word, newText); return; }
+    
+    document.getElementById("loadingScreen").style.display = "flex";
+    // First delete old review
+    fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id }) })
+    .then(() => {
+      // Then add updated review
+      let user = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
+      let payload = {
+        id: id, action: "add", type: type, productId: productId, rating: currentRating,
+        reviewText: filterData.clean, userName: user.name || "Guest", userId: user.phone || "Guest", createdAt: new Date().toLocaleString('en-IN') + " (Edited)"
+      };
+      fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+      .then(() => { document.getElementById("loadingScreen").style.display="none"; showSuccessMsg("✏️ Edited Successfully"); setTimeout(reloadCurrentView, 1000); });
+    });
+  }
+}
+
+// Long Press Logic
 let pressTimer;
 function startPress(id) {
   pressTimer = setTimeout(() => {
@@ -1130,18 +1216,10 @@ function cancelPress() {
   clearTimeout(pressTimer);
 }
 
-function deleteReview(id) {
-  document.getElementById("loadingScreen").style.display = "flex";
-  fetch(REVIEWS_API_URL, {
-    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id })
-  }).then(() => {
-    document.getElementById("loadingScreen").style.display = "none"; showSuccessMsg("🗑️ Review Deleted");
-    setTimeout(() => {
-      if(document.getElementById("detail").style.display === "block") loadReviews();
-      else if(document.getElementById("appReviewSection").style.display === "block") loadAppReviews();
-      else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews();
-    }, 1500);
-  });
+function reloadCurrentView() {
+  if(document.getElementById("detail").style.display === "block") loadReviews();
+  else if(document.getElementById("appReviewSection").style.display === "block") loadAppReviews();
+  else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews();
 }
 
 let globalAllReviews = [];
@@ -1150,6 +1228,31 @@ function fetchAllReviewsFromDB(callback) {
     .then(res => res.json())
     .then(data => { globalAllReviews = data; callback(); })
     .catch(err => { console.log(err); callback(true); });
+}
+
+function renderReviewHTML(r, currentUserId) {
+  let starIcons = "⭐".repeat(parseInt(r.rating));
+  let color = r.type === "APP" ? "#9c27b0" : "gold"; 
+  let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
+  
+  let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
+  let actionBtns = "";
+  let longPressCode = "";
+  
+  if(isMyReview) {
+    actionBtns = `<div class="action-btn-group">
+      <button class="edit-review-btn" onclick="editReview('${r.id}', '${r.reviewText.replace(/'/g,"\\'")}', '${r.type}', '${r.productId}', ${r.rating})">✏️ Edit</button>
+      <button class="delete-review-btn" onclick="if(confirm('Delete review?')) deleteReview('${r.id}')">🗑️ Del</button>
+    </div>`;
+    longPressCode = `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"`;
+  }
+  
+  return `<div class="review-box" style="border-left: 4px solid ${color};" ${longPressCode}>
+    ${actionBtns}
+    <div class="review-name-tag" style="color:${color};">👤 ${r.userName} <span style="color:var(--text-muted); font-weight:normal;">(${tag})</span></div>
+    <b>${starIcons}</b> <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:4px;">${r.createdAt}</span>
+    <span style="font-size:14px; display:block; margin-top:6px; color:var(--text-main);">${r.reviewText}</span>
+  </div>`;
 }
 
 function loadReviews(){
@@ -1163,24 +1266,14 @@ function loadReviews(){
     if (itemReviews.length > 0) {
       let sum = 0;
       itemReviews.forEach(r => {
-        sum += parseInt(r.rating); let starIcons = "⭐".repeat(parseInt(r.rating));
-        
-        let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
-        let longPressCode = isMyReview ? `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"` : "";
-        let deleteHint = isMyReview ? `<div style="font-size:10px; color:#d32f2f; margin-top:8px; font-weight:bold;">💡 Long press (2s) to delete</div>` : "";
-
-        box.innerHTML += `<div class="review-box" style="border-left: 3px solid gold;" ${longPressCode}>
-          <div class="review-name-tag">👤 ${r.userName}</div>
-          <b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right;">${r.createdAt}</span><br> 
-          <span style="color:#555; font-size:14px;">${r.reviewText}</span>
-          ${deleteHint}
-        </div>`;
+        sum += parseInt(r.rating);
+        box.innerHTML += renderReviewHTML(r, currentUserId);
       });
       let avg = (sum / itemReviews.length).toFixed(1);
       statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${itemReviews.length} | औसत: ${avg} ⭐` : `Total Reviews: ${itemReviews.length} | Avg: ${avg} ⭐`;
       statsBox.style.display = "inline-block";
     } else {
-      box.innerHTML = `<p style='color:#777; font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none";
+      box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none";
     }
   });
 }
@@ -1196,24 +1289,14 @@ function loadAppReviews() {
     if(appRev.length > 0) {
       let sum = 0;
       appRev.forEach(r => {
-        sum += parseInt(r.rating); let starIcons = "⭐".repeat(parseInt(r.rating));
-        
-        let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
-        let longPressCode = isMyReview ? `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"` : "";
-        let deleteHint = isMyReview ? `<div style="font-size:10px; color:#d32f2f; margin-top:8px; font-weight:bold;">💡 Long press (2s) to delete</div>` : "";
-
-        box.innerHTML += `<div class="review-box" style="border-left: 4px solid #9c27b0;" ${longPressCode}>
-          <div class="app-review-name-tag">👤 ${r.userName}</div>
-          <b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right; margin-right: 10px;">${r.createdAt}</span><br>
-          <span style="color:#444; font-size:14px; display:block; margin-top:5px; font-weight:500;">${r.reviewText}</span>
-          ${deleteHint}
-        </div>`;
+        sum += parseInt(r.rating);
+        box.innerHTML += renderReviewHTML(r, currentUserId);
       });
       let avg = (sum / appRev.length).toFixed(1);
       statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${appRev.length} | औसत: ${avg} ⭐` : `Total Reviews: ${appRev.length} | Avg: ${avg} ⭐`;
       statsBox.style.display = "inline-block";
     } else {
-      box.innerHTML = `<p style='color:#777; font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!"}</p>`; statsBox.style.display = "none";
+      box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!"}</p>`; statsBox.style.display = "none";
     }
   });
 }
@@ -1228,54 +1311,14 @@ function showAllReviews() {
     let revs = [...globalAllReviews].reverse();
     if(revs.length > 0) {
       revs.forEach(r => {
-        let starIcons = "⭐".repeat(parseInt(r.rating));
-        let color = r.type === "APP" ? "#9c27b0" : "gold"; let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
-
-        let isMyReview = (r.userId === currentUserId || currentUserId === "Guest");
-        let longPressCode = isMyReview ? `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"` : "";
-        let deleteHint = isMyReview ? `<div style="font-size:10px; color:#d32f2f; margin-top:8px; font-weight:bold;">💡 Long press (2s) to delete</div>` : "";
-
-        box.innerHTML += `<div class="review-box" style="border-left: 4px solid ${color};" ${longPressCode}>
-          <div class="app-review-name-tag" style="color:${color}">👤 ${r.userName} (${tag})</div>
-          <b>${starIcons}</b> <span style="font-size:12px; color:#888; float:right; margin-right: 10px;">${r.createdAt}</span><br> 
-          <span style="color:#444; font-size:14px; display:block; margin-top:5px; font-weight:500;">${r.reviewText}</span>
-          ${deleteHint}
-        </div>`;
+        box.innerHTML += renderReviewHTML(r, currentUserId);
       });
     } else {
-      box.innerHTML = "<p style='text-align:center; color:#777; font-weight:bold; margin-top: 20px;'>No reviews yet!</p>";
+      box.innerHTML = "<p style='text-align:center; color:var(--text-muted); font-weight:bold; margin-top: 20px;'>No reviews yet!</p>";
     }
   });
 }
 
-// 🛠️ TESTING SYSTEM START
-function openTestingModal() { document.getElementById("testPass").value = ""; document.getElementById("testingPassModal").style.display = "flex"; }
-function closeTestingModal() { document.getElementById("testingPassModal").style.display = "none"; }
-function checkTestingPass() {
-  let pass = document.getElementById("testPass").value;
-  if(pass === "0276"){ closeTestingModal(); document.getElementById("testingActionModal").style.display = "flex"; }
-  else { showError(isHindiLanguage ? "❌ गलत पासवर्ड" : "❌ Wrong Password"); }
-}
-function closeTestingActionModal() { document.getElementById("testingActionModal").style.display = "none"; }
-
-function placeTestingOrder() {
-  let banMins = checkBanStatus();
-  if (banMins > 0) { showError(`🚫 You are blocked! Try again in ${banMins} minutes.`); return; }
-  if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
-  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  if (!user || !user.liveLoc) { showError("⚠️ Please Login first"); return; }
-  let orderDetails = ""; let totalPrice = 0; let totalQty = 0;
-  cartData.forEach(i => { totalPrice += (i.price * i.qty); totalQty += i.qty; orderDetails += `${i.internalName} (x${i.qty}), `; });
-  let deliveryCharge = totalQty > 6 ? 10 : 15; let finalTotal = totalPrice + deliveryCharge;
-  let msg = `🛠️ *TESTING ORDER*\n\n*Items:* ${orderDetails}\n*Total:* ₹${finalTotal}\n\n*Customer:* ${user.name}\n*Phone:* ${user.phone}\n*Address:* ${user.address}\n*Loc:* ${user.liveLoc}`;
-
-  closeTestingActionModal(); document.getElementById("loadingScreen").style.display = "flex";
-  setTimeout(() => {
-    document.getElementById("loadingScreen").style.display = "none"; waitingForWhatsAppReturn = true;
-    window.location.href = "https://wa.me/917988300872?text=" + encodeURIComponent(msg);
-  }, 1500); 
-}
-// 🛠️ TESTING SYSTEM END
 </script>
 </body>
 </html>
