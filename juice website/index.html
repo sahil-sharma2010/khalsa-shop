@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -542,27 +543,13 @@ function hideLoading() {
 }
 
 // 🌟 Premium Popup Functions
-function showReviewCelebration() {
-  document.getElementById("reviewSuccessModal").style.display = "flex";
-}
-function closeReviewSuccess() {
-  document.getElementById("reviewSuccessModal").style.display = "none";
-}
-
-function showDeleteConfirmPopup(id) {
-  reviewToDelete = id;
-  document.getElementById("deleteConfirmModal").style.display = "flex";
-}
-function closeDeleteConfirm() {
-  reviewToDelete = null;
-  document.getElementById("deleteConfirmModal").style.display = "none";
-}
+function showReviewCelebration() { document.getElementById("reviewSuccessModal").style.display = "flex"; }
+function closeReviewSuccess() { document.getElementById("reviewSuccessModal").style.display = "none"; }
+function showDeleteConfirmPopup(id) { reviewToDelete = id; document.getElementById("deleteConfirmModal").style.display = "flex"; }
+function closeDeleteConfirm() { reviewToDelete = null; document.getElementById("deleteConfirmModal").style.display = "none"; }
 
 document.getElementById("confirmDeleteBtn").onclick = function() {
-  if (reviewToDelete) {
-    deleteReview(reviewToDelete);
-    closeDeleteConfirm();
-  }
+  if (reviewToDelete) { deleteReview(reviewToDelete); closeDeleteConfirm(); }
 };
 
 // 🛡️ 24-Hour Ban System
@@ -570,36 +557,23 @@ function checkBanStatus() {
   let banTime = localStorage.getItem("khalsaOrderBan");
   if (banTime) {
     let diff = Date.now() - parseInt(banTime);
-    if (diff < 86400000) {  // 24 hours in milliseconds
+    if (diff < 86400000) { 
       let remainingHours = Math.ceil((86400000 - diff) / 3600000);
       return remainingHours;
-    } else {
-      localStorage.removeItem("khalsaOrderBan"); 
-    }
+    } else { localStorage.removeItem("khalsaOrderBan"); }
   }
   return 0;
 }
-
-function applyOrderBan() {
-  localStorage.setItem("khalsaOrderBan", Date.now().toString());
-}
+function applyOrderBan() { localStorage.setItem("khalsaOrderBan", Date.now().toString()); }
 
 // 🛡️ Advanced Filter Engine 
 function filterText(text) {
-  let hasBadWord = false;
-  let detectedWord = "";
-  let cleanText = text;
-
+  let hasBadWord = false; let detectedWord = ""; let cleanText = text;
   BANNED_WORDS.forEach(word => {
     let patternStr = word.split('').map(char => char + '+\\s*\\W*').join('');
     let regex = new RegExp(patternStr, 'gi');
-    if (regex.test(cleanText)) {
-      hasBadWord = true;
-      detectedWord = word;
-      cleanText = cleanText.replace(regex, '****');
-    }
+    if (regex.test(cleanText)) { hasBadWord = true; detectedWord = word; cleanText = cleanText.replace(regex, '****'); }
   });
-
   return { clean: cleanText, isBad: hasBadWord, word: detectedWord };
 }
 
@@ -607,7 +581,6 @@ document.getElementById("reviewText").addEventListener("input", function() {
   let result = filterText(this.value);
   document.getElementById("itemReviewWarning").style.display = result.isBad ? "block" : "none";
 });
-
 document.getElementById("appReviewText").addEventListener("input", function() {
   let result = filterText(this.value);
   document.getElementById("appReviewWarning").style.display = result.isBad ? "block" : "none";
@@ -615,7 +588,6 @@ document.getElementById("appReviewText").addEventListener("input", function() {
 
 window.onload = function() {
   updateMarqueeAndStats();
-
   let savedData = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (savedData) {
     document.getElementById("l_name").value = savedData.name || "";
@@ -628,24 +600,16 @@ window.onload = function() {
     document.getElementById("l_email").value = savedData.email || "";
     lockInputs(); 
   }
-  
   if(localStorage.getItem("khalsaTheme") === "dark") {
-    isDarkMode = true;
-    document.body.classList.add("dark-mode");
+    isDarkMode = true; document.body.classList.add("dark-mode");
   }
-  
   updateLanguageUI();
 };
 
 function toggleTheme() {
   isDarkMode = !isDarkMode;
-  if(isDarkMode) {
-    document.body.classList.add("dark-mode");
-    localStorage.setItem("khalsaTheme", "dark");
-  } else {
-    document.body.classList.remove("dark-mode");
-    localStorage.setItem("khalsaTheme", "light");
-  }
+  if(isDarkMode) { document.body.classList.add("dark-mode"); localStorage.setItem("khalsaTheme", "dark"); } 
+  else { document.body.classList.remove("dark-mode"); localStorage.setItem("khalsaTheme", "light"); }
 }
 
 function updateMarqueeAndStats() {
@@ -653,88 +617,50 @@ function updateMarqueeAndStats() {
   let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
   let sorted = Object.keys(tracker).map(n => ({name: n, qty: tracker[n]})).sort((a,b) => b.qty - a.qty).slice(0, 5);
   let marqueeEl = document.getElementById("mainMarqueeText");
-  
   if (today.getDate() === 1 && sorted.length > 0) {
     let marqueeTextEn = "🏆 TOP BUYERS OF THE MONTH: ";
     let marqueeTextHi = "🏆 इस महीने के टॉप खरीदार: ";
-    
-    sorted.forEach((c, i) => {
-      marqueeTextEn += `${i+1}. ${c.name} ⭐ `;
-      marqueeTextHi += `${i+1}. ${c.name} ⭐ `;
-    });
-    
-    marqueeEl.setAttribute("data-en", marqueeTextEn);
-    marqueeEl.setAttribute("data-hi", marqueeTextHi);
+    sorted.forEach((c, i) => { marqueeTextEn += `${i+1}. ${c.name} ⭐ `; marqueeTextHi += `${i+1}. ${c.name} ⭐ `; });
+    marqueeEl.setAttribute("data-en", marqueeTextEn); marqueeEl.setAttribute("data-hi", marqueeTextHi);
     marqueeEl.innerText = isHindiLanguage ? marqueeTextHi : marqueeTextEn;
   } else {
     let defEn = "📲 GO TO YOUR ACCOUNT AND DOWNLOAD THE APP IT WILL TAKE LITTLE TIME TO DOWNLOAD  🟢  🚨 REMEMBER TO UPDATE YOUR LOCATION IN THE LOGIN PROFILE IF YOU CHANGE IT FOR AN ORDER. THANKS 😊  🟢  🎉 CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎉  🟢";
     let defHi = "📲 अकाउंट में जाएं और ऐप डाउनलोड करें, इसे डाउनलोड होने में थोड़ा समय लगेगा  🟢  🚨 अगर आप ऑर्डर के लिए जगह बदलते हैं तो लॉगिन प्रोफाइल में अपनी लोकेशन अपडेट करना याद रखें। धन्यवाद 😊  🟢  🎉 शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎉  🟢";
-    
-    marqueeEl.setAttribute("data-en", defEn);
-    marqueeEl.setAttribute("data-hi", defHi);
+    marqueeEl.setAttribute("data-en", defEn); marqueeEl.setAttribute("data-hi", defHi);
     marqueeEl.innerText = isHindiLanguage ? defHi : defEn;
   }
 }
 
 function toggleLanguage() {
-  isHindiLanguage = !isHindiLanguage;
-  updateLanguageUI();
-  if(isHindiLanguage) {
-    showSuccessMsg("🌐 Language set to Hindi");
-  } else {
-    showSuccessMsg("🌐 Language set to English");
-  }
+  isHindiLanguage = !isHindiLanguage; updateLanguageUI();
+  if(isHindiLanguage) { showSuccessMsg("🌐 Language set to Hindi"); } else { showSuccessMsg("🌐 Language set to English"); }
 }
 
 function updateLanguageUI() {
   let lang = isHindiLanguage ? 'hi' : 'en';
-  
-  document.querySelectorAll('.translatable').forEach(el => {
-    if(el.getAttribute('data-' + lang)) {
-      el.innerHTML = el.getAttribute('data-' + lang);
-    }
-  });
-
-  document.querySelectorAll('.translatable-ph').forEach(el => {
-    if(el.getAttribute('data-' + lang)) {
-      el.placeholder = el.getAttribute('data-' + lang);
-    }
-  });
-  
+  document.querySelectorAll('.translatable').forEach(el => { if(el.getAttribute('data-' + lang)) { el.innerHTML = el.getAttribute('data-' + lang); } });
+  document.querySelectorAll('.translatable-ph').forEach(el => { if(el.getAttribute('data-' + lang)) { el.placeholder = el.getAttribute('data-' + lang); } });
   if(document.getElementById("detail").style.display === "block" && internalItemName !== "") {
     let currentItemNode = document.querySelector(`.item h3[data-en="${internalItemName}"]`);
     if(currentItemNode) nameLabel.innerText = currentItemNode.getAttribute('data-' + lang);
     loadReviews(); 
   }
-  
-  if(document.getElementById("cart").style.display === "block") {
-    showCart(); 
-  }
+  if(document.getElementById("cart").style.display === "block") { showCart(); }
 }
 
 function doSearch() {
   let input = document.getElementById('searchInput').value.toLowerCase();
   let items = document.querySelectorAll('.menu .item');
   let matchCount = 0;
-
   items.forEach(itemNode => {
     let titleEn = itemNode.querySelector('h3').getAttribute('data-en').toLowerCase();
     let titleHi = itemNode.querySelector('h3').getAttribute('data-hi').toLowerCase();
-    
-    if(titleEn.includes(input) || titleHi.includes(input)) {
-      itemNode.style.display = "block";
-      matchCount++;
-    } else {
-      itemNode.style.display = "none";
-    }
+    if(titleEn.includes(input) || titleHi.includes(input)) { itemNode.style.display = "block"; matchCount++; } 
+    else { itemNode.style.display = "none"; }
   });
-
   if(matchCount === 0) {
     showError(isHindiLanguage ? "माफ़ करें, यह उत्पाद उपलब्ध नहीं है" : "SORRY THIS PRODUCT IS NOT AVAILABLE");
-    setTimeout(() => {
-      items.forEach(itemNode => itemNode.style.display = "block");
-      document.getElementById('searchInput').value = "";
-    }, 2000);
+    setTimeout(() => { items.forEach(itemNode => itemNode.style.display = "block"); document.getElementById('searchInput').value = ""; }, 2000);
   }
 }
 
@@ -742,164 +668,77 @@ function showTerms() { hideAll(); document.getElementById("termsModal").style.di
 function closeTerms() { document.getElementById("termsModal").style.display = "none"; showAccountPage(); }
 
 function showBestSeller() {
-  hideAll();
-  let sales = JSON.parse(localStorage.getItem("khalsaSalesTracker")) || {};
+  hideAll(); let sales = JSON.parse(localStorage.getItem("khalsaSalesTracker")) || {};
   let bestItem = ""; let maxSales = 0;
-  
-  for(let key in sales) {
-    if(sales[key] > maxSales) { maxSales = sales[key]; bestItem = key; }
-  }
-
-  let titleNode = document.getElementById("bs_productName");
-  let countNode = document.getElementById("bs_soldCount");
-  
-  if(bestItem === "") {
-    titleNode.innerText = isHindiLanguage ? "अभी तक कोई बिक्री नहीं हुई!" : "No sales yet!";
-    countNode.innerText = "";
-  } else {
-    let displayItem = bestItem;
-    let node = document.querySelector(`.item h3[data-en="${bestItem}"]`);
+  for(let key in sales) { if(sales[key] > maxSales) { maxSales = sales[key]; bestItem = key; } }
+  let titleNode = document.getElementById("bs_productName"); let countNode = document.getElementById("bs_soldCount");
+  if(bestItem === "") { titleNode.innerText = isHindiLanguage ? "अभी तक कोई बिक्री नहीं हुई!" : "No sales yet!"; countNode.innerText = ""; } 
+  else {
+    let displayItem = bestItem; let node = document.querySelector(`.item h3[data-en="${bestItem}"]`);
     if(node && isHindiLanguage) displayItem = node.getAttribute('data-hi');
-
-    titleNode.innerText = "🏆 " + displayItem;
-    countNode.innerText = isHindiLanguage ? `कुल बिका: ${maxSales} यूनिट्स 🔥` : `Total Sold: ${maxSales} Units 🔥`;
+    titleNode.innerText = "🏆 " + displayItem; countNode.innerText = isHindiLanguage ? `कुल बिका: ${maxSales} यूनिट्स 🔥` : `Total Sold: ${maxSales} Units 🔥`;
   }
-  
   document.getElementById("bestSellerModal").style.display = "flex";
 }
 function closeBestSeller() { document.getElementById("bestSellerModal").style.display = "none"; showAccountPage(); }
 
 function showTopCustomers() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("topCustomersPage").style.display = "block";
-
+  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("topCustomersPage").style.display = "block";
   let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
-  let list = document.getElementById("topCustomersList");
-  list.innerHTML = "";
-
-  let sortedCustomers = Object.keys(tracker).map(name => {
-    return { name: name, qty: tracker[name] };
-  }).sort((a, b) => b.qty - a.qty).slice(0, 5);
-
-  if(sortedCustomers.length === 0) {
-    list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`;
-  } else {
+  let list = document.getElementById("topCustomersList"); list.innerHTML = "";
+  let sortedCustomers = Object.keys(tracker).map(name => { return { name: name, qty: tracker[name] }; }).sort((a, b) => b.qty - a.qty).slice(0, 5);
+  if(sortedCustomers.length === 0) { list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`; } 
+  else {
     sortedCustomers.forEach((c, index) => {
       let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "⭐";
-      list.innerHTML += `<div class="review-box" style="border-left: 4px solid gold; font-size: 15px;">
-        <b style="color: var(--text-main);">${medal} Rank ${index + 1}: ${c.name}</b> <br> 
-        <span style="color:var(--text-muted); display: inline-block; margin-top: 5px;">Total Items Bought: <b>${c.qty}</b> 🛍️</span>
-      </div>`;
+      list.innerHTML += `<div class="review-box" style="border-left: 4px solid gold; font-size: 15px;"><b style="color: var(--text-main);">${medal} Rank ${index + 1}: ${c.name}</b> <br> <span style="color:var(--text-muted); display: inline-block; margin-top: 5px;">Total Items Bought: <b>${c.qty}</b> 🛍️</span></div>`;
     });
   }
 }
 
 function triggerReportAlert(word, fullText) {
-  showError("BAD WORDS ARE DETACTED YOU CANT SHOPING FOR 24 HOURS");
-  applyOrderBan();
-  
-  setTimeout(() => {
-    showError("YOUR REPORT DELETED IN 48 HOURS");
-  }, 2000);
-  
+  showError("BAD WORDS DETECTED YOU CANNOT SHOP FOR 24 HOURS"); applyOrderBan();
+  setTimeout(() => { showError("YOUR REPORT DELETED IN 48 HOURS"); }, 2000);
   let user = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
-  let userName = user.name || "Guest User";
-  let userPhone = user.phone || "No Phone";
-
   let reports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
   reports.unshift({ date: new Date().toLocaleString(), timestamp: Date.now(), word: word, text: fullText });
   localStorage.setItem("khalsaUserReports", JSON.stringify(reports));
-
-  let uniqueTimeId = new Date().getTime(); 
-
-  fetch(GAS_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ 
-        name: userName, 
-        phone: userPhone, 
-        word: word, 
-        review: fullText,
-        uniqueId: uniqueTimeId 
-    })
-  }).catch(err => console.log("Report Error"));
+  fetch(GAS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: user.name || "Guest", phone: user.phone || "No Phone", word: word, review: fullText, uniqueId: new Date().getTime() }) }).catch(err => console.log("Report Error"));
 }
 
 function showReportPage() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("reportPage").style.display = "block";
-  
-  let allReports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
-  let now = Date.now();
+  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("reportPage").style.display = "block";
+  let allReports = JSON.parse(localStorage.getItem("khalsaUserReports")) || []; let now = Date.now();
   let validReports = allReports.filter(r => (now - (r.timestamp || 0)) < 172800000); 
-  
-  if(validReports.length !== allReports.length) {
-    localStorage.setItem("khalsaUserReports", JSON.stringify(validReports));
-  }
-  
-  let container = document.getElementById("reportContainer");
-  container.innerHTML = "";
-  
-  if(validReports.length === 0) {
-    container.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "कोई ब्लॉक की गई समीक्षा नहीं।" : "No blocked reviews."}</p>`;
-  } else {
+  if(validReports.length !== allReports.length) { localStorage.setItem("khalsaUserReports", JSON.stringify(validReports)); }
+  let container = document.getElementById("reportContainer"); container.innerHTML = "";
+  if(validReports.length === 0) { container.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "कोई ब्लॉक की गई समीक्षा नहीं।" : "No blocked reviews."}</p>`; } 
+  else {
     validReports.forEach(r => {
-      container.innerHTML += `<div class="review-box" style="border-left: 4px solid #d32f2f;">
-        <span style="font-size:12px; color:var(--text-muted); float:right;">${r.date}</span><br>
-        <b style="color:#d32f2f;">Blocked Reason: Used '${r.word}'</b><br>
-        <span style="color:var(--text-muted); font-size:14px; display:block; margin-top:5px;">"${r.text}"</span>
-      </div>`;
+      container.innerHTML += `<div class="review-box" style="border-left: 4px solid #d32f2f;"><span style="font-size:12px; color:var(--text-muted); float:right;">${r.date}</span><br><b style="color:#d32f2f;">Blocked Reason: Used '${r.word}'</b><br><span style="color:var(--text-muted); font-size:14px; display:block; margin-top:5px;">"${r.text}"</span></div>`;
     });
   }
 }
 
-function showAccountPage() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("accountPage").style.display="block";
-}
-
-function showDeveloperPage() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("developerPage").style.display="block";
-}
-
-function showAppReviewScreen() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("appReviewSection").style.display="block";
-  loadAppReviews();
-}
-
-function showContactScreen() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("contactSection").style.display="block";
-}
+function showAccountPage() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("accountPage").style.display="block"; }
+function showDeveloperPage() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("developerPage").style.display="block"; }
+function showAppReviewScreen() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("appReviewSection").style.display="block"; loadAppReviews(); }
+function showContactScreen() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("contactSection").style.display="block"; }
 
 function lockInputs() {
   document.querySelectorAll('#loginForm input:not(#l_live_loc), #loginForm textarea').forEach(el => { el.setAttribute('readonly', true); });
-  document.getElementById("editBtn").style.display = "block";
-  document.getElementById("logoutBtn").style.display = "block"; 
-  document.getElementById("saveBtn").style.display = "none";
+  document.getElementById("editBtn").style.display = "block"; document.getElementById("logoutBtn").style.display = "block"; document.getElementById("saveBtn").style.display = "none";
 }
 
 function enableEdit() {
   document.querySelectorAll('#loginForm input:not(#l_live_loc), #loginForm textarea').forEach(el => { el.removeAttribute('readonly'); });
-  document.getElementById("editBtn").style.display = "none";
-  document.getElementById("saveBtn").style.display = "block";
+  document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
 }
 
 function logoutUser() {
   localStorage.removeItem("khalsaUserData");
   document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
-  document.getElementById("editBtn").style.display = "none";
-  document.getElementById("logoutBtn").style.display = "none";
-  document.getElementById("saveBtn").style.display = "block";
+  document.getElementById("editBtn").style.display = "none"; document.getElementById("logoutBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
   showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
 }
 
@@ -913,86 +752,40 @@ function isUserLoggedIn() {
 }
 
 function openDetail(n, i){
-  internalItemName = n; 
-  let lang = isHindiLanguage ? 'hi' : 'en';
+  internalItemName = n; let lang = isHindiLanguage ? 'hi' : 'en';
   let node = document.querySelector(`.item h3[data-en="${n}"]`);
   item = node ? node.getAttribute('data-' + lang) : n; 
-  
-  img.src=i; nameLabel.innerText=item; qty=1;
-  document.getElementById("qty").innerText = qty;
-  
+  img.src=i; nameLabel.innerText=item; qty=1; document.getElementById("qty").innerText = qty;
   if(n=="Mango"||n=="Litchi"||n=="Blueberry"){price=60;} else{price=40;}
   document.getElementById("price").innerText="₹"+price;
-
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="none"; 
-  detail.style.display="block";
-
+  hideAll(); document.getElementById("searchContainerBox").style.display="none"; detail.style.display="block";
   rate(0); loadReviews();
 }
 
-function changeQty(v){
-  qty+=v; if(qty<1) qty=1;
-  document.getElementById("qty").innerText=qty;
-}
-
+function changeQty(v){ qty+=v; if(qty<1) qty=1; document.getElementById("qty").innerText=qty; }
 function addToCart(){
-  let imgSrc=img.src;
-  let found=cartData.find(i=>i.internalName===internalItemName);
+  let imgSrc=img.src; let found=cartData.find(i=>i.internalName===internalItemName);
   if(found){found.qty+=qty;} else{cartData.push({name:item, internalName:internalItemName, price:price, img:imgSrc, qty:qty});}
   showSuccessMsg(isHindiLanguage ? "कार्ट में जोड़ा गया ✅" : "Added to Cart ✅");
 }
 
-function removeFromCart(index) {
-  cartData.splice(index, 1);
-  showSuccessMsg("🗑️");
-  showCart(); 
-}
+function removeFromCart(index) { cartData.splice(index, 1); showSuccessMsg("🗑️ Removed"); showCart(); }
 
 function showCart(){
-  if(!isUserLoggedIn()){
-    showError(isHindiLanguage ? "⚠️ कृपया पहले लॉगिन करें! ℹ️" : "PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️");
-    setTimeout(showLogin, 2000); 
-    return;
-  }
-  hideAll(); document.getElementById("searchContainerBox").style.display="none";
-  document.getElementById("cart").style.display="block";
-
+  if(!isUserLoggedIn()){ showError(isHindiLanguage ? "⚠️ कृपया पहले लॉगिन करें! ℹ️" : "PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
+  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("cart").style.display="block";
   let html="", totalPrice=0, totalQty=0;
   cartData.forEach((i, index)=>{
     let t=i.price*i.qty; totalPrice+=t; totalQty+=i.qty;
-    
-    let displayItem = i.name;
-    let node = document.querySelector(`.item h3[data-en="${i.internalName}"]`);
-    if(node && isHindiLanguage) displayItem = node.getAttribute('data-hi');
-    else if(node && !isHindiLanguage) displayItem = node.getAttribute('data-en');
-
-    html+=`<div class="cart-card">
-      <img src="${i.img}" width="60" style="border-radius:8px;">
-      <div style="flex-grow:1;">
-        <div style="font-weight:bold;">${displayItem}</div>
-        <div style="color:var(--text-muted); font-size:14px;">₹${i.price} x ${i.qty} = <b>₹${t}</b></div>
-      </div>
-      <button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button>
-    </div>`;
+    let displayItem = i.name; let node = document.querySelector(`.item h3[data-en="${i.internalName}"]`);
+    if(node && isHindiLanguage) displayItem = node.getAttribute('data-hi'); else if(node && !isHindiLanguage) displayItem = node.getAttribute('data-en');
+    html+=`<div class="cart-card"><img src="${i.img}" width="60" style="border-radius:8px;"><div style="flex-grow:1;"><div style="font-weight:bold;">${displayItem}</div><div style="color:var(--text-muted); font-size:14px;">₹${i.price} x ${i.qty} = <b>₹${t}</b></div></div><button class="remove-btn" onclick="removeFromCart(${index})">🗑️</button></div>`;
   });
-
   if(cartData.length === 0){
-    document.getElementById("cartItems").innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "आपका कार्ट खाली है 🛒" : "Your Cart is empty 🛒"}</p>`;
-    document.getElementById("total").innerHTML = "";
+    document.getElementById("cartItems").innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "आपका कार्ट खाली है 🛒" : "Your Cart is empty 🛒"}</p>`; document.getElementById("total").innerHTML = "";
   } else {
-    document.getElementById("cartItems").innerHTML=html;
-    let deliveryCharge = totalQty > 6 ? 10 : 15;
-    let finalTotal = totalPrice + deliveryCharge;
-
-    document.getElementById("total").innerHTML = `
-      <div class="cart-summary-box">
-        <div class="summary-row"><span>${isHindiLanguage?"उपयोगकर्ता:":"Subtotal:"}</span> <span>₹${totalPrice}</span></div>
-        <div class="delivery-row"><span>${isHindiLanguage?"डिलीवरी शुल्क:":"Delivery Charge:"}</span> <span>₹${deliveryCharge}</span></div>
-        <div class="total-row"><span>${isHindiLanguage?"कुल:":"Total:"}</span> <span>₹${finalTotal}</span></div>
-        <div class="delivery-note" style="color:var(--text-muted); font-size:12px; margin-top:5px;">${isHindiLanguage?"(6 आइटम तक ₹15, 6 से अधिक के लिए ₹10)":"(₹15 for up to 6 items, ₹10 for more than 6 items)"}</div>
-      </div>
-    `;
+    document.getElementById("cartItems").innerHTML=html; let deliveryCharge = totalQty > 6 ? 10 : 15; let finalTotal = totalPrice + deliveryCharge;
+    document.getElementById("total").innerHTML = `<div class="cart-summary-box"><div class="summary-row"><span>${isHindiLanguage?"उपयोगकर्ता:":"Subtotal:"}</span> <span>₹${totalPrice}</span></div><div class="delivery-row"><span>${isHindiLanguage?"डिलीवरी शुल्क:":"Delivery Charge:"}</span> <span>₹${deliveryCharge}</span></div><div class="total-row"><span>${isHindiLanguage?"कुल:":"Total:"}</span> <span>₹${finalTotal}</span></div><div class="delivery-note" style="color:var(--text-muted); font-size:12px; margin-top:5px;">${isHindiLanguage?"(6 आइटम तक ₹15, 6 से अधिक के लिए ₹10)":"(₹15 for up to 6 items, ₹10 for more than 6 items)"}</div></div>`;
   }
 }
 
@@ -1000,26 +793,14 @@ function showLogin(){ hideAll(); document.getElementById("searchContainerBox").s
 
 function showHistory() {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("historyView").style.display="block";
-  let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
-  let html = "";
-  if(history.length === 0) {
-    html = `<p style='color:var(--text-muted); font-weight:bold; text-align:center; margin-top:20px;'>${isHindiLanguage ? "अभी तक कोई ऑर्डर नहीं दिया गया है।" : "No orders placed yet."}</p>`;
-  } else {
-    history.forEach(h => {
-      html += `<div class="history-card"><div class="h-date">📅 ${h.date}</div><div class="h-items">🛍️ ${h.items}</div><div class="h-total">💰 ${h.total}</div></div>`;
-    });
-  }
+  let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || []; let html = "";
+  if(history.length === 0) { html = `<p style='color:var(--text-muted); font-weight:bold; text-align:center; margin-top:20px;'>${isHindiLanguage ? "अभी तक कोई ऑर्डर नहीं दिया गया है।" : "No orders placed yet."}</p>`; } 
+  else { history.forEach(h => { html += `<div class="history-card"><div class="h-date">📅 ${h.date}</div><div class="h-items">🛍️ ${h.items}</div><div class="h-total">💰 ${h.total}</div></div>`; }); }
   document.getElementById("historyList").innerHTML = html;
 }
 
-function showError(msg) {
-  let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show");
-  setTimeout(() => { errPop.classList.remove("show"); }, 3500);
-}
-function showSuccessMsg(msg) {
-  let succPop = document.getElementById("premiumSuccess"); succPop.innerText = msg; succPop.classList.add("show");
-  setTimeout(() => { succPop.classList.remove("show"); }, 3500);
-}
+function showError(msg) { let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show"); setTimeout(() => { errPop.classList.remove("show"); }, 3500); }
+function showSuccessMsg(msg) { let succPop = document.getElementById("premiumSuccess"); succPop.innerText = msg; succPop.classList.add("show"); setTimeout(() => { succPop.classList.remove("show"); }, 3500); }
 
 function triggerLocationPrompt() { document.getElementById("locationPromptModal").style.display = "flex"; }
 function denyLocation() { document.getElementById("locationPromptModal").style.display = "none"; showError("⚠️ Live Location is mandatory."); }
@@ -1030,83 +811,65 @@ function allowLocation() {
     navigator.geolocation.getCurrentPosition(showPosition, showLocationError);
   } else { showError("⚠️ Geolocation is not supported."); document.getElementById("l_live_loc").value = ""; }
 }
+
+// Fixed: Now showPosition only fills the location and waits for the user to click Login & Save
 function showPosition(position) {
   document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`;
-  autoSaveAndProceed();
+  showSuccessMsg("📍 Location fetched! Now click Login & Save.");
 }
-
-function showLocationError(error) {
-  document.getElementById("l_live_loc").value = ""; showError("⚠️ Error getting location.");
-}
-
+function showLocationError(error) { document.getElementById("l_live_loc").value = ""; showError("⚠️ Error getting location."); }
 function closePinErrorPopup() { document.getElementById("pinErrorModal").style.display = "none"; }
 
-function autoSaveAndProceed() {
-  let nameInput = document.getElementById("l_name").value, phoneInput = document.getElementById("l_phone").value;
-  let addressInput = document.getElementById("l_address").value, liveLocInput = document.getElementById("l_live_loc").value;
-  let houseInput = document.getElementById("l_house").value, galiInput = document.getElementById("l_gali").value;
-  let pinInput = document.getElementById("l_pin").value, emailInput = document.getElementById("l_email").value;
+// 🚀 FIXED PROCESS FORM WITH DEVICE LOCKING AND EMAIL CHECK
+function processForm() {
+  let nameInput = document.getElementById("l_name").value.trim();
+  let phoneInput = document.getElementById("l_phone").value.trim();
+  let addressInput = document.getElementById("l_address").value.trim();
+  let liveLocInput = document.getElementById("l_live_loc").value.trim(); 
+  let houseInput = document.getElementById("l_house").value.trim();
+  let galiInput = document.getElementById("l_gali").value.trim();
+  let pinInput = document.getElementById("l_pin").value.trim();
+  let emailInput = document.getElementById("l_email").value.trim();
 
-  if (pinInput !== "127041" && pinInput !== "125033") { document.getElementById("pinErrorModal").style.display = "flex"; return; }
-  if (nameInput === "" || addressInput === "" || houseInput === "" || galiInput === "" || pinInput === "") { showError("⚠️ Fill all required details!"); return; }
-  if (!/^\d{10}$/.test(phoneInput)) { showError("⚠️ Phone number 10 digits only!"); return; }
-
-  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  let currentDevice = navigator.userAgent; // Yeh current device ki pehchaan hai
-
-  // Check agar number already registered hai aur device alag hai
-  if(regUsers[phoneInput] && regUsers[phoneInput].device !== currentDevice) { 
-      let errPop = document.getElementById("premiumError"); 
-      errPop.innerText = "THIS NUMBER IS ALREADY LOGIN IN ANOTHER DEVICE"; 
-      errPop.classList.add("show");
-      
-      // 2 seconds (2000 milliseconds) ke liye error dikhayein
-      setTimeout(() => { errPop.classList.remove("show"); }, 2000);
-      return; 
+  if (nameInput === "" || phoneInput === "" || addressInput === "" || houseInput === "" || galiInput === "" || pinInput === "" || emailInput === "") {
+    showError("⚠️ Please fill all required details including Email!");
+    return;
   }
-
-  // User ka naam aur device save karein
-  regUsers[phoneInput] = { name: nameInput, device: currentDevice }; 
-  localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
-  localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, house: houseInput, gali: galiInput, pin: pinInput, email: emailInput }));
-  lockInputs(); showSuccessMsg("🎉 READY FOR SHOPPING"); setTimeout(() => { showAccountPage(); }, 1500);
-}
-
-function processForm(){
-  let nameInput = document.getElementById("l_name").value,
-      phoneInput = document.getElementById("l_phone").value,
-      addressInput = document.getElementById("l_address").value,
-      houseInput = document.getElementById("l_house").value,
-      galiInput = document.getElementById("l_gali").value,
-      pinInput = document.getElementById("l_pin").value,
-      emailInput = document.getElementById("L_email").value.trim();
-
-  if (nameInput === "" || addressInput === "" || houseInput === "" || galiInput === "" || emailInput === "") {
-    showError("⚠️ Fill all required details!");
+  
+  if (liveLocInput === "" || liveLocInput.includes("Fetching")) {
+    showError("⚠️ Please get your Live Location first!");
     return;
   }
 
   if (pinInput !== "127041" && pinInput !== "125033") {
-    document.getElementById("errorMsg").innerText = "❌ Delivery only in selected area!";
+    document.getElementById("pinErrorModal").style.display = "flex";
     return;
   }
 
   if (!/^\d{10}$/.test(phoneInput)) {
-    showError("⚠️ Phone number 10 digits hona chahiye!");
+    showError("⚠️ Phone number must be exactly 10 digits!");
     return;
   }
 
-  // baaki tumhara existing code niche same rahega
-}
-
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  if(regUsers[phoneInput] && regUsers[phoneInput] !== nameInput) { showError("⚠️ Number already registered to another name!"); return; }
-  regUsers[phoneInput] = nameInput; localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
+  let currentDevice = navigator.userAgent;
 
-  localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, house: houseInput, gali: galiInput, pin: pinInput, email: emailInput }));
-  lockInputs(); showSuccessMsg("👤 Login Successful!"); setTimeout(() => { showAccountPage(); }, 2000);
+  if (regUsers[phoneInput] && regUsers[phoneInput].device !== currentDevice) {
+    showError("THIS NUMBER IS ALREADY REGISTERED IN ANOTHER DEVICE");
+    return;
+  }
 
+  regUsers[phoneInput] = { name: nameInput, device: currentDevice };
+  localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
+  
+  localStorage.setItem("khalsaUserData", JSON.stringify({ 
+    name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, house: houseInput, gali: galiInput, pin: pinInput, email: emailInput 
+  }));
 
+  lockInputs();
+  showSuccessMsg("🎉 LOGIN SUCCESSFUL! READY FOR SHOPPING");
+  setTimeout(() => { showAccountPage(); }, 1500);
+}
 
 function saveOrderToHistory(finalTotalAmt, orderDetails) {
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
@@ -1116,104 +879,67 @@ function saveOrderToHistory(finalTotalAmt, orderDetails) {
 }
 
 function placeDirectOrder(){
-  let banHours = checkBanStatus();
-  if (banHours > 0) {
-    showError(`🚫 You are blocked! Try again in ${banHours} hours.`);
-    return;
-  }
-
+  let banHours = checkBanStatus(); if (banHours > 0) { showError(`🚫 You are blocked! Try again in ${banHours} hours.`); return; }
   if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError("PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
   if (user.pin !== "127041" && user.pin !== "125033") { document.getElementById("pinErrorModal").style.display = "flex"; return; }
 
   let orderDetails = ""; let totalPrice = 0; let totalQty = 0;
-  
   let orderCounters = JSON.parse(localStorage.getItem("khalsaOrderCounters")) || {};
   let salesTracker = JSON.parse(localStorage.getItem("khalsaSalesTracker")) || {};
   let customerTracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
 
   cartData.forEach(i => {
     let t = i.price * i.qty; totalPrice += t; totalQty += i.qty; 
-    
     let prefix = i.internalName.substring(0,2).toUpperCase();
     orderCounters[prefix] = (orderCounters[prefix] || 0) + 1;
     let specificId = prefix + orderCounters[prefix];
-
     orderDetails += `${i.internalName} (x${i.qty}) [ID: ${specificId}], `;
     salesTracker[i.internalName] = (salesTracker[i.internalName] || 0) + i.qty;
   });
 
-  let customerName = user.name ? user.name : "Guest User";
-  let privacyPhone = user.phone ? `(${user.phone.substring(0,4)}******)` : "";
-  let fullCustomerKey = `${customerName} ${privacyPhone}`;
-  customerTracker[fullCustomerKey] = (customerTracker[fullCustomerKey] || 0) + totalQty;
+  let customerName = user.name ? user.name : "Guest User"; let privacyPhone = user.phone ? `(${user.phone.substring(0,4)}******)` : "";
+  let fullCustomerKey = `${customerName} ${privacyPhone}`; customerTracker[fullCustomerKey] = (customerTracker[fullCustomerKey] || 0) + totalQty;
+  localStorage.setItem("khalsaOrderCounters", JSON.stringify(orderCounters)); localStorage.setItem("khalsaSalesTracker", JSON.stringify(salesTracker)); localStorage.setItem("khalsaCustomerTracker", JSON.stringify(customerTracker));
 
-  localStorage.setItem("khalsaOrderCounters", JSON.stringify(orderCounters));
-  localStorage.setItem("khalsaSalesTracker", JSON.stringify(salesTracker));
-  localStorage.setItem("khalsaCustomerTracker", JSON.stringify(customerTracker));
-
-  let deliveryCharge = totalQty > 6 ? 10 : 15;
-  let finalTotal = totalPrice + deliveryCharge;
-
+  let deliveryCharge = totalQty > 6 ? 10 : 15; let finalTotal = totalPrice + deliveryCharge;
   saveOrderToHistory(finalTotal, orderDetails);
 
   let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nAddress: ${user.address}\nHouse No: ${user.house}, Gali No: ${user.gali}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
-
   let targetPhone = "917988300872";
-
   showLoading("Processing Order...", "ऑर्डर प्रोसेस हो रहा है...");
-
   setTimeout(() => {
-    hideLoading();
-    waitingForWhatsAppReturn = true;
-    window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg);
+    hideLoading(); waitingForWhatsAppReturn = true; window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg);
   }, 1500); 
 }
 
 document.addEventListener("visibilitychange", function() {
   if (document.visibilityState === 'visible' && waitingForWhatsAppReturn) {
     waitingForWhatsAppReturn = false; 
-    let sh = document.getElementById("successHeading");
-    sh.innerText = isHindiLanguage ? "ऑर्डर सफलतापूर्वक प्राप्त हुआ" : "ORDER SUCCESSFULLY";
-    document.getElementById("successPopup").style.display="flex";
-    setTimeout(() => { closeSuccessPopup(); }, 2000);
+    let sh = document.getElementById("successHeading"); sh.innerText = isHindiLanguage ? "ऑर्डर सफलतापूर्वक प्राप्त हुआ" : "ORDER SUCCESSFULLY";
+    document.getElementById("successPopup").style.display="flex"; setTimeout(() => { closeSuccessPopup(); }, 2000);
   }
 });
-
-function closeSuccessPopup() { 
-  document.getElementById("successPopup").style.display="none"; 
-  cartData = []; 
-  back(); 
-}
+function closeSuccessPopup() { document.getElementById("successPopup").style.display="none"; cartData = []; back(); }
 
 function hideAll() {
-  document.getElementById("menu").style.display="none";
-  document.getElementById("appReviewSection").style.display="none"; 
-  document.getElementById("contactSection").style.display="none"; 
-  document.getElementById("detail").style.display="none";
-  document.getElementById("cart").style.display="none";
-  document.getElementById("loginForm").style.display="none";
-  document.getElementById("historyView").style.display="none";
-  document.getElementById("allReviewsPage").style.display="none";
-  document.getElementById("accountPage").style.display="none";
-  document.getElementById("developerPage").style.display="none";
-  document.getElementById("topCustomersPage").style.display="none";
-  document.getElementById("reportPage").style.display="none";
+  document.getElementById("menu").style.display="none"; document.getElementById("appReviewSection").style.display="none"; 
+  document.getElementById("contactSection").style.display="none"; document.getElementById("detail").style.display="none";
+  document.getElementById("cart").style.display="none"; document.getElementById("loginForm").style.display="none";
+  document.getElementById("historyView").style.display="none"; document.getElementById("allReviewsPage").style.display="none";
+  document.getElementById("accountPage").style.display="none"; document.getElementById("developerPage").style.display="none";
+  document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
 }
 
 function back() {
-  hideAll();
-  document.getElementById("searchContainerBox").style.display="flex"; 
-  document.getElementById("menu").style.display="grid";
-  document.getElementById("itemReviewWarning").style.display = "none";
-  document.getElementById("appReviewWarning").style.display = "none";
+  hideAll(); document.getElementById("searchContainerBox").style.display="flex"; document.getElementById("menu").style.display="grid";
+  document.getElementById("itemReviewWarning").style.display = "none"; document.getElementById("appReviewWarning").style.display = "none";
 }
 
 // ==========================================
 // 🌟 GOOGLE SHEETS GLOBAL REVIEWS LOGIC 🌟
 // ==========================================
-
 let rating=0;
 function rate(n){ 
   rating=n; let stars = document.getElementById("itemStarContainer").children;
@@ -1230,25 +956,13 @@ function saveReview(){
   let text = document.getElementById("reviewText").value;
   if(text.trim() === ""){ showError("⚠️ Write a review first!"); return; }
   if(rating == 0){ showError("⚠️ Select a star rating!"); return; }
-
   let filterData = filterText(text);
   if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("reviewText").value = filterData.clean; document.getElementById("itemReviewWarning").style.display = "none"; return; }
-
-  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  let reviewerName = (user && user.name) ? user.name : "Guest User";
-  let reviewerId = (user && user.phone) ? user.phone : "Guest";
-
-  let payload = {
-    id: new Date().getTime().toString(), action: "add", type: "ITEM", productId: internalItemName, rating: rating,
-    reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN')
-  };
-
+  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let reviewerName = (user && user.name) ? user.name : "Guest User"; let reviewerId = (user && user.phone) ? user.phone : "Guest";
+  let payload = { id: new Date().getTime().toString(), action: "add", type: "ITEM", productId: internalItemName, rating: rating, reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN') };
   showLoading("Loading...", "लोड हो रहा है...");
-  fetch(REVIEWS_API_URL, {
-    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload)
-  }).then(() => {
-    hideLoading(); document.getElementById("reviewText").value=""; rate(0); 
-    showReviewCelebration(); setTimeout(loadReviews, 1500);
+  fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(() => {
+    hideLoading(); document.getElementById("reviewText").value=""; rate(0); showReviewCelebration(); setTimeout(loadReviews, 1500);
   }).catch(e => { hideLoading(); showError("Error saving. Please try again."); });
 }
 
@@ -1256,35 +970,20 @@ function saveAppReview() {
   let text = document.getElementById("appReviewText").value;
   if(text.trim() === "") { showError("⚠️ Write your feedback!"); return; }
   if(appRatingVal === 0) { showError("⚠️ Select a star rating!"); return; }
-
   let filterData = filterText(text);
   if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("appReviewText").value = filterData.clean; document.getElementById("appReviewWarning").style.display = "none"; return; }
-
-  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  let reviewerName = (user && user.name) ? user.name : "Guest User";
-  let reviewerId = (user && user.phone) ? user.phone : "Guest";
-
-  let payload = {
-    id: new Date().getTime().toString(), action: "add", type: "APP", productId: "APP", rating: appRatingVal,
-    reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN')
-  };
-
+  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let reviewerName = (user && user.name) ? user.name : "Guest User"; let reviewerId = (user && user.phone) ? user.phone : "Guest";
+  let payload = { id: new Date().getTime().toString(), action: "add", type: "APP", productId: "APP", rating: appRatingVal, reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN') };
   showLoading("Loading...", "लोड हो रहा है...");
-  fetch(REVIEWS_API_URL, {
-    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload)
-  }).then(() => {
-    hideLoading(); document.getElementById("appReviewText").value = ""; appRate(0);
-    showReviewCelebration(); setTimeout(loadAppReviews, 1500);
+  fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(() => {
+    hideLoading(); document.getElementById("appReviewText").value = ""; appRate(0); showReviewCelebration(); setTimeout(loadAppReviews, 1500);
   }).catch(e => { hideLoading(); showError("Error saving. Please try again."); });
 }
 
-// ✏️ Edit & Delete Logic
 function deleteReview(id, skipMsg = false) {
   if(!skipMsg) showLoading("Loading...", "लोड हो रहा है...");
   fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id }) })
-  .then(() => { 
-      if(!skipMsg) { hideLoading(); showSuccessMsg("🗑️ Deleted"); setTimeout(reloadCurrentView, 1000); }
-  });
+  .then(() => { if(!skipMsg) { hideLoading(); showSuccessMsg("🗑️ Deleted"); setTimeout(reloadCurrentView, 1000); } });
 }
 
 function editReview(id, currentText, type, productId, currentRating) {
@@ -1292,33 +991,20 @@ function editReview(id, currentText, type, productId, currentRating) {
   if (newText !== null && newText.trim() !== "") {
     let filterData = filterText(newText);
     if(filterData.isBad) { triggerReportAlert(filterData.word, newText); return; }
-    
     showLoading("Loading...", "लोड हो रहा है...");
-    // First delete old review
     fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id }) })
     .then(() => {
-      // Then add updated review
       let user = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
-      let payload = {
-        id: id, action: "add", type: type, productId: productId, rating: currentRating,
-        reviewText: filterData.clean, userName: user.name || "Guest", userId: user.phone || "Guest", createdAt: new Date().toLocaleString('en-IN') + " (Edited)"
-      };
+      let payload = { id: id, action: "add", type: type, productId: productId, rating: currentRating, reviewText: filterData.clean, userName: user.name || "Guest", userId: user.phone || "Guest", createdAt: new Date().toLocaleString('en-IN') + " (Edited)" };
       fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
       .then(() => { hideLoading(); showSuccessMsg("✏️ Edited Successfully"); setTimeout(reloadCurrentView, 1000); });
     });
   }
 }
 
-// Long Press Logic
 let pressTimer;
-function startPress(id) {
-  pressTimer = setTimeout(() => {
-    showDeleteConfirmPopup(id);
-  }, 2000); // 2 Seconds Long Press
-}
-function cancelPress() {
-  clearTimeout(pressTimer);
-}
+function startPress(id) { pressTimer = setTimeout(() => { showDeleteConfirmPopup(id); }, 2000); }
+function cancelPress() { clearTimeout(pressTimer); }
 
 function reloadCurrentView() {
   if(document.getElementById("detail").style.display === "block") loadReviews();
@@ -1328,81 +1014,42 @@ function reloadCurrentView() {
 
 let globalAllReviews = [];
 function fetchAllReviewsFromDB(callback) {
-  fetch(REVIEWS_API_URL + "?t=" + new Date().getTime())
-    .then(res => res.json())
-    .then(data => { globalAllReviews = data; callback(); })
-    .catch(err => { console.log(err); callback(true); });
+  fetch(REVIEWS_API_URL + "?t=" + new Date().getTime()).then(res => res.json()).then(data => { globalAllReviews = data; callback(); }).catch(err => { console.log(err); callback(true); });
 }
 
 function renderReviewHTML(r, currentUserId) {
-  let starIcons = "⭐".repeat(parseInt(r.rating));
-  let color = r.type === "APP" ? "#9c27b0" : "gold"; 
-  let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
-  
-  // ALL users can now see delete/edit buttons
-  let isMyReview = true; 
-  let actionBtns = "";
-  let longPressCode = "";
-  
+  let starIcons = "⭐".repeat(parseInt(r.rating)); let color = r.type === "APP" ? "#9c27b0" : "gold"; let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
+  let isMyReview = true; let actionBtns = ""; let longPressCode = "";
   if(isMyReview) {
-    actionBtns = `<div class="action-btn-group">
-      <button class="edit-review-btn" onclick="editReview('${r.id}', '${r.reviewText.replace(/'/g,"\\'")}', '${r.type}', '${r.productId}', ${r.rating})">✏️ Edit</button>
-      <button class="delete-review-btn" onclick="showDeleteConfirmPopup('${r.id}')">🗑️ Del</button>
-    </div>`;
+    actionBtns = `<div class="action-btn-group"><button class="edit-review-btn" onclick="editReview('${r.id}', '${r.reviewText.replace(/'/g,"\\'")}', '${r.type}', '${r.productId}', ${r.rating})">✏️ Edit</button><button class="delete-review-btn" onclick="showDeleteConfirmPopup('${r.id}')">🗑️ Del</button></div>`;
     longPressCode = `ontouchstart="startPress('${r.id}')" ontouchend="cancelPress()" ontouchmove="cancelPress()" onmousedown="startPress('${r.id}')" onmouseup="cancelPress()" onmouseleave="cancelPress()"`;
   }
-  
-  return `<div class="review-box" style="border-left: 4px solid ${color};" ${longPressCode}>
-    ${actionBtns}
-    <div class="review-name-tag" style="color:${color};">👤 ${r.userName} <span style="color:var(--text-muted); font-weight:normal;">(${tag})</span></div>
-    <b>${starIcons}</b> <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:4px;">${r.createdAt}</span>
-    <span style="font-size:14px; display:block; margin-top:6px; color:var(--text-main);">${r.reviewText}</span>
-  </div>`;
+  return `<div class="review-box" style="border-left: 4px solid ${color};" ${longPressCode}>${actionBtns}<div class="review-name-tag" style="color:${color};">👤 ${r.userName} <span style="color:var(--text-muted); font-weight:normal;">(${tag})</span></div><b>${starIcons}</b> <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:4px;">${r.createdAt}</span><span style="font-size:14px; display:block; margin-top:6px; color:var(--text-main);">${r.reviewText}</span></div>`;
 }
 
 function loadReviews(){
   let box = document.getElementById("reviews"); let statsBox = document.getElementById("itemReviewStats"); box.innerHTML = "Loading reviews...";
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
-
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
     let itemReviews = globalAllReviews.filter(r => r.type === "ITEM" && r.productId === internalItemName); itemReviews.reverse(); 
-
     if (itemReviews.length > 0) {
-      let sum = 0;
-      itemReviews.forEach(r => {
-        sum += parseInt(r.rating);
-        box.innerHTML += renderReviewHTML(r, currentUserId);
-      });
-      let avg = (sum / itemReviews.length).toFixed(1);
-      statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${itemReviews.length} | औसत: ${avg} ⭐` : `Total Reviews: ${itemReviews.length} | Avg: ${avg} ⭐`;
-      statsBox.style.display = "inline-block";
-    } else {
-      box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none";
-    }
+      let sum = 0; itemReviews.forEach(r => { sum += parseInt(r.rating); box.innerHTML += renderReviewHTML(r, currentUserId); });
+      let avg = (sum / itemReviews.length).toFixed(1); statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${itemReviews.length} | औसत: ${avg} ⭐` : `Total Reviews: ${itemReviews.length} | Avg: ${avg} ⭐`; statsBox.style.display = "inline-block";
+    } else { box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none"; }
   });
 }
 
 function loadAppReviews() {
   let box = document.getElementById("appReviewsList"); let statsBox = document.getElementById("appReviewStats"); box.innerHTML = "Loading...";
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
-
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
     let appRev = globalAllReviews.filter(r => r.type === "APP"); appRev.reverse();
-
     if(appRev.length > 0) {
-      let sum = 0;
-      appRev.forEach(r => {
-        sum += parseInt(r.rating);
-        box.innerHTML += renderReviewHTML(r, currentUserId);
-      });
-      let avg = (sum / appRev.length).toFixed(1);
-      statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${appRev.length} | औसत: ${avg} ⭐` : `Total Reviews: ${appRev.length} | Avg: ${avg} ⭐`;
-      statsBox.style.display = "inline-block";
-    } else {
-      box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!"}</p>`; statsBox.style.display = "none";
-    }
+      let sum = 0; appRev.forEach(r => { sum += parseInt(r.rating); box.innerHTML += renderReviewHTML(r, currentUserId); });
+      let avg = (sum / appRev.length).toFixed(1); statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${appRev.length} | औसत: ${avg} ⭐` : `Total Reviews: ${appRev.length} | Avg: ${avg} ⭐`; statsBox.style.display = "inline-block";
+    } else { box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!"}</p>`; statsBox.style.display = "none"; }
   });
 }
 
@@ -1410,20 +1057,12 @@ function showAllReviews() {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("allReviewsPage").style.display = "block";
   let box = document.getElementById("allReviewsContainer"); box.innerHTML = "Loading all reviews...";
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
-
   fetchAllReviewsFromDB((error) => {
-    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
-    let revs = [...globalAllReviews].reverse();
-    if(revs.length > 0) {
-      revs.forEach(r => {
-        box.innerHTML += renderReviewHTML(r, currentUserId);
-      });
-    } else {
-      box.innerHTML = "<p style='text-align:center; color:var(--text-muted); font-weight:bold; margin-top: 20px;'>No reviews yet!</p>";
-    }
+    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = ""; let revs = [...globalAllReviews].reverse();
+    if(revs.length > 0) { revs.forEach(r => { box.innerHTML += renderReviewHTML(r, currentUserId); }); } 
+    else { box.innerHTML = "<p style='text-align:center; color:var(--text-muted); font-weight:bold; margin-top: 20px;'>No reviews yet!</p>"; }
   });
 }
-
 </script>
 </body>
 </html>
