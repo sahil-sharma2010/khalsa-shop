@@ -495,7 +495,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <input type="text" id="l_house" class="translatable-ph" data-en="House No. (Required)" data-hi="मकान नं. (आवश्यक)" placeholder="House No. (Required)">
   <input type="text" id="l_gali" class="translatable-ph" data-en="Gali No. (Required)" data-hi="गली नं. (आवश्यक)" placeholder="Gali No. (Required)">
   <input type="number" id="l_pin" class="translatable-ph" data-en="Pincode (Only 127041 or 125033)" data-hi="पिनकोड (केवल 127041 या 125033)" placeholder="Pincode (Only 127041 or 125033)">
-  <input type="email" id="l_email" class="translatable-ph" data-en="Gmail (Optional)" data-hi="जीमेल (वैकल्पिक)" placeholder="Gmail (Optional)">
+  <input type="email" id="l_email" class="translatable-ph" data-en="Gmail (Required)" data-hi="जीमेल (आवश्यक)" placeholder="Gmail (Optional)">
 
   <button class="full-btn translatable" id="editBtn" onclick="enableEdit()" style="background:#ff9800; color:white; display:none; margin-bottom:10px;" data-en="✏️ Edit Details" data-hi="✏️ विवरण संपादित करें">✏️ Edit Details</button>
   <button class="full-btn translatable" id="saveBtn" onclick="processForm()" style="background:#00c853; color:white;" data-en="Login & Save" data-hi="लॉगिन और सहेजें">Login & Save</button>
@@ -1052,23 +1052,52 @@ function autoSaveAndProceed() {
   if (!/^\d{10}$/.test(phoneInput)) { showError("⚠️ Phone number 10 digits only!"); return; }
 
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  if(regUsers[phoneInput] && regUsers[phoneInput] !== nameInput) { showError("⚠️ Number already registered to another name!"); return; }
-  regUsers[phoneInput] = nameInput; localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
+  let currentDevice = navigator.userAgent; // Yeh current device ki pehchaan hai
 
+  // Check agar number already registered hai aur device alag hai
+  if(regUsers[phoneInput] && regUsers[phoneInput].device !== currentDevice) { 
+      let errPop = document.getElementById("premiumError"); 
+      errPop.innerText = "THIS NUMBER IS ALREADY LOGIN IN ANOTHER DEVICE"; 
+      errPop.classList.add("show");
+      
+      // 2 seconds (2000 milliseconds) ke liye error dikhayein
+      setTimeout(() => { errPop.classList.remove("show"); }, 2000);
+      return; 
+  }
+
+  // User ka naam aur device save karein
+  regUsers[phoneInput] = { name: nameInput, device: currentDevice }; 
+  localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
   localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, house: houseInput, gali: galiInput, pin: pinInput, email: emailInput }));
   lockInputs(); showSuccessMsg("🎉 READY FOR SHOPPING"); setTimeout(() => { showAccountPage(); }, 1500);
 }
 
 function processForm(){
-  let nameInput = document.getElementById("l_name").value, phoneInput = document.getElementById("l_phone").value;
-  let addressInput = document.getElementById("l_address").value, liveLocInput = document.getElementById("l_live_loc").value;
-  let houseInput = document.getElementById("l_house").value, galiInput = document.getElementById("l_gali").value;
-  let pinInput = document.getElementById("l_pin").value, emailInput = document.getElementById("l_email").value;
+  let nameInput = document.getElementById("l_name").value,
+      phoneInput = document.getElementById("l_phone").value,
+      addressInput = document.getElementById("l_address").value,
+      houseInput = document.getElementById("l_house").value,
+      galiInput = document.getElementById("l_gali").value,
+      pinInput = document.getElementById("l_pin").value,
+      emailInput = document.getElementById("L_email").value.trim();
 
-  if (pinInput !== "127041" && pinInput !== "125033") { document.getElementById("pinErrorModal").style.display = "flex"; return; }
-  if (liveLocInput === "" || liveLocInput.includes("Fetching")) { showError("⚠️ Please get live location first!"); return; }
-  if (nameInput === "" || addressInput === "" || houseInput === "" || galiInput === "" || pinInput === "") { showError("⚠️ Fill all required details!"); return; }
-  if (!/^\d{10}$/.test(phoneInput)) { showError("⚠️ Phone number 10 digits only!"); return; }
+  if (nameInput === "" || addressInput === "" || houseInput === "" || galiInput === "" || emailInput === "") {
+    showError("⚠️ Fill all required details!");
+    return;
+  }
+
+  if (pinInput !== "127041" && pinInput !== "125033") {
+    document.getElementById("errorMsg").innerText = "❌ Delivery only in selected area!";
+    return;
+  }
+
+  if (!/^\d{10}$/.test(phoneInput)) {
+    showError("⚠️ Phone number 10 digits hona chahiye!");
+    return;
+  }
+
+  // baaki tumhara existing code niche same rahega
+}
 
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
   if(regUsers[phoneInput] && regUsers[phoneInput] !== nameInput) { showError("⚠️ Number already registered to another name!"); return; }
@@ -1076,7 +1105,8 @@ function processForm(){
 
   localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, house: houseInput, gali: galiInput, pin: pinInput, email: emailInput }));
   lockInputs(); showSuccessMsg("👤 Login Successful!"); setTimeout(() => { showAccountPage(); }, 2000);
-}
+
+
 
 function saveOrderToHistory(finalTotalAmt, orderDetails) {
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
