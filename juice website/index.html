@@ -314,11 +314,11 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 </div>
 
 <div class="top-sticky-bar">
-  <marquee class="header translatable" scrollamount="4" data-en="WELCOME TO KHALSA SHOP" data-hi="खालसा शॉप में आपका स्वागत है">WELCOME TO KHALSA SHOP</marquee>
+  <div class="header translatable" data-en="WELCOME TO KHALSA SHOP" data-hi="खालसा शॉप में आपका स्वागत है">WELCOME TO KHALSA SHOP</div>
   
   <div class="marquee-wrapper" id="homeMarquee">
-    <div class="marquee-text translatable" id="mainMarqueeText" data-en="WELCOME TO KHALSA SHOP | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" data-hi="खालसा शॉप में आपका स्वागत है | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
-      WELCOME TO KHALSA SHOP | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
+    <div class="marquee-text translatable" id="mainMarqueeText" data-en="GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. REMEMBER WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" data-hi="ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। याद रखें जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
+      GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. REMEMBER WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
     </div>
   </div>
   
@@ -427,13 +427,13 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <p id="appReviewWarning" class="filter-warning translatable" data-en="⚠️ Unsafe word detected!" data-hi="⚠️ आपत्तिजनक शब्द मिला!">⚠️ Unsafe word detected!</p>
   <textarea id="appReviewText" class="translatable-ph" data-en="Write your app review & feature suggestions here..." data-hi="अपनी ऐप समीक्षा और सुझाव यहां लिखें..." placeholder="Write your app review & feature suggestions here..." style="height: 100px;"></textarea>
   <button class="modal-btn translatable" onclick="saveAppReview()" style="background: linear-gradient(45deg, #9c27b0, #ea80fc);" data-en="Submit Feedback" data-hi="प्रतिक्रिया जमा करें">Submit Feedback</button>
+  <button class="back-btn translatable" onclick="back()" style="margin-top: 10px;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 
   <h3 style="margin-top:25px; border-bottom: 2px solid var(--border-color); padding-bottom:8px; text-align: left;" class="translatable" data-en="Community Feedback" data-hi="समुदाय की प्रतिक्रिया">Community Feedback</h3>
   
   <div id="appReviewStats" class="stats-box" style="color: #9c27b0;"></div>
   
   <div id="appReviewsList"></div>
-  <button class="back-btn translatable" onclick="back()" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 </div>
 
 <div class="contact-section" id="contactSection" style="display: none;">
@@ -538,6 +538,9 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 const GAS_URL = "https://script.google.com/macros/s/AKfycbzXP3-WyKrIuvoFb6_cA6UxPKf_KhFt8_Vmz9fuPWMiTiugL-8ZRpAdIogjADKpFLa0/exec";
 const REVIEWS_API_URL = "https://script.google.com/macros/s/AKfycbwwT2GJ-nNrhpjWgaur_w22zujsqVPRfdtTbm2ZgMIg89pb-QKhPp5rRoqVy0zJ3Cfz/exec";
 const NEW_FEATURES_API_URL = "https://script.google.com/macros/s/AKfycbwqeqdVe16pXk1ZFEvx9uZpMZ7gLZrTXjjA_kma_FrGnNoDrp_6EjHvBIZAC3Df1eyk/exec";
+
+// 🌟 NEW: Best Seller API URL added here 🌟
+const BEST_SELLER_API_URL = "https://script.google.com/macros/s/AKfycbw71MLyyHKFZQHwLtcxofcmj_XRHug2DYHOqNwGpWPzm_89yr9wSbKTAOQl31KJlz0k/exec";
 
 // 🌟 Banned Words Dictionary 🌟
 const BANNED_WORDS = [
@@ -699,21 +702,25 @@ function submitTestingPassword() {
   }
 }
 
-// 🌟 FEATURE 4: MONTHLY AUTO-CHANGING HEADLINE 🌟
+// 🌟 FEATURE 4: MONTHLY AUTO-CHANGING HEADLINE (Updated Logic) 🌟
 async function updateHeadlineBanner() {
   let marqueeEl = document.getElementById("mainMarqueeText");
   let today = new Date();
   
-  let defEn = "WELCOME TO KHALSA SHOP | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
-  let defHi = "खालसा शॉप में आपका स्वागत है | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
+  let defEn = "GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. REMEMBER WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
+  let defHi = "ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। याद रखें जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
 
+  // Check if it's the 1st of the month (runs for exactly 24 hours from 00:00 to 23:59)
   if (today.getDate() === 1) {
     try {
-      let res = await fetch(NEW_FEATURES_API_URL + "?action=headline");
+      // 🌟 Calling Top Customers API specifically for the headline banner 🌟
+      let res = await fetch(NEW_FEATURES_API_URL + "?action=topCustomers");
       let data = await res.json();
-      if (data && data.showTopCustomersBanner && data.headlines && data.headlines.length > 0) {
-        let textEn = "👑 TOP 5 HIGHEST BUYING CUSTOMERS 👑 — " + data.headlines.join(" ⭐ ");
-        let textHi = "👑 टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + data.headlines.join(" ⭐ ");
+      
+      if (data && data.length > 0) {
+        let topNames = data.slice(0, 5).map(c => c.userName).join(" ⭐ ");
+        let textEn = "👑 TOP 5 HIGHEST BUYING CUSTOMERS 👑 — " + topNames;
+        let textHi = "👑 टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
         marqueeEl.setAttribute("data-en", textEn);
         marqueeEl.setAttribute("data-hi", textHi);
         marqueeEl.innerText = isHindiLanguage ? textHi : textEn;
@@ -765,7 +772,7 @@ function doSearch() {
 function showTerms() { hideAll(); document.getElementById("termsModal").style.display = "flex"; }
 function closeTerms() { document.getElementById("termsModal").style.display = "none"; showAccountPage(); }
 
-// 🌟 FEATURE 1: GLOBAL BEST SELLER FROM GOOGLE SHEET 🌟
+// 🌟 FEATURE 1: GLOBAL BEST SELLER FROM GOOGLE SHEET (Updated to use new API) 🌟
 async function showBestSeller() {
   hideAll(); 
   document.getElementById("bestSellerModal").style.display = "flex";
@@ -776,7 +783,8 @@ async function showBestSeller() {
   countNode.innerText = ""; 
 
   try {
-    let res = await fetch(NEW_FEATURES_API_URL + "?action=topProducts");
+    // 🌟 Now fetching from the BEST_SELLER_API_URL 🌟
+    let res = await fetch(BEST_SELLER_API_URL + "?action=topProducts");
     let data = await res.json();
     
     if (data && data.length > 0) {
@@ -1150,7 +1158,7 @@ function deleteReview(id, skipMsg = false) {
   let currentUserId = user ? user.phone : "Guest";
 
   let reviewToDel = globalAllReviews.find(r => r.id === id);
-  if (currentUserId === "Guest" || (reviewToDel && reviewToDel.userId !== currentUserId)) {
+  if (currentUserId === "Guest" || (reviewToDel && String(reviewToDel.userId) !== String(currentUserId))) {
       showError("You are not allowed to delete this review.");
       closeDeleteConfirm();
       return;
@@ -1220,8 +1228,8 @@ function fetchAllReviewsFromDB(callback) {
 function renderReviewHTML(r, currentUserId) {
   let starIcons = "⭐".repeat(parseInt(r.rating)); let color = r.type === "APP" ? "#9c27b0" : "gold"; let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
   
-  // 🛡️ User Match Logic here - Only the creator can see Action Buttons
-  let isMyReview = (r.userId === currentUserId && currentUserId !== "Guest"); 
+  // 🛡️ User Match Logic fixed for integer/string mismatch
+  let isMyReview = (String(r.userId) === String(currentUserId) && currentUserId !== "Guest"); 
   let actionBtns = ""; let longPressCode = "";
   
   if(isMyReview) {
@@ -1237,7 +1245,11 @@ function loadReviews(){
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
-    let itemReviews = globalAllReviews.filter(r => r.type === "ITEM" && r.productId === internalItemName); itemReviews.reverse(); 
+    
+    // ITEM REVIEW: All users see all reviews
+    let itemReviews = globalAllReviews.filter(r => r.type === "ITEM" && r.productId === internalItemName); 
+    itemReviews.reverse(); 
+    
     if (itemReviews.length > 0) {
       let sum = 0; itemReviews.forEach(r => { sum += parseInt(r.rating); box.innerHTML += renderReviewHTML(r, currentUserId); });
       let avg = (sum / itemReviews.length).toFixed(1); statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${itemReviews.length} | औसत: ${avg} ⭐` : `Total Reviews: ${itemReviews.length} | Avg: ${avg} ⭐`; statsBox.style.display = "inline-block";
@@ -1250,7 +1262,11 @@ function loadAppReviews() {
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
-    let appRev = globalAllReviews.filter(r => r.type === "APP"); appRev.reverse();
+    
+    // APP REVIEW: All users see all reviews
+    let appRev = globalAllReviews.filter(r => r.type === "APP"); 
+    appRev.reverse();
+    
     if(appRev.length > 0) {
       let sum = 0; appRev.forEach(r => { sum += parseInt(r.rating); box.innerHTML += renderReviewHTML(r, currentUserId); });
       let avg = (sum / appRev.length).toFixed(1); statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${appRev.length} | औसत: ${avg} ⭐` : `Total Reviews: ${appRev.length} | Avg: ${avg} ⭐`; statsBox.style.display = "inline-block";
@@ -1260,12 +1276,16 @@ function loadAppReviews() {
 
 function showAllReviews() {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("allReviewsPage").style.display = "block";
-  let box = document.getElementById("allReviewsContainer"); box.innerHTML = "Loading all reviews...";
+  let box = document.getElementById("allReviewsContainer"); box.innerHTML = "Loading your reviews...";
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
   fetchAllReviewsFromDB((error) => {
-    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = ""; let revs = [...globalAllReviews].reverse();
+    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = ""; 
+    
+    // OUR REVIEWS (My Account): Shows ONLY the current user's reviews using strict String conversion
+    let revs = globalAllReviews.filter(r => String(r.userId) === String(currentUserId)).reverse();
+    
     if(revs.length > 0) { revs.forEach(r => { box.innerHTML += renderReviewHTML(r, currentUserId); }); } 
-    else { box.innerHTML = "<p style='text-align:center; color:var(--text-muted); font-weight:bold; margin-top: 20px;'>No reviews yet!</p>"; }
+    else { box.innerHTML = "<p style='text-align:center; color:var(--text-muted); font-weight:bold; margin-top: 20px;'>आपने अभी तक कोई समीक्षा नहीं दी है! (No reviews yet!)</p>"; }
   });
 }
 </script>
