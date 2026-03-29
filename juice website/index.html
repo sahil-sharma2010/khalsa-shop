@@ -283,9 +283,33 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <div class="premium-modal" style="border-top: 5px solid gold;">
     <div class="modal-icon">🏆</div>
     <h2 style="color: gold;" class="translatable" data-en="BEST SELLER" data-hi="सबसे ज्यादा बिकने वाला">BEST SELLER</h2>
-    <p class="highlight-text" id="bs_productName" style="font-size: 22px; margin: 10px 0; color: var(--text-main);"></p>
-    <p id="bs_soldCount" style="color: var(--text-muted); font-size: 15px; font-weight: bold;"></p>
+    <div id="bs_productName" style="margin: 10px 0; color: var(--text-main); font-size: 16px;"></div>
+    <p id="bs_soldCount" style="color: var(--text-muted); font-size: 15px; font-weight: bold; margin-top: 15px;"></p>
     <button class="black-modal-btn translatable" onclick="closeBestSeller()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button>
+  </div>
+</div>
+
+<div id="testingModeDisableModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #ff416c;">
+    <div class="modal-icon" style="animation: none;">🛠️</div>
+    <h2 style="color: #ff416c;" class="translatable" data-en="Disable Testing Mode?" data-hi="टेस्टिंग मोड बंद करें?">Disable Testing Mode?</h2>
+    <p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to disable testing mode?" data-hi="क्या आप वाकई टेस्टिंग मोड बंद करना चाहते हैं?">Are you sure you want to disable testing mode?</p>
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
+      <button class="modal-btn translatable" style="background:#ff416c; margin-top:0;" onclick="confirmDisableTestingMode()" data-en="Disable" data-hi="बंद करें">Disable</button>
+    </div>
+  </div>
+</div>
+
+<div id="testingModePasswordModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #2196F3;">
+    <div class="modal-icon" style="animation: none;">🔑</div>
+    <h2 style="color: #2196F3;" class="translatable" data-en="PASSWORD REQUIRED" data-hi="पासवर्ड आवश्यक है">PASSWORD REQUIRED</h2>
+    <input type="password" id="testingModePwdInput" class="translatable-ph" data-en="Enter Password..." data-hi="पासवर्ड दर्ज करें..." placeholder="Enter Password..." style="margin-top: 15px; text-align: center; font-size: 16px; letter-spacing: 2px;">
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
+      <button class="modal-btn translatable" style="background:#2196F3; margin-top:0;" onclick="submitTestingPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button>
+    </div>
   </div>
 </div>
 
@@ -293,8 +317,8 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <marquee class="header translatable" scrollamount="4" data-en="WELCOME TO KHALSA SHOP" data-hi="खालसा शॉप में आपका स्वागत है">WELCOME TO KHALSA SHOP</marquee>
   
   <div class="marquee-wrapper" id="homeMarquee">
-    <div class="marquee-text translatable" id="mainMarqueeText" data-en="📲 GO TO YOUR ACCOUNT AND DOWNLOAD THE APP IT WILL TAKE LITTLE TIME TO DOWNLOAD  🟢  🚨 REMEMBER TO UPDATE YOUR LOCATION IN THE LOGIN PROFILE IF YOU CHANGE IT FOR AN ORDER. THANKS 😊  🟢  🎉 CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎉  🟢" data-hi="📲 अकाउंट में जाएं और ऐप डाउनलोड करें, इसे डाउनलोड होने में थोड़ा समय लगेगा  🟢  🚨 अगर आप ऑर्डर के लिए जगह बदलते हैं तो लॉगिन प्रोफाइल में अपनी लोकेशन अपडेट करना याद रखें। धन्यवाद 😊  🟢  🎉 शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎉  🟢">
-      📲 GO TO YOUR ACCOUNT AND DOWNLOAD THE APP IT WILL TAKE LITTLE TIME TO DOWNLOAD  🟢  🚨 REMEMBER TO UPDATE YOUR LOCATION IN THE LOGIN PROFILE IF YOU CHANGE IT FOR AN ORDER. THANKS 😊  🟢  🎉 CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎉  🟢
+    <div class="marquee-text translatable" id="mainMarqueeText" data-en="WELCOME TO KHALSA SHOP | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" data-hi="खालसा शॉप में आपका स्वागत है | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
+      WELCOME TO KHALSA SHOP | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
     </div>
   </div>
   
@@ -338,6 +362,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <a onclick="toggleTheme()" style="font-weight: normal;" class="translatable" data-en="🌙 Theme (Dark/Light)" data-hi="🌙 थीम (डार्क/लाइट)">🌙 Theme (Dark/Light)</a>
     <a onclick="showReportPage()" style="font-weight: bold; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
     <a onclick="showDeveloperPage()" style="font-weight: normal;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</a>
+    <a onclick="toggleTestingModePrompt()" id="testingModeBtn" class="translatable" style="font-weight: normal; color: var(--text-muted);" data-en="🛠️ Testing Mode: OFF" data-hi="🛠️ टेस्टिंग मोड: बंद">🛠️ Testing Mode: OFF</a>
     <a onclick="showTerms()" style="font-weight: normal;" class="translatable" data-en="📄 Terms & Conditions" data-hi="📄 नियम और शर्तें">📄 Terms & Conditions</a>
   </div>
   
@@ -512,11 +537,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 // 🌟 Google Apps Script URLs 🌟
 const GAS_URL = "https://script.google.com/macros/s/AKfycbzXP3-WyKrIuvoFb6_cA6UxPKf_KhFt8_Vmz9fuPWMiTiugL-8ZRpAdIogjADKpFLa0/exec";
 const REVIEWS_API_URL = "https://script.google.com/macros/s/AKfycbwwT2GJ-nNrhpjWgaur_w22zujsqVPRfdtTbm2ZgMIg89pb-QKhPp5rRoqVy0zJ3Cfz/exec";
-
-// ==========================================
-// 🚨 YAHAN APNA GOOGLE SHEET WEB APP URL PASTE KAREIN 👇
-// ==========================================
-const GLOBAL_STATS_API_URL = "YOUR_GOOGLE_SHEET_URL_HERE"; 
+const NEW_FEATURES_API_URL = "https://script.google.com/macros/s/AKfycbwqeqdVe16pXk1ZFEvx9uZpMZ7gLZrTXjjA_kma_FrGnNoDrp_6EjHvBIZAC3Df1eyk/exec";
 
 // 🌟 Banned Words Dictionary 🌟
 const BANNED_WORDS = [
@@ -533,25 +554,6 @@ let waitingForWhatsAppReturn = false;
 let isHindiLanguage = false;
 let isDarkMode = false;
 let reviewToDelete = null;
-
-// Global Stats Store
-let globalStats = { customers: [], products: [] };
-
-function fetchGlobalStatsAndSetMarquee() {
-  if(GLOBAL_STATS_API_URL === "" || GLOBAL_STATS_API_URL.includes("YOUR_GOOGLE_SHEET_URL_HERE")) {
-    updateMarqueeAndStats(); // Fallback to local if URL not set
-    return;
-  }
-  fetch(GLOBAL_STATS_API_URL)
-    .then(res => res.json())
-    .then(data => {
-      globalStats = data;
-      updateMarqueeAndStats();
-    }).catch(err => {
-      console.log("Error fetching global stats", err);
-      updateMarqueeAndStats();
-    });
-}
 
 // 🌟 Loading Screen Manager
 function showLoading(textEn, textHi) {
@@ -610,7 +612,8 @@ document.getElementById("appReviewText").addEventListener("input", function() {
 });
 
 window.onload = function() {
-  fetchGlobalStatsAndSetMarquee(); // Start fetch immediately
+  updateHeadlineBanner(); 
+  setInterval(updateHeadlineBanner, 60000); 
   
   let savedData = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (savedData) {
@@ -627,6 +630,7 @@ window.onload = function() {
   if(localStorage.getItem("khalsaTheme") === "dark") {
     isDarkMode = true; document.body.classList.add("dark-mode");
   }
+  updateTestingModeUI();
   updateLanguageUI();
 };
 
@@ -636,37 +640,96 @@ function toggleTheme() {
   else { document.body.classList.remove("dark-mode"); localStorage.setItem("khalsaTheme", "light"); }
 }
 
-function updateMarqueeAndStats() {
-  let today = new Date();
-  let marqueeEl = document.getElementById("mainMarqueeText");
-  
-  // Choose data source (Global if available, otherwise Local fallback)
-  let customerList = [];
-  if (globalStats.customers && globalStats.customers.length > 0) {
-      customerList = [...globalStats.customers].sort((a,b) => b.qty - a.qty).slice(0,5);
-  } else {
-      let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
-      customerList = Object.keys(tracker).map(n => ({name: n, qty: tracker[n]})).sort((a,b) => b.qty - a.qty).slice(0, 5);
-  }
+// 🌟 FEATURE 5: HIDDEN TESTING MODE 🌟
+function isTestingMode() {
+  return localStorage.getItem("testingMode") === "true";
+}
 
-  // 1st Date Logic
-  if (today.getDate() === 1 && customerList.length > 0) {
-    let marqueeTextEn = "🏆 TOP BUYERS OF THE MONTH: ";
-    let marqueeTextHi = "🏆 इस महीने के टॉप खरीदार: ";
-    customerList.forEach((c, i) => { marqueeTextEn += `${i+1}. ${c.name} ⭐ `; marqueeTextHi += `${i+1}. ${c.name} ⭐ `; });
-    marqueeEl.setAttribute("data-en", marqueeTextEn); marqueeEl.setAttribute("data-hi", marqueeTextHi);
-    marqueeEl.innerText = isHindiLanguage ? marqueeTextHi : marqueeTextEn;
-  } else {
-    // Other days Default Headline
-    let defEn = "📲 GO TO YOUR ACCOUNT AND DOWNLOAD THE APP IT WILL TAKE LITTLE TIME TO DOWNLOAD  🟢  🚨 REMEMBER TO UPDATE YOUR LOCATION IN THE LOGIN PROFILE IF YOU CHANGE IT FOR AN ORDER. THANKS 😊  🟢  🎉 CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎉  🟢";
-    let defHi = "📲 अकाउंट में जाएं और ऐप डाउनलोड करें, इसे डाउनलोड होने में थोड़ा समय लगेगा  🟢  🚨 अगर आप ऑर्डर के लिए जगह बदलते हैं तो लॉगिन प्रोफाइल में अपनी लोकेशन अपडेट करना याद रखें। धन्यवाद 😊  🟢  🎉 शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎉  🟢";
-    marqueeEl.setAttribute("data-en", defEn); marqueeEl.setAttribute("data-hi", defHi);
-    marqueeEl.innerText = isHindiLanguage ? defHi : defEn;
+function updateTestingModeUI() {
+  let btn = document.getElementById("testingModeBtn");
+  if(btn) {
+    let lang = isHindiLanguage ? 'hi' : 'en';
+    if(isTestingMode()) {
+      btn.setAttribute("data-en", "🛠️ Testing Mode: ON (Click to Disable)");
+      btn.setAttribute("data-hi", "🛠️ टेस्टिंग मोड: चालू (बंद करने के लिए क्लिक करें)");
+      btn.style.color = "#ff416c";
+      btn.style.fontWeight = "bold";
+    } else {
+      btn.setAttribute("data-en", "🛠️ Testing Mode: OFF");
+      btn.setAttribute("data-hi", "🛠️ टेस्टिंग मोड: बंद");
+      btn.style.color = "var(--text-muted)";
+      btn.style.fontWeight = "normal";
+    }
+    btn.innerHTML = btn.getAttribute('data-' + lang);
   }
 }
 
+// NEW PREMIUM TOGGLE LOGIC FOR TESTING MODE
+function toggleTestingModePrompt() {
+  if(isTestingMode()) {
+    document.getElementById("testingModeDisableModal").style.display = "flex";
+  } else {
+    document.getElementById("testingModePwdInput").value = "";
+    document.getElementById("testingModePasswordModal").style.display = "flex";
+  }
+}
+
+function closeTestingModals() {
+  document.getElementById("testingModeDisableModal").style.display = "none";
+  document.getElementById("testingModePasswordModal").style.display = "none";
+}
+
+function confirmDisableTestingMode() {
+  localStorage.setItem("testingMode", "false");
+  showSuccessMsg(isHindiLanguage ? "टेस्टिंग मोड बंद ✅" : "Testing Mode Deactivated ✅");
+  updateTestingModeUI();
+  closeTestingModals();
+}
+
+function submitTestingPassword() {
+  let pwd = document.getElementById("testingModePwdInput").value;
+  if(pwd === "0276") {
+    localStorage.setItem("testingMode", "true");
+    showSuccessMsg(isHindiLanguage ? "टेस्टिंग मोड चालू ✅" : "Testing Mode Activated ✅");
+    updateTestingModeUI();
+    closeTestingModals();
+  } else if (pwd.trim() !== "") {
+    showError(isHindiLanguage ? "गलत पासवर्ड ❌" : "Wrong Password ❌");
+    document.getElementById("testingModePwdInput").value = "";
+  }
+}
+
+// 🌟 FEATURE 4: MONTHLY AUTO-CHANGING HEADLINE 🌟
+async function updateHeadlineBanner() {
+  let marqueeEl = document.getElementById("mainMarqueeText");
+  let today = new Date();
+  
+  let defEn = "WELCOME TO KHALSA SHOP | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
+  let defHi = "खालसा शॉप में आपका स्वागत है | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
+
+  if (today.getDate() === 1) {
+    try {
+      let res = await fetch(NEW_FEATURES_API_URL + "?action=headline");
+      let data = await res.json();
+      if (data && data.showTopCustomersBanner && data.headlines && data.headlines.length > 0) {
+        let textEn = "👑 TOP 5 HIGHEST BUYING CUSTOMERS 👑 — " + data.headlines.join(" ⭐ ");
+        let textHi = "👑 टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + data.headlines.join(" ⭐ ");
+        marqueeEl.setAttribute("data-en", textEn);
+        marqueeEl.setAttribute("data-hi", textHi);
+        marqueeEl.innerText = isHindiLanguage ? textHi : textEn;
+        return; 
+      }
+    } catch (e) { console.log("Error fetching headline", e); }
+  }
+
+  marqueeEl.setAttribute("data-en", defEn); marqueeEl.setAttribute("data-hi", defHi);
+  marqueeEl.innerText = isHindiLanguage ? defHi : defEn;
+}
+
 function toggleLanguage() {
-  isHindiLanguage = !isHindiLanguage; updateLanguageUI();
+  isHindiLanguage = !isHindiLanguage; 
+  updateTestingModeUI();
+  updateLanguageUI();
   if(isHindiLanguage) { showSuccessMsg("🌐 Language set to Hindi"); } else { showSuccessMsg("🌐 Language set to English"); }
 }
 
@@ -680,7 +743,7 @@ function updateLanguageUI() {
     loadReviews(); 
   }
   if(document.getElementById("cart").style.display === "block") { showCart(); }
-  updateMarqueeAndStats(); // Update headline language if needed
+  updateHeadlineBanner(); 
 }
 
 function doSearch() {
@@ -702,58 +765,64 @@ function doSearch() {
 function showTerms() { hideAll(); document.getElementById("termsModal").style.display = "flex"; }
 function closeTerms() { document.getElementById("termsModal").style.display = "none"; showAccountPage(); }
 
-// 🌟 GLOBAL BEST SELLER 🌟
-function showBestSeller() {
+// 🌟 FEATURE 1: GLOBAL BEST SELLER FROM GOOGLE SHEET 🌟
+async function showBestSeller() {
   hideAll(); 
   document.getElementById("bestSellerModal").style.display = "flex";
   let titleNode = document.getElementById("bs_productName"); 
   let countNode = document.getElementById("bs_soldCount");
   
-  let bestItem = ""; let maxSales = 0;
+  titleNode.innerText = isHindiLanguage ? "लोड हो रहा है..." : "Loading..."; 
+  countNode.innerText = ""; 
 
-  if(globalStats.products && globalStats.products.length > 0) {
-      let sortedProducts = [...globalStats.products].sort((a,b) => b.sold - a.sold);
-      bestItem = sortedProducts[0].name;
-      maxSales = sortedProducts[0].sold;
-  } else {
-      // Local fallback
-      let sales = JSON.parse(localStorage.getItem("khalsaSalesTracker")) || {};
-      for(let key in sales) { if(sales[key] > maxSales) { maxSales = sales[key]; bestItem = key; } }
-  }
-  
-  if(bestItem === "" || maxSales === 0) { 
-    titleNode.innerText = isHindiLanguage ? "अभी तक कोई बिक्री नहीं हुई!" : "No sales yet!"; 
-    countNode.innerText = ""; 
-  } else {
-    let displayItem = bestItem; let node = document.querySelector(`.item h3[data-en="${bestItem}"]`);
-    if(node && isHindiLanguage) displayItem = node.getAttribute('data-hi');
-    titleNode.innerText = "🏆 " + displayItem; 
-    countNode.innerText = isHindiLanguage ? `कुल बिका: ${maxSales} यूनिट्स 🔥` : `Total Sold: ${maxSales} Units 🔥`;
+  try {
+    let res = await fetch(NEW_FEATURES_API_URL + "?action=topProducts");
+    let data = await res.json();
+    
+    if (data && data.length > 0) {
+      let html = "";
+      data.slice(0, 5).forEach((item, index) => {
+         let rank = index === 0 ? "🏆" : (index + 1) + ".";
+         html += `<div style="margin: 8px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; display:flex; justify-content:space-between; align-items:center;">
+                    <b>${rank} ${item.productName}</b> 
+                    <span style="color: #ff416c;">${item.totalUnits} units</span>
+                  </div>`;
+      });
+      titleNode.innerHTML = html; 
+      countNode.innerText = isHindiLanguage ? "🔥 सबसे ज्यादा बिकने वाले उत्पाद" : "🔥 Top Best Selling Products";
+    } else {
+      titleNode.innerText = isHindiLanguage ? "अभी तक कोई बिक्री नहीं हुई!" : "No sales yet!"; 
+    }
+  } catch (err) {
+    titleNode.innerText = isHindiLanguage ? "डेटा लोड करने में त्रुटि!" : "Error loading data!";
   }
 }
 function closeBestSeller() { document.getElementById("bestSellerModal").style.display = "none"; showAccountPage(); }
 
-// 🌟 GLOBAL TOP CUSTOMERS 🌟
-function showTopCustomers() {
+// 🌟 FEATURE 2: HIGHEST BUYING CUSTOMER FROM GOOGLE SHEET 🌟
+async function showTopCustomers() {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("topCustomersPage").style.display = "block";
   let list = document.getElementById("topCustomersList"); 
-  list.innerHTML = "";
+  list.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-weight:bold;">${isHindiLanguage ? "लोड हो रहा है..." : "Loading..."}</p>`;
   
-  let sortedCustomers = [];
-  if(globalStats.customers && globalStats.customers.length > 0) {
-      sortedCustomers = [...globalStats.customers].sort((a, b) => b.qty - a.qty).slice(0, 5);
-  } else {
-      // Local fallback
-      let tracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
-      sortedCustomers = Object.keys(tracker).map(name => { return { name: name, qty: tracker[name] }; }).sort((a, b) => b.qty - a.qty).slice(0, 5);
-  }
-
-  if(sortedCustomers.length === 0) { list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`; } 
-  else {
-    sortedCustomers.forEach((c, index) => {
-      let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "⭐";
-      list.innerHTML += `<div class="review-box" style="border-left: 4px solid gold; font-size: 15px;"><b style="color: var(--text-main);">${medal} Rank ${index + 1}: ${c.name}</b> <br> <span style="color:var(--text-muted); display: inline-block; margin-top: 5px;">Total Items Bought: <b>${c.qty}</b> 🛍️</span></div>`;
-    });
+  try {
+    let res = await fetch(NEW_FEATURES_API_URL + "?action=topCustomers");
+    let data = await res.json();
+    list.innerHTML = "";
+    
+    if (data && data.length > 0) {
+      data.slice(0, 5).forEach((c, index) => {
+        let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "⭐";
+        list.innerHTML += `<div class="review-box" style="border-left: 4px solid gold; font-size: 15px;">
+          <b style="color: var(--text-main);">${medal} Rank ${index + 1}: ${c.userName}</b> <br> 
+          <span style="color:var(--text-muted); display: inline-block; margin-top: 5px;">Total Spent: <b style="color:#00c853;">₹${c.totalSpent}</b> 🛍️</span>
+        </div>`;
+      });
+    } else {
+      list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`; 
+    }
+  } catch (err) {
+    list.innerHTML = `<p style='text-align:center; color:red; font-weight:bold;'>Error loading data!</p>`;
   }
 }
 
@@ -862,7 +931,7 @@ function showHistory() {
   document.getElementById("historyList").innerHTML = html;
 }
 
-// 🌟 New Custom Error Function Added
+// 🌟 Custom Error Functions Added
 function showError(msg) { let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show"); setTimeout(() => { errPop.classList.remove("show"); }, 3500); }
 function showCustomError(msg, duration) { let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show"); setTimeout(() => { errPop.classList.remove("show"); }, duration); }
 function showSuccessMsg(msg) { let succPop = document.getElementById("premiumSuccess"); succPop.innerText = msg; succPop.classList.add("show"); setTimeout(() => { succPop.classList.remove("show"); }, 3500); }
@@ -919,7 +988,7 @@ function processForm() {
 
   // 🌟 Device verification logic updated here 🌟
   if (regUsers[phoneInput] && regUsers[phoneInput].device !== currentDevice) {
-    showCustomError("THIS NUMBER IS ALREADY REGISTER CHOOSE ANOTHER NUMBER", 2000); // Popup for exactly 2 seconds
+    showCustomError("THIS NUMBER IS ALREADY REGISTER CHOOSE ANOTHER NUMBER", 2000); 
     return;
   }
 
@@ -942,6 +1011,41 @@ function saveOrderToHistory(finalTotalAmt, orderDetails) {
   localStorage.setItem("khalsaOrderHistory", JSON.stringify(history));
 }
 
+// 🌟 Helper for formatting Name
+function cleanUserName(name) {
+  if (!name) return "";
+  return name.trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+}
+
+// 🌟 FEATURE 3: SAVE ORDER TO GOOGLE SHEET 🌟
+function saveOrderToSheet(cartItems, userDetails) {
+  let orderId = "ORD" + Date.now();
+  let dateStr = new Date().toLocaleString();
+  let userName = cleanUserName(userDetails.name || "Guest");
+  let userPhone = userDetails.phone || "";
+
+  cartItems.forEach(item => {
+    let payload = {
+      orderId: orderId,
+      date: dateStr,
+      userName: userName,
+      userPhone: userPhone,
+      productName: item.internalName || item.name,
+      qty: item.qty,
+      price: item.price,
+      total: item.price * item.qty
+    };
+    
+    // Fire and forget POST request so it doesn't block UI
+    fetch(NEW_FEATURES_API_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(err => console.log("Order Sheet Save Error:", err));
+  });
+}
+
 function placeDirectOrder(){
   let banHours = checkBanStatus(); if (banHours > 0) { showError(`🚫 You are blocked! Try again in ${banHours} hours.`); return; }
   if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
@@ -951,8 +1055,6 @@ function placeDirectOrder(){
 
   let orderDetails = ""; let totalPrice = 0; let totalQty = 0;
   let orderCounters = JSON.parse(localStorage.getItem("khalsaOrderCounters")) || {};
-  let salesTracker = JSON.parse(localStorage.getItem("khalsaSalesTracker")) || {};
-  let customerTracker = JSON.parse(localStorage.getItem("khalsaCustomerTracker")) || {};
 
   cartData.forEach(i => {
     let t = i.price * i.qty; totalPrice += t; totalQty += i.qty; 
@@ -960,18 +1062,20 @@ function placeDirectOrder(){
     orderCounters[prefix] = (orderCounters[prefix] || 0) + 1;
     let specificId = prefix + orderCounters[prefix];
     orderDetails += `${i.internalName} (x${i.qty}) [ID: ${specificId}], `;
-    salesTracker[i.internalName] = (salesTracker[i.internalName] || 0) + i.qty;
   });
 
-  let customerName = user.name ? user.name : "Guest User"; let privacyPhone = user.phone ? `(${user.phone.substring(0,4)}******)` : "";
-  let fullCustomerKey = `${customerName} ${privacyPhone}`; customerTracker[fullCustomerKey] = (customerTracker[fullCustomerKey] || 0) + totalQty;
-  localStorage.setItem("khalsaOrderCounters", JSON.stringify(orderCounters)); localStorage.setItem("khalsaSalesTracker", JSON.stringify(salesTracker)); localStorage.setItem("khalsaCustomerTracker", JSON.stringify(customerTracker));
+  localStorage.setItem("khalsaOrderCounters", JSON.stringify(orderCounters)); 
 
   let deliveryCharge = totalQty > 6 ? 10 : 15; let finalTotal = totalPrice + deliveryCharge;
+  
+  saveOrderToSheet(cartData, user);
   saveOrderToHistory(finalTotal, orderDetails);
 
   let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nAddress: ${user.address}\nHouse No: ${user.house}, Gali No: ${user.gali}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
-  let targetPhone = "917988300872";
+  
+  // 🌟 TESTING MODE WHATSAPP ROUTING RULE 🌟
+  let targetPhone = isTestingMode() ? "917988300872" : "919416845322";
+  
   showLoading("Processing Order...", "ऑर्डर प्रोसेस हो रहा है...");
   setTimeout(() => {
     hideLoading(); waitingForWhatsAppReturn = true; window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg);
@@ -1080,10 +1184,7 @@ function fetchAllReviewsFromDB(callback) {
 
 function renderReviewHTML(r, currentUserId) {
   let starIcons = "⭐".repeat(parseInt(r.rating)); let color = r.type === "APP" ? "#9c27b0" : "gold"; let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
-  
-  // 🔥 BUG FIXED HERE 🔥
   let isMyReview = (r.userId === currentUserId && currentUserId !== "Guest"); 
-  
   let actionBtns = ""; let longPressCode = "";
   if(isMyReview) {
     actionBtns = `<div class="action-btn-group"><button class="edit-review-btn" onclick="editReview('${r.id}', '${r.reviewText.replace(/'/g,"\\'")}', '${r.type}', '${r.productId}', ${r.rating})">✏️ Edit</button><button class="delete-review-btn" onclick="showDeleteConfirmPopup('${r.id}')">🗑️ Del</button></div>`;
