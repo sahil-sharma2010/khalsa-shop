@@ -196,6 +196,15 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 /* Filter Warning */
 .filter-warning { color: red; font-size: 12px; font-weight: bold; display: none; text-align: left; margin-bottom: 5px; }
+
+/* Ultra Premium Custom Checkbox Container */
+.premium-checkbox-container {
+  display: flex; align-items: flex-start; gap: 12px; background: rgba(33, 150, 243, 0.05);
+  padding: 15px; border-radius: 12px; border: 1px solid rgba(33, 150, 243, 0.3);
+  cursor: pointer; text-align: left; margin-top: 15px; transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.1);
+}
+.premium-checkbox-container:hover { background: rgba(33, 150, 243, 0.1); }
 </style>
 </head>
 
@@ -268,14 +277,32 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
 </div>
 
-<div id="termsModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #2196F3;">
+<div id="tcWarningModal" class="premium-modal-overlay" style="z-index: 3000;">
+  <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
+    <div class="modal-icon" style="animation: none;">⚠️</div>
+    <h2 style="color: #d32f2f; font-size: 20px;" class="translatable" data-en="Action Denied" data-hi="कार्रवाई अस्वीकृत">Action Denied</h2>
+    <p class="translatable" style="color: var(--text-main); font-weight: bold; margin-top: 10px;" data-en="I have approved my first terms and conditions, now I cannot do anything." data-hi="मैंने अपनी पहली नियम और शर्तें स्वीकार कर ली हैं, अब मैं कुछ नहीं कर सकता।">I have approved my first terms and conditions, now I cannot do anything.</p>
+    <button class="black-modal-btn translatable" style="background: #111;" onclick="document.getElementById('tcWarningModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button>
+  </div>
+</div>
+
+<div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;">
+  <div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;">
     <div class="modal-icon">📄</div>
     <h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
-    <p style="font-size: 12px; text-align: justify; line-height: 1.5; color: var(--text-muted);" class="translatable" data-en="By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms." data-hi="खालसा शॉप का उपयोग करके, आप हमारे नियमों और शर्तों का पालन करने के लिए सहमत हैं। वेबसाइट के माध्यम से दिए गए सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं, इसलिए सही और पूर्ण विवरण प्रदान करना महत्वपूर्ण है। हम गलत जानकारी के कारण होने वाली देरी या समस्याओं के लिए जिम्मेदार नहीं हैं। वस्तुओं की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं। यदि कोई ऑर्डर अमान्य या संदिग्ध लगता है तो हम उसे रद्द करने का अधिकार सुरक्षित रखते हैं। नकली या अधूरे ऑर्डर अस्वीकार किए जा सकते हैं। हमारी सेवा का उपयोग जारी रखकर, आप इन शर्तों को स्वीकार करते हैं।">
-      By using Khalsa Shop, you agree to follow our terms and conditions...
-    </p>
-    <button class="modal-btn translatable" onclick="closeTerms()" data-en="I Accept" data-hi="मैं स्वीकार करता हूँ">I Accept</button>
+    
+    <div style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+      <p style="font-size: 13px; line-height: 1.6; color: var(--text-muted);" class="translatable" data-en="By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms." data-hi="खालसा शॉप का उपयोग करके, आप हमारे नियमों और शर्तों का पालन करने के लिए सहमत हैं। वेबसाइट के माध्यम से दिए गए सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं, इसलिए सही और पूर्ण विवरण प्रदान करना महत्वपूर्ण है। हम गलत जानकारी के कारण होने वाली देरी या समस्याओं के लिए जिम्मेदार नहीं हैं। वस्तुओं की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं। यदि कोई ऑर्डर अमान्य या संदिग्ध लगता है तो हम उसे रद्द करने का अधिकार सुरक्षित रखते हैं। नकली या अधूरे ऑर्डर अस्वीकार किए जा सकते हैं। हमारी सेवा का उपयोग जारी रखकर, आप इन शर्तों को स्वीकार करते हैं।">
+        By using Khalsa Shop, you agree to follow our terms and conditions...
+      </p>
+    </div>
+
+    <label class="premium-checkbox-container">
+      <input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()">
+      <span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span>
+    </label>
+
+    <button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button>
   </div>
 </div>
 
@@ -307,8 +334,8 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <div class="header translatable" data-en="WELCOME TO KHALSA SHOP" data-hi="खालसा शॉप में आपका स्वागत है">WELCOME TO KHALSA SHOP</div>
   
   <div class="marquee-wrapper" id="homeMarquee">
-    <div class="marquee-text translatable" id="mainMarqueeText" data-en="GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. REMEMBER WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" data-hi="ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। याद रखें जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
-      GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. REMEMBER WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
+    <div class="marquee-text translatable" id="mainMarqueeText" data-en="🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" data-hi="🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
+      🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
     </div>
   </div>
   
@@ -364,7 +391,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Select an option below to learn how it works:" data-hi="यह कैसे काम करता है, यह जानने के लिए नीचे एक विकल्प चुनें:">Select an option below to learn how it works:</p>
   
   <div class="account-list-container" id="featuresListContainer">
-     </div>
+  </div>
   
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
@@ -385,33 +412,26 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <div class="detail" id="reportPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</h2>
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Records of blocked reviews" data-hi="ब्लॉक की गई समीक्षाओं का रिकॉर्ड">Records of blocked reviews</p>
-  
   <div id="reportContainer"></div>
-  
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="topCustomersPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff9800;" class="translatable" data-en="👑 Top 5 Customers" data-hi="👑 टॉप 5 ग्राहक">👑 Top 5 Customers</h2>
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Our most loyal shoppers!" data-hi="हमारे सबसे वफादार खरीदार!">Our most loyal shoppers!</p>
-  
   <div id="topCustomersList"></div>
-  
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="developerPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff4b2b;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</h2>
-  
   <div class="premium-account" style="border-color: #ff4b2b; text-align: left; margin-bottom: 10px; padding: 15px; border-radius: 8px;">
     <p style="margin: 5px 0; font-size: 15px;"><strong>Website Developed & Managed By:</strong> Sahil Sharma</p>
     <p style="margin: 5px 0; font-size: 15px;"><strong>Brand:</strong> Khalsa Shop</p>
     <p style="margin: 5px 0; font-size: 15px;"><strong>Developed Date:</strong> 20-03-2026</p>
-    <p style="margin: 5px 0; font-size: 15px;"><strong>Email:</strong> sureshkumar803@gmail.com</p>
-
+    <p style="margin: 5px 0; font-size: 15px;"><strong>Email:</strong> sahilvats0009@gmail.com</p>
     <h3 style="margin-top: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">DEVELOPER FULL BIO</h3>
     <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">This website is developed by Sahil Sharma,<br>Focused on creating fast, clean and user-friendly online shopping experiences.<br>Khalsa Shop website is designed with modern UI/UX principles, smooth navigation and mobile-friendly layout.</p>
-
     <h3 style="margin-top: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">TECHNICAL DETAILS</h3>
     <ul style="font-size: 14px; color: var(--text-muted); padding-left: 20px; line-height: 1.6;">
         <li>HTML5, CSS3, JavaScript</li>
@@ -423,9 +443,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
         <li>Cart & Account Navigation Bar</li>
     </ul>
   </div>
-  
   <p style="text-align: center; font-size: 13px; font-weight: bold; color: var(--text-muted); margin-bottom: 20px;" class="translatable" data-en="CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS" data-hi="पूरी जानकारी के लिए स्क्रीन पर दिख रहे ईमेल पर संपर्क करें">CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS</p>
-  
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
@@ -443,9 +461,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <button class="back-btn translatable" onclick="back()" style="margin-top: 10px;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 
   <h3 style="margin-top:25px; border-bottom: 2px solid var(--border-color); padding-bottom:8px; text-align: left;" class="translatable" data-en="Community Feedback" data-hi="समुदाय की प्रतिक्रिया">Community Feedback</h3>
-  
   <div id="appReviewStats" class="stats-box" style="color: #9c27b0;"></div>
-  
   <div id="appReviewsList"></div>
 </div>
 
@@ -485,9 +501,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <button class="back-btn translatable" onclick="back()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
 
   <h3 style="margin-top:20px; border-bottom: 2px solid var(--border-color); padding-bottom:5px;" class="translatable" data-en="Customer Reviews" data-hi="ग्राहक समीक्षाएं">Customer Reviews</h3>
-  
   <div id="itemReviewStats" class="stats-box" style="color: #2196F3;"></div>
-  
   <div id="reviews"></div>
 </div>
 
@@ -500,7 +514,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <p style="font-weight: bold; font-size: 15px; color: #333; margin-bottom: 5px;" class="translatable" data-en="Is cash on delivery available for this?" data-hi="क्या इसके लिए कैश ऑन डिलीवरी उपलब्ध है?">Is cash on delivery available for this?</p>
     <button class="full-btn translatable" onclick="placeDirectOrder()" style="background:#FFD700; color:black; font-weight:bold; font-size: 16px; padding: 10px; margin-top:5px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);" data-en="📲 Place order" data-hi="📲 ऑर्डर दें">📲 Place order</button>
   </div>
-  
   <button class="back-btn translatable" onclick="back()" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 </div>
 
@@ -522,10 +535,8 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="detail" id="loginForm">
   <h2 style="text-align: center; font-weight: 900; letter-spacing: 1px;" class="translatable" data-en="👤 LOGIN DETAILS" data-hi="👤 लॉगिन विवरण">👤 LOGIN DETAILS</h2>
-  
   <input type="text" id="l_name" class="translatable-ph" data-en="Name (Required)" data-hi="नाम (आवश्यक)" placeholder="Name (Required)">
   <input type="number" id="l_phone" class="translatable-ph" data-en="Phone Number (10 digits only)" data-hi="फ़ोन नंबर (केवल 10 अंक)" placeholder="Phone Number (10 digits only)">
-  
   <textarea id="l_address" class="translatable-ph" data-en="Permanent Address (Required)" data-hi="स्थायी पता (आवश्यक)" placeholder="Permanent Address (Required)"></textarea>
   
   <div style="display: flex; gap: 8px; align-items: center; margin: 8px 0;">
@@ -540,10 +551,9 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
   <button class="full-btn translatable" id="editBtn" onclick="enableEdit()" style="background:#ff9800; color:white; display:none; margin-bottom:10px;" data-en="✏️ Edit Details" data-hi="✏️ विवरण संपादित करें">✏️ Edit Details</button>
   <button class="full-btn translatable" id="saveBtn" onclick="processForm()" style="background:#00c853; color:white;" data-en="Login & Save" data-hi="लॉगिन और सहेजें">Login & Save</button>
-  
   <button class="full-btn translatable" id="logoutBtn" onclick="logoutUser()" style="background:#d32f2f; color:white; display:none; margin-bottom:10px;" data-en="🚪 Logout & Clear Data" data-hi="🚪 लॉगआउट और डेटा हटाएं">🚪 Logout & Clear Data</button>
-
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <p style="text-align:center; font-weight:bold; margin-top:10px; color:var(--text-muted); font-size:12px;" class="translatable" data-en="PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉" data-hi="कृपया अपना पूरा पता दर्ज करें धन्यवाद 🎉">
     PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉
   </p>
@@ -646,6 +656,7 @@ let waitingForWhatsAppReturn = false;
 let isHindiLanguage = false;
 let isDarkMode = false;
 let reviewToDelete = null;
+let isForcedTcMode = false; // Tracks if user is forced to accept T&C during login
 
 // 🌟 Loading Screen Manager
 function showLoading(textEn, textHi) {
@@ -795,8 +806,8 @@ async function updateHeadlineBanner() {
   let marqueeEl = document.getElementById("mainMarqueeText");
   let today = new Date();
   
-  let defEn = "GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. REMEMBER WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
-  let defHi = "ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। याद रखें जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
+  let defEn = "🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
+  let defHi = "🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
 
   if (today.getDate() === 1) {
     try {
@@ -804,7 +815,23 @@ async function updateHeadlineBanner() {
       let data = await res.json();
       
       if (data && data.length > 0) {
-        let topNames = data.slice(0, 5).map(c => c.userName).join(" ⭐ ");
+        // 🌟 NEW LOGIC: Aggregate totals by user name so they don't repeat 🌟
+        let userTotals = {};
+        data.forEach(c => {
+          if (!c.userName) return;
+          let nameKey = c.userName.trim().toLowerCase();
+          let spent = parseFloat(c.totalSpent) || parseFloat(c.total) || 0;
+          if(userTotals[nameKey]) {
+             userTotals[nameKey].totalSpent += spent;
+          } else {
+             userTotals[nameKey] = { userName: c.userName, totalSpent: spent };
+          }
+        });
+        
+        let uniqueCustomers = Object.values(userTotals);
+        uniqueCustomers.sort((a, b) => b.totalSpent - a.totalSpent);
+        let topNames = uniqueCustomers.slice(0, 5).map(c => c.userName).join(" ⭐ ");
+
         let textEn = "👑 TOP 5 HIGHEST BUYING CUSTOMERS 👑 — " + topNames;
         let textHi = "👑 टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
         marqueeEl.setAttribute("data-en", textEn);
@@ -855,8 +882,54 @@ function doSearch() {
   }
 }
 
-function showTerms() { hideAll(); document.getElementById("termsModal").style.display = "flex"; }
-function closeTerms() { document.getElementById("termsModal").style.display = "none"; showAccountPage(); }
+// 🌟 UPDATED: Terms Logic (Forced Login & Persistent Checkbox) 🌟
+function showTerms() { 
+  hideAll(); 
+  document.getElementById("searchContainerBox").style.display = "none"; 
+  document.getElementById("termsModal").style.display = "flex"; 
+  
+  let cb = document.getElementById("tcCheckbox");
+  // If they accepted before, keep it ticked and show back button
+  if (localStorage.getItem("termsAccepted") === "true") {
+      cb.checked = true;
+      document.getElementById("tcCloseBtn").style.display = "block";
+  } else {
+      cb.checked = false;
+      document.getElementById("tcCloseBtn").style.display = "block"; 
+  }
+}
+
+function closeTerms() { 
+  document.getElementById("termsModal").style.display = "none"; 
+  showAccountPage(); 
+}
+
+function handleTcCheck() {
+  let cb = document.getElementById("tcCheckbox");
+  
+  // If they already accepted previously, prevent them from unchecking
+  if (localStorage.getItem("termsAccepted") === "true") {
+      if (!cb.checked) {
+          cb.checked = true; // force back to checked
+          document.getElementById("tcWarningModal").style.display = "flex";
+      }
+      return;
+  }
+  
+  // First time accepting
+  if (cb.checked) {
+      localStorage.setItem("termsAccepted", "true");
+      if (isForcedTcMode) {
+          isForcedTcMode = false;
+          document.getElementById("termsModal").style.display = "none";
+          showSuccessMsg(isHindiLanguage ? "🎉 लॉगिन सफल! खरीदारी के लिए तैयार" : "🎉 LOGIN SUCCESSFUL! READY FOR SHOPPING");
+          setTimeout(() => { showAccountPage(); }, 1500);
+      } else {
+          // If they manually viewed it and ticked it, just close automatically
+          setTimeout(() => { closeTerms(); }, 500);
+      }
+  }
+}
 
 // 🌟 FEATURE 2: HIGHEST BUYING CUSTOMER FROM GOOGLE SHEET 🌟
 async function showTopCustomers() {
@@ -870,13 +943,32 @@ async function showTopCustomers() {
     list.innerHTML = "";
     
     if (data && data.length > 0) {
-      data.slice(0, 5).forEach((c, index) => {
-        let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "⭐";
-        list.innerHTML += `<div class="review-box" style="border-left: 4px solid gold; font-size: 15px;">
-          <b style="color: var(--text-main);">${medal} Rank ${index + 1}: ${c.userName}</b> <br> 
-          <span style="color:var(--text-muted); display: inline-block; margin-top: 5px;">Total Spent: <b style="color:#00c853;">₹${c.totalSpent}</b> 🛍️</span>
-        </div>`;
+      // 🌟 NEW LOGIC: Aggregate totals by user name so they don't repeat 🌟
+      let userTotals = {};
+      data.forEach(c => {
+        if (!c.userName) return;
+        let nameKey = c.userName.trim().toLowerCase();
+        let spent = parseFloat(c.totalSpent) || parseFloat(c.total) || 0;
+        if(userTotals[nameKey]) {
+           userTotals[nameKey].totalSpent += spent;
+        } else {
+           userTotals[nameKey] = { userName: c.userName, totalSpent: spent };
+        }
       });
+      
+      let uniqueCustomers = Object.values(userTotals);
+      uniqueCustomers.sort((a, b) => b.totalSpent - a.totalSpent);
+      let top5 = uniqueCustomers.slice(0, 5);
+
+      if(top5.length > 0) {
+        top5.forEach((c, index) => {
+          let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "⭐";
+          list.innerHTML += `<div class="review-box" style="border-left: 4px solid gold; font-size: 15px;">
+            <b style="color: var(--text-main);">${medal} Rank ${index + 1}: ${c.userName}</b> <br> 
+            <span style="color:var(--text-muted); display: inline-block; margin-top: 5px;">Total Spent: <b style="color:#00c853;">₹${c.totalSpent}</b> 🛍️</span>
+          </div>`;
+        });
+      }
     } else {
       list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`; 
     }
@@ -961,6 +1053,7 @@ function enableEdit() {
 
 function logoutUser() {
   localStorage.removeItem("khalsaUserData");
+  localStorage.removeItem("termsAccepted"); // Reset Terms on logout so they must accept again
   document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
   document.getElementById("editBtn").style.display = "none"; document.getElementById("logoutBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
   showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
@@ -1127,8 +1220,17 @@ function processForm() {
   }));
 
   lockInputs();
-  showSuccessMsg("🎉 LOGIN SUCCESSFUL! READY FOR SHOPPING");
-  setTimeout(() => { showAccountPage(); }, 1500);
+  
+  // 🌟 UPDATED: Force Terms and Conditions on Login 🌟
+  if (localStorage.getItem("termsAccepted") !== "true") {
+      isForcedTcMode = true; // Tell the app we are in forced mode
+      document.getElementById("termsModal").style.display = "flex";
+      document.getElementById("tcCloseBtn").style.display = "none"; // Hide Back button
+      document.getElementById("tcCheckbox").checked = false; // Ensure unticked
+  } else {
+      showSuccessMsg(isHindiLanguage ? "🎉 लॉगिन सफल! खरीदारी के लिए तैयार" : "🎉 LOGIN SUCCESSFUL! READY FOR SHOPPING");
+      setTimeout(() => { showAccountPage(); }, 1500);
+  }
 }
 
 function saveOrderToHistory(finalTotalAmt, orderDetails) {
