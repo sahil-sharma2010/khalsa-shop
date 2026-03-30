@@ -148,7 +148,7 @@ body { margin:0; font-family:sans-serif; background:var(--bg-main); color:var(--
 .review-box {
   background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; 
   box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative;
-  user-select: none; /* Prevents text selection on long press */
+  user-select: none;
   -webkit-user-select: none;
   transition: transform 0.2s, opacity 0.2s, background 0.3s;
 }
@@ -279,16 +279,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
 </div>
 
-<div id="bestSellerModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid gold;">
-    <div class="modal-icon">🏆</div>
-    <h2 style="color: gold;" class="translatable" data-en="BEST SELLER" data-hi="सबसे ज्यादा बिकने वाला">BEST SELLER</h2>
-    <div id="bs_productName" style="margin: 10px 0; color: var(--text-main); font-size: 16px;"></div>
-    <p id="bs_soldCount" style="color: var(--text-muted); font-size: 15px; font-weight: bold; margin-top: 15px;"></p>
-    <button class="black-modal-btn translatable" onclick="closeBestSeller()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button>
-  </div>
-</div>
-
 <div id="testingModeDisableModal" class="premium-modal-overlay">
   <div class="premium-modal" style="border-top: 5px solid #ff416c;">
     <div class="modal-icon" style="animation: none;">🛠️</div>
@@ -347,19 +337,19 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   
   <div class="account-list-container">
    <a href="https://drive.google.com/uc?export=download&id=12HRouGIYMkH2DmhOXgimjSZMrAqafkiZ" target="_blank" style="color:#28a745; font-weight:bold; padding:0; text-decoration:none;">
-  <button class="full-btn translatable" data-en="📲 Download App" data-hi="📲 ऐप डाउनलोड करें" style="margin:0; border-radius:0; padding:18px 0;">
-    📲 Download App
-  </button>
-</a>
+      <button class="full-btn translatable" data-en="📲 Download App" data-hi="📲 ऐप डाउनलोड करें" style="margin:0; border-radius:0; padding:18px 0;">
+        📲 Download App
+      </button>
+    </a>
+    <a onclick="showFeaturesList()" style="font-weight: bold; color: #1e88e5;" class="translatable" data-en="ℹ️ App Features & Uses" data-hi="ℹ️ ऐप की विशेषताएं और उपयोग">ℹ️ App Features & Uses</a>
     <a onclick="showLogin()" style="font-weight: normal;" class="translatable" data-en="🔑 Login" data-hi="🔑 लॉगिन">🔑 Login</a>
     <a onclick="showHistory()" style="font-weight: normal;" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</a>
     <a onclick="showAppReviewScreen()" style="font-weight: normal;" class="translatable" data-en="🌟 Rate App" data-hi="🌟 ऐप को रेट करें">🌟 Rate App</a>
     <a onclick="showContactScreen()" style="font-weight: normal;" class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</a>
     <a onclick="showAllReviews()" style="font-weight: normal;" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</a>
-    <a onclick="showBestSeller()" style="font-weight: normal;" class="translatable" data-en="🏆 Best Seller" data-hi="🏆 सबसे ज्यादा बिकने वाला">🏆 Best Seller</a>
     <a onclick="showTopCustomers()" style="font-weight: normal;" class="translatable" data-en="👑 Highest Buying Customer" data-hi="👑 सबसे ज्यादा खरीदने वाले ग्राहक">👑 Highest Buying Customer</a>
     <a onclick="toggleLanguage()" style="font-weight: normal;" class="translatable" data-en="🌐 Language (Hindi/English)" data-hi="🌐 भाषा (Hindi/English)">🌐 Language (Hindi/English)</a>
-    <a onclick="toggleTheme()" style="font-weight: normal;" class="translatable" data-en="🌙 Theme (Dark/Light)" data-hi="🌙 थीम (डार्क/लाइट)">🌙 Theme (Dark/Light)</a>
+    <a onclick="toggleTheme()" style="font-weight: normal;" class="translatable" data-en="🌙 Theme (Dark/Light)" data-hi="🌙 थीम (डार्क/लाइट)">🌙 थीम (डार्क/लाइट)</a>
     <a onclick="showReportPage()" style="font-weight: bold; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
     <a onclick="showDeveloperPage()" style="font-weight: normal;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</a>
     <a onclick="toggleTestingModePrompt()" id="testingModeBtn" class="translatable" style="font-weight: normal; color: var(--text-muted);" data-en="🛠️ Testing Mode: OFF" data-hi="🛠️ टेस्टिंग मोड: बंद">🛠️ Testing Mode: OFF</a>
@@ -367,6 +357,29 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
   
   <button class="back-btn translatable" onclick="back()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+</div>
+
+<div class="detail" id="featuresListPage" style="padding: 15px;">
+  <h2 style="text-align: center; color: #1e88e5;" class="translatable" data-en="ℹ️ App Features" data-hi="ℹ️ ऐप की विशेषताएं">ℹ️ App Features</h2>
+  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Select an option below to learn how it works:" data-hi="यह कैसे काम करता है, यह जानने के लिए नीचे एक विकल्प चुनें:">Select an option below to learn how it works:</p>
+  
+  <div class="account-list-container" id="featuresListContainer">
+     </div>
+  
+  <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+</div>
+
+<div class="detail" id="featureDetailPage" style="padding: 15px;">
+  <div class="premium-account" style="border-top: 5px solid #1e88e5; text-align: left;">
+     <h2 id="fd-title" style="color: #1e88e5; margin-top: 0; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Feature Title</h2>
+     
+     <h4 style="color: var(--text-main); margin-bottom: 5px;" class="translatable" data-en="Information:" data-hi="जानकारी:">Information:</h4>
+     <p id="fd-info" style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">Information text goes here.</p>
+     
+     <h4 style="color: var(--text-main); margin-top: 20px; margin-bottom: 5px;" class="translatable" data-en="Uses:" data-hi="उपयोग:">Uses:</h4>
+     <div id="fd-uses" style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">Uses text goes here.</div>
+  </div>
+  <button class="back-btn translatable" style="background:#111; color:white; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-top:20px;" onclick="showFeaturesList()" data-en="⬅ Back to Features" data-hi="⬅ पीछे जाएं">⬅ Back to Features</button>
 </div>
 
 <div class="detail" id="reportPage" style="padding: 15px;">
@@ -492,7 +505,10 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 </div>
 
 <div class="detail" id="historyView">
-  <h2 style="text-align: center;" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+    <h2 style="margin: 0; text-align: left;" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</h2>
+    <button onclick="clearAllHistory()" style="background: #d32f2f; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; box-shadow: 0 4px 6px rgba(211, 47, 47, 0.3);" class="translatable" data-en="🗑️ Clear All" data-hi="🗑️ सभी हटाएं">🗑️ Clear All</button>
+  </div>
   <div id="historyList"></div>
   <button class="back-btn translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
@@ -539,15 +555,88 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbzXP3-WyKrIuvoFb6_cA6Ux
 const REVIEWS_API_URL = "https://script.google.com/macros/s/AKfycbwwT2GJ-nNrhpjWgaur_w22zujsqVPRfdtTbm2ZgMIg89pb-QKhPp5rRoqVy0zJ3Cfz/exec";
 const NEW_FEATURES_API_URL = "https://script.google.com/macros/s/AKfycbwqeqdVe16pXk1ZFEvx9uZpMZ7gLZrTXjjA_kma_FrGnNoDrp_6EjHvBIZAC3Df1eyk/exec";
 
-// 🌟 NEW: Best Seller API URL added here 🌟
-const BEST_SELLER_API_URL = "https://script.google.com/macros/s/AKfycbw71MLyyHKFZQHwLtcxofcmj_XRHug2DYHOqNwGpWPzm_89yr9wSbKTAOQl31KJlz0k/exec";
-
 // 🌟 Banned Words Dictionary 🌟
 const BANNED_WORDS = [
-  "porn", "sex", "nude", "scam", "stupid", "idiot", "bitch", "fuck", "asshole", "bastard", "dick", "cock", "pussy",
-  "madarchod", "bhenchod", "chutiya", "randi", "gandu", "kamina", "bhosdike", "bhosdi", "harami", "kutta",
+  "porn", "sex", "nude", "scam", "stupid", "idiot", "***", "***", "***", "***", "***", "***", "***",
+  "***", "***", "***", "***", "***", "***", "***", "***", "***", "***",
   "kill", "murder", "suicide", "terrorist", "spam", "hack", "fraud"
 ];
+
+// 🌟 App Features Database (English & Hindi) 🌟
+const appFeaturesData = {
+  login: {
+    titleEn: "🔑 Login", titleHi: "🔑 लॉगिन",
+    infoEn: "This is a secure system to save your delivery details.", infoHi: "यह आपकी डिलीवरी डिटेल्स को सुरक्षित रूप से सेव करने का सिस्टम है।",
+    usesEn: "• No need to enter your address repeatedly for every order.<br>• Helps in setting up your Live Location accurately.<br>• Restricts orders to valid pincodes only.",
+    usesHi: "• हर ऑर्डर के लिए बार-बार एड्रेस डालने की जरूरत नहीं पड़ती।<br>• अपनी सही लाइव लोकेशन (Live Location) सेट करने में मदद करता है।<br>• सिर्फ सही पिनकोड वाले यूज़र्स को ही ऑर्डर करने देता है।"
+  },
+  history: {
+    titleEn: "📜 Order History", titleHi: "📜 ऑर्डर इतिहास",
+    infoEn: "Keeps a detailed record of all your past orders.", infoHi: "यह आपके द्वारा किए गए सभी पुराने ऑर्डर्स का विस्तृत रिकॉर्ड रखता है।",
+    usesEn: "• View exactly what you bought and how much you paid.<br>• Track your past shopping habits easily.<br>• Use the 'Clear All' button to delete history for convenience.",
+    usesHi: "• आप देख सकते हैं कि आपने पिछली बार क्या खरीदा था और कितने पैसे दिए थे।<br>• अपने पुराने ऑर्डर्स को आसानी से ट्रैक कर सकते हैं।<br>• अपनी सहूलियत के लिए पुरानी हिस्ट्री को 'Clear All' बटन से डिलीट भी कर सकते हैं।"
+  },
+  testing: {
+    titleEn: "🛠️ Testing Mode", titleHi: "🛠️ टेस्टिंग मोड",
+    infoEn: "A hidden developer feature unlocked via a secret password.", infoHi: "यह डेवलपर्स (Developers) के लिए एक छिपा हुआ फीचर है जो एक गुप्त पासवर्ड से खुलता है।",
+    usesEn: "• Test orders without actually sending WhatsApp messages to the shop owner.<br>• Check new UI updates safely before making them live for everyone.",
+    usesHi: "• असली दुकान वाले नंबर पर व्हाट्सएप मैसेज भेजे बिना ऑर्डर टेस्ट करने के काम आता है।<br>• नए अपडेट्स को सभी के लिए लाइव करने से पहले सुरक्षित तरीके से चेक करने में मदद करता है।"
+  },
+  rateApp: {
+    titleEn: "🌟 Rate App", titleHi: "🌟 ऐप को रेट करें",
+    infoEn: "A dedicated section for users to provide feedback about the App interface.", infoHi: "यह यूज़र्स के लिए ऐप इंटरफ़ेस के बारे में फीडबैक देने का एक विशेष सेक्शन है।",
+    usesEn: "• Give a 1 to 5-star rating based on your experience.<br>• Suggest new features you want to see.<br>• Read what other community members are saying.",
+    usesHi: "• अपने अनुभव के आधार पर 1 से 5-स्टार रेटिंग दें।<br>• आप जो नए फीचर्स देखना चाहते हैं, उनका सुझाव दें।<br>• पढ़ें कि समुदाय के अन्य सदस्य क्या कह रहे हैं।"
+  },
+  contact: {
+    titleEn: "📞 Contact Us", titleHi: "📞 हमसे संपर्क करें",
+    infoEn: "Quick access to the developer and shop owner details.", infoHi: "डेवलपर और दुकान के मालिक के विवरण तक त्वरित पहुंच।",
+    usesEn: "• Direct email link for support.<br>• Find contact numbers for booking weddings, parties, and functions.",
+    usesHi: "• सहायता के लिए सीधा ईमेल लिंक।<br>• शादियों, पार्टियों और अन्य कार्यों की बुकिंग के लिए संपर्क नंबर खोजें।"
+  },
+  report: {
+    titleEn: "🚨 Your Report", titleHi: "🚨 आपकी रिपोर्ट",
+    infoEn: "A disciplinary system tracking violations of the app's community guidelines.", infoHi: "ऐप के सामुदायिक दिशानिर्देशों के उल्लंघन को ट्रैक करने वाला एक अनुशासनात्मक सिस्टम।",
+    usesEn: "• Shows a record of reviews blocked due to inappropriate words.<br>• Imposes temporary 24-hour bans for safety.",
+    usesHi: "• अनुचित शब्दों के कारण ब्लॉक की गई समीक्षाओं का रिकॉर्ड दिखाता है।<br>• सुरक्षा के लिए अस्थायी 24-घंटे का प्रतिबंध (Ban) लगाता है।"
+  },
+  ourReviews: {
+    titleEn: "⭐ Our Reviews", titleHi: "⭐ हमारी समीक्षाएं",
+    infoEn: "A personal dashboard showing all the product reviews you have posted.", infoHi: "यह एक पर्सनल डैशबोर्ड है जो आपके द्वारा पोस्ट की गई सभी उत्पाद समीक्षाओं (Product Reviews) को दिखाता है।",
+    usesEn: "• Keep track of your past feedback.<br>• Edit your reviews if you change your mind.<br>• Delete reviews you no longer want visible.",
+    usesHi: "• अपने पुराने फीडबैक पर नज़र रखें।<br>• यदि आपका विचार बदलता है तो अपनी समीक्षाओं को संपादित (Edit) करें।<br>• उन समीक्षाओं को हटाएं (Delete) जिन्हें आप अब दिखाना नहीं चाहते।"
+  },
+  topCustomers: {
+    titleEn: "👑 Highest Buying Customer", titleHi: "👑 सबसे ज्यादा खरीदने वाले ग्राहक",
+    infoEn: "A live leaderboard of the top 5 customers who have spent the most on Khalsa Shop.", infoHi: "खालसा शॉप पर सबसे ज्यादा खर्च करने वाले टॉप 5 ग्राहकों का लाइव लीडरबोर्ड।",
+    usesEn: "• See who the most loyal shoppers are in the community.<br>• Updates automatically based on total order values.",
+    usesHi: "• देखें कि समुदाय में सबसे वफादार खरीदार कौन हैं।<br>• कुल ऑर्डर वैल्यू के आधार पर यह अपने आप अपडेट होता है।"
+  },
+  language: {
+    titleEn: "🌐 Language", titleHi: "🌐 भाषा",
+    infoEn: "A tool to instantly translate the entire application interface.", infoHi: "पूरे ऐप इंटरफ़ेस का तुरंत अनुवाद करने वाला टूल।",
+    usesEn: "• Switch seamlessly between English and Hindi with one click.<br>• Makes shopping easier for users who prefer regional languages.",
+    usesHi: "• एक क्लिक के साथ अंग्रेजी और हिंदी के बीच आसानी से स्विच करें।<br>• उन यूज़र्स के लिए खरीदारी आसान बनाता है जो क्षेत्रीय भाषा पसंद करते हैं।"
+  },
+  theme: {
+    titleEn: "🌙 Theme", titleHi: "🌙 थीम",
+    infoEn: "A visual toggle to change the color scheme of the app.", infoHi: "ऐप के रंगों को बदलने के लिए एक विज़ुअल टॉगल।",
+    usesEn: "• Switch between Light mode and Dark mode.<br>• Dark mode reduces eye strain at night and can save battery on mobile devices.",
+    usesHi: "• लाइट मोड और डार्क मोड के बीच स्विच करें।<br>• डार्क मोड रात में आंखों का तनाव कम करता है और मोबाइल की बैटरी बचा सकता है।"
+  },
+  developer: {
+    titleEn: "👨‍💻 Developer Details", titleHi: "👨‍💻 डेवलपर विवरण",
+    infoEn: "Information about the creator and manager of the Khalsa Shop platform.", infoHi: "खालसा शॉप प्लेटफॉर्म के निर्माता और प्रबंधक के बारे में जानकारी।",
+    usesEn: "• View the technical details of how the app was built.<br>• Find contact information for technical support or reporting bugs.",
+    usesHi: "• ऐप को कैसे बनाया गया है, इसके तकनीकी विवरण देखें।<br>• तकनीकी सहायता या बग रिपोर्ट करने के लिए संपर्क जानकारी प्राप्त करें।"
+  },
+  terms: {
+    titleEn: "📄 Terms & Conditions", titleHi: "📄 नियम और शर्तें",
+    infoEn: "The official rules and guidelines for using the Khalsa Shop service.", infoHi: "खालसा शॉप सेवा का उपयोग करने के आधिकारिक नियम और दिशानिर्देश।",
+    usesEn: "• Understand the policies regarding order confirmation via WhatsApp.<br>• Learn about your rights and responsibilities as a customer.<br>• Review conditions for order cancellation or invalid orders.",
+    usesHi: "• व्हाट्सएप के माध्यम से ऑर्डर की पुष्टि से संबंधित नीतियां समझें।<br>• एक ग्राहक के रूप में अपने अधिकारों और जिम्मेदारियों के बारे में जानें।<br>• ऑर्डर रद्द करने या अमान्य ऑर्डर्स की शर्तों को पढ़ें।"
+  }
+};
 
 let item="", internalItemName="", price=70, qty=1, cartData=[];
 let img = document.getElementById("img");
@@ -667,7 +756,6 @@ function updateTestingModeUI() {
   }
 }
 
-// NEW PREMIUM TOGGLE LOGIC FOR TESTING MODE
 function toggleTestingModePrompt() {
   if(isTestingMode()) {
     document.getElementById("testingModeDisableModal").style.display = "flex";
@@ -710,10 +798,8 @@ async function updateHeadlineBanner() {
   let defEn = "GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. REMEMBER WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
   let defHi = "ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। याद रखें जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
 
-  // Check if it's the 1st of the month (runs for exactly 24 hours from 00:00 to 23:59)
   if (today.getDate() === 1) {
     try {
-      // 🌟 Calling Top Customers API specifically for the headline banner 🌟
       let res = await fetch(NEW_FEATURES_API_URL + "?action=topCustomers");
       let data = await res.json();
       
@@ -772,41 +858,6 @@ function doSearch() {
 function showTerms() { hideAll(); document.getElementById("termsModal").style.display = "flex"; }
 function closeTerms() { document.getElementById("termsModal").style.display = "none"; showAccountPage(); }
 
-// 🌟 FEATURE 1: GLOBAL BEST SELLER FROM GOOGLE SHEET (Updated to use new API) 🌟
-async function showBestSeller() {
-  hideAll(); 
-  document.getElementById("bestSellerModal").style.display = "flex";
-  let titleNode = document.getElementById("bs_productName"); 
-  let countNode = document.getElementById("bs_soldCount");
-  
-  titleNode.innerText = isHindiLanguage ? "लोड हो रहा है..." : "Loading..."; 
-  countNode.innerText = ""; 
-
-  try {
-    // 🌟 Now fetching from the BEST_SELLER_API_URL 🌟
-    let res = await fetch(BEST_SELLER_API_URL + "?action=topProducts");
-    let data = await res.json();
-    
-    if (data && data.length > 0) {
-      let html = "";
-      data.slice(0, 5).forEach((item, index) => {
-         let rank = index === 0 ? "🏆" : (index + 1) + ".";
-         html += `<div style="margin: 8px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; display:flex; justify-content:space-between; align-items:center;">
-                    <b>${rank} ${item.productName}</b> 
-                    <span style="color: #ff416c;">${item.totalUnits} units</span>
-                  </div>`;
-      });
-      titleNode.innerHTML = html; 
-      countNode.innerText = isHindiLanguage ? "🔥 सबसे ज्यादा बिकने वाले उत्पाद" : "🔥 Top Best Selling Products";
-    } else {
-      titleNode.innerText = isHindiLanguage ? "अभी तक कोई बिक्री नहीं हुई!" : "No sales yet!"; 
-    }
-  } catch (err) {
-    titleNode.innerText = isHindiLanguage ? "डेटा लोड करने में त्रुटि!" : "Error loading data!";
-  }
-}
-function closeBestSeller() { document.getElementById("bestSellerModal").style.display = "none"; showAccountPage(); }
-
 // 🌟 FEATURE 2: HIGHEST BUYING CUSTOMER FROM GOOGLE SHEET 🌟
 async function showTopCustomers() {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("topCustomersPage").style.display = "block";
@@ -862,6 +913,41 @@ function showAccountPage() { hideAll(); document.getElementById("searchContainer
 function showDeveloperPage() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("developerPage").style.display="block"; }
 function showAppReviewScreen() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("appReviewSection").style.display="block"; loadAppReviews(); }
 function showContactScreen() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("contactSection").style.display="block"; }
+
+// 🌟 NEW: Show the list of app features
+function showFeaturesList() {
+  hideAll(); document.getElementById("searchContainerBox").style.display="none"; 
+  document.getElementById("featuresListPage").style.display="block";
+  
+  let container = document.getElementById("featuresListContainer");
+  container.innerHTML = ""; // Clear existing
+  
+  // Dynamically generate the buttons based on appFeaturesData
+  for (let key in appFeaturesData) {
+    let feature = appFeaturesData[key];
+    let title = isHindiLanguage ? feature.titleHi : feature.titleEn;
+    
+    // Create a styled link for each feature
+    let link = document.createElement("a");
+    link.innerText = title;
+    link.onclick = function() { showFeatureDetail(key); };
+    container.appendChild(link);
+  }
+}
+
+// 🌟 NEW: Show details for a specific feature with premium styling
+function showFeatureDetail(key) {
+  let feature = appFeaturesData[key];
+  if (!feature) return;
+
+  // Set Content based on Language
+  document.getElementById("fd-title").innerText = isHindiLanguage ? feature.titleHi : feature.titleEn;
+  document.getElementById("fd-info").innerHTML = isHindiLanguage ? feature.infoHi : feature.infoEn;
+  document.getElementById("fd-uses").innerHTML = isHindiLanguage ? feature.usesHi : feature.usesEn;
+
+  hideAll(); document.getElementById("searchContainerBox").style.display="none"; 
+  document.getElementById("featureDetailPage").style.display="block";
+}
 
 function lockInputs() {
   document.querySelectorAll('#loginForm input:not(#l_live_loc), #loginForm textarea').forEach(el => { el.setAttribute('readonly', true); });
@@ -931,12 +1017,45 @@ function showCart(){
 
 function showLogin(){ hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("loginForm").style.display="block"; }
 
+// 🌟 UPDATED HISTORY FUNCTIONS 🌟
 function showHistory() {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("historyView").style.display="block";
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || []; let html = "";
-  if(history.length === 0) { html = `<p style='color:var(--text-muted); font-weight:bold; text-align:center; margin-top:20px;'>${isHindiLanguage ? "अभी तक कोई ऑर्डर नहीं दिया गया है।" : "No orders placed yet."}</p>`; } 
-  else { history.forEach(h => { html += `<div class="history-card"><div class="h-date">📅 ${h.date}</div><div class="h-items">🛍️ ${h.items}</div><div class="h-total">💰 ${h.total}</div></div>`; }); }
+  
+  if(history.length === 0) { 
+    html = `<p style='color:var(--text-muted); font-weight:bold; text-align:center; margin-top:20px;' class="translatable" data-en="No orders placed yet." data-hi="अभी तक कोई ऑर्डर नहीं दिया गया है।">${isHindiLanguage ? "अभी तक कोई ऑर्डर नहीं दिया गया है।" : "No orders placed yet."}</p>`; 
+  } else { 
+    history.forEach((h, index) => { 
+      html += `<div class="history-card" style="position: relative; padding-right: 40px;">
+        <button onclick="deleteHistoryItem(${index})" style="position: absolute; top: 15px; right: 10px; background: rgba(211,47,47,0.1); color: #d32f2f; border: none; border-radius: 5px; padding: 5px 8px; font-size: 16px; cursor: pointer;">🗑️</button>
+        <div class="h-date" style="font-size:12px; color:var(--text-muted); margin-bottom:5px;">📅 ${h.date}</div>
+        <div class="h-items" style="font-size:14px; margin-bottom:8px; line-height:1.4; color:var(--text-main);">🛍️ ${h.items}</div>
+        <div class="h-total" style="font-weight:bold; color:#00c853;">💰 ${h.total}</div>
+      </div>`; 
+    }); 
+  }
   document.getElementById("historyList").innerHTML = html;
+}
+
+function deleteHistoryItem(index) {
+  let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
+  history.splice(index, 1);
+  localStorage.setItem("khalsaOrderHistory", JSON.stringify(history));
+  showSuccessMsg(isHindiLanguage ? "ऑर्डर इतिहास से हटा दिया गया 🗑️" : "Removed from history 🗑️");
+  showHistory();
+}
+
+function clearAllHistory() {
+  let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
+  if(history.length === 0) {
+     showError(isHindiLanguage ? "इतिहास पहले से ही खाली है!" : "History is already empty!");
+     return;
+  }
+  if(confirm(isHindiLanguage ? "क्या आप वाकई पूरा इतिहास मिटाना चाहते हैं?" : "Are you sure you want to clear all history?")) {
+     localStorage.removeItem("khalsaOrderHistory");
+     showSuccessMsg(isHindiLanguage ? "पूरा इतिहास मिटा दिया गया 🗑️" : "All history cleared 🗑️");
+     showHistory();
+  }
 }
 
 // 🌟 Custom Error Functions Added
@@ -1069,7 +1188,9 @@ function placeDirectOrder(){
     let prefix = i.internalName.substring(0,2).toUpperCase();
     orderCounters[prefix] = (orderCounters[prefix] || 0) + 1;
     let specificId = prefix + orderCounters[prefix];
-    orderDetails += `${i.internalName} (x${i.qty}) [ID: ${specificId}], `;
+    
+    // 👇 यहाँ बदलाव किया गया है: Items अब नई लाइन (\n) में आएँगे 👇
+    orderDetails += `▪️ ${i.internalName} (x${i.qty}) [ID: ${specificId}]\n`;
   });
 
   localStorage.setItem("khalsaOrderCounters", JSON.stringify(orderCounters)); 
@@ -1077,9 +1198,10 @@ function placeDirectOrder(){
   let deliveryCharge = totalQty > 6 ? 10 : 15; let finalTotal = totalPrice + deliveryCharge;
   
   saveOrderToSheet(cartData, user);
-  saveOrderToHistory(finalTotal, orderDetails);
+  // हिस्ट्री के लिए इसे वापस एक लाइन में कर दिया है ताकि UI खराब न हो
+  saveOrderToHistory(finalTotal, orderDetails.replace(/\n/g, ", "));
 
-  let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nAddress: ${user.address}\nHouse No: ${user.house}, Gali No: ${user.gali}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
+  let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nAddress: ${user.address}\nHouse No: ${user.house}, Gali No: ${user.gali}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
   
   // 🌟 TESTING MODE WHATSAPP ROUTING RULE 🌟
   let targetPhone = isTestingMode() ? "917988300872" : "919416845322";
@@ -1099,6 +1221,7 @@ document.addEventListener("visibilitychange", function() {
 });
 function closeSuccessPopup() { document.getElementById("successPopup").style.display="none"; cartData = []; back(); }
 
+// 🌟 Added featuresListPage & featureDetailPage to hideAll() 🌟
 function hideAll() {
   document.getElementById("menu").style.display="none"; document.getElementById("appReviewSection").style.display="none"; 
   document.getElementById("contactSection").style.display="none"; document.getElementById("detail").style.display="none";
@@ -1106,6 +1229,7 @@ function hideAll() {
   document.getElementById("historyView").style.display="none"; document.getElementById("allReviewsPage").style.display="none";
   document.getElementById("accountPage").style.display="none"; document.getElementById("developerPage").style.display="none";
   document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
+  document.getElementById("featuresListPage").style.display="none"; document.getElementById("featureDetailPage").style.display="none";
 }
 
 function back() {
