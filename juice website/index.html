@@ -74,7 +74,7 @@ input[type=number] {
 .back-btn { font-size: 14px; cursor: pointer; border: none; font-weight: bold; padding: 10px; width: 100%; border-radius: 8px; transition: 0.2s; }
 .back-btn:active { transform: scale(0.95); }
 
-/* --- PREMIUM DASHBOARD HEADER STYLE (Fixed for Smooth Scrolling) --- */
+/* --- PREMIUM DASHBOARD HEADER STYLE --- */
 .top-sticky-bar { 
   position: sticky; 
   top: 0; 
@@ -85,6 +85,7 @@ input[type=number] {
   box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
 }
 .dashboard-header {
+  position: relative;
   background: linear-gradient(135deg, #9b51e0, #6f42c1);
   padding: 25px 20px 30px 20px;
   border-bottom-left-radius: 30px;
@@ -117,6 +118,22 @@ input[type=number] {
   background: white; color: #6f42c1; border: none; padding: 10px 18px; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 .dark-mode .dashboard-search .search-btn { background: #444; color: white; }
+
+/* Shop Open Badge */
+.shop-status-badge {
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  background: #00c853;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,200,83,0.4);
+  display: none;
+  letter-spacing: 0.5px;
+}
 
 /* Premium Scrolling Marquee CSS */
 .marquee-wrapper {
@@ -153,15 +170,9 @@ input[type=number] {
   background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px var(--box-shadow); overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; transition: 0.3s; padding: 0;
 }
 .account-category-header {
-  padding: 12px 16px;
-  margin: 0;
-  background: var(--bg-main);
-  font-size: 13px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  font-weight: 900;
-  border-bottom: 1px solid var(--border-color);
-  letter-spacing: 1px;
+  padding: 12px 16px; margin: 0; background: var(--bg-main); font-size: 13px;
+  color: var(--text-muted); text-transform: uppercase; font-weight: 900;
+  border-bottom: 1px solid var(--border-color); letter-spacing: 1px;
 }
 .account-list-container a {
   display: block; padding: 16px; border-bottom: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; font-size: 15px; transition: 0.2s; text-decoration: none;
@@ -182,36 +193,13 @@ input[type=number] {
 
 .full-btn, .qty-btn{ transition:0.2s; }
 .full-btn:active, .qty-btn:active{ transform:scale(0.95); }
-
 .full-btn{width:100%;padding:12px;background:gold;border:none;font-weight:bold;margin-top:10px;cursor:pointer; border-radius: 8px; color: black;}
 
-/* Standard UI Back Button Style */
-.back-btn-solid {
-  width: 100%;
-  padding: 12px;
-  background: #222;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
+.back-btn-solid { width: 100%; padding: 12px; background: #222; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; margin-bottom: 15px; }
 .qty-btn{padding:5px 15px;margin:5px;background:#222;color:white;border:none; border-radius: 5px; font-size: 18px;}
 
 /* Manage Devices Premium UI */
-.device-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 15px;
-  margin-bottom: 15px;
-  position: relative;
-  box-shadow: 0 2px 8px var(--box-shadow);
-  transition: 0.3s;
-}
+.device-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px; position: relative; box-shadow: 0 2px 8px var(--box-shadow); transition: 0.3s; }
 .device-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
 .device-icon { color: #1e88e5; display: flex; align-items: center; justify-content: center; }
 .device-info { flex-grow: 1; text-align: left; }
@@ -223,31 +211,18 @@ input[type=number] {
 .logout-all-btn:active { transform: scale(0.98); }
 
 /* Premium Toast Error & Success CSS */
-.premium-popup {
-  position: fixed; top: -80px; left: 50%; transform: translateX(-50%); color: white;
-  padding: 15px 30px; border-radius: 30px; font-weight: bold; z-index: 3500;
-  transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); text-align: center; width: 85%; max-width: 350px;
-}
+.premium-popup { position: fixed; top: -80px; left: 50%; transform: translateX(-50%); color: white; padding: 15px 30px; border-radius: 30px; font-weight: bold; z-index: 3500; transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); text-align: center; width: 85%; max-width: 350px; }
 .premium-error { background: linear-gradient(135deg, #ff0000, #990000); box-shadow: 0 10px 20px rgba(255,0,0,0.4); }
 .premium-success { background: linear-gradient(135deg, #00c853, #64dd17); box-shadow: 0 10px 20px rgba(0,200,83,0.4); }
 .premium-popup.show { top: 30px; }
 
 /* Premium Modals */
-.premium-modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 2000;
-  animation: fadeIn 0.3s ease-in-out;
-}
-.premium-modal {
-  background: var(--bg-card); color: var(--text-main); padding: 25px 20px; border-radius: 20px; text-align: center;
-  width: 85%; max-width: 350px; box-shadow: 0 15px 35px var(--box-shadow);
-  transform: scale(0.8); animation: popUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
+.premium-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 2000; animation: fadeIn 0.3s ease-in-out; }
+.premium-modal { background: var(--bg-card); color: var(--text-main); padding: 25px 20px; border-radius: 20px; text-align: center; width: 85%; max-width: 350px; box-shadow: 0 15px 35px var(--box-shadow); transform: scale(0.8); animation: popUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
 .modal-icon { font-size: 50px; margin-bottom: 10px; animation: bounce 1.2s infinite alternate; }
 .premium-modal h2 { margin: 0 0 5px 0; font-size: 22px; }
 .premium-modal p { color: var(--text-muted); margin: 5px 0; font-size: 14px; }
 .highlight-text { font-weight: bold; font-size: 18px; margin-top: 15px; color: var(--text-main); }
-
 .black-modal-btn { background: #111; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px var(--box-shadow); }
 .modal-btn { background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px;  font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; }
 .premium-account { margin: 20px auto; padding: 20px; border: 2px solid var(--border-color); border-radius: 12px; background-color: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); transition: 0.3s; }
@@ -256,16 +231,12 @@ input[type=number] {
 @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
 
 /* Loading Spinner */
-.loader-spinner {
-  border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #6f42c1; border-radius: 50%;
-  width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 15px;
-}
+.loader-spinner { border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #6f42c1; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 15px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* Cards & Inputs */
 .history-card { background: var(--bg-card); margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #6f42c1; box-shadow: 0 4px 10px var(--box-shadow); text-align: left; transition: 0.3s; }
 .cart-card{display:flex;background:var(--bg-card);margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.3s; }
-
 .review-box { background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative; user-select: none; transition: transform 0.2s, opacity 0.2s, background 0.3s; }
 .review-box:active { transform: scale(0.97); opacity: 0.8; }
 
@@ -278,8 +249,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 .star-rating span:hover { transform: scale(1.2); }
 
 /* Sections */
-.contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s; }
-.contact-section { border-top: 5px solid #00c853; }
+.contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s; border-top: 5px solid #00c853;}
 .party-highlight { background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; padding: 12px; border-radius: 12px; font-weight: bold; margin-top: 15px; font-size: 15px; box-shadow: 0 4px 10px rgba(255,65,108,0.3); }
 .remove-btn { background: #ff4b2b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px; }
 
@@ -358,11 +328,14 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
      <ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>
 </div>
 <label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
+
 <div id="testingModeDisableModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff416c;"><div class="modal-icon" style="animation: none;">🛠️</div><h2 style="color: #ff416c;" class="translatable" data-en="Disable Testing Mode?" data-hi="टेस्टिंग मोड बंद करें?">Disable Testing Mode?</h2><p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to disable testing mode?" data-hi="क्या आप वाकई टेस्टिंग मोड बंद करना चाहते हैं?">Are you sure you want to disable testing mode?</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#ff416c; margin-top:0;" onclick="confirmDisableTestingMode()" data-en="Disable" data-hi="बंद करें">Disable</button></div></div></div>
 <div id="testingModePasswordModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">🔑</div><h2 style="color: #2196F3;" class="translatable" data-en="PASSWORD REQUIRED" data-hi="पासवर्ड आवश्यक है">PASSWORD REQUIRED</h2><input type="password" id="testingModePwdInput" class="translatable-ph" data-en="Enter Password..." data-hi="पासवर्ड दर्ज करें..." placeholder="Enter Password..." style="margin-top: 15px; text-align: center; font-size: 16px; letter-spacing: 2px;"><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#2196F3; margin-top:0;" onclick="submitTestingPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button></div></div></div>
 
 <div class="top-sticky-bar" id="dashboardHeaderBox">
   <div class="dashboard-header">
+    <div id="shopStatusBadge" class="shop-status-badge translatable" data-en="SHOP OPEN 🟢" data-hi="दुकान खुली है 🟢">SHOP OPEN 🟢</div>
+    
     <h3 id="dynamicGreeting" class="greeting-text translatable" data-en="Hello,<br>Good Morning!" data-hi="नमस्ते,<br>शुभ प्रभात!">Hello,<br>Good Morning!</h3>
     
     <div class="dashboard-search" id="searchContainerBox">
@@ -373,8 +346,10 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
   
   <div class="marquee-wrapper" id="homeMarquee">
-    <div class="marquee-text translatable" id="mainMarqueeText" data-en="🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" data-hi="🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
-      🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
+    <div class="marquee-text translatable" id="mainMarqueeText" 
+         data-en="⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" 
+         data-hi="⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
+      ⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
     </div>
   </div>
 </div>
@@ -435,6 +410,8 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <div class="account-category-header translatable" data-en="📞 Support" data-hi="📞 सहायता">📞 Support</div>
     <a onclick="showContactScreen()" class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</a>
     <a onclick="showReportPage()" style="color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
+    
+    <a onclick="showFunctionsGuidePage()" style="color: #ff4b2b; font-weight: bold;" class="translatable" data-en="⭐ Functions Guide (Premium)" data-hi="⭐ फंक्शन्स गाइड">⭐ Functions Guide (Premium)</a>
 
     <div class="account-category-header translatable" data-en="⭐ Community" data-hi="⭐ समुदाय">⭐ Community</div>
     <a onclick="showAllReviews()" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</a>
@@ -452,22 +429,108 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
 </div>
 
-<div class="detail" id="featuresListPage" style="padding: 15px;">
-  <h2 style="text-align: center; color: #1e88e5;" class="translatable" data-en="ℹ️ App Features" data-hi="ℹ️ ऐप की विशेषताएं">ℹ️ App Features</h2>
-  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Select an option below to learn how it works:" data-hi="यह कैसे काम करता है, यह जानने के लिए नीचे एक विकल्प चुनें:">Select an option below to learn how it works:</p>
-  <div class="account-list-container" id="featuresListContainer"></div>
-  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
-</div>
+<div class="detail" id="functionsGuidePage" style="padding: 15px;">
+  <h2 style="text-align: center; color: #ff4b2b; margin-bottom: 20px;" class="translatable" data-en="⭐ Functions Guide" data-hi="⭐ फंक्शन्स गाइड">⭐ Functions Guide</h2>
+  
+  <div class="premium-account" style="text-align: left; margin-bottom: 15px; border-top: 4px solid #ff4b2b; padding: 20px; line-height: 1.8;">
 
-<div class="detail" id="featureDetailPage" style="padding: 15px;">
-  <div class="premium-account" style="border-top: 5px solid #1e88e5; text-align: left;">
-     <h2 id="fd-title" style="color: #1e88e5; margin-top: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Feature Title</h2>
-     <h4 style="color: var(--text-main); margin-bottom: 5px;" class="translatable" data-en="Information:" data-hi="जानकारी:">Information:</h4>
-     <p id="fd-info" style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">Information text goes here.</p>
-     <h4 style="color: var(--text-main); margin-top: 20px; margin-bottom: 5px;" class="translatable" data-en="Uses:" data-hi="उपयोग:">Uses:</h4>
-     <div id="fd-uses" style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">Uses text goes here.</div>
+      <h3 class="translatable" data-en="1. LOGIN 🔑" data-hi="1. लॉगिन 🔑" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">1. LOGIN 🔑</h3>
+      <ul class="translatable" data-en="<li>Securely save your delivery details for faster checkout.</li><li>No need to enter your address repeatedly for every order.</li><li>Automatically captures and links your accurate Live Location.</li><li>Protects your account with phone number and email verification.</li>" data-hi="<li>तेज़ चेकआउट के लिए अपनी डिलीवरी जानकारी सुरक्षित रूप से सेव करें।</li><li>हर ऑर्डर के लिए बार-बार पता डालने की आवश्यकता नहीं है।</li><li>स्वचालित रूप से आपकी सटीक लाइव लोकेशन कैप्चर और लिंक करता है।</li><li>फ़ोन नंबर और ईमेल सत्यापन के साथ आपके खाते की सुरक्षा करता है।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Securely save your delivery details for faster checkout.</li>
+          <li>No need to enter your address repeatedly for every order.</li>
+          <li>Automatically captures and links your accurate Live Location.</li>
+          <li>Protects your account with phone number and email verification.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="2. ORDER HISTORY 📜" data-hi="2. ऑर्डर इतिहास 📜" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">2. ORDER HISTORY 📜</h3>
+      <ul class="translatable" data-en="<li>Keeps a complete and detailed record of all your past orders.</li><li>Track exactly what you bought, when, and how much you paid.</li><li>Easily review your previous shopping habits and favorite items.</li><li>Use the 'Clear All' button to safely delete your history whenever you want.</li>" data-hi="<li>आपके सभी पिछले ऑर्डरों का पूरा और विस्तृत रिकॉर्ड रखता है।</li><li>ट्रैक करें कि आपने क्या खरीदा, कब खरीदा और कितना भुगतान किया।</li><li>आसानी से अपनी पिछली खरीदारी की आदतों और पसंदीदा आइटमों की समीक्षा करें।</li><li>जब चाहें अपनी हिस्ट्री को सुरक्षित रूप से हटाने के लिए 'Clear All' बटन का उपयोग करें।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Keeps a complete and detailed record of all your past orders.</li>
+          <li>Track exactly what you bought, when, and how much you paid.</li>
+          <li>Easily review your previous shopping habits and favorite items.</li>
+          <li>Use the 'Clear All' button to safely delete your history whenever you want.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="3. MANAGE DEVICE 📱" data-hi="3. डिवाइस प्रबंधित करें 📱" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">3. MANAGE DEVICE 📱</h3>
+      <ul class="translatable" data-en="<li>View all the devices currently logged into your Khalsa Shop account.</li><li>Check the exact date and time when a specific device was registered.</li><li>Securely log out from any unfamiliar or old device with just one click.</li><li>Use the 'Log out from all devices' option for maximum account security.</li>" data-hi="<li>वर्तमान में आपके खालसा शॉप खाते में लॉग इन किए गए सभी डिवाइस देखें।</li><li>जांचें कि कोई विशिष्ट डिवाइस किस तिथि और समय पर पंजीकृत किया गया था।</li><li>बस एक क्लिक से किसी भी अपरिचित या पुराने डिवाइस से सुरक्षित रूप से लॉग आउट करें।</li><li>खाते की अधिकतम सुरक्षा के लिए 'सभी डिवाइस से लॉग आउट करें' विकल्प का उपयोग करें।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>View all the devices currently logged into your Khalsa Shop account.</li>
+          <li>Check the exact date and time when a specific device was registered.</li>
+          <li>Securely log out from any unfamiliar or old device with just one click.</li>
+          <li>Use the 'Log out from all devices' option for maximum account security.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="4. LANGUAGE 🌐" data-hi="4. भाषा 🌐" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">4. LANGUAGE 🌐</h3>
+      <ul class="translatable" data-en="<li>Instantly translate the entire app interface with a single click.</li><li>Choose between English and Hindi based on your comfort and preference.</li><li>All product names, alerts, and settings adapt to your selected language.</li><li>Helps make the shopping experience easier and more natural for regional users.</li>" data-hi="<li>एक ही क्लिक में संपूर्ण ऐप इंटरफ़ेस का तुरंत अनुवाद करें।</li><li>अपनी सुविधा और पसंद के आधार पर अंग्रेजी और हिंदी के बीच चयन करें।</li><li>सभी उत्पाद नाम, अलर्ट और सेटिंग्स आपकी चुनी हुई भाषा के अनुकूल हो जाते हैं।</li><li>क्षेत्रीय उपयोगकर्ताओं के लिए खरीदारी के अनुभव को आसान और अधिक प्राकृतिक बनाने में मदद करता है।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Instantly translate the entire app interface with a single click.</li>
+          <li>Choose between English and Hindi based on your comfort and preference.</li>
+          <li>All product names, alerts, and settings adapt to your selected language.</li>
+          <li>Helps make the shopping experience easier and more natural for regional users.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="5. THEME 🌙" data-hi="5. थीम 🌙" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">5. THEME 🌙</h3>
+      <ul class="translatable" data-en="<li>Switch seamlessly between a bright Light Mode and a sleek Dark Mode.</li><li>Dark mode helps reduce eye strain when you are shopping at night.</li><li>Helps save battery life on modern smartphone OLED screens.</li><li>Your selected theme preference is saved automatically for your next visit.</li>" data-hi="<li>चमकीले लाइट मोड और स्लीक डार्क मोड के बीच आसानी से स्विच करें।</li><li>रात में खरीदारी करते समय डार्क मोड आंखों के तनाव को कम करने में मदद करता है।</li><li>आधुनिक स्मार्टफोन ओएलईडी स्क्रीन पर बैटरी जीवन बचाने में मदद करता है।</li><li>आपकी चुनी हुई थीम प्राथमिकता आपकी अगली विज़िट के लिए स्वचालित रूप से सहेजी जाती है।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Switch seamlessly between a bright Light Mode and a sleek Dark Mode.</li>
+          <li>Dark mode helps reduce eye strain when you are shopping at night.</li>
+          <li>Helps save battery life on modern smartphone OLED screens.</li>
+          <li>Your selected theme preference is saved automatically for your next visit.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="6. CONTACT US 📞" data-hi="6. हमसे संपर्क करें 📞" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">6. CONTACT US 📞</h3>
+      <ul class="translatable" data-en="<li>Get quick and direct access to the developer and shop owner details.</li><li>Use the provided email link to easily send official support requests.</li><li>Find verified contact numbers to book us for weddings, parties, and functions.</li><li>All official brand communication details are listed here for your trust and safety.</li>" data-hi="<li>डेवलपर और दुकान के मालिक के विवरण तक त्वरित और सीधी पहुंच प्राप्त करें।</li><li>आधिकारिक सहायता अनुरोध आसानी से भेजने के लिए दिए गए ईमेल लिंक का उपयोग करें।</li><li>शादियों, पार्टियों और कार्यों के लिए हमें बुक करने के लिए सत्यापित संपर्क नंबर खोजें।</li><li>आपके विश्वास और सुरक्षा के लिए ब्रांड संचार के सभी आधिकारिक विवरण यहां सूचीबद्ध हैं।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Get quick and direct access to the developer and shop owner details.</li>
+          <li>Use the provided email link to easily send official support requests.</li>
+          <li>Find verified contact numbers to book us for weddings, parties, and functions.</li>
+          <li>All official brand communication details are listed here for your trust and safety.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="7. YOUR REPORT 🚨" data-hi="7. आपकी रिपोर्ट 🚨" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">7. YOUR REPORT 🚨</h3>
+      <ul class="translatable" data-en="<li>A disciplinary tracking system designed for overall community safety.</li><li>Keeps a personal record of any reviews blocked due to inappropriate words.</li><li>Shows the exact reason and banned word that caused your review to be blocked.</li><li>Enforces a strict 24-hour ban from placing orders to maintain app rules.</li>" data-hi="<li>समग्र सामुदायिक सुरक्षा के लिए डिज़ाइन की गई एक अनुशासनात्मक ट्रैकिंग प्रणाली।</li><li>अनुचित शब्दों के कारण ब्लॉक की गई किसी भी समीक्षा का व्यक्तिगत रिकॉर्ड रखता है।</li><li>वह सटीक कारण और प्रतिबंधित शब्द दिखाता है जिसके कारण आपकी समीक्षा ब्लॉक की गई थी।</li><li>ऐप के नियमों को बनाए रखने के लिए ऑर्डर देने पर सख्त 24 घंटे का प्रतिबंध लागू करता है।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>A disciplinary tracking system designed for overall community safety.</li>
+          <li>Keeps a personal record of any reviews blocked due to inappropriate words.</li>
+          <li>Shows the exact reason and banned word that caused your review to be blocked.</li>
+          <li>Enforces a strict 24-hour ban from placing orders to maintain app rules.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="8. OUR REVIEW ⭐" data-hi="8. हमारी समीक्षा ⭐" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">8. OUR REVIEW ⭐</h3>
+      <ul class="translatable" data-en="<li>A personal dashboard showing all the product reviews you have ever posted.</li><li>Easily keep track of the ratings and positive feedback you have shared.</li><li>Edit your past reviews if you change your mind about a specific product.</li><li>Delete any review you no longer want to be visible to the shopping community.</li>" data-hi="<li>एक व्यक्तिगत डैशबोर्ड जो आपके द्वारा पोस्ट की गई सभी उत्पाद समीक्षाओं को दिखाता है।</li><li>आपके द्वारा साझा की गई रेटिंग और सकारात्मक प्रतिक्रिया पर आसानी से नज़र रखें।</li><li>यदि आप किसी विशिष्ट उत्पाद के बारे में अपना विचार बदलते हैं तो अपनी पिछली समीक्षाओं को संपादित करें।</li><li>कोई भी ऐसी समीक्षा हटाएं जिसे आप अब खरीदारी समुदाय को नहीं दिखाना चाहते।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>A personal dashboard showing all the product reviews you have ever posted.</li>
+          <li>Easily keep track of the ratings and positive feedback you have shared.</li>
+          <li>Edit your past reviews if you change your mind about a specific product.</li>
+          <li>Delete any review you no longer want to be visible to the shopping community.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="9. HIGHEST BUYING CUSTOMER 👑" data-hi="9. सबसे ज्यादा खरीदने वाले ग्राहक 👑" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">9. HIGHEST BUYING CUSTOMER 👑</h3>
+      <ul class="translatable" data-en="<li>A live, automatic leaderboard of our top 5 most loyal and active shoppers.</li><li>See exactly who has spent the most money overall on the Khalsa Shop platform.</li><li>Ranks update in real-time based purely on the total value of approved orders.</li><li>A fun and exciting way to recognize and appreciate our best community members.</li>" data-hi="<li>हमारे शीर्ष 5 सबसे वफादार और सक्रिय खरीदारों का एक लाइव, स्वचालित लीडरबोर्ड।</li><li>देखें कि खालसा शॉप प्लेटफॉर्म पर कुल मिलाकर सबसे अधिक पैसा किसने खर्च किया है।</li><li>अनुमोदित आदेशों के कुल मूल्य के आधार पर वास्तविक समय में रैंक अपडेट होती है।</li><li>हमारे सर्वश्रेष्ठ समुदाय के सदस्यों को पहचानने और उनकी सराहना करने का एक मजेदार और रोमांचक तरीका।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>A live, automatic leaderboard of our top 5 most loyal and active shoppers.</li>
+          <li>See exactly who has spent the most money overall on the Khalsa Shop platform.</li>
+          <li>Ranks update in real-time based purely on the total value of approved orders.</li>
+          <li>A fun and exciting way to recognize and appreciate our best community members.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="10. DEVELOPER DETAILS 👨‍💻" data-hi="10. डेवलपर विवरण 👨‍💻" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">10. DEVELOPER DETAILS 👨‍💻</h3>
+      <ul class="translatable" data-en="<li>Complete technical and creator information about the Khalsa Shop application.</li><li>View the professional bio and creative vision of the developer, Sahil Sharma.</li><li>Learn about the specific technologies used (HTML, CSS, JS) to build the app.</li><li>Find official developer contact information for reporting technical bugs.</li>" data-hi="<li>खालसा शॉप एप्लिकेशन के बारे में संपूर्ण तकनीकी और निर्माता जानकारी।</li><li>डेवलपर साहिल शर्मा का पेशेवर बायो और रचनात्मक दृष्टिकोण देखें।</li><li>ऐप बनाने के लिए उपयोग की जाने वाली विशिष्ट तकनीकों (HTML, CSS, JS) के बारे में जानें।</li><li>तकनीकी बग रिपोर्ट करने के लिए आधिकारिक डेवलपर संपर्क जानकारी प्राप्त करें।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Complete technical and creator information about the Khalsa Shop application.</li>
+          <li>View the professional bio and creative vision of the developer, Sahil Sharma.</li>
+          <li>Learn about the specific technologies used (HTML, CSS, JS) to build the app.</li>
+          <li>Find official developer contact information for reporting technical bugs.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="11. TESTING MODE 🛠️" data-hi="11. टेस्टिंग मोड 🛠️" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">11. TESTING MODE 🛠️</h3>
+      <ul style="font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li class="translatable" data-en="THE DEVELOPER HAS KEPT THE TESTING MODE PRIVATE." data-hi="डेवलपर ने टेस्टिंग मोड को प्राइवेट रखा है।" style="color: red; font-weight: bold;">THE DEVELOPER HAS KEPT THE TESTING MODE PRIVATE.</li>
+          <li class="translatable" data-en="Only authorized accounts can bypass limits." data-hi="केवल अधिकृत खाते ही सीमाओं को बायपास कर सकते हैं।" style="color: red; font-weight: bold;">Only authorized accounts can bypass limits.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="12. TERMS AND CONDITIONS 📄" data-hi="12. नियम और शर्तें 📄" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">12. TERMS AND CONDITIONS 📄</h3>
+      <ul class="translatable" data-en="<li>The official rules, privacy guidelines, and policies for using the Khalsa Shop platform.</li><li>Explains our exact order confirmation processes and WhatsApp data handling.</li><li>Details all your customer rights, responsibilities, and strict cancellation rules.</li><li>You must read and voluntarily accept these terms to use the application securely.</li>" data-hi="<li>खालसा शॉप प्लेटफॉर्म का उपयोग करने के लिए आधिकारिक नियम, गोपनीयता दिशानिर्देश और नीतियां।</li><li>हमारी सटीक ऑर्डर पुष्टि प्रक्रियाओं और व्हाट्सएप डेटा हैंडलिंग की व्याख्या करता है।</li><li>आपके सभी ग्राहक अधिकारों, जिम्मेदारियों और सख्त रद्दीकरण नियमों का विवरण देता है।</li><li>एप्लिकेशन का सुरक्षित रूप से उपयोग करने के लिए आपको इन शर्तों को पढ़ना चाहिए और स्वेच्छा से स्वीकार करना चाहिए।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 10px;">
+          <li>The official rules, privacy guidelines, and policies for using the Khalsa Shop platform.</li>
+          <li>Explains our exact order confirmation processes and WhatsApp data handling.</li>
+          <li>Details all your customer rights, responsibilities, and strict cancellation rules.</li>
+          <li>You must read and voluntarily accept these terms to use the application securely.</li>
+      </ul>
+
   </div>
-  <button class="back-btn-solid translatable" onclick="uiBack('features')" data-en="⬅ Back to Features" data-hi="⬅ पीछे जाएं">⬅ Back to Features</button>
+  
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="reportPage" style="padding: 15px;">
@@ -631,82 +694,6 @@ const BANNED_WORDS = [
   "kill", "murder", "suicide", "terrorist", "spam", "hack", "fraud"
 ];
 
-// 🌟 App Features Database (English & Hindi) 🌟
-const appFeaturesData = {
-  login: {
-    titleEn: "🔑 Login", titleHi: "🔑 लॉगिन",
-    infoEn: "This is a secure system to save your delivery details.", infoHi: "यह आपकी डिलीवरी डिटेल्स को सुरक्षित रूप से सेव करने का सिस्टम है।",
-    usesEn: "• No need to enter your address repeatedly for every order.<br>• Helps in setting up your Live Location accurately.",
-    usesHi: "• हर ऑर्डर के लिए बार-बार एड्रेस डालने की जरूरत नहीं पड़ती।<br>• अपनी सही लाइव लोकेशन (Live Location) सेट करने में मदद करता है।"
-  },
-  history: {
-    titleEn: "📜 Order History", titleHi: "📜 ऑर्डर इतिहास",
-    infoEn: "Keeps a detailed record of all your past orders.", infoHi: "यह आपके द्वारा किए गए सभी पुराने ऑर्डर्स का विस्तृत रिकॉर्ड रखता है।",
-    usesEn: "• View exactly what you bought and how much you paid.<br>• Track your past shopping habits easily.<br>• Use the 'Clear All' button to delete history for convenience.",
-    usesHi: "• आप देख सकते हैं कि आपने पिछली बार क्या खरीदा था और कितने पैसे दिए थे।<br>• अपने पुराने ऑर्डर्स को आसानी से ट्रैक कर सकते हैं।<br>• अपनी सहूलियत के लिए पुरानी हिस्ट्री को 'Clear All' बटन से डिलीट भी कर सकते हैं।"
-  },
-  testing: {
-    titleEn: "🛠️ Testing Mode", titleHi: "🛠️ टेस्टिंग मोड",
-    infoEn: "THE DEVELOPER HAS KEPT THE TESTING MODE PRIVATE", infoHi: "डेवलपर ने टेस्टिंग मोड को निजी (प्राइवेट) रखा है",
-    usesEn: "• Only authorized developers can access this feature.",
-    usesHi: "• केवल अधिकृत डेवलपर ही इस सुविधा तक पहुंच सकते हैं।"
-  },
-  manageDevice: {
-    titleEn: "📱 Manage Devices", titleHi: "📱 डिवाइस प्रबंधित करें",
-    infoEn: "View and manage the devices currently logged into your Khalsa Shop account.", infoHi: "खालसा शॉप खाते में वर्तमान में लॉग इन किए गए उपकरणों को देखें और प्रबंधित करें।",
-    usesEn: "• Check your current login details and device info.<br>• Securely log out from your account to protect your data.",
-    usesHi: "• अपने वर्तमान लॉगिन विवरण और डिवाइस की जानकारी की जांच करें।<br>• अपने डेटा की सुरक्षा के लिए अपने खाते से सुरक्षित रूप से लॉग आउट करें।"
-  },
-  contact: {
-    titleEn: "📞 Contact Us", titleHi: "📞 हमसे संपर्क करें",
-    infoEn: "Quick access to the developer and shop owner details.", infoHi: "डेवलपर और दुकान के मालिक के विवरण तक त्वरित पहुंच।",
-    usesEn: "• Direct email link for support.<br>• Find contact numbers for booking weddings, parties, and functions.",
-    usesHi: "• सहायता के लिए सीधा ईमेल लिंक।<br>• शादियों, पार्टियों और अन्य कार्यों की बुकिंग के लिए संपर्क नंबर खोजें।"
-  },
-  report: {
-    titleEn: "🚨 Your Report", titleHi: "🚨 आपकी रिपोर्ट",
-    infoEn: "A disciplinary system tracking violations of the app's community guidelines.", infoHi: "ऐप के सामुदायिक दिशानिर्देशों के उल्लंघन को ट्रैक करने वाला एक अनुशासनात्मक सिस्टम।",
-    usesEn: "• Shows a record of reviews blocked due to inappropriate words.<br>• Imposes temporary 24-hour bans for safety.",
-    usesHi: "• अनुचित शब्दों के कारण ब्लॉक की गई समीक्षाओं का रिकॉर्ड दिखाता है।<br>• सुरक्षा के लिए अस्थायी 24-घंटे का प्रतिबंध (Ban) लगाता है।"
-  },
-  ourReviews: {
-    titleEn: "⭐ Our Reviews", titleHi: "⭐ हमारी समीक्षाएं",
-    infoEn: "A personal dashboard showing all the product reviews you have posted.", infoHi: "यह एक पर्सनल डैशबोर्ड है जो आपके द्वारा पोस्ट की गई सभी उत्पाद समीक्षाओं (Product Reviews) को दिखाता है।",
-    usesEn: "• Keep track of your past feedback.<br>• Edit your reviews if you change your mind.<br>• Delete reviews you no longer want visible.",
-    usesHi: "• अपने पुराने फीडबैक पर नज़र रखें।<br>• यदि आपका विचार बदलता है तो अपनी समीक्षाओं को संपादित (Edit) करें।<br>• उन समीक्षाओं को हटाएं (Delete) जिन्हें आप अब दिखाना नहीं चाहते।"
-  },
-  topCustomers: {
-    titleEn: "👑 Highest Buying Customer", titleHi: "👑 सबसे ज्यादा खरीदने वाले ग्राहक",
-    infoEn: "A live leaderboard of the top 5 customers who have spent the most on Khalsa Shop.", infoHi: "खालसा शॉप पर सबसे ज्यादा खर्च करने वाले टॉप 5 ग्राहकों का लाइव लीडरबोर्ड।",
-    usesEn: "• See who the most loyal shoppers are in the community.<br>• Updates automatically based on total order values.",
-    usesHi: "• देखें कि समुदाय में सबसे वफादार खरीदार कौन हैं।<br>• कुल ऑर्डर वैल्यू के आधार पर यह अपने आप अपडेट होता है।"
-  },
-  language: {
-    titleEn: "🌐 Language", titleHi: "🌐 भाषा",
-    infoEn: "A tool to instantly translate the entire application interface.", infoHi: "पूरे ऐप इंटरफ़ेस का तुरंत अनुवाद करने वाला टूल।",
-    usesEn: "• Switch seamlessly between English and Hindi with one click.<br>• Makes shopping easier for users who prefer regional languages.",
-    usesHi: "• एक क्लिक के साथ अंग्रेजी और हिंदी के बीच आसानी से स्विच करें।<br>• उन यूज़र्स के लिए खरीदारी आसान बनाता है जो क्षेत्रीय भाषा पसंद करते हैं।"
-  },
-  theme: {
-    titleEn: "🌙 Theme", titleHi: "🌙 थीम",
-    infoEn: "A visual toggle to change the color scheme of the app.", infoHi: "ऐप के रंगों को बदलने के लिए एक विज़ुअल टॉगल।",
-    usesEn: "• Switch between Light mode and Dark mode.<br>• Dark mode reduces eye strain at night and can save battery on mobile devices.",
-    usesHi: "• लाइट मोड और डार्क मोड के बीच स्विच करें।<br>• डार्क मोड रात में आंखों का तनाव कम करता है और मोबाइल की बैटरी बचा सकता है।"
-  },
-  developer: {
-    titleEn: "👨‍💻 Developer Details", titleHi: "👨‍💻 डेवलपर विवरण",
-    infoEn: "Information about the creator and manager of the Khalsa Shop platform.", infoHi: "खालसा शॉप प्लेटफॉर्म के निर्माता और प्रबंधक के बारे में जानकारी।",
-    usesEn: "• View the technical details of how the app was built.<br>• Find contact information for technical support or reporting bugs.",
-    usesHi: "• ऐप को कैसे बनाया गया है, इसके तकनीकी विवरण देखें।<br>• तकनीकी सहायता या बग रिपोर्ट करने के लिए संपर्क जानकारी प्राप्त करें।"
-  },
-  terms: {
-    titleEn: "📄 Terms & Conditions", titleHi: "📄 नियम और शर्तें",
-    infoEn: "The official rules and guidelines for using the Khalsa Shop service.", infoHi: "खालसा शॉप सेवा का उपयोग करने के आधिकारिक नियम और दिशानिर्देश।",
-    usesEn: "• Understand the policies regarding order confirmation via WhatsApp.<br>• Learn about your rights and responsibilities as a customer.<br>• Review conditions for order cancellation or invalid orders.",
-    usesHi: "• व्हाट्सएप के माध्यम से ऑर्डर की पुष्टि से संबंधित नीतियां समझें।<br>• एक ग्राहक के रूप में अपने अधिकारों और जिम्मेदारियों के बारे में जानें।<br>• ऑर्डर रद्द करने या अमान्य ऑर्डर्स की शर्तों को पढ़ें।"
-  }
-};
-
 let item="", internalItemName="", price=70, qty=1, cartData=[];
 let img = document.getElementById("img");
 let nameLabel = document.getElementById("name");
@@ -766,11 +753,7 @@ window.addEventListener('popstate', function(event) {
     else if (page === 'allReviews') showAllReviews(true);
     else if (page === 'topCustomers') showTopCustomers(true);
     else if (page === 'report') showReportPage(true);
-    else if (page === 'features') showFeaturesList(true);
-    else if (page.startsWith('featureDetail_')) {
-        let key = page.split('_')[1];
-        showFeatureDetail(key, true);
-    }
+    else if (page === 'functionsGuide') showFunctionsGuidePage(true);
     else if (page.startsWith('detail_')) {
         hideAll(); document.getElementById("detail").style.display="block";
     }
@@ -789,24 +772,21 @@ function uiBack(fallback) {
         history.back(); 
     } else {
         if (fallback === 'account') showAccountPage(false);
-        else if (fallback === 'features') showFeaturesList(false);
         else back(false); 
     }
 }
 
-// 🌟 DYNAMIC GREETING LOGIC 🌟
+// 🌟 DYNAMIC GREETING & SHOP BADGE LOGIC 🌟
 function updateGreeting() {
   let hour = new Date().getHours();
   let greetEn = ""; let greetHi = "";
   
   if (hour >= 5 && hour < 12) { 
       greetEn = "🌤️ Good Morning"; greetHi = "🌤️ शुभ प्रभात"; 
-  } else if (hour >= 12 && hour < 17) { 
-      greetEn = "🌤️ Good Afternoon"; greetHi = "🌤️ शुभ दोपहर"; 
-  } else if (hour >= 17 && hour < 21) { 
+  } else if (hour >= 12 && hour < 18) { 
       greetEn = "🌆 Good Evening"; greetHi = "🌆 शुभ संध्या"; 
   } else { 
-      greetEn = "🌙 Good Night"; greetHi = "🌙 शुभ रात्रि"; 
+      greetEn = "🚫 SHOP WAS CLOSED NOW"; greetHi = "🚫 दुकान अब बंद है"; 
   }
   
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
@@ -823,6 +803,15 @@ function updateGreeting() {
         el.setAttribute("data-hi", `नमस्ते,<br>${greetHi}!`);
     }
     el.innerHTML = isHindiLanguage ? el.getAttribute("data-hi") : el.getAttribute("data-en");
+  }
+
+  let shopBadge = document.getElementById("shopStatusBadge");
+  if(shopBadge) {
+      if (hour >= 9 && hour < 18) {
+          shopBadge.style.display = "block";
+      } else {
+          shopBadge.style.display = "none";
+      }
   }
 }
 
@@ -912,7 +901,6 @@ function registerDeviceSession(phone) {
   localStorage.setItem("khalsaDevices_" + phone, JSON.stringify(devices));
 }
 
-// 🌟 Loading Screen Manager
 function showLoading(textEn, textHi) {
   let el = document.getElementById("loadingText");
   el.setAttribute("data-en", textEn);
@@ -933,7 +921,6 @@ document.getElementById("confirmDeleteBtn").onclick = function() {
   if (reviewToDelete) { deleteReview(reviewToDelete); closeDeleteConfirm(); }
 };
 
-// 🛡️ 24-Hour Ban System
 function checkBanStatus() {
   let banTime = localStorage.getItem("khalsaOrderBan");
   if (banTime) {
@@ -947,7 +934,6 @@ function checkBanStatus() {
 }
 function applyOrderBan() { localStorage.setItem("khalsaOrderBan", Date.now().toString()); }
 
-// 🛡️ Advanced Filter Engine 
 function filterText(text) {
   let hasBadWord = false; let detectedWord = ""; let cleanText = text;
   BANNED_WORDS.forEach(word => {
@@ -1061,8 +1047,8 @@ async function updateHeadlineBanner() {
   let marqueeEl = document.getElementById("mainMarqueeText");
   let today = new Date();
   
-  let defEn = "🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
-  let defHi = "🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
+  let defEn = "⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
+  let defHi = "⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
 
   if (today.getDate() === 1) {
     try {
@@ -1086,8 +1072,8 @@ async function updateHeadlineBanner() {
         uniqueCustomers.sort((a, b) => b.totalSpent - a.totalSpent);
         let topNames = uniqueCustomers.slice(0, 5).map(c => c.userName).join(" ⭐ ");
 
-        let textEn = "👑 TOP 5 HIGHEST BUYING CUSTOMERS 👑 — " + topNames;
-        let textHi = "👑 टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
+        let textEn = "⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 👑 TOP 5 HIGHEST BUYING CUSTOMERS 👑 — " + topNames;
+        let textHi = "⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 👑 टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
         marqueeEl.setAttribute("data-en", textEn);
         marqueeEl.setAttribute("data-hi", textHi);
         marqueeEl.innerText = isHindiLanguage ? textHi : textEn;
@@ -1304,34 +1290,10 @@ function showAccountPage(fromPop = false) { hideAll(); document.getElementById("
 function showDeveloperPage(fromPop = false) { hideAll(); document.getElementById("developerPage").style.display="block"; if(!fromPop) pushNavState('developer'); }
 function showContactScreen(fromPop = false) { hideAll(); document.getElementById("contactSection").style.display="block"; if(!fromPop) pushNavState('contact'); }
 
-function showFeaturesList(fromPop = false) {
+function showFunctionsGuidePage(fromPop = false) { 
   hideAll(); 
-  document.getElementById("featuresListPage").style.display="block";
-  if(!fromPop) pushNavState('features');
-  
-  let container = document.getElementById("featuresListContainer");
-  container.innerHTML = ""; 
-  for (let key in appFeaturesData) {
-    let feature = appFeaturesData[key];
-    let title = isHindiLanguage ? feature.titleHi : feature.titleEn;
-    let link = document.createElement("a");
-    link.innerText = title;
-    link.onclick = function() { showFeatureDetail(key, false); };
-    container.appendChild(link);
-  }
-}
-
-function showFeatureDetail(key, fromPop = false) {
-  let feature = appFeaturesData[key];
-  if (!feature) return;
-
-  document.getElementById("fd-title").innerText = isHindiLanguage ? feature.titleHi : feature.titleEn;
-  document.getElementById("fd-info").innerHTML = isHindiLanguage ? feature.infoHi : feature.infoEn;
-  document.getElementById("fd-uses").innerHTML = isHindiLanguage ? feature.usesHi : feature.usesEn;
-
-  hideAll(); 
-  document.getElementById("featureDetailPage").style.display="block";
-  if(!fromPop) pushNavState('featureDetail_' + key);
+  document.getElementById("functionsGuidePage").style.display="block"; 
+  if(!fromPop) pushNavState('functionsGuide'); 
 }
 
 function lockInputs() {
@@ -1415,7 +1377,6 @@ function openDetail(n, i, fromPop = false){
 
 function changeQty(v){ qty+=v; if(qty<1) qty=1; document.getElementById("qty").innerText=qty; }
 
-// 🌟 ADD TO CART UPGRADED LOGIC 🌟
 function addToCart(){
   if(!isUserLoggedIn()){
     showCustomError("PLEASE FILL FULL LOGIN DETAILS FIRST", 2500);
@@ -1423,9 +1384,17 @@ function addToCart(){
     return;
   }
   
+  let hour = new Date().getHours();
+  let isShopOpen = (hour >= 9 && hour < 18) || isTestingMode();
+
+  if (!isShopOpen) {
+      showCustomError("SHOP WAS CLOSED. ORDER WILL BE PROCESSED TOMORROW", 3500);
+  } else {
+      showSuccessMsg(isHindiLanguage ? "कार्ट में जोड़ा गया ✅" : "Added to Cart ✅");
+  }
+
   let imgSrc=img.src; let found=cartData.find(i=>i.internalName===internalItemName);
   if(found){found.qty+=qty;} else{cartData.push({name:item, internalName:internalItemName, price:price, img:imgSrc, qty:qty});}
-  showSuccessMsg(isHindiLanguage ? "कार्ट में जोड़ा गया ✅" : "Added to Cart ✅");
 }
 
 function removeFromCart(index) { cartData.splice(index, 1); showSuccessMsg("🗑️ Removed"); showCart(true); } 
@@ -1616,6 +1585,13 @@ function saveOrderToSheet(cartItems, userDetails) {
 function placeDirectOrder(){
   let banHours = checkBanStatus(); if (banHours > 0) { showError(`🚫 You are blocked! Try again in ${banHours} hours.`); return; }
   if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
+  
+  let hour = new Date().getHours();
+  if ((hour < 9 || hour >= 18) && !isTestingMode()) {
+      showCustomError("SHOP IS CLOSED NOW. ORDERS CAN BE PLACED BETWEEN 9 AM AND 6 PM.", 4000);
+      return;
+  }
+
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError("PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
 
@@ -1665,7 +1641,7 @@ function hideAll() {
   document.getElementById("accountPage").style.display="none"; document.getElementById("developerPage").style.display="none";
   document.getElementById("manageDevicePage").style.display="none";
   document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
-  document.getElementById("featuresListPage").style.display="none"; document.getElementById("featureDetailPage").style.display="none";
+  document.getElementById("functionsGuidePage").style.display="none";
   
   document.getElementById("dashboardHeaderBox").style.display="none";
   document.getElementById("categoryTitleBox").style.display="none";
