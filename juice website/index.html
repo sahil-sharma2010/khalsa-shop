@@ -74,45 +74,72 @@ input[type=number] {
 .back-btn { font-size: 14px; cursor: pointer; border: none; font-weight: bold; padding: 10px; width: 100%; border-radius: 8px; transition: 0.2s; }
 .back-btn:active { transform: scale(0.95); }
 
-/* Sticky Header Bar */
-.top-sticky-bar { position: sticky; top: 0; z-index: 900; background: var(--bg-card); transition: 0.3s; }
-.header{background:linear-gradient(45deg,#ff4b2b,#ff416c);color:white;padding:15px;text-align:center;font-size:22px;font-weight:bold; margin:0; display:block; border:none;}
+/* --- PREMIUM DASHBOARD HEADER STYLE --- */
+.top-sticky-bar { position: sticky; top: 0; z-index: 900; background: transparent; transition: 0.3s; padding: 0; box-shadow: none; }
+.dashboard-header {
+  background: linear-gradient(135deg, #9b51e0, #6f42c1);
+  padding: 25px 20px 30px 20px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.dark-mode .dashboard-header {
+  background: linear-gradient(135deg, #4a2377, #2d184d);
+}
+.greeting-text {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+.dashboard-search {
+  display: flex; gap: 8px; justify-content: center; transition: 0.3s; position: relative;
+}
+.dashboard-search .search-input {
+  flex-grow: 1; padding: 14px 20px 14px 45px; border: none; border-radius: 30px; font-size: 14px; font-family: sans-serif; outline: none; transition: 0.3s; background: white; color: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.dashboard-search .search-icon-left {
+  position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #888;
+}
+.dark-mode .dashboard-search .search-input { background: #242424; color: white; }
+.dashboard-search .search-input:focus { box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5); }
+.dashboard-search .search-btn {
+  background: white; color: #6f42c1; border: none; padding: 10px 18px; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.dark-mode .dashboard-search .search-btn { background: #444; color: white; }
 
 /* Premium Scrolling Marquee CSS */
 .marquee-wrapper {
-  background: var(--bg-card); padding: 10px 0; overflow: hidden;
-  box-shadow: 0 4px 10px var(--box-shadow); border-bottom: 3px solid #ff416c; display: flex; align-items: center; transition: 0.3s;
+  background: var(--bg-card); padding: 8px 0; overflow: hidden;
+  box-shadow: 0 4px 10px var(--box-shadow); border-bottom: 2px solid #ff416c; display: flex; align-items: center; transition: 0.3s; margin-top: 10px; border-radius: 10px; width: 90%; margin-left: auto; margin-right: auto; position: relative; z-index: 901;
 }
 .marquee-text {
-  display: inline-block; white-space: nowrap; font-weight: 800; font-size: 14px;
+  display: inline-block; white-space: nowrap; font-weight: 800; font-size: 13px;
   color: #ff4b2b; letter-spacing: 1px; animation: scrollLeft 35s linear infinite;
 }
 @keyframes scrollLeft { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
 
-/* Search Bar */
-.search-container {
-  display: flex; gap: 8px; padding: 10px 15px; background: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); justify-content: center; transition: 0.3s;
+/* Category Title Section */
+.category-title-container {
+  display: flex; justify-content: space-between; align-items: center; padding: 25px 20px 5px 20px;
 }
-.search-input {
-  flex-grow: 1; max-width: 250px; padding: 12px 15px; border: 2px solid var(--border-color); border-radius: 20px; font-size: 14px; font-family: sans-serif; outline: none; transition: 0.3s; background: var(--input-bg); color: var(--text-main);
-}
-.search-input:focus { border-color: #ff416c; }
-.search-btn {
-  background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(255, 65, 108, 0.3);
-}
+.category-title-container h3 { margin: 0; font-size: 18px; color: var(--text-main); font-weight: 700; }
 
 /* Flipkart Style Bottom Navigation */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
-  display: flex; justify-content: space-around; padding: 10px 0;
+  display: flex; justify-content: space-around; padding: 12px 0;
   box-shadow: 0 -4px 15px var(--box-shadow); z-index: 1000; border-top-left-radius: 20px; border-top-right-radius: 20px; transition: 0.3s;
 }
 .nav-item {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: bold; color: var(--text-muted); background: transparent; border: none; cursor: pointer; transition: 0.2s;
+  background: transparent; border: none; cursor: pointer; transition: 0.2s;
 }
-.nav-item:active { transform: scale(0.9); color: #ff416c; }
-.nav-item span { font-size: 24px; margin-bottom: 4px; }
+.nav-item:active { transform: scale(0.9); }
+/* Adjusted icon size to medium (24px) */
+.nav-item span { font-size: 24px; margin: 0; }
 
 /* Premium Account Page List */
 .account-list-container {
@@ -121,21 +148,39 @@ input[type=number] {
 .account-list-container a {
   display: block; padding: 16px; border-bottom: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; font-size: 15px; transition: 0.2s; text-decoration: none;
 }
-.account-list-container a:active { background-color: rgba(255, 65, 108, 0.1); }
+.account-list-container a:active { background-color: rgba(111, 66, 193, 0.1); }
 .account-list-container a:last-child { border-bottom: none; }
 
-.menu{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;padding:15px;margin-top:5px;}
-.item{background:var(--bg-card);border-radius:15px;padding:15px;text-align:center;cursor:pointer;transition:0.3s; box-shadow: 0 4px 8px var(--box-shadow); color: var(--text-main);}
-.item:active{transform:scale(0.95);opacity:0.8;}
-.item img{width:100%;height:150px;object-fit:contain;}
-.detail{display:none;padding:15px;margin-top:10px; color: var(--text-main);}
-.detail img{width:100%;max-height:250px;object-fit:contain;}
+/* Category Menu Grid */
+.menu { display: grid; grid-template-columns: repeat(2,1fr); gap: 15px; padding: 15px; margin-top: 5px; }
+.item { background: var(--bg-card); border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px var(--box-shadow); color: var(--text-main); border: 1px solid rgba(0,0,0,0.02); }
+.item:active { transform: scale(0.95); opacity: 0.8; border-color: #6f42c1; }
+.item img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 15px; border-radius: 10px; }
+.item h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text-main); }
+.item p.item-sub { display: none; } 
+
+.detail { display: none; padding: 15px; margin-top: 10px; color: var(--text-main); }
+.detail img { width: 100%; max-height: 250px; object-fit: contain; }
 
 .full-btn, .qty-btn{ transition:0.2s; }
 .full-btn:active, .qty-btn:active{ transform:scale(0.95); }
 
 .full-btn{width:100%;padding:12px;background:gold;border:none;font-weight:bold;margin-top:10px;cursor:pointer; border-radius: 8px; color: black;}
-.back-btn-solid{width:100%;padding:10px;background:#222;color:white;margin-bottom:15px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;}
+
+/* Standard UI Back Button Style */
+.back-btn-solid {
+  width: 100%;
+  padding: 12px;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .qty-btn{padding:5px 15px;margin:5px;background:#222;color:white;border:none; border-radius: 5px; font-size: 18px;}
 
 /* Premium Toast Error & Success CSS */
@@ -164,14 +209,8 @@ input[type=number] {
 .premium-modal p { color: var(--text-muted); margin: 5px 0; font-size: 14px; }
 .highlight-text { font-weight: bold; font-size: 18px; margin-top: 15px; color: var(--text-main); }
 
-.black-modal-btn {
-  background: #111; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 16px;
-  margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px var(--box-shadow);
-}
-.modal-btn {
-  background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px; 
-  font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%;
-}
+.black-modal-btn { background: #111; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px var(--box-shadow); }
+.modal-btn { background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px;  font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; }
 .premium-account { margin: 20px auto; padding: 20px; border: 2px solid var(--border-color); border-radius: 12px; background-color: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); transition: 0.3s; }
 
 @keyframes popUp { to { transform: scale(1); } }
@@ -179,23 +218,16 @@ input[type=number] {
 
 /* Loading Spinner */
 .loader-spinner {
-  border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #ff416c; border-radius: 50%;
+  border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #6f42c1; border-radius: 50%;
   width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 15px;
 }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* Cards & Inputs */
-.history-card { background: var(--bg-card); margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #ff416c; box-shadow: 0 4px 10px var(--box-shadow); text-align: left; transition: 0.3s; }
+.history-card { background: var(--bg-card); margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #6f42c1; box-shadow: 0 4px 10px var(--box-shadow); text-align: left; transition: 0.3s; }
 .cart-card{display:flex;background:var(--bg-card);margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.3s; }
 
-/* Review Box with Long Press Feedback */
-.review-box {
-  background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; 
-  box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  transition: transform 0.2s, opacity 0.2s, background 0.3s;
-}
+.review-box { background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative; user-select: none; transition: transform 0.2s, opacity 0.2s, background 0.3s; }
 .review-box:active { transform: scale(0.97); opacity: 0.8; }
 
 input, textarea{width:100%;padding:12px;margin:8px 0;border:1px solid var(--border-color);border-radius:8px; box-sizing: border-box; background:var(--input-bg); color: var(--text-main); font-family: sans-serif; transition: 0.3s;}
@@ -207,37 +239,21 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 .star-rating span:hover { transform: scale(1.2); }
 
 /* Sections */
-.app-review-section, .contact-section {
-  background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px;
-  box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s;
-}
+.app-review-section, .contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s; }
 .app-review-section { border-top: 5px solid #9c27b0; }
 .contact-section { border-top: 5px solid #00c853; }
-.party-highlight {
-  background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; padding: 12px; border-radius: 12px; font-weight: bold; margin-top: 15px; font-size: 15px; box-shadow: 0 4px 10px rgba(255,65,108,0.3);
-}
+.party-highlight { background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; padding: 12px; border-radius: 12px; font-weight: bold; margin-top: 15px; font-size: 15px; box-shadow: 0 4px 10px rgba(255,65,108,0.3); }
 .remove-btn { background: #ff4b2b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px; }
 
-.cart-summary-box {
-  background: var(--bg-card); padding: 15px; border-radius: 12px; margin: 15px 0; box-shadow: 0 4px 15px var(--box-shadow); border: 1px solid var(--border-color); text-align: left; transition: 0.3s;
-}
+.cart-summary-box { background: var(--bg-card); padding: 15px; border-radius: 12px; margin: 15px 0; box-shadow: 0 4px 15px var(--box-shadow); border: 1px solid var(--border-color); text-align: left; transition: 0.3s; }
 .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 16px; color: var(--text-muted); }
-.delivery-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: #ff416c; font-weight: bold; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
+.delivery-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: #6f42c1; font-weight: bold; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
 .total-row { display: flex; justify-content: space-between; font-size: 22px; color: #00c853; font-weight: 900; }
 
 .review-name-tag { font-weight: bold; font-size: 13px; color: #2196F3; margin-bottom: 5px; padding-right: 60px; }
 .stats-box { font-weight: bold; font-size: 15px; padding: 5px; background: rgba(33, 150, 243, 0.1); border-radius: 8px; display: inline-block; margin-bottom: 10px; }
-
-/* Filter Warning */
 .filter-warning { color: red; font-size: 12px; font-weight: bold; display: none; text-align: left; margin-bottom: 5px; }
-
-/* Ultra Premium Custom Checkbox Container */
-.premium-checkbox-container {
-  display: flex; align-items: flex-start; gap: 12px; background: rgba(33, 150, 243, 0.05);
-  padding: 15px; border-radius: 12px; border: 1px solid rgba(33, 150, 243, 0.3);
-  cursor: pointer; text-align: left; margin-top: 15px; transition: 0.3s;
-  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.1);
-}
+.premium-checkbox-container { display: flex; align-items: flex-start; gap: 12px; background: rgba(33, 150, 243, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(33, 150, 243, 0.3); cursor: pointer; text-align: left; margin-top: 15px; transition: 0.3s; box-shadow: 0 4px 10px rgba(33, 150, 243, 0.1); }
 .premium-checkbox-container:hover { background: rgba(33, 150, 243, 0.1); }
 </style>
 </head>
@@ -245,11 +261,9 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <body>
 
 <div id="onboardingOverlay" class="premium-dark-overlay">
-  
   <div id="step1Login" class="onboarding-card">
      <h1 class="premium-title">LOGIN DETAILS</h1>
      <p class="subtitle">KHALSA SHOP</p>
-     
      <div class="input-group" style="margin-bottom: 10px;">
         <input type="text" id="onboardName" placeholder="Full Name">
      </div>
@@ -259,7 +273,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
      <div class="input-group">
         <input type="email" id="onboardEmail" placeholder="Email Address">
      </div>
-     
      <button onclick="goToTermsStep()" class="premium-btn" style="margin-top: 25px;">CONTINUE</button>
      <button onclick="closeOnboarding()" class="back-btn" style="background: transparent; color: #888; box-shadow: none; margin-top: 10px;">Close</button>
   </div>
@@ -267,24 +280,22 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <div id="step2Terms" class="onboarding-card" style="display:none; text-align:left;">
      <h1 class="premium-title" style="text-align:center; font-size:24px;">TERMS & CONDITIONS</h1>
      <p class="subtitle" style="text-align:center;">KHALSA SHOP</p>
-     
      <div style="max-height: 150px; overflow-y: auto; font-size: 13px; color: #bbb; margin-bottom: 15px; padding-right: 5px; line-height: 1.5; border-bottom: 1px solid #333; padding-bottom: 10px;">
         By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms.
      </div>
-     
      <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; margin-bottom: 20px;">
         <input type="checkbox" id="onboardTcCheckbox" style="min-width: 20px; min-height: 20px; accent-color: #ff416c; margin-top: 2px;">
         <span style="font-size: 14px; font-weight: bold; color: #ddd;">I have read all terms and conditions, and I accept them.</span>
      </label>
-     
      <button onclick="finishOnboarding()" class="premium-btn">AGREE & ENTER</button>
      <button onclick="backToLoginStep()" class="back-btn" style="background: transparent; color: #888; box-shadow: none; margin-top: 10px; text-align:center;">⬅ Back</button>
   </div>
 </div>
 
 <div class="bottom-nav">
-  <button class="nav-item translatable" onclick="showAccountPage()" data-en="👤 Account" data-hi="👤 खाता"><span>👤</span>Account</button>
-  <button class="nav-item translatable" onclick="showCart()" data-en="🛒 Cart" data-hi="🛒 कार्ट"><span>🛒</span>Cart</button>
+  <button class="nav-item" onclick="showAccountPage()"><span>👤</span></button>
+  <button class="nav-item" onclick="uiBack('menu')"><span>🏠</span></button>
+  <button class="nav-item" onclick="showCart()"><span>🛒</span></button>
 </div>
 
 <div id="premiumError" class="premium-popup premium-error">⚠️ Error message</div>
@@ -295,148 +306,87 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <h2 id="loadingText" style="color: white; font-family: sans-serif; letter-spacing: 1px;" class="translatable" data-en="Loading..." data-hi="लोड हो रहा है...">Loading...</h2>
 </div>
 
-<div id="reviewSuccessModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #ff9800;">
-    <div class="modal-icon">🎊</div>
-    <h2 style="color: #ff9800;" class="translatable" data-en="THANKS FOR REVIEW" data-hi="समीक्षा के लिए धन्यवाद">THANKS FOR REVIEW</h2>
-    <p class="highlight-text translatable" style="font-size: 16px; color: var(--text-main);" data-en="Your feedback means a lot to us! 🌟" data-hi="आपकी प्रतिक्रिया हमारे लिए बहुत मायने रखती है! 🌟">Your feedback means a lot to us! 🌟</p>
-    <button class="black-modal-btn translatable" onclick="closeReviewSuccess()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button>
-  </div>
-</div>
+<div id="reviewSuccessModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff9800;"><div class="modal-icon">🎊</div><h2 style="color: #ff9800;" class="translatable" data-en="THANKS FOR REVIEW" data-hi="समीक्षा के लिए धन्यवाद">THANKS FOR REVIEW</h2><p class="highlight-text translatable" style="font-size: 16px; color: var(--text-main);" data-en="Your feedback means a lot to us! 🌟" data-hi="आपकी प्रतिक्रिया हमारे लिए बहुत मायने रखती है! 🌟">Your feedback means a lot to us! 🌟</p><button class="black-modal-btn translatable" onclick="closeReviewSuccess()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button></div></div>
+<div id="deleteConfirmModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #d32f2f;"><div class="modal-icon">🗑️</div><h2 style="color: #d32f2f;" class="translatable" data-en="Delete Review?" data-hi="समीक्षा हटाएं?">Delete Review?</h2><p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to delete your review?" data-hi="क्या आप वाकई अपनी समीक्षा हटाना चाहते हैं?">Are you sure you want to delete your review?</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeDeleteConfirm()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#d32f2f; margin-top:0;" id="confirmDeleteBtn" data-en="Delete" data-hi="हटाएं">Delete</button></div></div></div>
+<div id="pinErrorModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff0000;"><div class="modal-icon" style="animation: none;">🚫</div><h2 style="color: #ff0000; font-size: 22px;" class="translatable" data-en="DELIVERY UNAVAILABLE" data-hi="डिलीवरी उपलब्ध नहीं है">DELIVERY UNAVAILABLE</h2><p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);"><span class="translatable" data-en="ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER" data-hi="केवल 127041 और 125033 पिन कोड ही मान्य हैं">ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER</span><br><br><span style="color:#ff0000; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span></p><button class="black-modal-btn translatable" onclick="closePinErrorPopup()" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
+<div id="locationPromptModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">📍</div><h2 style="color: #2196F3;" class="translatable" data-en="Location Access" data-hi="लोकेशन एक्सेस">Location Access</h2><p style="font-weight: bold;" class="translatable" data-en="We need your live location for accurate delivery." data-hi="सटीक डिलीवरी के लिए हमें आपकी लाइव लोकेशन चाहिए।">We need your live location for accurate delivery.</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="denyLocation()" data-en="Deny" data-hi="मना करें">Deny</button><button class="modal-btn translatable" style="margin-top:0;" onclick="allowLocation()" data-en="Allow" data-hi="अनुमति दें">Allow</button></div></div></div>
+<div id="successPopup" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #00c853;"><div class="modal-icon" id="successIcon">🎉</div><h2 style="font-size: 22px; text-transform: uppercase;" id="successHeading" class="translatable" data-en="ORDER SUCCESSFULLY" data-hi="ऑर्डर सफलतापूर्वक प्राप्त हुआ">ORDER SUCCESSFULLY</h2><p class="highlight-text" style="color: #ff416c;" class="translatable" data-en="HAVE A NICE DAY 🌟😊" data-hi="आपका दिन शुभ हो 🌟😊">HAVE A NICE DAY 🌟😊</p><button class="black-modal-btn translatable" onclick="closeSuccessPopup()" id="successBtn" style="display:none;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button></div></div>
+<div id="tcWarningModal" class="premium-modal-overlay" style="z-index: 3000;"><div class="premium-modal" style="border-top: 5px solid #d32f2f;"><div class="modal-icon" style="animation: none;">⚠️</div><h2 style="color: #d32f2f; font-size: 20px;" class="translatable" data-en="Action Denied" data-hi="कार्रवाई अस्वीकृत">Action Denied</h2><p class="translatable" style="color: var(--text-main); font-weight: bold; margin-top: 10px;" data-en="I have approved my first terms and conditions, now I cannot do anything." data-hi="मैंने अपनी पहली नियम और शर्तें स्वीकार कर ली हैं, अब मैं कुछ नहीं कर सकता।">I have approved my first terms and conditions, now I cannot do anything.</p><button class="black-modal-btn translatable" style="background: #111;" onclick="document.getElementById('tcWarningModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
+<div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;"><div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;"><div class="modal-icon">📄</div><h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2><div style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;"><p style="font-size: 13px; line-height: 1.6; color: var(--text-muted);" class="translatable" data-en="By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms." data-hi="खालसा शॉप का उपयोग करके, आप हमारे नियमों और शर्तों का पालन करने के लिए सहमत हैं। वेबसाइट के माध्यम से दिए गए सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं, इसलिए सही और पूर्ण विवरण प्रदान करना महत्वपूर्ण है। हम गलत जानकारी के कारण होने वाली देरी या समस्याओं के लिए जिम्मेदार नहीं हैं। वस्तुओं की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं। यदि कोई ऑर्डर अमान्य या संदिग्ध लगता है तो हम उसे रद्द करने का अधिकार सुरक्षित रखते हैं। नकली या अधूरे ऑर्डर अस्वीकार किए जा सकते हैं। हमारी सेवा का उपयोग जारी रखकर, आप इन शर्तों को स्वीकार करते हैं।">By using Khalsa Shop, you agree to follow our terms and conditions...</p></div><label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
+<div id="testingModeDisableModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff416c;"><div class="modal-icon" style="animation: none;">🛠️</div><h2 style="color: #ff416c;" class="translatable" data-en="Disable Testing Mode?" data-hi="टेस्टिंग मोड बंद करें?">Disable Testing Mode?</h2><p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to disable testing mode?" data-hi="क्या आप वाकई टेस्टिंग मोड बंद करना चाहते हैं?">Are you sure you want to disable testing mode?</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#ff416c; margin-top:0;" onclick="confirmDisableTestingMode()" data-en="Disable" data-hi="बंद करें">Disable</button></div></div></div>
+<div id="testingModePasswordModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">🔑</div><h2 style="color: #2196F3;" class="translatable" data-en="PASSWORD REQUIRED" data-hi="पासवर्ड आवश्यक है">PASSWORD REQUIRED</h2><input type="password" id="testingModePwdInput" class="translatable-ph" data-en="Enter Password..." data-hi="पासवर्ड दर्ज करें..." placeholder="Enter Password..." style="margin-top: 15px; text-align: center; font-size: 16px; letter-spacing: 2px;"><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#2196F3; margin-top:0;" onclick="submitTestingPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button></div></div></div>
 
-<div id="deleteConfirmModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
-    <div class="modal-icon">🗑️</div>
-    <h2 style="color: #d32f2f;" class="translatable" data-en="Delete Review?" data-hi="समीक्षा हटाएं?">Delete Review?</h2>
-    <p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to delete your review?" data-hi="क्या आप वाकई अपनी समीक्षा हटाना चाहते हैं?">Are you sure you want to delete your review?</p>
-    <div style="display: flex; gap: 10px; margin-top: 15px;">
-      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeDeleteConfirm()" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
-      <button class="modal-btn translatable" style="background:#d32f2f; margin-top:0;" id="confirmDeleteBtn" data-en="Delete" data-hi="हटाएं">Delete</button>
-    </div>
-  </div>
-</div>
-
-<div id="pinErrorModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #ff0000;">
-    <div class="modal-icon" style="animation: none;">🚫</div>
-    <h2 style="color: #ff0000; font-size: 22px;" class="translatable" data-en="DELIVERY UNAVAILABLE" data-hi="डिलीवरी उपलब्ध नहीं है">DELIVERY UNAVAILABLE</h2>
-    <p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);">
-      <span class="translatable" data-en="ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER" data-hi="केवल 127041 और 125033 पिन कोड ही मान्य हैं">ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER</span><br><br>
-      <span style="color:#ff0000; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span>
-    </p>
-    <button class="black-modal-btn translatable" onclick="closePinErrorPopup()" data-en="Okay" data-hi="ठीक है">Okay</button>
-  </div>
-</div>
-
-<div id="locationPromptModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #2196F3;">
-    <div class="modal-icon" style="animation: none;">📍</div>
-    <h2 style="color: #2196F3;" class="translatable" data-en="Location Access" data-hi="लोकेशन एक्सेस">Location Access</h2>
-    <p style="font-weight: bold;" class="translatable" data-en="We need your live location for accurate delivery." data-hi="सटीक डिलीवरी के लिए हमें आपकी लाइव लोकेशन चाहिए।">We need your live location for accurate delivery.</p>
-    <div style="display: flex; gap: 10px; margin-top: 15px;">
-      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="denyLocation()" data-en="Deny" data-hi="मना करें">Deny</button>
-      <button class="modal-btn translatable" style="margin-top:0;" onclick="allowLocation()" data-en="Allow" data-hi="अनुमति दें">Allow</button>
-    </div>
-  </div>
-</div>
-
-<div id="successPopup" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #00c853;">
-    <div class="modal-icon" id="successIcon">🎉</div>
-    <h2 style="font-size: 22px; text-transform: uppercase;" id="successHeading" class="translatable" data-en="ORDER SUCCESSFULLY" data-hi="ऑर्डर सफलतापूर्वक प्राप्त हुआ">ORDER SUCCESSFULLY</h2>
-    <p class="highlight-text" style="color: #ff416c;" class="translatable" data-en="HAVE A NICE DAY 🌟😊" data-hi="आपका दिन शुभ हो 🌟😊">HAVE A NICE DAY 🌟😊</p>
-    <button class="black-modal-btn translatable" onclick="closeSuccessPopup()" id="successBtn" style="display:none;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
-  </div>
-</div>
-
-<div id="tcWarningModal" class="premium-modal-overlay" style="z-index: 3000;">
-  <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
-    <div class="modal-icon" style="animation: none;">⚠️</div>
-    <h2 style="color: #d32f2f; font-size: 20px;" class="translatable" data-en="Action Denied" data-hi="कार्रवाई अस्वीकृत">Action Denied</h2>
-    <p class="translatable" style="color: var(--text-main); font-weight: bold; margin-top: 10px;" data-en="I have approved my first terms and conditions, now I cannot do anything." data-hi="मैंने अपनी पहली नियम और शर्तें स्वीकार कर ली हैं, अब मैं कुछ नहीं कर सकता।">I have approved my first terms and conditions, now I cannot do anything.</p>
-    <button class="black-modal-btn translatable" style="background: #111;" onclick="document.getElementById('tcWarningModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button>
-  </div>
-</div>
-
-<div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;">
-  <div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;">
-    <div class="modal-icon">📄</div>
-    <h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
+<div class="top-sticky-bar" id="dashboardHeaderBox">
+  <div class="dashboard-header">
+    <h3 id="dynamicGreeting" class="greeting-text translatable" data-en="Hello,<br>Good Morning!" data-hi="नमस्ते,<br>शुभ प्रभात!">Hello,<br>Good Morning!</h3>
     
-    <div style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
-      <p style="font-size: 13px; line-height: 1.6; color: var(--text-muted);" class="translatable" data-en="By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms." data-hi="खालसा शॉप का उपयोग करके, आप हमारे नियमों और शर्तों का पालन करने के लिए सहमत हैं। वेबसाइट के माध्यम से दिए गए सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं, इसलिए सही और पूर्ण विवरण प्रदान करना महत्वपूर्ण है। हम गलत जानकारी के कारण होने वाली देरी या समस्याओं के लिए जिम्मेदार नहीं हैं। वस्तुओं की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं। यदि कोई ऑर्डर अमान्य या संदिग्ध लगता है तो हम उसे रद्द करने का अधिकार सुरक्षित रखते हैं। नकली या अधूरे ऑर्डर अस्वीकार किए जा सकते हैं। हमारी सेवा का उपयोग जारी रखकर, आप इन शर्तों को स्वीकार करते हैं।">
-        By using Khalsa Shop, you agree to follow our terms and conditions...
-      </p>
-    </div>
-
-    <label class="premium-checkbox-container">
-      <input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()">
-      <span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span>
-    </label>
-
-    <button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button>
-  </div>
-</div>
-
-<div id="testingModeDisableModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #ff416c;">
-    <div class="modal-icon" style="animation: none;">🛠️</div>
-    <h2 style="color: #ff416c;" class="translatable" data-en="Disable Testing Mode?" data-hi="टेस्टिंग मोड बंद करें?">Disable Testing Mode?</h2>
-    <p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to disable testing mode?" data-hi="क्या आप वाकई टेस्टिंग मोड बंद करना चाहते हैं?">Are you sure you want to disable testing mode?</p>
-    <div style="display: flex; gap: 10px; margin-top: 15px;">
-      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
-      <button class="modal-btn translatable" style="background:#ff416c; margin-top:0;" onclick="confirmDisableTestingMode()" data-en="Disable" data-hi="बंद करें">Disable</button>
+    <div class="dashboard-search" id="searchContainerBox">
+      <span class="search-icon-left">🔍</span>
+      <input type="text" id="searchInput" class="search-input translatable-ph" data-en="Search your products" data-hi="उत्पाद खोजें" placeholder="Search your products">
+      <button onclick="doSearch()" class="search-btn translatable" data-en="Search" data-hi="खोजें" style="display:none;">Search</button>
     </div>
   </div>
-</div>
-
-<div id="testingModePasswordModal" class="premium-modal-overlay">
-  <div class="premium-modal" style="border-top: 5px solid #2196F3;">
-    <div class="modal-icon" style="animation: none;">🔑</div>
-    <h2 style="color: #2196F3;" class="translatable" data-en="PASSWORD REQUIRED" data-hi="पासवर्ड आवश्यक है">PASSWORD REQUIRED</h2>
-    <input type="password" id="testingModePwdInput" class="translatable-ph" data-en="Enter Password..." data-hi="पासवर्ड दर्ज करें..." placeholder="Enter Password..." style="margin-top: 15px; text-align: center; font-size: 16px; letter-spacing: 2px;">
-    <div style="display: flex; gap: 10px; margin-top: 15px;">
-      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
-      <button class="modal-btn translatable" style="background:#2196F3; margin-top:0;" onclick="submitTestingPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button>
-    </div>
-  </div>
-</div>
-
-<div class="top-sticky-bar">
-  <div class="header translatable" data-en="WELCOME TO KHALSA SHOP" data-hi="खालसा शॉप में आपका स्वागत है">WELCOME TO KHALSA SHOP</div>
   
   <div class="marquee-wrapper" id="homeMarquee">
     <div class="marquee-text translatable" id="mainMarqueeText" data-en="🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" data-hi="🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
       🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
     </div>
   </div>
-  
-  <div class="search-container" id="searchContainerBox">
-    <input type="text" id="searchInput" class="search-input translatable-ph" data-en="Search products..." data-hi="उत्पाद खोजें..." placeholder="Search products...">
-    <button onclick="doSearch()" class="search-btn translatable" data-en="Search" data-hi="खोजें">Search</button>
-  </div>
+</div>
+
+<div class="category-title-container" id="categoryTitleBox">
+    <h3 class="translatable" data-en="Explore categories" data-hi="श्रेणियां खोजें">Explore categories</h3>
 </div>
 
 <div class="menu" id="menu">
-  <div class="item" onclick="openDetail('Mango','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREVB7c-xUXI9COvXovtOJjiVzRdJs241YYew&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREVB7c-xUXI9COvXovtOJjiVzRdJs241YYew&s=10"><h3 class="product-name translatable" data-en="Mango" data-hi="आम">Mango</h3></div>
-  <div class="item" onclick="openDetail('Litchi','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUBDGkG-CZgGULDc9tsIng5uj_m7anZ9JAQ&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUBDGkG-CZgGULDc9tsIng5uj_m7anZ9JAQ&s=10"><h3 class="product-name translatable" data-en="Litchi" data-hi="लीची">Litchi</h3></div>
-  <div class="item" onclick="openDetail('Blueberry','https://img.freepik.com/premium-photo/fresh-blueberry-juice-bottle-with-blueberry-advertisement-mockup-blueberry-juice-bottle-mockup_1174662-4993.jpg')"><img src="https://img.freepik.com/premium-photo/fresh-blueberry-juice-bottle-with-blueberry-advertisement-mockup-blueberry-juice-bottle-mockup_1174662-4993.jpg"><h3 class="product-name translatable" data-en="Blueberry" data-hi="ब्लूबेरी">Blueberry</h3></div>
-  <div class="item" onclick="openDetail('Orange','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRClT7OHyXPUStWMbTq1Pzaa1tVZttGR5fQ&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRClT7OHyXPUStWMbTq1Pzaa1tVZttGR5fQ&s=10"><h3 class="product-name translatable" data-en="Orange" data-hi="संतरा">Orange</h3></div>
-  <div class="item" onclick="openDetail('Apple','https://thumbs.dreamstime.com/b/apple-juice-bottle-fruit-isolated-transparent-background-clear-glass-filled-golden-stands-next-to-ripe-red-green-410416065.jpg')"><img src="https://thumbs.dreamstime.com/b/apple-juice-bottle-fruit-isolated-transparent-background-clear-glass-filled-golden-stands-next-to-ripe-red-green-410416065.jpg"><h3 class="product-name translatable" data-en="Apple" data-hi="सेब">Apple</h3></div>
-  <div class="item" onclick="openDetail('Guava','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHA_JM2is760PSqmiFjCzW8Wfv56QnLWpw&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHA_JM2is760PSqmiFjCzW8Wfv56QnLWpw&s=10"><h3 class="product-name translatable" data-en="Guava" data-hi="अमरूद">Guava</h3></div>
-  <div class="item" onclick="openDetail('Fruit Beer','https://img.freepik.com/premium-photo/beer-glass-with-mix-seasonal-fruits-beside-it_1179130-139306.jpg')"><img src="https://img.freepik.com/premium-photo/beer-glass-with-mix-seasonal-fruits-beside-it_1179130-139306.jpg"><h3 class="product-name translatable" data-en="Fruit Beer" data-hi="फ्रूट बीयर">Fruit Beer</h3></div>
-  <div class="item" onclick="openDetail('Nimbu','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKiYfK08FzsJp4-IsmU9RJzytWo2BmA3UQWw&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKiYfK08FzsJp4-IsmU9RJzytWo2BmA3UQWw&s=10"><h3 class="product-name translatable" data-en="Nimbu" data-hi="नींबू">Nimbu</h3></div>
-  <div class="item" onclick="openDetail('Pudina','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXMc99fYyIHMKj6Nao9qm3oOe_Ogzrf1Ceuw&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXMc99fYyIHMKj6Nao9qm3oOe_Ogzrf1Ceuw&s=10"><h3 class="product-name translatable" data-en="Pudina" data-hi="पुदीना">Pudina</h3></div>
-  <div class="item" onclick="openDetail('Lahori Jeera','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmbwdkfts2ykNF44wCsnJBnUw4RhXYbqXaAQ&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmbwdkfts2ykNF44wCsnJBnUw4RhXYbqXaAQ&s=10"><h3 class="product-name translatable" data-en="Lahori Jeera" data-hi="लाहोरी जीरा">लाहोरी जीरा</h3></div>
-  <div class="item" onclick="openDetail('Coca Cola','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSFSLxzmmCaZTXEgFYF000FhQ52lW2DsjPFw&s=10')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSFSLxzmmCaZTXEgFYF000FhQ52lW2DsjPFw&s=10"><h3 class="product-name translatable" data-en="Coca Cola" data-hi="कोका कोला">Coca Cola</h3></div>
+  <div class="item" onclick="openDetail('Mango','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREVB7c-xUXI9COvXovtOJjiVzRdJs241YYew&s=10')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREVB7c-xUXI9COvXovtOJjiVzRdJs241YYew&s=10">
+      <h3 class="product-name translatable" data-en="Mango" data-hi="आम">Mango</h3>
+      <p class="item-sub translatable" data-en="34 items" data-hi="34 आइटम">34 items</p>
+  </div>
+  <div class="item" onclick="openDetail('Litchi','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUBDGkG-CZgGULDc9tsIng5uj_m7anZ9JAQ&s=10')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUBDGkG-CZgGULDc9tsIng5uj_m7anZ9JAQ&s=10">
+      <h3 class="product-name translatable" data-en="Litchi" data-hi="लीची">Litchi</h3>
+      <p class="item-sub translatable" data-en="21 items" data-hi="21 आइटम">21 items</p>
+  </div>
+  <div class="item" onclick="openDetail('Blueberry','https://img.freepik.com/premium-photo/fresh-blueberry-juice-bottle-with-blueberry-advertisement-mockup-blueberry-juice-bottle-mockup_1174662-4993.jpg')">
+      <img src="https://img.freepik.com/premium-photo/fresh-blueberry-juice-bottle-with-blueberry-advertisement-mockup-blueberry-juice-bottle-mockup_1174662-4993.jpg">
+      <h3 class="product-name translatable" data-en="Blueberry" data-hi="ब्लूबेरी">Blueberry</h3>
+      <p class="item-sub translatable" data-en="15 items" data-hi="15 आइटम">15 items</p>
+  </div>
+  <div class="item" onclick="openDetail('Orange','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRClT7OHyXPUStWMbTq1Pzaa1tVZttGR5fQ&s=10')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRClT7OHyXPUStWMbTq1Pzaa1tVZttGR5fQ&s=10">
+      <h3 class="product-name translatable" data-en="Orange" data-hi="संतरा">Orange</h3>
+      <p class="item-sub translatable" data-en="46 items" data-hi="46 आइटम">46 items</p>
+  </div>
+  <div class="item" onclick="openDetail('Apple','https://thumbs.dreamstime.com/b/apple-juice-bottle-fruit-isolated-transparent-background-clear-glass-filled-golden-stands-next-to-ripe-red-green-410416065.jpg')">
+      <img src="https://thumbs.dreamstime.com/b/apple-juice-bottle-fruit-isolated-transparent-background-clear-glass-filled-golden-stands-next-to-ripe-red-green-410416065.jpg">
+      <h3 class="product-name translatable" data-en="Apple" data-hi="सेब">Apple</h3>
+      <p class="item-sub translatable" data-en="12 items" data-hi="12 आइटम">12 items</p>
+  </div>
+  <div class="item" onclick="openDetail('Guava','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHA_JM2is760PSqmiFjCzW8Wfv56QnLWpw&s=10')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHA_JM2is760PSqmiFjCzW8Wfv56QnLWpw&s=10">
+      <h3 class="product-name translatable" data-en="Guava" data-hi="अमरूद">Guava</h3>
+      <p class="item-sub translatable" data-en="28 items" data-hi="28 आइटम">28 items</p>
+  </div>
+  <div class="item" onclick="openDetail('Fruit Beer','https://img.freepik.com/premium-photo/beer-glass-with-mix-seasonal-fruits-beside-it_1179130-139306.jpg')">
+      <img src="https://img.freepik.com/premium-photo/beer-glass-with-mix-seasonal-fruits-beside-it_1179130-139306.jpg">
+      <h3 class="product-name translatable" data-en="Fruit Beer" data-hi="फ्रूट बीयर">Fruit Beer</h3>
+      <p class="item-sub translatable" data-en="8 items" data-hi="8 आइटम">8 items</p>
+  </div>
+  <div class="item" onclick="openDetail('Nimbu','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKiYfK08FzsJp4-IsmU9RJzytWo2BmA3UQWw&s=10')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKiYfK08FzsJp4-IsmU9RJzytWo2BmA3UQWw&s=10">
+      <h3 class="product-name translatable" data-en="Nimbu" data-hi="नींबू">Nimbu</h3>
+      <p class="item-sub translatable" data-en="50 items" data-hi="50 आइटम">50 items</p>
+  </div>
 </div>
 
 <div class="detail" id="accountPage" style="padding: 15px;">
-  <h2 style="text-align: center; color: #2196F3;" class="translatable" data-en="👤 My Account" data-hi="👤 मेरा खाता">👤 My Account</h2>
+  <h2 style="text-align: center; color: #6f42c1;" class="translatable" data-en="👤 My Account" data-hi="👤 मेरा खाता">👤 My Account</h2>
   
   <div class="account-list-container">
    <a href="https://drive.google.com/uc?export=download&id=12HRouGIYMkH2DmhOXgimjSZMrAqafkiZ" target="_blank" style="color:#28a745; font-weight:bold; padding:0; text-decoration:none;">
-      <button class="full-btn translatable" data-en="📲 Download App" data-hi="📲 ऐप डाउनलोड करें" style="margin:0; border-radius:0; padding:18px 0;">
+      <button class="full-btn translatable" data-en="📲 Download App" data-hi="📲 ऐप डाउनलोड करें" style="margin:0; border-radius:0; padding:18px 0; background: #00c853; color: white;">
         📲 Download App
       </button>
     </a>
@@ -455,21 +405,22 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <a onclick="showTerms()" style="font-weight: normal;" class="translatable" data-en="📄 Terms & Conditions" data-hi="📄 नियम और शर्तें">📄 Terms & Conditions</a>
   </div>
 
-  <button class="back-btn-solid translatable" onclick="back()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं" style="margin-top: 15px;">⬅ Back to Menu</button>
+  <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
 </div>
 
 <div class="detail" id="featuresListPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #1e88e5;" class="translatable" data-en="ℹ️ App Features" data-hi="ℹ️ ऐप की विशेषताएं">ℹ️ App Features</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Select an option below to learn how it works:" data-hi="यह कैसे काम करता है, यह जानने के लिए नीचे एक विकल्प चुनें:">Select an option below to learn how it works:</p>
   
   <div class="account-list-container" id="featuresListContainer">
   </div>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="featureDetailPage" style="padding: 15px;">
   <div class="premium-account" style="border-top: 5px solid #1e88e5; text-align: left;">
-     <button class="back-btn-solid translatable" style="background:#111; color:white; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-top:0px;" onclick="showFeaturesList()" data-en="⬅ Back to Features" data-hi="⬅ पीछे जाएं">⬅ Back to Features</button>
+     
      <h2 id="fd-title" style="color: #1e88e5; margin-top: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Feature Title</h2>
      
      <h4 style="color: var(--text-main); margin-bottom: 5px;" class="translatable" data-en="Information:" data-hi="जानकारी:">Information:</h4>
@@ -478,25 +429,28 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
      <h4 style="color: var(--text-main); margin-top: 20px; margin-bottom: 5px;" class="translatable" data-en="Uses:" data-hi="उपयोग:">Uses:</h4>
      <div id="fd-uses" style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">Uses text goes here.</div>
   </div>
+  <button class="back-btn-solid translatable" onclick="uiBack('features')" data-en="⬅ Back to Features" data-hi="⬅ पीछे जाएं">⬅ Back to Features</button>
 </div>
 
 <div class="detail" id="reportPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Records of blocked reviews" data-hi="ब्लॉक की गई समीक्षाओं का रिकॉर्ड">Records of blocked reviews</p>
   <div id="reportContainer"></div>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="topCustomersPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff9800;" class="translatable" data-en="👑 Top 5 Customers" data-hi="👑 टॉप 5 ग्राहक">👑 Top 5 Customers</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Our most loyal shoppers!" data-hi="हमारे सबसे वफादार खरीदार!">Our most loyal shoppers!</p>
   <div id="topCustomersList"></div>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="developerPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff4b2b;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <div class="premium-account" style="border-color: #ff4b2b; text-align: left; margin-bottom: 10px; padding: 15px; border-radius: 8px;">
     <p style="margin: 5px 0; font-size: 15px;"><strong>Website Developed & Managed By:</strong> Sahil Sharma</p>
     <p style="margin: 5px 0; font-size: 15px;"><strong>Brand:</strong> Khalsa Shop</p>
@@ -516,11 +470,12 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     </ul>
   </div>
   <p style="text-align: center; font-size: 13px; font-weight: bold; color: var(--text-muted); margin-bottom: 20px;" class="translatable" data-en="CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS" data-hi="पूरी जानकारी के लिए स्क्रीन पर दिख रहे ईमेल पर संपर्क करें">CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS</p>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="app-review-section" id="appReviewSection" style="display: none;">
   <h2 class="translatable" data-en="🌟 Rate Our App" data-hi="🌟 हमारे ऐप को रेट करें">🌟 Rate Our App</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" style="margin-bottom: 15px;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
+  
   <p class="translatable" data-en="HOW WAS THIS APP?<br>PLEASE GIVE A REVIEW AND TELL ME WHAT FEATURE CAN BE ADDED!" data-hi="यह ऐप कैसा था?<br>कृपया एक समीक्षा दें और मुझे बताएं कि क्या सुविधा जोड़ी जा सकती है!">HOW WAS THIS APP?<br>PLEASE GIVE A REVIEW AND TELL ME WHAT FEATURE CAN BE ADDED!</p>
   
   <div class="star-rating" id="appStarContainer">
@@ -531,6 +486,8 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <textarea id="appReviewText" class="translatable-ph" data-en="Write your app review & feature suggestions here..." data-hi="अपनी ऐप समीक्षा और सुझाव यहां लिखें..." placeholder="Write your app review & feature suggestions here..." style="height: 100px;"></textarea>
   <button class="modal-btn translatable" onclick="saveAppReview()" style="background: linear-gradient(45deg, #9c27b0, #ea80fc);" data-en="Submit Feedback" data-hi="प्रतिक्रिया जमा करें">Submit Feedback</button>
 
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
+
   <h3 style="margin-top:25px; border-bottom: 2px solid var(--border-color); padding-bottom:8px; text-align: left;" class="translatable" data-en="Community Feedback" data-hi="समुदाय की प्रतिक्रिया">Community Feedback</h3>
   <div id="appReviewStats" class="stats-box" style="color: #9c27b0;"></div>
   <div id="appReviewsList"></div>
@@ -538,7 +495,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="contact-section" id="contactSection" style="display: none;">
   <h2 class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
+  
   <div class="contact-card">
     <p>👤 <strong class="translatable" data-en="Name:" data-hi="नाम:">Name:</strong> SURESH KUMAR</p>
     <p>📧 <strong class="translatable" data-en="Email:" data-hi="ईमेल:">Email:</strong> <a href="mailto:sureshkumar803@gmail.com" style="color: #2196F3;">sureshkumar803@gmail.com</a></p>
@@ -546,12 +503,13 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
       🎊 Available for Weddings, Parties & Other Functions! 🎊
     </div>
   </div>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 </div>
 
 <div class="detail" id="detail">
   <img id="img">
   <h2 id="name"></h2>
-  <button class="back-btn-solid translatable" onclick="back()" style="margin-bottom: 15px;" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+  
   <h3 id="price">₹70</h3>
 
   <div style="display:flex; justify-content:center; align-items:center;">
@@ -560,7 +518,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <button class="qty-btn" onclick="changeQty(1)">+</button>
   </div>
 
-  <button class="full-btn translatable" onclick="addToCart()" data-en="🛒 Add to Cart" data-hi="🛒 कार्ट में डालें">🛒 Add to Cart</button>
+  <button class="full-btn translatable" onclick="addToCart()" data-en="🛒 Add to Cart" data-hi="🛒 कार्ट में डालें" style="background:#6f42c1; color:white;">🛒 Add to Cart</button>
   
   <h3 style="margin-top:25px;" class="translatable" data-en="Rate this Item:" data-hi="इस आइटम को रेट करें:">Rate this Item:</h3>
   <div class="star-rating" id="itemStarContainer">
@@ -571,6 +529,8 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <textarea id="reviewText" class="translatable-ph" data-en="Write your review here..." data-hi="अपनी समीक्षा यहां लिखें..." placeholder="Write your review here..."></textarea>
   <button class="full-btn translatable" onclick="saveReview()" style="background:#2196F3; color:black;" data-en="Submit Item Review" data-hi="आइटम समीक्षा सबमिट करें">Submit Item Review</button>
 
+  <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+
   <h3 style="margin-top:20px; border-bottom: 2px solid var(--border-color); padding-bottom:5px;" class="translatable" data-en="Customer Reviews" data-hi="ग्राहक समीक्षाएं">Customer Reviews</h3>
   <div id="itemReviewStats" class="stats-box" style="color: #2196F3;"></div>
   <div id="reviews"></div>
@@ -578,7 +538,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="detail" id="cart">
   <h2 style="text-align: center;" class="translatable" data-en="🛒 Your Cart" data-hi="🛒 आपका कार्ट">🛒 Your Cart</h2>
-  <button class="back-btn-solid translatable" onclick="back()" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
+  
   <div id="cartItems"></div>
   <div id="total"></div>
   
@@ -586,6 +546,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <p style="font-weight: bold; font-size: 15px; color: #333; margin-bottom: 5px;" class="translatable" data-en="Is cash on delivery available for this?" data-hi="क्या इसके लिए कैश ऑन डिलीवरी उपलब्ध है?">Is cash on delivery available for this?</p>
     <button class="full-btn translatable" onclick="placeDirectOrder()" style="background:#FFD700; color:black; font-weight:bold; font-size: 16px; padding: 10px; margin-top:5px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);" data-en="📲 Place order" data-hi="📲 ऑर्डर दें">📲 Place order</button>
   </div>
+  <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 </div>
 
 <div class="detail" id="historyView">
@@ -593,20 +554,22 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <h2 style="margin: 0; text-align: left;" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</h2>
     <button onclick="clearAllHistory()" style="background: #d32f2f; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; box-shadow: 0 4px 6px rgba(211, 47, 47, 0.3);" class="translatable" data-en="🗑️ Clear All" data-hi="🗑️ सभी हटाएं">🗑️ Clear All</button>
   </div>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <div id="historyList"></div>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="allReviewsPage">
   <h2 style="text-align: center; color: #9c27b0;" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Here is what our customers are saying!" data-hi="यहाँ हमारे ग्राहक क्या कह रहे हैं!">Here is what our customers are saying!</p>
   <div id="allReviewsContainer"></div>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="loginForm">
   <h2 style="text-align: center; font-weight: 900; letter-spacing: 1px;" class="translatable" data-en="👤 LOGIN DETAILS" data-hi="👤 लॉगिन विवरण">👤 LOGIN DETAILS</h2>
-  <button class="back-btn-solid translatable" onclick="showAccountPage()" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+  
   <input type="text" id="l_name" class="translatable-ph" data-en="Name (Required)" data-hi="नाम (आवश्यक)" placeholder="Name (Required)">
   <input type="number" id="l_phone" class="translatable-ph" data-en="Phone Number (10 digits only)" data-hi="फ़ोन नंबर (केवल 10 अंक)" placeholder="Phone Number (10 digits only)">
   <textarea id="l_address" class="translatable-ph" data-en="Permanent Address (Required)" data-hi="स्थायी पता (आवश्यक)" placeholder="Permanent Address (Required)"></textarea>
@@ -626,6 +589,8 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <p style="text-align:center; font-weight:bold; margin-top:10px; color:var(--text-muted); font-size:12px;" class="translatable" data-en="PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉" data-hi="कृपया अपना पूरा पता दर्ज करें धन्यवाद 🎉">
     PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉
   </p>
+  
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <script>
@@ -727,6 +692,86 @@ let isDarkMode = false;
 let reviewToDelete = null;
 let isForcedTcMode = false; 
 
+// 🌟 NATIVE MOBILE BACK BUTTON SUPPORT (HISTORY API) 🌟
+let isPopState = false;
+
+window.addEventListener('popstate', function(event) {
+    isPopState = true;
+    let page = event.state ? event.state.page : 'menu';
+    
+    if (page === 'menu') back(true);
+    else if (page === 'account') showAccountPage(true);
+    else if (page === 'cart') showCart(true);
+    else if (page === 'login') showLogin(true);
+    else if (page === 'history') showHistory(true);
+    else if (page === 'developer') showDeveloperPage(true);
+    else if (page === 'appReview') showAppReviewScreen(true);
+    else if (page === 'contact') showContactScreen(true);
+    else if (page === 'allReviews') showAllReviews(true);
+    else if (page === 'topCustomers') showTopCustomers(true);
+    else if (page === 'report') showReportPage(true);
+    else if (page === 'features') showFeaturesList(true);
+    else if (page.startsWith('featureDetail_')) {
+        let key = page.split('_')[1];
+        showFeatureDetail(key, true);
+    }
+    else if (page.startsWith('detail_')) {
+        hideAll(); document.getElementById("detail").style.display="block";
+    }
+    
+    isPopState = false;
+});
+
+function pushNavState(pageName) {
+    if (!isPopState) {
+        history.pushState({ page: pageName }, "", "#" + pageName);
+    }
+}
+
+function uiBack(fallback) {
+    if (history.state) {
+        history.back(); // Triggers mobile-like native back
+    } else {
+        // Fallbacks if user refreshes on a subpage and has no history
+        if (fallback === 'account') showAccountPage(false);
+        else if (fallback === 'features') showFeaturesList(false);
+        else back(false); 
+    }
+}
+
+
+// 🌟 DYNAMIC GREETING LOGIC 🌟
+function updateGreeting() {
+  let hour = new Date().getHours();
+  let greetEn = ""; let greetHi = "";
+  
+  if (hour >= 5 && hour < 12) { 
+      greetEn = "🌤️ Good Morning"; greetHi = "🌤️ शुभ प्रभात"; 
+  } else if (hour >= 12 && hour < 17) { 
+      greetEn = "🌤️ Good Afternoon"; greetHi = "🌤️ शुभ दोपहर"; 
+  } else if (hour >= 17 && hour < 21) { 
+      greetEn = "🌆 Good Evening"; greetHi = "🌆 शुभ संध्या"; 
+  } else { 
+      greetEn = "🌙 Good Night"; greetHi = "🌙 शुभ रात्रि"; 
+  }
+  
+  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+  let nameEn = (user && user.name) ? user.name.split(" ")[0] : "";
+  let nameHi = (user && user.name) ? user.name.split(" ")[0] : "";
+  
+  let el = document.getElementById("dynamicGreeting");
+  if(el) {
+    if(nameEn !== "") {
+        el.setAttribute("data-en", `Hello ${nameEn},<br>${greetEn}!`);
+        el.setAttribute("data-hi", `नमस्ते ${nameHi},<br>${greetHi}!`);
+    } else {
+        el.setAttribute("data-en", `Hello,<br>${greetEn}!`);
+        el.setAttribute("data-hi", `नमस्ते,<br>${greetHi}!`);
+    }
+    el.innerHTML = isHindiLanguage ? el.getAttribute("data-hi") : el.getAttribute("data-en");
+  }
+}
+
 // 🌟 ONBOARDING FUNCTIONS 🌟
 function goToTermsStep() {
   let name = document.getElementById("onboardName").value.trim();
@@ -761,7 +806,6 @@ function finishOnboarding() {
   let phone = document.getElementById("onboardPhone").value.trim();
   let email = document.getElementById("onboardEmail").value.trim();
   
-  // Save partial data and complete T&C
   let savedData = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
   savedData.name = name;
   savedData.phone = phone;
@@ -769,13 +813,14 @@ function finishOnboarding() {
   localStorage.setItem("khalsaUserData", JSON.stringify(savedData));
   localStorage.setItem("termsAccepted", "true");
 
-  // Autofill main login form
   document.getElementById("l_name").value = name;
   document.getElementById("l_phone").value = phone;
   document.getElementById("l_email").value = email;
 
   document.getElementById("onboardingOverlay").style.display = "none";
   showSuccessMsg("Welcome to Khalsa Shop!");
+  updateGreeting(); 
+  back(false);
 }
 
 // 🌟 Loading Screen Manager
@@ -790,7 +835,6 @@ function hideLoading() {
   document.getElementById("loadingScreen").style.display = "none";
 }
 
-// 🌟 Premium Popup Functions
 function showReviewCelebration() { document.getElementById("reviewSuccessModal").style.display = "flex"; }
 function closeReviewSuccess() { document.getElementById("reviewSuccessModal").style.display = "none"; }
 function showDeleteConfirmPopup(id) { reviewToDelete = id; document.getElementById("deleteConfirmModal").style.display = "flex"; }
@@ -835,6 +879,9 @@ document.getElementById("appReviewText").addEventListener("input", function() {
 });
 
 window.onload = function() {
+  history.replaceState({ page: 'menu' }, "", "#menu");
+  
+  updateGreeting();
   updateHeadlineBanner(); 
   setInterval(updateHeadlineBanner, 60000); 
   
@@ -857,10 +904,11 @@ window.onload = function() {
   updateTestingModeUI();
   updateLanguageUI();
   
-  // Hide onboarding if already logged in or terms accepted
   if(localStorage.getItem("termsAccepted") === "true" && localStorage.getItem("khalsaUserData")) {
     document.getElementById("onboardingOverlay").style.display = "none";
   }
+  
+  document.getElementById('searchInput').addEventListener('input', doSearch);
 };
 
 function toggleTheme() {
@@ -869,10 +917,7 @@ function toggleTheme() {
   else { document.body.classList.remove("dark-mode"); localStorage.setItem("khalsaTheme", "light"); }
 }
 
-// 🌟 FEATURE 5: HIDDEN TESTING MODE 🌟
-function isTestingMode() {
-  return localStorage.getItem("testingMode") === "true";
-}
+function isTestingMode() { return localStorage.getItem("testingMode") === "true"; }
 
 function updateTestingModeUI() {
   let btn = document.getElementById("testingModeBtn");
@@ -927,7 +972,6 @@ function submitTestingPassword() {
   }
 }
 
-// 🌟 FEATURE 4: MONTHLY AUTO-CHANGING HEADLINE 🌟
 async function updateHeadlineBanner() {
   let marqueeEl = document.getElementById("mainMarqueeText");
   let today = new Date();
@@ -975,6 +1019,7 @@ function toggleLanguage() {
   isHindiLanguage = !isHindiLanguage; 
   updateTestingModeUI();
   updateLanguageUI();
+  updateGreeting();
   if(isHindiLanguage) { showSuccessMsg("🌐 Language set to Hindi"); } else { showSuccessMsg("🌐 Language set to English"); }
 }
 
@@ -987,29 +1032,23 @@ function updateLanguageUI() {
     if(currentItemNode) nameLabel.innerText = currentItemNode.getAttribute('data-' + lang);
     loadReviews(); 
   }
-  if(document.getElementById("cart").style.display === "block") { showCart(); }
+  if(document.getElementById("cart").style.display === "block") { showCart(true); } 
   updateHeadlineBanner(); 
 }
 
 function doSearch() {
   let input = document.getElementById('searchInput').value.toLowerCase();
   let items = document.querySelectorAll('.menu .item');
-  let matchCount = 0;
   items.forEach(itemNode => {
     let titleEn = itemNode.querySelector('h3').getAttribute('data-en').toLowerCase();
     let titleHi = itemNode.querySelector('h3').getAttribute('data-hi').toLowerCase();
-    if(titleEn.includes(input) || titleHi.includes(input)) { itemNode.style.display = "block"; matchCount++; } 
+    if(titleEn.includes(input) || titleHi.includes(input)) { itemNode.style.display = "block"; } 
     else { itemNode.style.display = "none"; }
   });
-  if(matchCount === 0) {
-    showError(isHindiLanguage ? "माफ़ करें, यह उत्पाद उपलब्ध नहीं है" : "SORRY THIS PRODUCT IS NOT AVAILABLE");
-    setTimeout(() => { items.forEach(itemNode => itemNode.style.display = "block"); document.getElementById('searchInput').value = ""; }, 2000);
-  }
 }
 
 function showTerms() { 
   hideAll(); 
-  document.getElementById("searchContainerBox").style.display = "none"; 
   document.getElementById("termsModal").style.display = "flex"; 
   
   let cb = document.getElementById("tcCheckbox");
@@ -1024,7 +1063,7 @@ function showTerms() {
 
 function closeTerms() { 
   document.getElementById("termsModal").style.display = "none"; 
-  showAccountPage(); 
+  showAccountPage(false); 
 }
 
 function handleTcCheck() {
@@ -1042,15 +1081,16 @@ function handleTcCheck() {
           isForcedTcMode = false;
           document.getElementById("termsModal").style.display = "none";
           showSuccessMsg("YOU ARE READY FOR SHOPING ENJOY 😊");
-          setTimeout(() => { showAccountPage(); }, 1500);
+          setTimeout(() => { showAccountPage(false); }, 1500);
       } else {
           setTimeout(() => { closeTerms(); }, 500);
       }
   }
 }
 
-async function showTopCustomers() {
-  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("topCustomersPage").style.display = "block";
+async function showTopCustomers(fromPop = false) {
+  hideAll(); document.getElementById("topCustomersPage").style.display = "block";
+  if(!fromPop) pushNavState('topCustomers');
   let list = document.getElementById("topCustomersList"); 
   list.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-weight:bold;">${isHindiLanguage ? "लोड हो रहा है..." : "Loading..."}</p>`;
   
@@ -1103,8 +1143,9 @@ function triggerReportAlert(word, fullText) {
   fetch(GAS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: user.name || "Guest", phone: user.phone || "No Phone", word: word, review: fullText, uniqueId: new Date().getTime() }) }).catch(err => console.log("Report Error"));
 }
 
-function showReportPage() {
-  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("reportPage").style.display = "block";
+function showReportPage(fromPop = false) {
+  hideAll(); document.getElementById("reportPage").style.display = "block";
+  if(!fromPop) pushNavState('report');
   let allReports = JSON.parse(localStorage.getItem("khalsaUserReports")) || []; let now = Date.now();
   let validReports = allReports.filter(r => (now - (r.timestamp || 0)) < 172800000); 
   if(validReports.length !== allReports.length) { localStorage.setItem("khalsaUserReports", JSON.stringify(validReports)); }
@@ -1117,14 +1158,15 @@ function showReportPage() {
   }
 }
 
-function showAccountPage() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("accountPage").style.display="block"; }
-function showDeveloperPage() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("developerPage").style.display="block"; }
-function showAppReviewScreen() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("appReviewSection").style.display="block"; loadAppReviews(); }
-function showContactScreen() { hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("contactSection").style.display="block"; }
+function showAccountPage(fromPop = false) { hideAll(); document.getElementById("accountPage").style.display="block"; if(!fromPop) pushNavState('account'); }
+function showDeveloperPage(fromPop = false) { hideAll(); document.getElementById("developerPage").style.display="block"; if(!fromPop) pushNavState('developer'); }
+function showAppReviewScreen(fromPop = false) { hideAll(); document.getElementById("appReviewSection").style.display="block"; loadAppReviews(); if(!fromPop) pushNavState('appReview'); }
+function showContactScreen(fromPop = false) { hideAll(); document.getElementById("contactSection").style.display="block"; if(!fromPop) pushNavState('contact'); }
 
-function showFeaturesList() {
-  hideAll(); document.getElementById("searchContainerBox").style.display="none"; 
+function showFeaturesList(fromPop = false) {
+  hideAll(); 
   document.getElementById("featuresListPage").style.display="block";
+  if(!fromPop) pushNavState('features');
   
   let container = document.getElementById("featuresListContainer");
   container.innerHTML = ""; 
@@ -1133,12 +1175,12 @@ function showFeaturesList() {
     let title = isHindiLanguage ? feature.titleHi : feature.titleEn;
     let link = document.createElement("a");
     link.innerText = title;
-    link.onclick = function() { showFeatureDetail(key); };
+    link.onclick = function() { showFeatureDetail(key, false); };
     container.appendChild(link);
   }
 }
 
-function showFeatureDetail(key) {
+function showFeatureDetail(key, fromPop = false) {
   let feature = appFeaturesData[key];
   if (!feature) return;
 
@@ -1146,8 +1188,9 @@ function showFeatureDetail(key) {
   document.getElementById("fd-info").innerHTML = isHindiLanguage ? feature.infoHi : feature.infoEn;
   document.getElementById("fd-uses").innerHTML = isHindiLanguage ? feature.usesHi : feature.usesEn;
 
-  hideAll(); document.getElementById("searchContainerBox").style.display="none"; 
+  hideAll(); 
   document.getElementById("featureDetailPage").style.display="block";
+  if(!fromPop) pushNavState('featureDetail_' + key);
 }
 
 function lockInputs() {
@@ -1163,9 +1206,23 @@ function enableEdit() {
 function logoutUser() {
   localStorage.removeItem("khalsaUserData");
   localStorage.removeItem("termsAccepted");
+  
+  document.getElementById("onboardName").value = "";
+  document.getElementById("onboardPhone").value = "";
+  document.getElementById("onboardEmail").value = "";
+  if(document.getElementById("onboardTcCheckbox")) { document.getElementById("onboardTcCheckbox").checked = false; }
+  
   document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
   document.getElementById("editBtn").style.display = "none"; document.getElementById("logoutBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
+  
   showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
+  updateGreeting();
+  
+  document.getElementById("step2Terms").style.display = "none";
+  document.getElementById("step1Login").style.display = "block";
+  
+  back(false); 
+  document.getElementById("onboardingOverlay").style.display = "flex";
 }
 
 function isUserLoggedIn() {
@@ -1177,15 +1234,16 @@ function isUserLoggedIn() {
   return false;
 }
 
-function openDetail(n, i){
+function openDetail(n, i, fromPop = false){
   internalItemName = n; let lang = isHindiLanguage ? 'hi' : 'en';
   let node = document.querySelector(`.item h3[data-en="${n}"]`);
   item = node ? node.getAttribute('data-' + lang) : n; 
   img.src=i; nameLabel.innerText=item; qty=1; document.getElementById("qty").innerText = qty;
   if(n=="Mango"||n=="Litchi"||n=="Blueberry"){price=60;} else{price=40;}
   document.getElementById("price").innerText="₹"+price;
-  hideAll(); document.getElementById("searchContainerBox").style.display="none"; detail.style.display="block";
+  hideAll(); detail.style.display="block";
   rate(0); loadReviews();
+  if(!fromPop) pushNavState('detail_' + internalItemName.replace(/\s+/g, ''));
 }
 
 function changeQty(v){ qty+=v; if(qty<1) qty=1; document.getElementById("qty").innerText=qty; }
@@ -1194,25 +1252,27 @@ function changeQty(v){ qty+=v; if(qty<1) qty=1; document.getElementById("qty").i
 function addToCart(){
   if(!isUserLoggedIn()){
     showCustomError("PLEASE FILL FULL LOGIN DETAILS FIRST", 2500);
-    setTimeout(() => { showLogin(); }, 1000);
+    setTimeout(() => { showLogin(false); }, 1000);
     return;
   }
   
   let imgSrc=img.src; let found=cartData.find(i=>i.internalName===internalItemName);
   if(found){found.qty+=qty;} else{cartData.push({name:item, internalName:internalItemName, price:price, img:imgSrc, qty:qty});}
   showSuccessMsg(isHindiLanguage ? "कार्ट में जोड़ा गया ✅" : "Added to Cart ✅");
-  showCart();
+  showCart(false);
 }
 
-function removeFromCart(index) { cartData.splice(index, 1); showSuccessMsg("🗑️ Removed"); showCart(); }
+function removeFromCart(index) { cartData.splice(index, 1); showSuccessMsg("🗑️ Removed"); showCart(true); } 
 
-function showCart(){
+function showCart(fromPop = false){
   if(!isUserLoggedIn()){ 
-    showAccountPage(); 
+    showAccountPage(false); 
     showCustomError("FIRST FILL INFORMATION SAVE AND ENJOY SHOPPING", 3000); 
     return; 
   }
-  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("cart").style.display="block";
+  hideAll(); document.getElementById("cart").style.display="block";
+  if(!fromPop) pushNavState('cart');
+  
   let html="", totalPrice=0, totalQty=0;
   
   cartData.forEach((i, index)=>{
@@ -1230,10 +1290,11 @@ function showCart(){
   }
 }
 
-function showLogin(){ hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("loginForm").style.display="block"; }
+function showLogin(fromPop = false){ hideAll(); document.getElementById("loginForm").style.display="block"; if(!fromPop) pushNavState('login'); }
 
-function showHistory() {
-  hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("historyView").style.display="block";
+function showHistory(fromPop = false) {
+  hideAll(); document.getElementById("historyView").style.display="block";
+  if(!fromPop) pushNavState('history');
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || []; let html = "";
   
   if(history.length === 0) { 
@@ -1256,19 +1317,19 @@ function deleteHistoryItem(index) {
   history.splice(index, 1);
   localStorage.setItem("khalsaOrderHistory", JSON.stringify(history));
   showSuccessMsg(isHindiLanguage ? "ऑर्डर इतिहास से हटा दिया गया 🗑️" : "Removed from history 🗑️");
-  showHistory();
+  showHistory(true); 
 }
 
 function clearAllHistory() {
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
   if(history.length === 0) {
-     showError(isHindiLanguage ? "इतिहास पहले से ही खाली है!" : "History is already empty!");
+     showError(isHindiLanguage ? "इतिहास पहले से ही খালি है!" : "History is already empty!");
      return;
   }
   if(confirm(isHindiLanguage ? "क्या आप वाकई पूरा इतिहास मिटाना चाहते हैं?" : "Are you sure you want to clear all history?")) {
      localStorage.removeItem("khalsaOrderHistory");
      showSuccessMsg(isHindiLanguage ? "पूरा इतिहास मिटा दिया गया 🗑️" : "All history cleared 🗑️");
-     showHistory();
+     showHistory(true);
   }
 }
 
@@ -1332,6 +1393,7 @@ function processForm() {
   }));
 
   lockInputs();
+  updateGreeting();
   
   if (localStorage.getItem("termsAccepted") !== "true") {
       isForcedTcMode = true; 
@@ -1340,7 +1402,7 @@ function processForm() {
       document.getElementById("tcCheckbox").checked = false; 
   } else {
       showSuccessMsg("YOU ARE READY FOR SHOPING ENJOY 😊");
-      setTimeout(() => { showAccountPage(); }, 1500);
+      setTimeout(() => { showAccountPage(false); }, 1500);
   }
 }
 
@@ -1425,7 +1487,7 @@ document.addEventListener("visibilitychange", function() {
     document.getElementById("successPopup").style.display="flex"; setTimeout(() => { closeSuccessPopup(); }, 2000);
   }
 });
-function closeSuccessPopup() { document.getElementById("successPopup").style.display="none"; cartData = []; back(); }
+function closeSuccessPopup() { document.getElementById("successPopup").style.display="none"; cartData = []; back(false); }
 
 function hideAll() {
   document.getElementById("menu").style.display="none"; document.getElementById("appReviewSection").style.display="none"; 
@@ -1435,11 +1497,18 @@ function hideAll() {
   document.getElementById("accountPage").style.display="none"; document.getElementById("developerPage").style.display="none";
   document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
   document.getElementById("featuresListPage").style.display="none"; document.getElementById("featureDetailPage").style.display="none";
+  
+  document.getElementById("dashboardHeaderBox").style.display="none";
+  document.getElementById("categoryTitleBox").style.display="none";
 }
 
-function back() {
-  hideAll(); document.getElementById("searchContainerBox").style.display="flex"; document.getElementById("menu").style.display="grid";
+function back(fromPop = false) {
+  hideAll(); 
+  document.getElementById("dashboardHeaderBox").style.display="block"; 
+  document.getElementById("categoryTitleBox").style.display="flex"; 
+  document.getElementById("menu").style.display="grid";
   document.getElementById("itemReviewWarning").style.display = "none"; document.getElementById("appReviewWarning").style.display = "none";
+  if(!fromPop) pushNavState('menu');
 }
 
 let rating=0;
@@ -1546,7 +1615,7 @@ function cancelPress() { clearTimeout(pressTimer); }
 function reloadCurrentView() {
   if(document.getElementById("detail").style.display === "block") loadReviews();
   else if(document.getElementById("appReviewSection").style.display === "block") loadAppReviews();
-  else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews();
+  else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews(true); // true to prevent pushing state
 }
 
 let globalAllReviews = [];
@@ -1600,8 +1669,9 @@ function loadAppReviews() {
   });
 }
 
-function showAllReviews() {
+function showAllReviews(fromPop = false) {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("allReviewsPage").style.display = "block";
+  if(!fromPop) pushNavState('allReviews');
   let box = document.getElementById("allReviewsContainer"); box.innerHTML = "Loading your reviews...";
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
   fetchAllReviewsFromDB((error) => {
