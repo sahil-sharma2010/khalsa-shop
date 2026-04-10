@@ -37,7 +37,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 input[type=number] {
-  -moz-appearance: textfield; /* Firefox ke liye */
+  -moz-appearance: textfield;
 }
 
 /* --- ONBOARDING PREMIUM STYLE --- */
@@ -74,8 +74,16 @@ input[type=number] {
 .back-btn { font-size: 14px; cursor: pointer; border: none; font-weight: bold; padding: 10px; width: 100%; border-radius: 8px; transition: 0.2s; }
 .back-btn:active { transform: scale(0.95); }
 
-/* --- PREMIUM DASHBOARD HEADER STYLE --- */
-.top-sticky-bar { position: sticky; top: 0; z-index: 900; background: transparent; transition: 0.3s; padding: 0; box-shadow: none; }
+/* --- PREMIUM DASHBOARD HEADER STYLE (Fixed for Smooth Scrolling) --- */
+.top-sticky-bar { 
+  position: sticky; 
+  top: 0; 
+  z-index: 900; 
+  background: var(--bg-main);
+  transition: 0.3s; 
+  padding-bottom: 12px; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+}
 .dashboard-header {
   background: linear-gradient(135deg, #9b51e0, #6f42c1);
   padding: 25px 20px 30px 20px;
@@ -123,7 +131,7 @@ input[type=number] {
 
 /* Category Title Section */
 .category-title-container {
-  display: flex; justify-content: space-between; align-items: center; padding: 25px 20px 5px 20px;
+  display: flex; justify-content: space-between; align-items: center; padding: 15px 20px 5px 20px;
 }
 .category-title-container h3 { margin: 0; font-size: 18px; color: var(--text-main); font-weight: 700; }
 
@@ -138,12 +146,22 @@ input[type=number] {
   background: transparent; border: none; cursor: pointer; transition: 0.2s;
 }
 .nav-item:active { transform: scale(0.9); }
-/* Adjusted icon size to medium (24px) */
 .nav-item span { font-size: 24px; margin: 0; }
 
 /* Premium Account Page List */
 .account-list-container {
-  background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px var(--box-shadow); overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; transition: 0.3s;
+  background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px var(--box-shadow); overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; transition: 0.3s; padding: 0;
+}
+.account-category-header {
+  padding: 12px 16px;
+  margin: 0;
+  background: var(--bg-main);
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 900;
+  border-bottom: 1px solid var(--border-color);
+  letter-spacing: 1px;
 }
 .account-list-container a {
   display: block; padding: 16px; border-bottom: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; font-size: 15px; transition: 0.2s; text-decoration: none;
@@ -182,6 +200,27 @@ input[type=number] {
 }
 
 .qty-btn{padding:5px 15px;margin:5px;background:#222;color:white;border:none; border-radius: 5px; font-size: 18px;}
+
+/* Manage Devices Premium UI */
+.device-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  position: relative;
+  box-shadow: 0 2px 8px var(--box-shadow);
+  transition: 0.3s;
+}
+.device-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.device-icon { color: #1e88e5; display: flex; align-items: center; justify-content: center; }
+.device-info { flex-grow: 1; text-align: left; }
+.device-name { font-weight: bold; font-size: 15px; color: var(--text-main); margin: 0 0 4px 0; }
+.device-meta { font-size: 12px; color: var(--text-muted); margin: 0; text-align: left;}
+.device-logout-btn { color: #1e88e5; background: none; border: none; font-weight: bold; font-size: 14px; cursor: pointer; padding: 0; outline: none;}
+.device-divider { border-top: 1px solid var(--border-color); margin: 10px 0; }
+.logout-all-btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.2s;}
+.logout-all-btn:active { transform: scale(0.98); }
 
 /* Premium Toast Error & Success CSS */
 .premium-popup {
@@ -239,8 +278,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 .star-rating span:hover { transform: scale(1.2); }
 
 /* Sections */
-.app-review-section, .contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s; }
-.app-review-section { border-top: 5px solid #9c27b0; }
+.contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s; }
 .contact-section { border-top: 5px solid #00c853; }
 .party-highlight { background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; padding: 12px; border-radius: 12px; font-weight: bold; margin-top: 15px; font-size: 15px; box-shadow: 0 4px 10px rgba(255,65,108,0.3); }
 .remove-btn { background: #ff4b2b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px; }
@@ -274,21 +312,22 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
         <input type="email" id="onboardEmail" placeholder="Email Address">
      </div>
      <button onclick="goToTermsStep()" class="premium-btn" style="margin-top: 25px;">CONTINUE</button>
-     <button onclick="closeOnboarding()" class="back-btn" style="background: transparent; color: #888; box-shadow: none; margin-top: 10px;">Close</button>
   </div>
 
   <div id="step2Terms" class="onboarding-card" style="display:none; text-align:left;">
      <h1 class="premium-title" style="text-align:center; font-size:24px;">TERMS & CONDITIONS</h1>
      <p class="subtitle" style="text-align:center;">KHALSA SHOP</p>
-     <div style="max-height: 150px; overflow-y: auto; font-size: 13px; color: #bbb; margin-bottom: 15px; padding-right: 5px; line-height: 1.5; border-bottom: 1px solid #333; padding-bottom: 10px;">
-        By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms.
+     <div id="onboardTcContentBox" class="translatable" style="max-height: 150px; overflow-y: auto; font-size: 13px; color: #bbb; margin-bottom: 15px; padding-right: 5px; line-height: 1.6; border-bottom: 1px solid #333; padding-bottom: 10px;"
+        data-en="<ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>"
+        data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित हो सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
+        <ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>
      </div>
      <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; margin-bottom: 20px;">
         <input type="checkbox" id="onboardTcCheckbox" style="min-width: 20px; min-height: 20px; accent-color: #ff416c; margin-top: 2px;">
-        <span style="font-size: 14px; font-weight: bold; color: #ddd;">I have read all terms and conditions, and I accept them.</span>
+        <span style="font-size: 14px; font-weight: bold; color: #ddd;" class="translatable" data-en="I have read all terms and conditions, and I accept them." data-hi="मैंने सभी नियम और शर्तें पढ़ ली हैं, और मैं उन्हें स्वीकार करता हूँ।">I have read all terms and conditions, and I accept them.</span>
      </label>
-     <button onclick="finishOnboarding()" class="premium-btn">AGREE & ENTER</button>
-     <button onclick="backToLoginStep()" class="back-btn" style="background: transparent; color: #888; box-shadow: none; margin-top: 10px; text-align:center;">⬅ Back</button>
+     <button onclick="finishOnboarding()" class="premium-btn translatable" data-en="AGREE & ENTER" data-hi="सहमत हूँ और दर्ज करें">AGREE & ENTER</button>
+     <button onclick="backToLoginStep()" class="back-btn translatable" style="background: transparent; color: #888; box-shadow: none; margin-top: 10px; text-align:center;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
   </div>
 </div>
 
@@ -312,7 +351,13 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <div id="locationPromptModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">📍</div><h2 style="color: #2196F3;" class="translatable" data-en="Location Access" data-hi="लोकेशन एक्सेस">Location Access</h2><p style="font-weight: bold;" class="translatable" data-en="We need your live location for accurate delivery." data-hi="सटीक डिलीवरी के लिए हमें आपकी लाइव लोकेशन चाहिए।">We need your live location for accurate delivery.</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="denyLocation()" data-en="Deny" data-hi="मना करें">Deny</button><button class="modal-btn translatable" style="margin-top:0;" onclick="allowLocation()" data-en="Allow" data-hi="अनुमति दें">Allow</button></div></div></div>
 <div id="successPopup" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #00c853;"><div class="modal-icon" id="successIcon">🎉</div><h2 style="font-size: 22px; text-transform: uppercase;" id="successHeading" class="translatable" data-en="ORDER SUCCESSFULLY" data-hi="ऑर्डर सफलतापूर्वक प्राप्त हुआ">ORDER SUCCESSFULLY</h2><p class="highlight-text" style="color: #ff416c;" class="translatable" data-en="HAVE A NICE DAY 🌟😊" data-hi="आपका दिन शुभ हो 🌟😊">HAVE A NICE DAY 🌟😊</p><button class="black-modal-btn translatable" onclick="closeSuccessPopup()" id="successBtn" style="display:none;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button></div></div>
 <div id="tcWarningModal" class="premium-modal-overlay" style="z-index: 3000;"><div class="premium-modal" style="border-top: 5px solid #d32f2f;"><div class="modal-icon" style="animation: none;">⚠️</div><h2 style="color: #d32f2f; font-size: 20px;" class="translatable" data-en="Action Denied" data-hi="कार्रवाई अस्वीकृत">Action Denied</h2><p class="translatable" style="color: var(--text-main); font-weight: bold; margin-top: 10px;" data-en="I have approved my first terms and conditions, now I cannot do anything." data-hi="मैंने अपनी पहली नियम और शर्तें स्वीकार कर ली हैं, अब मैं कुछ नहीं कर सकता।">I have approved my first terms and conditions, now I cannot do anything.</p><button class="black-modal-btn translatable" style="background: #111;" onclick="document.getElementById('tcWarningModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
-<div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;"><div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;"><div class="modal-icon">📄</div><h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2><div style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;"><p style="font-size: 13px; line-height: 1.6; color: var(--text-muted);" class="translatable" data-en="By using Khalsa Shop, you agree to follow our terms and conditions. All orders placed through the website are confirmed via WhatsApp, so it is important to provide correct and complete details. We are not responsible for delays or issues caused due to incorrect information. Prices of items may change at any time without prior notice. We reserve the right to cancel any order if it seems invalid or suspicious. Fake or incomplete orders may be rejected. By continuing to use our service, you accept these terms." data-hi="खालसा शॉप का उपयोग करके, आप हमारे नियमों और शर्तों का पालन करने के लिए सहमत हैं। वेबसाइट के माध्यम से दिए गए सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं, इसलिए सही और पूर्ण विवरण प्रदान करना महत्वपूर्ण है। हम गलत जानकारी के कारण होने वाली देरी या समस्याओं के लिए जिम्मेदार नहीं हैं। वस्तुओं की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं। यदि कोई ऑर्डर अमान्य या संदिग्ध लगता है तो हम उसे रद्द करने का अधिकार सुरक्षित रखते हैं। नकली या अधूरे ऑर्डर अस्वीकार किए जा सकते हैं। हमारी सेवा का उपयोग जारी रखकर, आप इन शर्तों को स्वीकार करते हैं।">By using Khalsa Shop, you agree to follow our terms and conditions...</p></div><label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
+<div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;"><div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;"><div class="modal-icon">📄</div><h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
+<div id="tcContentBox" class="translatable" style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 13px; line-height: 1.6; color: var(--text-muted);" 
+     data-en="<ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>"
+     data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित हो सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
+     <ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>
+</div>
+<label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
 <div id="testingModeDisableModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff416c;"><div class="modal-icon" style="animation: none;">🛠️</div><h2 style="color: #ff416c;" class="translatable" data-en="Disable Testing Mode?" data-hi="टेस्टिंग मोड बंद करें?">Disable Testing Mode?</h2><p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to disable testing mode?" data-hi="क्या आप वाकई टेस्टिंग मोड बंद करना चाहते हैं?">Are you sure you want to disable testing mode?</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#ff416c; margin-top:0;" onclick="confirmDisableTestingMode()" data-en="Disable" data-hi="बंद करें">Disable</button></div></div></div>
 <div id="testingModePasswordModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">🔑</div><h2 style="color: #2196F3;" class="translatable" data-en="PASSWORD REQUIRED" data-hi="पासवर्ड आवश्यक है">PASSWORD REQUIRED</h2><input type="password" id="testingModePwdInput" class="translatable-ph" data-en="Enter Password..." data-hi="पासवर्ड दर्ज करें..." placeholder="Enter Password..." style="margin-top: 15px; text-align: center; font-size: 16px; letter-spacing: 2px;"><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#2196F3; margin-top:0;" onclick="submitTestingPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button></div></div></div>
 
@@ -342,67 +387,66 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <div class="item" onclick="openDetail('Mango','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREVB7c-xUXI9COvXovtOJjiVzRdJs241YYew&s=10')">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREVB7c-xUXI9COvXovtOJjiVzRdJs241YYew&s=10">
       <h3 class="product-name translatable" data-en="Mango" data-hi="आम">Mango</h3>
-      <p class="item-sub translatable" data-en="34 items" data-hi="34 आइटम">34 items</p>
   </div>
   <div class="item" onclick="openDetail('Litchi','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUBDGkG-CZgGULDc9tsIng5uj_m7anZ9JAQ&s=10')">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIUBDGkG-CZgGULDc9tsIng5uj_m7anZ9JAQ&s=10">
       <h3 class="product-name translatable" data-en="Litchi" data-hi="लीची">Litchi</h3>
-      <p class="item-sub translatable" data-en="21 items" data-hi="21 आइटम">21 items</p>
   </div>
   <div class="item" onclick="openDetail('Blueberry','https://img.freepik.com/premium-photo/fresh-blueberry-juice-bottle-with-blueberry-advertisement-mockup-blueberry-juice-bottle-mockup_1174662-4993.jpg')">
       <img src="https://img.freepik.com/premium-photo/fresh-blueberry-juice-bottle-with-blueberry-advertisement-mockup-blueberry-juice-bottle-mockup_1174662-4993.jpg">
       <h3 class="product-name translatable" data-en="Blueberry" data-hi="ब्लूबेरी">Blueberry</h3>
-      <p class="item-sub translatable" data-en="15 items" data-hi="15 आइटम">15 items</p>
   </div>
   <div class="item" onclick="openDetail('Orange','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRClT7OHyXPUStWMbTq1Pzaa1tVZttGR5fQ&s=10')">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRClT7OHyXPUStWMbTq1Pzaa1tVZttGR5fQ&s=10">
       <h3 class="product-name translatable" data-en="Orange" data-hi="संतरा">Orange</h3>
-      <p class="item-sub translatable" data-en="46 items" data-hi="46 आइटम">46 items</p>
   </div>
   <div class="item" onclick="openDetail('Apple','https://thumbs.dreamstime.com/b/apple-juice-bottle-fruit-isolated-transparent-background-clear-glass-filled-golden-stands-next-to-ripe-red-green-410416065.jpg')">
       <img src="https://thumbs.dreamstime.com/b/apple-juice-bottle-fruit-isolated-transparent-background-clear-glass-filled-golden-stands-next-to-ripe-red-green-410416065.jpg">
       <h3 class="product-name translatable" data-en="Apple" data-hi="सेब">Apple</h3>
-      <p class="item-sub translatable" data-en="12 items" data-hi="12 आइटम">12 items</p>
   </div>
   <div class="item" onclick="openDetail('Guava','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHA_JM2is760PSqmiFjCzW8Wfv56QnLWpw&s=10')">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHA_JM2is760PSqmiFjCzW8Wfv56QnLWpw&s=10">
       <h3 class="product-name translatable" data-en="Guava" data-hi="अमरूद">Guava</h3>
-      <p class="item-sub translatable" data-en="28 items" data-hi="28 आइटम">28 items</p>
   </div>
   <div class="item" onclick="openDetail('Fruit Beer','https://img.freepik.com/premium-photo/beer-glass-with-mix-seasonal-fruits-beside-it_1179130-139306.jpg')">
       <img src="https://img.freepik.com/premium-photo/beer-glass-with-mix-seasonal-fruits-beside-it_1179130-139306.jpg">
       <h3 class="product-name translatable" data-en="Fruit Beer" data-hi="फ्रूट बीयर">Fruit Beer</h3>
-      <p class="item-sub translatable" data-en="8 items" data-hi="8 आइटम">8 items</p>
   </div>
   <div class="item" onclick="openDetail('Nimbu','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKiYfK08FzsJp4-IsmU9RJzytWo2BmA3UQWw&s=10')">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKiYfK08FzsJp4-IsmU9RJzytWo2BmA3UQWw&s=10">
       <h3 class="product-name translatable" data-en="Nimbu" data-hi="नींबू">Nimbu</h3>
-      <p class="item-sub translatable" data-en="50 items" data-hi="50 आइटम">50 items</p>
   </div>
 </div>
 
 <div class="detail" id="accountPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #6f42c1;" class="translatable" data-en="👤 My Account" data-hi="👤 मेरा खाता">👤 My Account</h2>
   
-  <div class="account-list-container">
-   <a href="https://drive.google.com/uc?export=download&id=12HRouGIYMkH2DmhOXgimjSZMrAqafkiZ" target="_blank" style="color:#28a745; font-weight:bold; padding:0; text-decoration:none;">
-      <button class="full-btn translatable" data-en="📲 Download App" data-hi="📲 ऐप डाउनलोड करें" style="margin:0; border-radius:0; padding:18px 0; background: #00c853; color: white;">
-        📲 Download App
-      </button>
-    </a>
-    <a onclick="showFeaturesList()" style="font-weight: bold; color: #1e88e5;" class="translatable" data-en="ℹ️ App Features & Uses" data-hi="ℹ️ ऐप की विशेषताएं और उपयोग">ℹ️ App Features & Uses</a>
-    <a onclick="showLogin()" style="font-weight: normal;" class="translatable" data-en="🔑 Login" data-hi="🔑 लॉगिन">🔑 Login</a>
-    <a onclick="showHistory()" style="font-weight: normal;" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</a>
-    <a onclick="showAppReviewScreen()" style="font-weight: normal;" class="translatable" data-en="🌟 Rate App" data-hi="🌟 ऐप को रेट करें">🌟 Rate App</a>
-    <a onclick="showContactScreen()" style="font-weight: normal;" class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</a>
-    <a onclick="showAllReviews()" style="font-weight: normal;" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</a>
-    <a onclick="showTopCustomers()" style="font-weight: normal;" class="translatable" data-en="👑 Highest Buying Customer" data-hi="👑 सबसे ज्यादा खरीदने वाले ग्राहक">👑 Highest Buying Customer</a>
-    <a onclick="toggleLanguage()" style="font-weight: normal;" class="translatable" data-en="🌐 Language (Hindi/English)" data-hi="🌐 भाषा (Hindi/English)">🌐 Language (Hindi/English)</a>
-    <a onclick="toggleTheme()" style="font-weight: normal;" class="translatable" data-en="🌙 Theme (Dark/Light)" data-hi="🌙 थीम (डार्क/लाइट)">🌙 थीम (डार्क/लाइट)</a>
-    <a onclick="showReportPage()" style="font-weight: bold; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
-    <a onclick="showDeveloperPage()" style="font-weight: normal;" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</a>
-    <a onclick="toggleTestingModePrompt()" id="testingModeBtn" class="translatable" style="font-weight: normal; color: var(--text-muted);" data-en="🛠️ Testing Mode: OFF" data-hi="🛠️ टेस्टिंग मोड: बंद">🛠️ Testing Mode: OFF</a>
-    <a onclick="showTerms()" style="font-weight: normal;" class="translatable" data-en="📄 Terms & Conditions" data-hi="📄 नियम और शर्तें">📄 Terms & Conditions</a>
+  <div class="account-list-container" style="padding: 0;">
+    
+    <div class="account-category-header translatable" data-en="👤 Account" data-hi="👤 खाता">👤 Account</div>
+    <a onclick="showLogin()" class="translatable" data-en="🔑 Login" data-hi="🔑 लॉगिन">🔑 Login</a>
+    <a onclick="showHistory()" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</a>
+    <a onclick="showManageDevicePage()" class="translatable" data-en="📱 Manage Devices" data-hi="📱 उपकरण प्रबंधित करें">📱 Manage Devices</a>
+
+    <div class="account-category-header translatable" data-en="⚙️ Settings" data-hi="⚙️ सेटिंग्स">⚙️ Settings</div>
+    <a onclick="toggleLanguage()" class="translatable" data-en="🌐 Language (Hindi/English)" data-hi="🌐 भाषा (Hindi/English)">🌐 Language (Hindi/English)</a>
+    <a onclick="toggleTheme()" class="translatable" data-en="🌙 Theme (Dark/Light)" data-hi="🌙 थीम (डार्क/लाइट)">🌙 Theme (Dark/Light)</a>
+
+    <div class="account-category-header translatable" data-en="📞 Support" data-hi="📞 सहायता">📞 Support</div>
+    <a onclick="showContactScreen()" class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</a>
+    <a onclick="showReportPage()" style="color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
+
+    <div class="account-category-header translatable" data-en="⭐ Community" data-hi="⭐ समुदाय">⭐ Community</div>
+    <a onclick="showAllReviews()" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</a>
+    <a onclick="showTopCustomers()" class="translatable" data-en="👑 Highest Buying Customer" data-hi="👑 सबसे ज्यादा खरीदने वाले ग्राहक">👑 Highest Buying Customer</a>
+
+    <div class="account-category-header translatable" data-en="🛠 Developer" data-hi="🛠 डेवलपर">🛠 Developer</div>
+    <a onclick="showDeveloperPage()" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</a>
+    <a onclick="toggleTestingModePrompt()" id="testingModeBtn" class="translatable" data-en="🛠️ Testing Mode: OFF" data-hi="🛠️ टेस्टिंग मोड: बंद">🛠️ Testing Mode: OFF</a>
+
+    <div class="account-category-header translatable" data-en="📄 Legal" data-hi="📄 कानूनी">📄 Legal</div>
+    <a onclick="showTerms()" class="translatable" data-en="📄 Terms & Conditions" data-hi="📄 नियम और शर्तें">📄 Terms & Conditions</a>
+    
   </div>
 
   <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
@@ -410,22 +454,16 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="detail" id="featuresListPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #1e88e5;" class="translatable" data-en="ℹ️ App Features" data-hi="ℹ️ ऐप की विशेषताएं">ℹ️ App Features</h2>
-  
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Select an option below to learn how it works:" data-hi="यह कैसे काम करता है, यह जानने के लिए नीचे एक विकल्प चुनें:">Select an option below to learn how it works:</p>
-  
-  <div class="account-list-container" id="featuresListContainer">
-  </div>
+  <div class="account-list-container" id="featuresListContainer"></div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="featureDetailPage" style="padding: 15px;">
   <div class="premium-account" style="border-top: 5px solid #1e88e5; text-align: left;">
-     
      <h2 id="fd-title" style="color: #1e88e5; margin-top: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Feature Title</h2>
-     
      <h4 style="color: var(--text-main); margin-bottom: 5px;" class="translatable" data-en="Information:" data-hi="जानकारी:">Information:</h4>
      <p id="fd-info" style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">Information text goes here.</p>
-     
      <h4 style="color: var(--text-main); margin-top: 20px; margin-bottom: 5px;" class="translatable" data-en="Uses:" data-hi="उपयोग:">Uses:</h4>
      <div id="fd-uses" style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">Uses text goes here.</div>
   </div>
@@ -434,15 +472,23 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="detail" id="reportPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</h2>
-  
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Records of blocked reviews" data-hi="ब्लॉक की गई समीक्षाओं का रिकॉर्ड">Records of blocked reviews</p>
   <div id="reportContainer"></div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
+<div class="detail" id="manageDevicePage" style="padding: 15px; text-align: left;">
+  <h2 style="color: #1e88e5; margin-bottom: 5px;" class="translatable" data-en="Manage Devices" data-hi="उपकरण प्रबंधित करें">Manage Devices</h2>
+  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" class="translatable" data-en="Devices currently logged into your account." data-hi="वर्तमान में आपके खाते में लॉग इन किए गए उपकरण।">Devices currently logged into your account.</p>
+  
+  <div id="deviceListContainer"></div>
+  
+  <button class="logout-all-btn translatable" onclick="logoutAllDevices()" data-en="Log out from all devices" data-hi="सभी उपकरणों से लॉग आउट करें">Log out from all devices</button>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं" style="margin-top: 10px;">⬅ Back to Account</button>
+</div>
+
 <div class="detail" id="topCustomersPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff9800;" class="translatable" data-en="👑 Top 5 Customers" data-hi="👑 टॉप 5 ग्राहक">👑 Top 5 Customers</h2>
-  
   <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Our most loyal shoppers!" data-hi="हमारे सबसे वफादार खरीदार!">Our most loyal shoppers!</p>
   <div id="topCustomersList"></div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
@@ -471,26 +517,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
   <p style="text-align: center; font-size: 13px; font-weight: bold; color: var(--text-muted); margin-bottom: 20px;" class="translatable" data-en="CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS" data-hi="पूरी जानकारी के लिए स्क्रीन पर दिख रहे ईमेल पर संपर्क करें">CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS</p>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
-</div>
-
-<div class="app-review-section" id="appReviewSection" style="display: none;">
-  <h2 class="translatable" data-en="🌟 Rate Our App" data-hi="🌟 हमारे ऐप को रेट करें">🌟 Rate Our App</h2>
-  
-  <p class="translatable" data-en="HOW WAS THIS APP?<br>PLEASE GIVE A REVIEW AND TELL ME WHAT FEATURE CAN BE ADDED!" data-hi="यह ऐप कैसा था?<br>कृपया एक समीक्षा दें और मुझे बताएं कि क्या सुविधा जोड़ी जा सकती है!">HOW WAS THIS APP?<br>PLEASE GIVE A REVIEW AND TELL ME WHAT FEATURE CAN BE ADDED!</p>
-  
-  <div class="star-rating" id="appStarContainer">
-    <span onclick="appRate(1)">☆</span><span onclick="appRate(2)">☆</span><span onclick="appRate(3)">☆</span><span onclick="appRate(4)">☆</span><span onclick="appRate(5)">☆</span>
-  </div>
-  
-  <p id="appReviewWarning" class="filter-warning translatable" data-en="⚠️ Unsafe word detected!" data-hi="⚠️ आपत्तिजनक शब्द मिला!">⚠️ Unsafe word detected!</p>
-  <textarea id="appReviewText" class="translatable-ph" data-en="Write your app review & feature suggestions here..." data-hi="अपनी ऐप समीक्षा और सुझाव यहां लिखें..." placeholder="Write your app review & feature suggestions here..." style="height: 100px;"></textarea>
-  <button class="modal-btn translatable" onclick="saveAppReview()" style="background: linear-gradient(45deg, #9c27b0, #ea80fc);" data-en="Submit Feedback" data-hi="प्रतिक्रिया जमा करें">Submit Feedback</button>
-
-  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
-
-  <h3 style="margin-top:25px; border-bottom: 2px solid var(--border-color); padding-bottom:8px; text-align: left;" class="translatable" data-en="Community Feedback" data-hi="समुदाय की प्रतिक्रिया">Community Feedback</h3>
-  <div id="appReviewStats" class="stats-box" style="color: #9c27b0;"></div>
-  <div id="appReviewsList"></div>
 </div>
 
 <div class="contact-section" id="contactSection" style="display: none;">
@@ -584,7 +610,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
   <button class="full-btn translatable" id="editBtn" onclick="enableEdit()" style="background:#ff9800; color:white; display:none; margin-bottom:10px;" data-en="✏️ Edit Details" data-hi="✏️ विवरण संपादित करें">✏️ Edit Details</button>
   <button class="full-btn translatable" id="saveBtn" onclick="processForm()" style="background:#00c853; color:white;" data-en="Login & Save" data-hi="लॉगिन और सहेजें">Login & Save</button>
-  <button class="full-btn translatable" id="logoutBtn" onclick="logoutUser()" style="background:#d32f2f; color:white; display:none; margin-bottom:10px;" data-en="🚪 Logout & Clear Data" data-hi="🚪 लॉगआउट और डेटा हटाएं">🚪 Logout & Clear Data</button>
   
   <p style="text-align:center; font-weight:bold; margin-top:10px; color:var(--text-muted); font-size:12px;" class="translatable" data-en="PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉" data-hi="कृपया अपना पूरा पता दर्ज करें धन्यवाद 🎉">
     PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉
@@ -622,15 +647,15 @@ const appFeaturesData = {
   },
   testing: {
     titleEn: "🛠️ Testing Mode", titleHi: "🛠️ टेस्टिंग मोड",
-    infoEn: "A hidden developer feature unlocked via a secret password.", infoHi: "यह डेवलपर्स (Developers) के लिए एक छिपा हुआ फीचर है जो एक गुप्त पासवर्ड से खुलता है।",
-    usesEn: "• Test orders without actually sending WhatsApp messages to the shop owner.<br>• Check new UI updates safely before making them live for everyone.",
-    usesHi: "• असली दुकान वाले नंबर पर व्हाट्सएप मैसेज भेजे बिना ऑर्डर टेस्ट करने के काम आता है।<br>• नए अपडेट्स को सभी के लिए लाइव करने से पहले सुरक्षित तरीके से चेक करने में मदद करता है।"
+    infoEn: "THE DEVELOPER HAS KEPT THE TESTING MODE PRIVATE", infoHi: "डेवलपर ने टेस्टिंग मोड को निजी (प्राइवेट) रखा है",
+    usesEn: "• Only authorized developers can access this feature.",
+    usesHi: "• केवल अधिकृत डेवलपर ही इस सुविधा तक पहुंच सकते हैं।"
   },
-  rateApp: {
-    titleEn: "🌟 Rate App", titleHi: "🌟 ऐप को रेट करें",
-    infoEn: "A dedicated section for users to provide feedback about the App interface.", infoHi: "यह यूज़र्स के लिए ऐप इंटरफ़ेस के बारे में फीडबैक देने का एक विशेष सेक्शन है।",
-    usesEn: "• Give a 1 to 5-star rating based on your experience.<br>• Suggest new features you want to see.<br>• Read what other community members are saying.",
-    usesHi: "• अपने अनुभव के आधार पर 1 से 5-स्टार रेटिंग दें।<br>• आप जो नए फीचर्स देखना चाहते हैं, उनका सुझाव दें।<br>• पढ़ें कि समुदाय के अन्य सदस्य क्या कह रहे हैं।"
+  manageDevice: {
+    titleEn: "📱 Manage Devices", titleHi: "📱 डिवाइस प्रबंधित करें",
+    infoEn: "View and manage the devices currently logged into your Khalsa Shop account.", infoHi: "खालसा शॉप खाते में वर्तमान में लॉग इन किए गए उपकरणों को देखें और प्रबंधित करें।",
+    usesEn: "• Check your current login details and device info.<br>• Securely log out from your account to protect your data.",
+    usesHi: "• अपने वर्तमान लॉगिन विवरण और डिवाइस की जानकारी की जांच करें।<br>• अपने डेटा की सुरक्षा के लिए अपने खाते से सुरक्षित रूप से लॉग आउट करें।"
   },
   contact: {
     titleEn: "📞 Contact Us", titleHi: "📞 हमसे संपर्क करें",
@@ -692,6 +717,37 @@ let isDarkMode = false;
 let reviewToDelete = null;
 let isForcedTcMode = false; 
 
+// 🌟 OS DETECTION FOR MANAGE DEVICE 🌟
+function getDeviceName() {
+    let ua = navigator.userAgent;
+    if (/Android/i.test(ua)) {
+        let match = ua.match(/Android.*?; (.*?) Build/);
+        return match ? match[1] : "Android Device";
+    } else if (/iPhone/i.test(ua)) return "Apple iPhone";
+    else if (/iPad/i.test(ua)) return "Apple iPad";
+    else if (/Windows/i.test(ua)) return "Windows PC";
+    else if (/Mac/i.test(ua)) return "MacBook / iMac";
+    return "Unknown Device";
+}
+
+function formatDeviceDate(dateObj) {
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let month = months[dateObj.getMonth()];
+    let day = dateObj.getDate();
+    let year = dateObj.getFullYear();
+    
+    let hours = dateObj.getHours();
+    let minutes = dateObj.getMinutes();
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    
+    let hoursStr = hours < 10 ? '0' + hours : hours;
+    
+    return `${month} ${day}, ${year} · ${hoursStr}:${minutes} ${ampm}`;
+}
+
 // 🌟 NATIVE MOBILE BACK BUTTON SUPPORT (HISTORY API) 🌟
 let isPopState = false;
 
@@ -705,7 +761,7 @@ window.addEventListener('popstate', function(event) {
     else if (page === 'login') showLogin(true);
     else if (page === 'history') showHistory(true);
     else if (page === 'developer') showDeveloperPage(true);
-    else if (page === 'appReview') showAppReviewScreen(true);
+    else if (page === 'manageDevice') showManageDevicePage(true);
     else if (page === 'contact') showContactScreen(true);
     else if (page === 'allReviews') showAllReviews(true);
     else if (page === 'topCustomers') showTopCustomers(true);
@@ -730,15 +786,13 @@ function pushNavState(pageName) {
 
 function uiBack(fallback) {
     if (history.state) {
-        history.back(); // Triggers mobile-like native back
+        history.back(); 
     } else {
-        // Fallbacks if user refreshes on a subpage and has no history
         if (fallback === 'account') showAccountPage(false);
         else if (fallback === 'features') showFeaturesList(false);
         else back(false); 
     }
 }
-
 
 // 🌟 DYNAMIC GREETING LOGIC 🌟
 function updateGreeting() {
@@ -781,6 +835,13 @@ function goToTermsStep() {
   if(name === "" || phone === "" || email === "") { showError("⚠️ Please fill Name, Phone and Email"); return; }
   if (!/^\d{10}$/.test(phone)) { showError("⚠️ Phone number must be exactly 10 digits!"); return; }
   
+  let currentDevice = navigator.userAgent;
+  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
+  if (regUsers[phone] && regUsers[phone].device !== currentDevice) {
+      showError("THIS NUMBER ALREADY REGISTER"); 
+      return;
+  }
+  
   document.getElementById("step1Login").style.display = "none";
   document.getElementById("step2Terms").style.display = "block";
 }
@@ -816,11 +877,39 @@ function finishOnboarding() {
   document.getElementById("l_name").value = name;
   document.getElementById("l_phone").value = phone;
   document.getElementById("l_email").value = email;
+  
+  registerDeviceSession(phone);
 
   document.getElementById("onboardingOverlay").style.display = "none";
   showSuccessMsg("Welcome to Khalsa Shop!");
   updateGreeting(); 
   back(false);
+}
+
+function registerDeviceSession(phone) {
+  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+  if (!currentDeviceId) {
+      currentDeviceId = "DEV_" + Date.now();
+      localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
+  }
+  
+  let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + phone)) || [];
+  let existingDeviceIndex = devices.findIndex(d => d.id === currentDeviceId);
+  
+  let now = new Date();
+  let dateStr = formatDeviceDate(now);
+  
+  if (existingDeviceIndex >= 0) {
+      devices[existingDeviceIndex].lastUsed = dateStr;
+  } else {
+      devices.push({
+          id: currentDeviceId,
+          name: getDeviceName(),
+          registered: dateStr,
+          lastUsed: dateStr
+      });
+  }
+  localStorage.setItem("khalsaDevices_" + phone, JSON.stringify(devices));
 }
 
 // 🌟 Loading Screen Manager
@@ -872,10 +961,6 @@ function filterText(text) {
 document.getElementById("reviewText").addEventListener("input", function() {
   let result = filterText(this.value);
   document.getElementById("itemReviewWarning").style.display = result.isBad ? "block" : "none";
-});
-document.getElementById("appReviewText").addEventListener("input", function() {
-  let result = filterText(this.value);
-  document.getElementById("appReviewWarning").style.display = result.isBad ? "block" : "none";
 });
 
 window.onload = function() {
@@ -1033,6 +1118,7 @@ function updateLanguageUI() {
     loadReviews(); 
   }
   if(document.getElementById("cart").style.display === "block") { showCart(true); } 
+  if(document.getElementById("manageDevicePage").style.display === "block") { showManageDevicePage(true); }
   updateHeadlineBanner(); 
 }
 
@@ -1158,9 +1244,64 @@ function showReportPage(fromPop = false) {
   }
 }
 
+function showManageDevicePage(fromPop = false) {
+  hideAll(); document.getElementById("manageDevicePage").style.display = "block";
+  if(!fromPop) pushNavState('manageDevice');
+
+  let container = document.getElementById("deviceListContainer");
+  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+  
+  if(!user || !user.phone) {
+      container.innerHTML = `<p style="text-align:center; color:var(--text-muted);">Please login to view devices.</p>`;
+      return;
+  }
+
+  let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+  
+  let thisDeviceHtml = "";
+  let otherDevicesHtml = "";
+
+  devices.forEach(d => {
+      let isCurrent = (d.id === currentDeviceId);
+      let cardHtml = `
+      <div class="device-card">
+          <div class="device-header">
+              <div class="device-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+              </div>
+              <div class="device-info">
+                  <h4 class="device-name">${d.name}</h4>
+                  <p class="device-meta" style="margin-bottom: 2px;">Last used on ${d.lastUsed}</p>
+              </div>
+              <button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="Log Out" data-hi="लॉग आउट">Log Out</button>
+          </div>
+          <div class="device-divider"></div>
+          <p class="device-meta" style="margin-left: 36px;">Registered on ${d.registered}</p>
+      </div>`;
+      
+      if (isCurrent) {
+          thisDeviceHtml += `<h3 style="font-size: 18px; margin-top: 10px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="This device" data-hi="यह उपकरण">This device</h3>` + cardHtml;
+      } else {
+          otherDevicesHtml += cardHtml;
+      }
+  });
+
+  let fullHtml = thisDeviceHtml;
+  if(otherDevicesHtml !== "") {
+      fullHtml += `<h3 style="font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="Other devices" data-hi="अन्य उपकरण">Other devices</h3>` + otherDevicesHtml;
+  }
+  
+  if(devices.length === 0) {
+      fullHtml = `<p style="text-align:center; color:var(--text-muted);">No active devices found.</p>`;
+  }
+
+  container.innerHTML = fullHtml;
+  updateLanguageUI(); 
+}
+
 function showAccountPage(fromPop = false) { hideAll(); document.getElementById("accountPage").style.display="block"; if(!fromPop) pushNavState('account'); }
 function showDeveloperPage(fromPop = false) { hideAll(); document.getElementById("developerPage").style.display="block"; if(!fromPop) pushNavState('developer'); }
-function showAppReviewScreen(fromPop = false) { hideAll(); document.getElementById("appReviewSection").style.display="block"; loadAppReviews(); if(!fromPop) pushNavState('appReview'); }
 function showContactScreen(fromPop = false) { hideAll(); document.getElementById("contactSection").style.display="block"; if(!fromPop) pushNavState('contact'); }
 
 function showFeaturesList(fromPop = false) {
@@ -1195,7 +1336,7 @@ function showFeatureDetail(key, fromPop = false) {
 
 function lockInputs() {
   document.querySelectorAll('#loginForm input:not(#l_live_loc), #loginForm textarea').forEach(el => { el.setAttribute('readonly', true); });
-  document.getElementById("editBtn").style.display = "block"; document.getElementById("logoutBtn").style.display = "block"; document.getElementById("saveBtn").style.display = "none";
+  document.getElementById("editBtn").style.display = "block"; document.getElementById("saveBtn").style.display = "none";
 }
 
 function enableEdit() {
@@ -1203,9 +1344,32 @@ function enableEdit() {
   document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
 }
 
+function logoutSpecificDevice(id) {
+    let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+    if (id === currentDeviceId) {
+        logoutUser();
+    } else {
+        let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+        let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+        devices = devices.filter(d => d.id !== id);
+        localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
+        showManageDevicePage(true);
+        showSuccessMsg("Device logged out successfully.");
+    }
+}
+
+function logoutAllDevices() {
+    let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+    if(user && user.phone) {
+        localStorage.removeItem("khalsaDevices_" + user.phone);
+    }
+    logoutUser();
+}
+
 function logoutUser() {
   localStorage.removeItem("khalsaUserData");
   localStorage.removeItem("termsAccepted");
+  localStorage.removeItem("khalsaCurrentDeviceId");
   
   document.getElementById("onboardName").value = "";
   document.getElementById("onboardPhone").value = "";
@@ -1213,7 +1377,7 @@ function logoutUser() {
   if(document.getElementById("onboardTcCheckbox")) { document.getElementById("onboardTcCheckbox").checked = false; }
   
   document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
-  document.getElementById("editBtn").style.display = "none"; document.getElementById("logoutBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
+  document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
   
   showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
   updateGreeting();
@@ -1221,8 +1385,11 @@ function logoutUser() {
   document.getElementById("step2Terms").style.display = "none";
   document.getElementById("step1Login").style.display = "block";
   
-  back(false); 
-  document.getElementById("onboardingOverlay").style.display = "flex";
+  hideAll();
+  document.getElementById("dashboardHeaderBox").style.display="block"; 
+  document.getElementById("categoryTitleBox").style.display="flex"; 
+  document.getElementById("menu").style.display="grid";
+  document.getElementById("onboardingOverlay").style.display = "flex"; 
 }
 
 function isUserLoggedIn() {
@@ -1259,7 +1426,6 @@ function addToCart(){
   let imgSrc=img.src; let found=cartData.find(i=>i.internalName===internalItemName);
   if(found){found.qty+=qty;} else{cartData.push({name:item, internalName:internalItemName, price:price, img:imgSrc, qty:qty});}
   showSuccessMsg(isHindiLanguage ? "कार्ट में जोड़ा गया ✅" : "Added to Cart ✅");
-  showCart(false);
 }
 
 function removeFromCart(index) { cartData.splice(index, 1); showSuccessMsg("🗑️ Removed"); showCart(true); } 
@@ -1323,7 +1489,7 @@ function deleteHistoryItem(index) {
 function clearAllHistory() {
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
   if(history.length === 0) {
-     showError(isHindiLanguage ? "इतिहास पहले से ही খালি है!" : "History is already empty!");
+     showError(isHindiLanguage ? "इतिहास पहले से ही खाली है!" : "History is already empty!");
      return;
   }
   if(confirm(isHindiLanguage ? "क्या आप वाकई पूरा इतिहास मिटाना चाहते हैं?" : "Are you sure you want to clear all history?")) {
@@ -1391,6 +1557,8 @@ function processForm() {
   localStorage.setItem("khalsaUserData", JSON.stringify({ 
     name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, pin: pinInput, email: emailInput 
   }));
+
+  registerDeviceSession(phoneInput);
 
   lockInputs();
   updateGreeting();
@@ -1490,11 +1658,12 @@ document.addEventListener("visibilitychange", function() {
 function closeSuccessPopup() { document.getElementById("successPopup").style.display="none"; cartData = []; back(false); }
 
 function hideAll() {
-  document.getElementById("menu").style.display="none"; document.getElementById("appReviewSection").style.display="none"; 
+  document.getElementById("menu").style.display="none";
   document.getElementById("contactSection").style.display="none"; document.getElementById("detail").style.display="none";
   document.getElementById("cart").style.display="none"; document.getElementById("loginForm").style.display="none";
   document.getElementById("historyView").style.display="none"; document.getElementById("allReviewsPage").style.display="none";
   document.getElementById("accountPage").style.display="none"; document.getElementById("developerPage").style.display="none";
+  document.getElementById("manageDevicePage").style.display="none";
   document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
   document.getElementById("featuresListPage").style.display="none"; document.getElementById("featureDetailPage").style.display="none";
   
@@ -1507,7 +1676,7 @@ function back(fromPop = false) {
   document.getElementById("dashboardHeaderBox").style.display="block"; 
   document.getElementById("categoryTitleBox").style.display="flex"; 
   document.getElementById("menu").style.display="grid";
-  document.getElementById("itemReviewWarning").style.display = "none"; document.getElementById("appReviewWarning").style.display = "none";
+  document.getElementById("itemReviewWarning").style.display = "none";
   if(!fromPop) pushNavState('menu');
 }
 
@@ -1515,12 +1684,6 @@ let rating=0;
 function rate(n){ 
   rating=n; let stars = document.getElementById("itemStarContainer").children;
   for(let i=0; i<5; i++){ stars[i].innerText = (i<n) ? "★" : "☆"; stars[i].style.color = (i<n) ? "gold" : "#ccc"; }
-}
-
-let appRatingVal = 0;
-function appRate(n) {
-  appRatingVal = n; let stars = document.getElementById("appStarContainer").children;
-  for(let i=0; i<5; i++){ stars[i].innerText = (i<n) ? "★" : "☆"; stars[i].style.color = (i<n) ? "#9c27b0" : "#ccc"; }
 }
 
 function saveReview(){
@@ -1534,20 +1697,6 @@ function saveReview(){
   showLoading("Loading...", "लोड हो रहा है...");
   fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(() => {
     hideLoading(); document.getElementById("reviewText").value=""; rate(0); showReviewCelebration(); setTimeout(loadReviews, 1500);
-  }).catch(e => { hideLoading(); showError("Error saving. Please try again."); });
-}
-
-function saveAppReview() {
-  let text = document.getElementById("appReviewText").value;
-  if(text.trim() === "") { showError("⚠️ Write your feedback!"); return; }
-  if(appRatingVal === 0) { showError("⚠️ Select a star rating!"); return; }
-  let filterData = filterText(text);
-  if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("appReviewText").value = filterData.clean; document.getElementById("appReviewWarning").style.display = "none"; return; }
-  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let reviewerName = (user && user.name) ? user.name : "Guest User"; let reviewerId = (user && user.phone) ? user.phone : "Guest";
-  let payload = { id: new Date().getTime().toString(), action: "add", type: "APP", productId: "APP", rating: appRatingVal, reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN') };
-  showLoading("Loading...", "लोड हो रहा है...");
-  fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(() => {
-    hideLoading(); document.getElementById("appReviewText").value = ""; appRate(0); showReviewCelebration(); setTimeout(loadAppReviews, 1500);
   }).catch(e => { hideLoading(); showError("Error saving. Please try again."); });
 }
 
@@ -1614,8 +1763,7 @@ function cancelPress() { clearTimeout(pressTimer); }
 
 function reloadCurrentView() {
   if(document.getElementById("detail").style.display === "block") loadReviews();
-  else if(document.getElementById("appReviewSection").style.display === "block") loadAppReviews();
-  else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews(true); // true to prevent pushing state
+  else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews(true);
 }
 
 let globalAllReviews = [];
@@ -1650,22 +1798,6 @@ function loadReviews(){
       let sum = 0; itemReviews.forEach(r => { sum += parseInt(r.rating); box.innerHTML += renderReviewHTML(r, currentUserId); });
       let avg = (sum / itemReviews.length).toFixed(1); statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${itemReviews.length} | औसत: ${avg} ⭐` : `Total Reviews: ${itemReviews.length} | Avg: ${avg} ⭐`; statsBox.style.display = "inline-block";
     } else { box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none"; }
-  });
-}
-
-function loadAppReviews() {
-  let box = document.getElementById("appReviewsList"); let statsBox = document.getElementById("appReviewStats"); box.innerHTML = "Loading...";
-  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
-  fetchAllReviewsFromDB((error) => {
-    if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
-    
-    let appRev = globalAllReviews.filter(r => r.type === "APP"); 
-    appRev.reverse();
-    
-    if(appRev.length > 0) {
-      let sum = 0; appRev.forEach(r => { sum += parseInt(r.rating); box.innerHTML += renderReviewHTML(r, currentUserId); });
-      let avg = (sum / appRev.length).toFixed(1); statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${appRev.length} | औसत: ${avg} ⭐` : `Total Reviews: ${appRev.length} | Avg: ${avg} ⭐`; statsBox.style.display = "inline-block";
-    } else { box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet!"}</p>`; statsBox.style.display = "none"; }
   });
 }
 
