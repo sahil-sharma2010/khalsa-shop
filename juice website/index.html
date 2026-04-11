@@ -6,8 +6,10 @@
   <title>KHALSA SHOP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <style>
-/* 🌟 Theme Variables 🌟 */
+/* Theme Variables */
 :root {
   --bg-main: linear-gradient(#f1f3f6, #e0e0e0);
   --bg-card: white;
@@ -30,7 +32,6 @@
 
 body { margin:0; font-family:sans-serif; background:var(--bg-main); color:var(--text-main); padding-bottom: 80px; transition: 0.3s; }
 
-/* Number input ke side arrows hatane ke liye */
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -40,7 +41,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/* --- ONBOARDING PREMIUM STYLE --- */
 .premium-dark-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: #121212; z-index: 9999; display: flex;
@@ -74,7 +74,6 @@ input[type=number] {
 .back-btn { font-size: 14px; cursor: pointer; border: none; font-weight: bold; padding: 10px; width: 100%; border-radius: 8px; transition: 0.2s; }
 .back-btn:active { transform: scale(0.95); }
 
-/* --- PREMIUM DASHBOARD HEADER STYLE --- */
 .top-sticky-bar { 
   position: sticky; 
   top: 0; 
@@ -119,7 +118,6 @@ input[type=number] {
 }
 .dark-mode .dashboard-search .search-btn { background: #444; color: white; }
 
-/* Shop Open Badge */
 .shop-status-badge {
   position: absolute;
   top: 25px;
@@ -135,7 +133,25 @@ input[type=number] {
   letter-spacing: 0.5px;
 }
 
-/* Premium Scrolling Marquee CSS */
+.flash-sale-banner {
+  background: linear-gradient(90deg, #ff0000, #ff416c);
+  color: white;
+  text-align: center;
+  padding: 8px 10px;
+  font-weight: bold;
+  font-size: 13px;
+  box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+  display: none;
+  border-radius: 10px;
+  margin: 10px auto 0 auto;
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+  animation: pulseSale 2s infinite alternate;
+}
+.flash-sale-banner span { font-size: 18px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 6px; letter-spacing: 1px; display: inline-block; margin-left: 10px; }
+@keyframes pulseSale { 0% { transform: scale(1); } 100% { transform: scale(1.02); } }
+
 .marquee-wrapper {
   background: var(--bg-card); padding: 8px 0; overflow: hidden;
   box-shadow: 0 4px 10px var(--box-shadow); border-bottom: 2px solid #ff416c; display: flex; align-items: center; transition: 0.3s; margin-top: 10px; border-radius: 10px; width: 90%; margin-left: auto; margin-right: auto; position: relative; z-index: 901;
@@ -146,13 +162,11 @@ input[type=number] {
 }
 @keyframes scrollLeft { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
 
-/* Category Title Section */
 .category-title-container {
   display: flex; justify-content: space-between; align-items: center; padding: 15px 20px 5px 20px;
 }
 .category-title-container h3 { margin: 0; font-size: 18px; color: var(--text-main); font-weight: 700; }
 
-/* Flipkart Style Bottom Navigation */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
   display: flex; justify-content: space-around; padding: 12px 0;
@@ -165,7 +179,6 @@ input[type=number] {
 .nav-item:active { transform: scale(0.9); }
 .nav-item span { font-size: 24px; margin: 0; }
 
-/* Premium Account Page List */
 .account-list-container {
   background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px var(--box-shadow); overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; transition: 0.3s; padding: 0;
 }
@@ -180,13 +193,27 @@ input[type=number] {
 .account-list-container a:active { background-color: rgba(111, 66, 193, 0.1); }
 .account-list-container a:last-child { border-bottom: none; }
 
-/* Category Menu Grid */
 .menu { display: grid; grid-template-columns: repeat(2,1fr); gap: 15px; padding: 15px; margin-top: 5px; }
-.item { background: var(--bg-card); border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px var(--box-shadow); color: var(--text-main); border: 1px solid rgba(0,0,0,0.02); }
+.item { position: relative; background: var(--bg-card); border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px var(--box-shadow); color: var(--text-main); border: 1px solid rgba(0,0,0,0.02); }
 .item:active { transform: scale(0.95); opacity: 0.8; border-color: #6f42c1; }
 .item img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 15px; border-radius: 10px; }
 .item h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text-main); }
-.item p.item-sub { display: none; } 
+
+/* Sale Badge for Menu Pictures */
+.menu-sale-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(255, 65, 108, 0.5);
+  animation: pulseSale 2s infinite alternate;
+}
 
 .detail { display: none; padding: 15px; margin-top: 10px; color: var(--text-main); }
 .detail img { width: 100%; max-height: 250px; object-fit: contain; }
@@ -198,7 +225,6 @@ input[type=number] {
 .back-btn-solid { width: 100%; padding: 12px; background: #222; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; margin-bottom: 15px; }
 .qty-btn{padding:5px 15px;margin:5px;background:#222;color:white;border:none; border-radius: 5px; font-size: 18px;}
 
-/* Manage Devices Premium UI */
 .device-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px; position: relative; box-shadow: 0 2px 8px var(--box-shadow); transition: 0.3s; }
 .device-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
 .device-icon { color: #1e88e5; display: flex; align-items: center; justify-content: center; }
@@ -210,13 +236,11 @@ input[type=number] {
 .logout-all-btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.2s;}
 .logout-all-btn:active { transform: scale(0.98); }
 
-/* Premium Toast Error & Success CSS */
 .premium-popup { position: fixed; top: -80px; left: 50%; transform: translateX(-50%); color: white; padding: 15px 30px; border-radius: 30px; font-weight: bold; z-index: 3500; transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); text-align: center; width: 85%; max-width: 350px; }
 .premium-error { background: linear-gradient(135deg, #ff0000, #990000); box-shadow: 0 10px 20px rgba(255,0,0,0.4); }
 .premium-success { background: linear-gradient(135deg, #00c853, #64dd17); box-shadow: 0 10px 20px rgba(0,200,83,0.4); }
 .premium-popup.show { top: 30px; }
 
-/* Premium Modals */
 .premium-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 2000; animation: fadeIn 0.3s ease-in-out; }
 .premium-modal { background: var(--bg-card); color: var(--text-main); padding: 25px 20px; border-radius: 20px; text-align: center; width: 85%; max-width: 350px; box-shadow: 0 15px 35px var(--box-shadow); transform: scale(0.8); animation: popUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
 .modal-icon { font-size: 50px; margin-bottom: 10px; animation: bounce 1.2s infinite alternate; }
@@ -227,7 +251,6 @@ input[type=number] {
 .modal-btn { background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px;  font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; }
 .premium-account { margin: 20px auto; padding: 20px; border: 2px solid var(--border-color); border-radius: 12px; background-color: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); transition: 0.3s; }
 
-/* 🌟 NEW: DIGIT BOX UI CSS 🌟 */
 .digit-box-container { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
 .digit-box { 
     width: 45px; height: 55px; text-align: center; font-size: 24px; font-weight: bold; 
@@ -239,11 +262,9 @@ input[type=number] {
 @keyframes popUp { to { transform: scale(1); } }
 @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
 
-/* Loading Spinner */
 .loader-spinner { border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #6f42c1; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 15px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-/* Cards & Inputs */
 .history-card { background: var(--bg-card); margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #6f42c1; box-shadow: 0 4px 10px var(--box-shadow); text-align: left; transition: 0.3s; }
 .cart-card{display:flex;background:var(--bg-card);margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.3s; }
 .review-box { background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative; user-select: none; transition: transform 0.2s, opacity 0.2s, background 0.3s; }
@@ -252,12 +273,10 @@ input[type=number] {
 input, textarea{width:100%;padding:12px;margin:8px 0;border:1px solid var(--border-color);border-radius:8px; box-sizing: border-box; background:var(--input-bg); color: var(--text-main); font-family: sans-serif; transition: 0.3s;}
 input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: var(--text-muted); border-color: var(--border-color);}
 
-/* Star Rating */
 .star-rating { font-size: 35px; cursor: pointer; color: #ccc; margin: 10px 0; }
 .star-rating span { transition: 0.2s; display: inline-block; }
 .star-rating span:hover { transform: scale(1.2); }
 
-/* Sections */
 .contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s; border-top: 5px solid #00c853;}
 .party-highlight { background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; padding: 12px; border-radius: 12px; font-weight: bold; margin-top: 15px; font-size: 15px; box-shadow: 0 4px 10px rgba(255,65,108,0.3); }
 .remove-btn { background: #ff4b2b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px; }
@@ -281,16 +300,24 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <div id="step1Login" class="onboarding-card">
      <h1 class="premium-title">LOGIN DETAILS</h1>
      <p class="subtitle">KHALSA SHOP</p>
+     
      <div class="input-group" style="margin-bottom: 10px;">
         <input type="text" id="onboardName" placeholder="Full Name">
      </div>
      <div class="input-group" style="margin-bottom: 10px;">
         <input type="number" id="onboardPhone" placeholder="Phone Number">
      </div>
-     <div class="input-group">
-        <input type="email" id="onboardEmail" placeholder="Email Address">
+
+     <div class="input-group" style="margin-bottom: 10px; display: flex;">
+        <input type="email" id="onboardEmail" placeholder="Email Address" style="flex-grow: 1; border-right: 1px solid #444; border-radius: 0;">
+        <button type="button" onclick="sendOTP()" style="background: transparent; color: #ff416c; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.2s;">Send OTP</button>
      </div>
-     <button onclick="goToTermsStep()" class="premium-btn" style="margin-top: 25px;">CONTINUE</button>
+
+     <div class="input-group" id="otpGroup" style="display: none; margin-bottom: 10px;">
+        <input type="number" id="otpInput" placeholder="Enter 4-digit OTP" style="text-align: center; letter-spacing: 5px; font-size: 18px;">
+     </div>
+
+     <button onclick="verifyOTPAndContinue()" class="premium-btn" style="margin-top: 25px;">VERIFY & CONTINUE</button>
   </div>
 
   <div id="step2Terms" class="onboarding-card" style="display:none; text-align:left;">
@@ -312,7 +339,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="bottom-nav">
   <button class="nav-item" onclick="showAccountPage()"><span>👤</span></button>
-  <button class="nav-item" onclick="uiBack('menu')"><span>🏠</span></button>
+  <button class="nav-item" onclick="goToHome()"><span>🏠</span></button>
   <button class="nav-item" onclick="showCart()"><span>🛒</span></button>
 </div>
 
@@ -324,12 +351,37 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <h2 id="loadingText" style="color: white; font-family: sans-serif; letter-spacing: 1px;" class="translatable" data-en="Loading..." data-hi="लोड हो रहा है...">Loading...</h2>
 </div>
 
+<div id="shopClosedModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
+    <div class="modal-icon" style="animation: none;">🚫</div>
+    <h2 style="color: #d32f2f; font-size: 22px;" class="translatable" data-en="SHOP CLOSED" data-hi="दुकान बंद है">SHOP CLOSED</h2>
+    <p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);">
+      <span class="translatable" data-en="The shop is currently closed. We accept orders between 9 AM and 6 PM." data-hi="दुकान अभी बंद है। हम सुबह 9 बजे से शाम 6 बजे तक ऑर्डर स्वीकार करते हैं।">The shop is currently closed. We accept orders between 9 AM and 6 PM.</span>
+      <br><br><span style="color:#d32f2f; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span>
+    </p>
+    <button class="black-modal-btn translatable" onclick="document.getElementById('shopClosedModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button>
+  </div>
+</div>
+
 <div id="reviewSuccessModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff9800;"><div class="modal-icon">🎊</div><h2 style="color: #ff9800;" class="translatable" data-en="THANKS FOR REVIEW" data-hi="समीक्षा के लिए धन्यवाद">THANKS FOR REVIEW</h2><p class="highlight-text translatable" style="font-size: 16px; color: var(--text-main);" data-en="Your feedback means a lot to us! 🌟" data-hi="आपकी प्रतिक्रिया हमारे लिए बहुत मायने रखती है! 🌟">Your feedback means a lot to us! 🌟</p><button class="black-modal-btn translatable" onclick="closeReviewSuccess()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button></div></div>
 <div id="deleteConfirmModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #d32f2f;"><div class="modal-icon">🗑️</div><h2 style="color: #d32f2f;" class="translatable" data-en="Delete Review?" data-hi="समीक्षा हटाएं?">Delete Review?</h2><p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to delete your review?" data-hi="क्या आप वाकई अपनी समीक्षा हटाना चाहते हैं?">Are you sure you want to delete your review?</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeDeleteConfirm()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#d32f2f; margin-top:0;" id="confirmDeleteBtn" data-en="Delete" data-hi="हटाएं">Delete</button></div></div></div>
 <div id="pinErrorModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff0000;"><div class="modal-icon" style="animation: none;">🚫</div><h2 style="color: #ff0000; font-size: 22px;" class="translatable" data-en="DELIVERY UNAVAILABLE" data-hi="डिलीवरी उपलब्ध नहीं है">DELIVERY UNAVAILABLE</h2><p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);"><span class="translatable" data-en="ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER" data-hi="केवल 127041 और 125033 PIN कोड ही मान्य हैं">ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER</span><br><br><span style="color:#ff0000; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span></p><button class="black-modal-btn translatable" onclick="closePinErrorPopup()" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
 <div id="locationPromptModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">📍</div><h2 style="color: #2196F3;" class="translatable" data-en="Location Access" data-hi="लोकेशन एक्सेस">Location Access</h2><p style="font-weight: bold;" class="translatable" data-en="We need your live location for accurate delivery." data-hi="सटीक डिलीवरी के लिए हमें आपकी लाइव लोकेशन चाहिए।">We need your live location for accurate delivery.</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="denyLocation()" data-en="Deny" data-hi="मना करें">Deny</button><button class="modal-btn translatable" style="margin-top:0;" onclick="allowLocation()" data-en="Allow" data-hi="अनुमति दें">Allow</button></div></div></div>
 <div id="successPopup" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #00c853;"><div class="modal-icon" id="successIcon">🎉</div><h2 style="font-size: 22px; text-transform: uppercase;" id="successHeading" class="translatable" data-en="ORDER SUCCESSFULLY" data-hi="ऑर्डर सफलतापूर्वक प्राप्त हुआ">ORDER SUCCESSFULLY</h2><p class="highlight-text" style="color: #ff416c;" class="translatable" data-en="HAVE A NICE DAY 🌟😊" data-hi="आपका दिन शुभ हो 🌟😊">HAVE A NICE DAY 🌟😊</p><button class="black-modal-btn translatable" onclick="closeSuccessPopup()" id="successBtn" style="display:none;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button></div></div>
 <div id="tcWarningModal" class="premium-modal-overlay" style="z-index: 3000;"><div class="premium-modal" style="border-top: 5px solid #d32f2f;"><div class="modal-icon" style="animation: none;">⚠️</div><h2 style="color: #d32f2f; font-size: 20px;" class="translatable" data-en="Action Denied" data-hi="कार्रवाई अस्वीकृत">Action Denied</h2><p class="translatable" style="color: var(--text-main); font-weight: bold; margin-top: 10px;" data-en="I have approved my first terms and conditions, now I cannot do anything." data-hi="मैंने अपनी पहली नियम और शर्तें स्वीकार कर ली हैं, अब मैं कुछ नहीं कर सकता।">I have approved my first terms and conditions, now I cannot do anything.</p><button class="black-modal-btn translatable" style="background: #111;" onclick="document.getElementById('tcWarningModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
+
+<div id="outOfStockModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
+    <div class="modal-icon" style="animation: none;">🚫</div>
+    <h2 style="color: #d32f2f; font-size: 22px;" class="translatable" data-en="OUT OF STOCK" data-hi="आउट ऑफ स्टॉक">OUT OF STOCK</h2>
+    <p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);">
+      <span class="translatable" data-en="This item is currently out of stock. Please try again later!" data-hi="यह आइटम वर्तमान में आउट ऑफ स्टॉक है। कृपया बाद में पुनः प्रयास करें!">This item is currently out of stock. Please try again later!</span>
+      <br><br><span style="color:#d32f2f; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span>
+    </p>
+    <button class="black-modal-btn translatable" onclick="document.getElementById('outOfStockModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button>
+  </div>
+</div>
+
 <div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;"><div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;"><div class="modal-icon">📄</div><h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
 <div id="tcContentBox" class="translatable" style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 13px; line-height: 1.6; color: var(--text-muted);" 
      data-en="<ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>"
@@ -392,12 +444,16 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
       <button onclick="doSearch()" class="search-btn translatable" data-en="Search" data-hi="खोजें" style="display:none;">Search</button>
     </div>
   </div>
-  
+
+  <div id="flashSaleBannerContainer" class="flash-sale-banner">
+      ⚡ <span id="flashSaleText" class="translatable" data-en="MEGA SALE ENDS IN:" data-hi="मेगा सेल समाप्त:">MEGA SALE ENDS IN:</span> <span id="flashSaleTimer">00h : 00m : 00s</span>
+  </div>
+
   <div class="marquee-wrapper" id="homeMarquee">
     <div class="marquee-text translatable" id="mainMarqueeText" 
-         data-en="⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" 
-         data-hi="⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 प्रवासी श्रमिक, जो अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
-      ⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
+         data-en="🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APK FILE; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" 
+         data-hi="🌐 APK फ़ाइल डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
+      🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APK FILE; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
     </div>
   </div>
 </div>
@@ -478,7 +534,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     
   </div>
 
-  <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+  <button class="back-btn-solid translatable" onclick="goToHome()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
 </div>
 
 <div class="detail" id="adminPage" style="padding: 15px;">
@@ -486,17 +542,75 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   
   <div class="premium-account" style="border-top: 4px solid #d32f2f; text-align: left; padding: 20px;">
       <h3 style="margin-top:0; color: var(--text-main);" class="translatable" data-en="Shop Status Control" data-hi="शॉप स्टेटस कंट्रोल">Shop Status Control</h3>
-      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;" class="translatable" data-en="Manually override the shop status. If closed manually, the shop will remain closed regardless of the time (9 AM - 6 PM)." data-hi="शॉप के स्टेटस को मैन्युअली कंट्रोल करें। अगर मैन्युअली बंद किया गया, तो शॉप समय (9 AM - 6 PM) की परवाह किए बिना बंद रहेगी।">Manually override the shop status. If closed manually, the shop will remain closed regardless of the time (9 AM - 6 PM).</p>
-      
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;" class="translatable" data-en="Manually override the shop status." data-hi="शॉप के स्टेटस को मैन्युअली कंट्रोल करें।">Manually override the shop status.</p>
       <button id="adminShopToggleBtn" onclick="toggleManualShopStatus()" class="premium-btn" style="background: #d32f2f; margin-bottom: 10px;">CLOSE SHOP NOW</button>
   </div>
   
+  <div class="premium-account" style="border-top: 4px solid #9c27b0; text-align: left; padding: 20px; margin-top: 15px;">
+      <h3 style="margin-top:0; color: var(--text-main);" class="translatable" data-en="Product Price Control" data-hi="उत्पाद मूल्य नियंत्रण">Product Price Control</h3>
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;" class="translatable" data-en="Manage and update prices dynamically." data-hi="मूल्य प्रबंधित और डायनामिक रूप से अपडेट करें।">Manage and update prices dynamically.</p>
+      <button onclick="showAdminPricesPage()" class="premium-btn" style="background: linear-gradient(45deg, #9b51e0, #6f42c1);">UPDATE PRICES 📦</button>
+  </div>
+
+  <div class="premium-account" style="border-top: 4px solid #ff9800; text-align: left; padding: 20px; margin-top: 15px;">
+      <h3 style="margin-top:0; color: var(--text-main);" class="translatable" data-en="Product Stock Control" data-hi="उत्पाद स्टॉक नियंत्रण">Product Stock Control</h3>
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;" class="translatable" data-en="Mark items Out of Stock to block orders." data-hi="ऑर्डर रोकने के लिए आइटम को आउट ऑफ स्टॉक करें।">Mark items Out of Stock to block orders.</p>
+      <button onclick="showAdminStockPage()" class="premium-btn" style="background: linear-gradient(45deg, #f57c00, #ff9800);">UPDATE STOCK 🚫</button>
+  </div>
+
+  <div class="premium-account" style="border-top: 4px solid #00c853; text-align: left; padding: 20px; margin-top: 15px;">
+      <h3 style="margin-top:0; color: var(--text-main);" class="translatable" data-en="Flash Sale Control" data-hi="फ़्लैश सेल नियंत्रण">Flash Sale Control</h3>
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;" class="translatable" data-en="Start a timed sale for a specific product." data-hi="किसी विशिष्ट उत्पाद के लिए समयबद्ध सेल शुरू करें।">Start a timed sale for a specific product.</p>
+      <button onclick="showAdminSalePage()" class="premium-btn" style="background: linear-gradient(45deg, #00c853, #64dd17);">FLASH SALE ⚡</button>
+  </div>
+
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
+</div>
+
+<div class="detail" id="adminStockPage" style="padding: 15px;">
+    <h2 style="text-align: center; color: #ff9800;" class="translatable" data-en="🚫 Product Stock" data-hi="🚫 उत्पाद स्टॉक">🚫 Product Stock</h2>
+    <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Toggle availability globally." data-hi="उपलब्धता को विश्व स्तर पर टॉगल करें।">Toggle availability globally.</p>
+    <div id="adminStockContainer" style="margin-top: 15px;"></div>
+    <button class="back-btn-solid translatable" onclick="showAdminPage(false)" data-en="⬅ Back to Admin" data-hi="⬅ एडमिन में वापस जाएं">⬅ Back to Admin</button>
+</div>
+
+<div class="detail" id="adminSalePage" style="padding: 15px;">
+    <h2 style="text-align: center; color: #00c853;" class="translatable" data-en="⚡ Flash Sale Settings" data-hi="⚡ फ़्लैश सेल सेटिंग्स">⚡ Flash Sale Settings</h2>
+    
+    <div class="premium-account" style="border-top: 4px solid #00c853; text-align: left; padding: 20px;">
+        <label style="color:var(--text-main); font-weight:bold; font-size:14px;">Product Name</label>
+        <input type="text" id="saleProductInput" placeholder="e.g. Mango" style="margin-bottom:15px;" oninput="updateSalePreview()">
+
+        <label style="color:var(--text-main); font-weight:bold; font-size:14px;">Current Rate (₹)</label>
+        <input type="number" id="saleCurrentRateInput" placeholder="Base Price" style="margin-bottom:15px;" oninput="updateSalePreview()">
+
+        <label style="color:var(--text-main); font-weight:bold; font-size:14px;">Discount Percentage (%)</label>
+        <input type="number" id="saleDiscountInput" placeholder="e.g. 50" style="margin-bottom:15px;" oninput="updateSalePreview()">
+        
+        <div id="saleRatePreview" style="margin-bottom:20px; font-weight:bold; color:#00c853; font-size:16px;">New Sale Rate: ₹0</div>
+
+        <label style="color:var(--text-main); font-weight:bold; font-size:14px;">Duration (Minutes)</label>
+        <input type="number" id="saleDurationInput" placeholder="e.g. 60" style="margin-bottom:20px;">
+
+        <button onclick="startFlashSale()" class="full-btn translatable" style="background: #00c853; color: white; margin-bottom: 10px;" data-en="Start Sale" data-hi="सेल शुरू करें">Start Sale</button>
+        <button onclick="stopFlashSale()" class="full-btn translatable" style="background: #d32f2f; color: white;" data-en="Stop Sale" data-hi="सेल बंद करें">Stop Sale</button>
+    </div>
+
+    <button class="back-btn-solid translatable" onclick="showAdminPage(false)" data-en="⬅ Back to Admin" data-hi="⬅ एडमिन में वापस जाएं">⬅ Back to Admin</button>
+</div>
+
+<div class="detail" id="adminPricesPage" style="padding: 15px;">
+    <h2 style="text-align: center; color: #9b51e0;" class="translatable" data-en="📦 Product Prices" data-hi="📦 उत्पाद की कीमतें">📦 Product Prices</h2>
+    <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Change prices globally." data-hi="कीमतें विश्व स्तर पर बदलें।">Change prices globally.</p>
+    
+    <div id="adminPricesContainer" style="margin-top: 15px;"></div>
+    
+    <button onclick="saveAdminPrices()" class="full-btn translatable" style="background: #00c853; color: white; margin-top: 20px; box-shadow: 0 4px 10px rgba(0, 200, 83, 0.3);" data-en="Save All Prices" data-hi="सभी कीमतें सहेजें">Save All Prices</button>
+    <button class="back-btn-solid translatable" onclick="showAdminPage(false)" data-en="⬅ Back to Admin" data-hi="⬅ एडमिन में वापस जाएं">⬅ Back to Admin</button>
 </div>
 
 <div class="detail" id="functionsGuidePage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff4b2b; margin-bottom: 20px;" class="translatable" data-en="⭐ Functions Guide" data-hi="⭐ फंक्शन्स गाइड">⭐ Functions Guide</h2>
-  
   <div class="premium-account" style="text-align: left; margin-bottom: 15px; border-top: 4px solid #ff4b2b; padding: 20px; line-height: 1.8;">
 
       <h3 class="translatable" data-en="1. LOGIN 🔑" data-hi="1. लॉगिन 🔑" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">1. LOGIN 🔑</h3>
@@ -516,7 +630,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
       </ul>
 
       <h3 class="translatable" data-en="3. MANAGE DEVICE 📱" data-hi="3. डिवाइस प्रबंधित करें 📱" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">3. MANAGE DEVICE 📱</h3>
-      <ul class="translatable" data-en="<li>View all the devices currently logged into your Khalsa Shop account.</li><li>Check the exact date and time when a specific device was registered.</li><li>Securely log out from any unfamiliar or old device with just one click.</li><li>Use the 'Log out from all devices' option for maximum account security.</li>" data-hi="<li>वर्तमान में आपके खालसा शॉप खाते में लॉग इन किए गए सभी डिवाइस देखें।</li><li>जांचें कि कोई विशिष्ट डिवाइस किस तिथि और समय पर पंजीकृत किया गया था।</li><li>बस एक क्लिक से किसी भी अपरिचित या पुराने डिवाइस से सुरक्षित रूप से लॉग आउट करें।</li><li>खाते की अधिकतम सुरक्षा के लिए 'सभी डिवाइस से लॉग आउट करें' विकल्प का उपयोग करें।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+      <ul class="translatable" data-en="<li>View all the devices currently logged into your Khalsa Shop account.</li><li>Check the exact date and time when a specific device was registered.</li><li>Securely log out from any unfamiliar or old device with just one click.</li><li>Use the 'Log out from all devices' option for maximum account security.</li>" data-hi="<li>वर्तमान में आपके खाते में लॉग इन किए गए सभी डिवाइस देखें।</li><li>जांचें कि कोई विशिष्ट डिवाइस किस तिथि और समय पर पंजीकृत किया गया था।</li><li>बस एक क्लिक से किसी भी अपरिचित या पुराने डिवाइस से सुरक्षित रूप से लॉग आउट करें।</li><li>खाते की अधिकतम सुरक्षा के लिए 'सभी डिवाइस से लॉग आउट करें' विकल्प का उपयोग करें।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
           <li>View all the devices currently logged into your Khalsa Shop account.</li>
           <li>Check the exact date and time when a specific device was registered.</li>
           <li>Securely log out from any unfamiliar or old device with just one click.</li>
@@ -556,7 +670,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
       </ul>
 
       <h3 class="translatable" data-en="8. OUR REVIEW ⭐" data-hi="8. हमारी समीक्षा ⭐" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">8. OUR REVIEW ⭐</h3>
-      <ul class="translatable" data-en="<li>A personal dashboard showing all the product reviews you have ever posted.</li><li>Easily keep track of the ratings and positive feedback you have shared.</li><li>Edit your past reviews if you change your mind about a specific product.</li><li>Delete any review you no longer want to be visible to the shopping community.</li>" data-hi="<li>एक व्यक्तिगत डैशबोर्ड जो आपके द्वारा पोस्ट की गई सभी उत्पाद समीक्षाओं को दिखाता है।</li><li>आपके द्वारा साझा की गई रेटिंग और सकारात्मक प्रतिक्रिया पर आसानी से नज़र रखें।</li><li>यदि आप किसी विशिष्ट उत्पाद के बारे में अपना विचार बदलते हैं तो अपनी पिछली समीक्षाओं को संपादित करें।</li><li>कोई भी ऐसी समीक्षा हटाएं जिसे आप अब खरीदारी समुदाय को नहीं दिखाना चाहते।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+      <ul class="translatable" data-en="<li>A personal dashboard showing all the product reviews you have ever posted.</li><li>Easily keep track of the ratings and positive feedback you have shared.</li><li>Edit your past reviews if you change your mind about a specific product.</li><li>Delete any review you no longer want to be visible to the shopping community.</li>" data-hi="<li>एक व्यक्तिगत डैशबोर्ड जो आपके द्वारा पोस्ट की गई सभी उत्पाद समीक्षाओं को दिखाता है।</li><li>आपके द्वारा साझा की गई रेटिंग और सकारात्मक प्रतिक्रिया पर आसानी से नज़र रखें।</li><li>यदि आप किसी विशिष्ट उत्पाद के बारे value में अपना विचार बदलते हैं तो अपनी पिछली समीक्षाओं को संपादित करें।</li><li>कोई भी ऐसी समीक्षा हटाएं जिसे आप अब खरीदारी समुदाय को नहीं दिखाना चाहते।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
           <li>A personal dashboard showing all the product reviews you have ever posted.</li>
           <li>Easily keep track of the ratings and positive feedback you have shared.</li>
           <li>Edit your past reviews if you change your mind about a specific product.</li>
@@ -600,24 +714,19 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="detail" id="reportPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</h2>
-  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Records of blocked reviews" data-hi="ब्लॉक की गई समीक्षाओं का रिकॉर्ड">Records of blocked reviews</p>
   <div id="reportContainer"></div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="manageDevicePage" style="padding: 15px; text-align: left;">
   <h2 style="color: #1e88e5; margin-bottom: 5px;" class="translatable" data-en="Manage Devices" data-hi="उपकरण प्रबंधित करें">Manage Devices</h2>
-  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" class="translatable" data-en="Devices currently logged into your account." data-hi="वर्तमान में आपके खाते में लॉग इन किए गए उपकरण।">Devices currently logged into your account.</p>
-  
   <div id="deviceListContainer"></div>
-  
   <button class="logout-all-btn translatable" onclick="logoutAllDevices()" data-en="Log out from all devices" data-hi="सभी उपकरणों से लॉग आउट करें">Log out from all devices</button>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं" style="margin-top: 10px;">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="topCustomersPage" style="padding: 15px;">
   <h2 style="text-align: center; color: #ff9800;" class="translatable" data-en="👑 Top 5 Customers" data-hi="👑 टॉप 5 ग्राहक">👑 Top 5 Customers</h2>
-  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Our most loyal shoppers!" data-hi="हमारे सबसे वफादार खरीदार!">Our most loyal shoppers!</p>
   <div id="topCustomersList"></div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
@@ -644,18 +753,15 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     </ul>
   </div>
   <p style="text-align: center; font-size: 13px; font-weight: bold; color: var(--text-muted); margin-bottom: 20px;" class="translatable" data-en="CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS" data-hi="पूरी जानकारी के लिए स्क्रीन पर दिख रहे ईमेल पर संपर्क करें">CONTACT THE EMAIL VISIBLE ON THE SCREEN FOR FULL DETAILS</p>
+
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="contact-section" id="contactSection" style="display: none;">
   <h2 class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</h2>
-  
   <div class="contact-card">
     <p>👤 <strong class="translatable" data-en="Name:" data-hi="नाम:">Name:</strong> SURESH KUMAR</p>
     <p>📧 <strong class="translatable" data-en="Email:" data-hi="ईमेल:">Email:</strong> <a href="mailto:sureshkumar803@gmail.com" style="color: #2196F3;">sureshkumar803@gmail.com</a></p>
-    <div class="party-highlight translatable" data-en="🎊 Available for Weddings, Parties & Other Functions! 🎊" data-hi="🎊 शादियों, पार्टियों और अन्य कार्यों के लिए उपलब्ध! 🎊">
-      🎊 Available for Weddings, Parties & Other Functions! 🎊
-    </div>
   </div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 </div>
@@ -672,7 +778,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <button class="qty-btn" onclick="changeQty(1)">+</button>
   </div>
 
-  <button class="full-btn translatable" onclick="addToCart()" data-en="🛒 Add to Cart" data-hi="🛒 कार्ट में डालें" style="background:#6f42c1; color:white;">🛒 Add to Cart</button>
+  <button id="addToCartBtnDetail" class="full-btn translatable" onclick="addToCart()" data-en="🛒 Add to Cart" data-hi="🛒 कार्ट में डालें" style="background:#6f42c1; color:white;">🛒 Add to Cart</button>
   
   <h3 style="margin-top:25px;" class="translatable" data-en="Rate this Item:" data-hi="इस आइटम को रेट करें:">Rate this Item:</h3>
   <div class="star-rating" id="itemStarContainer">
@@ -683,7 +789,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <textarea id="reviewText" class="translatable-ph" data-en="Write your review here..." data-hi="अपनी समीक्षा यहां लिखें..." placeholder="Write your review here..."></textarea>
   <button class="full-btn translatable" onclick="saveReview()" style="background:#2196F3; color:black;" data-en="Submit Item Review" data-hi="आइटम समीक्षा सबमिट करें">Submit Item Review</button>
 
-  <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+  <button class="back-btn-solid translatable" onclick="goToHome()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
 
   <h3 style="margin-top:20px; border-bottom: 2px solid var(--border-color); padding-bottom:5px;" class="translatable" data-en="Customer Reviews" data-hi="ग्राहक समीक्षाएं">Customer Reviews</h3>
   <div id="itemReviewStats" class="stats-box" style="color: #2196F3;"></div>
@@ -715,8 +821,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div class="detail" id="allReviewsPage">
   <h2 style="text-align: center; color: #9c27b0;" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</h2>
-  
-  <p style="text-align: center; font-size: 13px; color: var(--text-muted);" class="translatable" data-en="Here is what our customers are saying!" data-hi="यहाँ हमारे ग्राहक क्या कह रहे हैं!">Here is what our customers are saying!</p>
   <div id="allReviewsContainer"></div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
@@ -739,10 +843,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <button class="full-btn translatable" id="editBtn" onclick="enableEdit()" style="background:#ff9800; color:white; display:none; margin-bottom:10px;" data-en="✏️ Edit Details" data-hi="✏️ विवरण संपादित करें">✏️ Edit Details</button>
   <button class="full-btn translatable" id="saveBtn" onclick="processForm()" style="background:#00c853; color:white;" data-en="Login & Save" data-hi="लॉगिन और सहेजें">Login & Save</button>
   
-  <p style="text-align:center; font-weight:bold; margin-top:10px; color:var(--text-muted); font-size:12px;" class="translatable" data-en="PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉" data-hi="कृपया अपना पूरा पता दर्ज करें धन्यवाद 🎉">
-    PLEASE ENTER YOUR FULL ADDRESS THANKS 🎉
-  </p>
-  
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
@@ -754,12 +854,10 @@ const NEW_FEATURES_API_URL = "https://script.google.com/macros/s/AKfycbwqeqdVe16
 
 // 🌟 Banned Words Dictionary 🌟
 const BANNED_WORDS = [
-  "porn", "sex", "nude", "scam", "stupid", "idiot", "***", "***", "***", "***", "***", "***", "***",
-  "***", "***", "***", "***", "***", "***", "***", "***", "***", "***",
-  "kill", "murder", "suicide", "terrorist", "spam", "hack", "fraud"
+  "porn", "sex", "nude", "scam", "stupid", "idiot", "kill", "murder", "suicide", "terrorist", "spam", "hack", "fraud"
 ];
 
-let item="", internalItemName="", price=70, qty=1, cartData=[];
+let item="", internalItemName="", price=40, qty=1, cartData=[];
 let img = document.getElementById("img");
 let nameLabel = document.getElementById("name");
 
@@ -768,6 +866,77 @@ let isHindiLanguage = false;
 let isDarkMode = false;
 let reviewToDelete = null;
 let isForcedTcMode = false; 
+
+// 🌟 PRODUCT PRICING & STOCK SYSTEM (INIT) 🌟
+function initPricesAndStock() {
+    let savedPrices = localStorage.getItem("khalsaPrices");
+    if(!savedPrices) {
+        localStorage.setItem("khalsaPrices", JSON.stringify({
+            "Mango": 60, "Litchi": 60, "Blueberry": 60,
+            "Orange": 40, "Apple": 40, "Guava": 40, "Fruit Beer": 40, "Nimbu": 40
+        }));
+    }
+    let savedStock = localStorage.getItem("khalsaStock");
+    if(!savedStock) {
+        localStorage.setItem("khalsaStock", JSON.stringify({
+            "Mango": true, "Litchi": true, "Blueberry": true,
+            "Orange": true, "Apple": true, "Guava": true, "Fruit Beer": true, "Nimbu": true
+        }));
+    }
+}
+
+// 🌟 FLASH SALE TIMER LOGIC 🌟
+function getActiveSale() {
+    let saleStr = localStorage.getItem("khalsaSaleConfig");
+    if (!saleStr) return null;
+    let sale = JSON.parse(saleStr);
+    if (sale.active && Date.now() < sale.endTime) {
+        return sale;
+    } else if (sale.active) {
+        sale.active = false; // Expired
+        localStorage.setItem("khalsaSaleConfig", JSON.stringify(sale));
+    }
+    return null;
+}
+
+function updateSaleTimerUI() {
+    let sale = getActiveSale();
+    let banner = document.getElementById("flashSaleBannerContainer");
+    let timerEl = document.getElementById("flashSaleTimer");
+
+    if (sale) {
+        banner.style.display = "block";
+        let diff = sale.endTime - Date.now();
+        let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let s = Math.floor((diff % (1000 * 60)) / 1000);
+        timerEl.innerText = `${h.toString().padStart(2, '0')}h : ${m.toString().padStart(2, '0')}m : ${s.toString().padStart(2, '0')}s`;
+    } else {
+        banner.style.display = "none";
+    }
+    updateMenuSaleBadges();
+}
+
+// 🌟 MENU PICTURE SALE BADGE 🌟
+function updateMenuSaleBadges() {
+    let sale = getActiveSale();
+    document.querySelectorAll('.item').forEach(item => {
+        let badge = item.querySelector('.menu-sale-badge');
+        let h3 = item.querySelector('h3');
+        if (sale && sale.productName && h3 && h3.getAttribute('data-en').toLowerCase() === sale.productName.toLowerCase()) {
+            if (!badge) {
+                badge = document.createElement('div');
+                badge.className = 'menu-sale-badge';
+                badge.innerText = `${sale.discount}% OFF`;
+                item.appendChild(badge);
+            } else {
+                badge.innerText = `${sale.discount}% OFF`;
+            }
+        } else {
+            if (badge) badge.remove();
+        }
+    });
+}
 
 // 🌟 CHECK ADMIN VISIBILITY 🌟
 function checkAdminVisibility() {
@@ -785,16 +954,8 @@ function checkAdminVisibility() {
 // 🌟 OS DETECTION FOR MANAGE DEVICE 🌟
 function getDeviceName() {
     let ua = navigator.userAgent;
-    if (/Android/i.test(ua)) {
-        let match = ua.match(/Android[^;]*; ([^;]+) Build/i);
-        if (match && match[1]) {
-            let model = match[1].trim();
-            if(model.includes(";")) model = model.split(";").pop().trim();
-            return model;
-        }
-        return "Android Device";
-    } else if (/iPhone/i.test(ua)) return "Apple iPhone";
-    else if (/iPad/i.test(ua)) return "Apple iPad";
+    if (/Android/i.test(ua)) return "Android Device";
+    else if (/iPhone/i.test(ua)) return "Apple iPhone";
     else if (/Windows/i.test(ua)) return "Windows PC";
     else if (/Mac/i.test(ua)) return "MacBook / iMac";
     return "Unknown Device";
@@ -802,25 +963,15 @@ function getDeviceName() {
 
 function formatDeviceDate(dateObj) {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let month = months[dateObj.getMonth()];
-    let day = dateObj.getDate();
-    let year = dateObj.getFullYear();
-    
-    let hours = dateObj.getHours();
-    let minutes = dateObj.getMinutes();
+    let hours = dateObj.getHours(), minutes = dateObj.getMinutes();
     let ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; 
+    hours = hours % 12; hours = hours ? hours : 12; 
     minutes = minutes < 10 ? '0' + minutes : minutes;
-    
-    let hoursStr = hours < 10 ? '0' + hours : hours;
-    
-    return `${month} ${day}, ${year} · ${hoursStr}:${minutes} ${ampm}`;
+    return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()} · ${hours}:${minutes} ${ampm}`;
 }
 
 // 🌟 NATIVE MOBILE BACK BUTTON SUPPORT (HISTORY API) 🌟
 let isPopState = false;
-
 window.addEventListener('popstate', function(event) {
     isPopState = true;
     let page = event.state ? event.state.page : 'menu';
@@ -838,49 +989,39 @@ window.addEventListener('popstate', function(event) {
     else if (page === 'report') showReportPage(true);
     else if (page === 'functionsGuide') showFunctionsGuidePage(true);
     else if (page === 'adminPage') showAdminPage(true);
-    else if (page.startsWith('detail_')) {
-        hideAll(); document.getElementById("detail").style.display="block";
-    }
-    
+    else if (page === 'adminPricesPage') showAdminPricesPage(true);
+    else if (page === 'adminStockPage') showAdminStockPage(true);
+    else if (page === 'adminSalePage') showAdminSalePage(true);
+    else if (page.startsWith('detail_')) { hideAll(); document.getElementById("detail").style.display="block"; }
     isPopState = false;
 });
 
 function pushNavState(pageName) {
-    if (!isPopState) {
-        history.pushState({ page: pageName }, "", "#" + pageName);
-    }
+    if (!isPopState) { history.pushState({ page: pageName }, "", "#" + pageName); }
+}
+
+function goToHome() {
+    hideAll();
+    document.getElementById("dashboardHeaderBox").style.display="block";
+    document.getElementById("categoryTitleBox").style.display="flex";
+    document.getElementById("menu").style.display="grid";
+    document.getElementById("itemReviewWarning").style.display = "none";
+    history.pushState({ page: 'menu' }, "", "#menu");
 }
 
 function uiBack(fallback) {
-    if (history.state) {
-        history.back(); 
-    } else {
-        if (fallback === 'account') showAccountPage(false);
-        else back(false); 
-    }
+    if (history.state) { history.back(); } 
+    else { if (fallback === 'account') showAccountPage(false); else back(false); }
 }
 
-// 🌟 DYNAMIC GREETING & SHOP BADGE LOGIC 🌟
 function updateGreeting() {
   let hour = new Date().getHours();
   let manualClose = localStorage.getItem("khalsaShopManualClose") === "true";
   let isTimeValid = (hour >= 9 && hour < 18);
   let isShopOpen = isTimeValid && !manualClose;
   
-  let greetEn = ""; let greetHi = "";
-  
-  if (isShopOpen) {
-      if (hour >= 5 && hour < 12) { 
-          greetEn = "🌤️ Good Morning"; greetHi = "🌤️ शुभ प्रभात"; 
-      } else if (hour >= 12 && hour < 17) { 
-          greetEn = "☀️ Good Afternoon"; greetHi = "☀️ शुभ दोपहर"; 
-      } else { 
-          greetEn = "🌆 Good Evening"; greetHi = "🌆 शुभ संध्या"; 
-      }
-  } else {
-      greetEn = "<span style='color:#d32f2f; font-size:16px;'>🚫 SHOP WAS CLOSED NOW</span>"; 
-      greetHi = "<span style='color:#d32f2f; font-size:16px;'>🚫 दुकान अब बंद है</span>"; 
-  }
+  let greetEn = isShopOpen ? (hour < 12 ? "🌤️ Good Morning" : (hour < 17 ? "☀️ Good Afternoon" : "🌆 Good Evening")) : "<span style='color:#d32f2f; font-size:16px;'>🚫 SHOP WAS CLOSED NOW</span>"; 
+  let greetHi = isShopOpen ? (hour < 12 ? "🌤️ शुभ प्रभात" : (hour < 17 ? "☀️ शुभ दोपहर" : "🌆 शुभ संध्या")) : "<span style='color:#d32f2f; font-size:16px;'>🚫 दुकान अब बंद है</span>"; 
   
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
   let nameEn = (user && user.name) ? user.name.split(" ")[0] : "";
@@ -899,13 +1040,7 @@ function updateGreeting() {
   }
 
   let shopBadge = document.getElementById("shopStatusBadge");
-  if(shopBadge) {
-      if (isShopOpen) {
-          shopBadge.style.display = "block";
-      } else {
-          shopBadge.style.display = "none";
-      }
-  }
+  if(shopBadge) shopBadge.style.display = isShopOpen ? "block" : "none";
 }
 
 // 🌟 ADMIN CONTROLS LOGIC 🌟
@@ -915,7 +1050,6 @@ function attemptAdminAccess() {
         showError(isHindiLanguage ? "केवल एडमिन को अनुमति है 🚫" : "Only Admins are allowed 🚫");
         return;
     }
-    
     document.querySelectorAll('#adminPwdContainer .digit-box').forEach(b => b.value = "");
     document.getElementById("adminPasswordModal").style.display = "flex";
     setTimeout(() => document.querySelector('#adminPwdContainer .digit-box').focus(), 100);
@@ -938,14 +1072,9 @@ function showAdminPage(fromPop = false) {
     hideAll();
     document.getElementById("adminPage").style.display = "block";
     if(!fromPop) pushNavState('adminPage');
-    updateAdminUI();
-}
-
-function updateAdminUI() {
-    let isManualClosed = localStorage.getItem("khalsaShopManualClose") === "true";
-    let btn = document.getElementById("adminShopToggleBtn");
     
-    if (isManualClosed) {
+    let btn = document.getElementById("adminShopToggleBtn");
+    if (localStorage.getItem("khalsaShopManualClose") === "true") {
         btn.innerText = isHindiLanguage ? "SHOP OPEN KAREN" : "OPEN SHOP NOW";
         btn.style.background = "#00c853";
     } else {
@@ -956,81 +1085,239 @@ function updateAdminUI() {
 
 function toggleManualShopStatus() {
     let isManualClosed = localStorage.getItem("khalsaShopManualClose") === "true";
-    if (isManualClosed) {
-        localStorage.setItem("khalsaShopManualClose", "false");
-        showSuccessMsg(isHindiLanguage ? "दुकान खुल गई ✅" : "Shop Opened Successfully ✅");
-    } else {
-        localStorage.setItem("khalsaShopManualClose", "true");
-        showError(isHindiLanguage ? "दुकान मैन्युअली बंद की गई 🚫" : "Shop Closed Manually 🚫");
-    }
-    updateAdminUI();
-    updateGreeting(); 
+    localStorage.setItem("khalsaShopManualClose", isManualClosed ? "false" : "true");
+    showSuccessMsg(isManualClosed ? (isHindiLanguage ? "दुकान सफलतापूर्वक खुल गई ✅" : "Shop Opened Successfully ✅") : (isHindiLanguage ? "दुकान मैन्युअली बंद कर दी गई 🚫" : "Shop Closed Manually 🚫"));
+    showAdminPage(true); updateGreeting(); 
 }
 
-// 🌟 ONBOARDING FUNCTIONS 🌟
+// 🌟 ADMIN PRICES LOGIC 🌟
+function showAdminPricesPage(fromPop = false) {
+    hideAll(); 
+    document.getElementById("adminPricesPage").style.display = "block";
+    if(!fromPop) pushNavState('adminPricesPage');
+    
+    let prices = JSON.parse(localStorage.getItem("khalsaPrices"));
+    let container = document.getElementById("adminPricesContainer");
+    container.innerHTML = "";
+    for(let p in prices) {
+        let safeId = p.replace(/\s+/g, '');
+        container.innerHTML += `
+        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 12px 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--box-shadow);">
+            <span style="font-weight: bold; font-size: 15px; color: var(--text-main);">${p}</span>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <span style="color: var(--text-muted); font-weight: bold;">₹</span>
+                <input type="number" id="priceInput_${safeId}" value="${prices[p]}" style="width: 70px; padding: 8px; margin: 0; text-align: center; border-radius: 6px; font-weight: bold; font-size: 15px; background: var(--input-bg);">
+            </div>
+        </div>`;
+    }
+}
+function saveAdminPrices() {
+    let prices = JSON.parse(localStorage.getItem("khalsaPrices"));
+    for(let p in prices) {
+        let input = document.getElementById("priceInput_" + p.replace(/\s+/g, ''));
+        if(input && input.value !== "") prices[p] = parseFloat(input.value) || prices[p];
+    }
+    localStorage.setItem("khalsaPrices", JSON.stringify(prices));
+    showSuccessMsg(isHindiLanguage ? "कीमतें अपडेट की गईं ✅" : "Prices Updated ✅");
+    setTimeout(() => showAdminPage(false), 1000);
+}
+
+// 🌟 ADMIN STOCK LOGIC 🌟
+function showAdminStockPage(fromPop = false) {
+    hideAll(); 
+    document.getElementById("adminStockPage").style.display = "block";
+    if(!fromPop) pushNavState('adminStockPage');
+    
+    let stock = JSON.parse(localStorage.getItem("khalsaStock"));
+    let container = document.getElementById("adminStockContainer");
+    container.innerHTML = "";
+    
+    for(let p in stock) {
+        let safeId = p.replace(/\s+/g, '');
+        let inStock = stock[p];
+        let btnBg = inStock ? "#00c853" : "#d32f2f";
+        let btnText = inStock ? "IN STOCK ✅" : "OUT OF STOCK 🚫";
+        
+        container.innerHTML += `
+        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 12px 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--box-shadow);">
+            <span style="font-weight: bold; font-size: 15px; color: var(--text-main);">${p}</span>
+            <button id="stockBtn_${safeId}" onclick="toggleStock('${p}', '${safeId}')" style="background: ${btnBg}; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;">${btnText}</button>
+        </div>`;
+    }
+}
+function toggleStock(productName, safeId) {
+    let stock = JSON.parse(localStorage.getItem("khalsaStock"));
+    stock[productName] = !stock[productName];
+    localStorage.setItem("khalsaStock", JSON.stringify(stock));
+    
+    let btn = document.getElementById("stockBtn_" + safeId);
+    if(stock[productName]) {
+        btn.style.background = "#00c853";
+        btn.innerText = "IN STOCK ✅";
+    } else {
+        btn.style.background = "#d32f2f";
+        btn.innerText = "OUT OF STOCK 🚫";
+    }
+}
+
+// 🌟 ADMIN FLASH SALE LOGIC (UPDATED WITH AUTO-PREVIEW) 🌟
+function showAdminSalePage(fromPop = false) {
+    hideAll(); 
+    document.getElementById("adminSalePage").style.display = "block";
+    if(!fromPop) pushNavState('adminSalePage');
+}
+
+function updateSalePreview() {
+    let base = parseFloat(document.getElementById("saleCurrentRateInput").value) || 0;
+    let disc = parseFloat(document.getElementById("saleDiscountInput").value) || 0;
+    let preview = document.getElementById("saleRatePreview");
+    
+    if (base > 0 && disc > 0 && disc <= 100) {
+        let newRate = Math.round(base - (base * (disc / 100)));
+        preview.innerText = isHindiLanguage ? `नई सेल दर: ₹${newRate}` : `New Sale Rate: ₹${newRate}`;
+    } else {
+        preview.innerText = isHindiLanguage ? `नई सेल दर: ₹0` : `New Sale Rate: ₹0`;
+    }
+}
+
+function startFlashSale() {
+    let prodName = document.getElementById("saleProductInput").value.trim();
+    let baseRate = parseFloat(document.getElementById("saleCurrentRateInput").value);
+    let disc = parseFloat(document.getElementById("saleDiscountInput").value);
+    let dur = parseFloat(document.getElementById("saleDurationInput").value);
+
+    if (prodName === "" || isNaN(baseRate) || baseRate <= 0 || isNaN(disc) || disc <= 0 || disc > 100 || isNaN(dur) || dur <= 0) {
+        showError(isHindiLanguage ? "कृपया वैध उत्पाद का नाम, दरें और अवधि दर्ज करें!" : "Please enter valid product name, rates, & duration!"); 
+        return;
+    }
+    
+    let endTime = Date.now() + (dur * 60 * 1000);
+    // Include the specific product name in the saved config
+    let saleConfig = { active: true, productName: prodName, discount: disc, endTime: endTime };
+    localStorage.setItem("khalsaSaleConfig", JSON.stringify(saleConfig));
+    
+    showSuccessMsg(isHindiLanguage ? `सेल शुरू! ${prodName} पर ${disc}% छूट ${dur} मिनट के लिए ⚡` : `Sale Started! ${disc}% OFF on ${prodName} for ${dur} minutes ⚡`);
+    updateSaleTimerUI();
+    setTimeout(() => showAdminPage(false), 1500);
+}
+
+function stopFlashSale() {
+    localStorage.setItem("khalsaSaleConfig", JSON.stringify({ active: false }));
+    showSuccessMsg(isHindiLanguage ? "फ़्लैश सेल रोक दी गई 🚫" : "Flash Sale Stopped 🚫");
+    updateSaleTimerUI();
+    setTimeout(() => showAdminPage(false), 1500);
+}
+
+// 🌟 NEW: EMAILJS OTP LOGIC 🌟
+let generatedOTP = "";
+let otpAttempts = 0;
+const MAX_ATTEMPTS = 3;
+
+function sendOTP() {
+    let name = document.getElementById("onboardName").value.trim();
+    let phone = document.getElementById("onboardPhone").value.trim();
+    let email = document.getElementById("onboardEmail").value.trim();
+
+    if(name === "" || phone === "" || email === "") { 
+        showError(isHindiLanguage ? "⚠️ कृपया पहले नाम, फोन और ईमेल भरें" : "⚠️ Please fill Name, Phone and Email first"); 
+        return; 
+    }
+    if (!/^\d{10}$/.test(phone)) { 
+        showError(isHindiLanguage ? "⚠️ फोन नंबर 10 अंकों का होना चाहिए!" : "⚠️ Phone number must be exactly 10 digits!"); 
+        return; 
+    }
+
+    // Generate random 4-digit OTP
+    generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+    otpAttempts = 0;
+
+    showLoading("Sending OTP...", "OTP भेजा जा रहा है...");
+
+    let templateParams = {
+        email: email,
+        otp: generatedOTP
+    };
+
+    // Your EmailJS Configuration
+    const SERVICE_ID = "service_zvy3re2";
+    const TEMPLATE_ID = "template_tacgskq"; 
+    const PUBLIC_KEY = "K6cs_matxXu2begVg";   
+
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+        .then(function(response) {
+            hideLoading();
+            showSuccessMsg(isHindiLanguage ? "✅ OTP सफलतापूर्वक भेजा गया!" : "✅ OTP Sent Successfully!");
+            document.getElementById("otpGroup").style.display = "flex"; 
+            document.getElementById("otpInput").focus();
+        }, function(error) {
+            hideLoading();
+            showError(isHindiLanguage ? "⚠️ OTP भेजने में विफल। कंसोल जांचें।" : "⚠️ Failed to send OTP. Check console.");
+            console.log("EmailJS Error:", error);
+        });
+}
+
+function verifyOTPAndContinue() {
+    let userOTP = document.getElementById("otpInput").value.trim();
+
+    if (document.getElementById("otpGroup").style.display === "none") {
+        showError(isHindiLanguage ? "⚠️ कृपया पहले 'OTP भेजें' पर क्लिक करें!" : "⚠️ Please click 'Send OTP' first!");
+        return;
+    }
+    if (userOTP === "") {
+        showError(isHindiLanguage ? "⚠️ कृपया OTP दर्ज करें!" : "⚠️ Please enter the OTP!");
+        return;
+    }
+
+    if (userOTP === generatedOTP) {
+        showSuccessMsg(isHindiLanguage ? "✅ ईमेल सत्यापित!" : "✅ Email Verified!");
+        goToTermsStep(); 
+    } else {
+        otpAttempts++;
+        if (otpAttempts >= MAX_ATTEMPTS) {
+            showError(isHindiLanguage ? "🚫 अधिकतम प्रयास पूरे हुए। कृपया OTP फिर से भेजें।" : "🚫 Maximum attempts reached. Please resend OTP.");
+            document.getElementById("otpGroup").style.display = "none";
+            document.getElementById("otpInput").value = "";
+            generatedOTP = ""; 
+        } else {
+            showError(isHindiLanguage ? `❌ गलत OTP! ${MAX_ATTEMPTS - otpAttempts} प्रयास शेष।` : `❌ Incorrect OTP! ${MAX_ATTEMPTS - otpAttempts} attempts left.`);
+        }
+    }
+}
+
+// ONBOARDING FUNCTIONS
 function goToTermsStep() {
-  let name = document.getElementById("onboardName").value.trim();
   let phone = document.getElementById("onboardPhone").value.trim();
-  let email = document.getElementById("onboardEmail").value.trim();
-  
-  if(name === "" || phone === "" || email === "") { showError("⚠️ Please fill Name, Phone and Email"); return; }
-  if (!/^\d{10}$/.test(phone)) { showError("⚠️ Phone number must be exactly 10 digits!"); return; }
-  
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
   if (!currentDeviceId) {
       currentDeviceId = "DEV_" + Date.now();
       localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
   }
-  
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
   if (regUsers[phone] && regUsers[phone].deviceId && regUsers[phone].deviceId !== currentDeviceId) {
-      showError("THIS NUMBER ALREADY REGISTER"); 
+      showError(isHindiLanguage ? "यह नंबर पहले से पंजीकृत है" : "THIS NUMBER ALREADY REGISTER"); 
       return;
   }
-  
   document.getElementById("step1Login").style.display = "none";
   document.getElementById("step2Terms").style.display = "block";
 }
-
 function backToLoginStep() {
   document.getElementById("step2Terms").style.display = "none";
   document.getElementById("step1Login").style.display = "block";
 }
-
-function closeOnboarding() {
-  window.close();
-  window.location.href = "about:blank"; 
-}
-
 function finishOnboarding() {
   let cb = document.getElementById("onboardTcCheckbox");
-  if(!cb.checked) {
-      showError("⚠️ Please accept Terms & Conditions to enter!");
-      return;
-  }
-
-  let name = document.getElementById("onboardName").value.trim();
-  let phone = document.getElementById("onboardPhone").value.trim();
-  let email = document.getElementById("onboardEmail").value.trim();
-  
-  let savedData = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
-  savedData.name = name;
-  savedData.phone = phone;
-  savedData.email = email;
+  if(!cb.checked) { showError(isHindiLanguage ? "⚠️ कृपया नियम और शर्तें स्वीकार करें!" : "⚠️ Please accept Terms & Conditions!"); return; }
+  let savedData = { name: document.getElementById("onboardName").value, phone: document.getElementById("onboardPhone").value, email: document.getElementById("onboardEmail").value };
   localStorage.setItem("khalsaUserData", JSON.stringify(savedData));
   localStorage.setItem("termsAccepted", "true");
-
-  document.getElementById("l_name").value = name;
-  document.getElementById("l_phone").value = phone;
-  document.getElementById("l_email").value = email;
+  registerDeviceSession(savedData.phone);
   
-  registerDeviceSession(phone);
+  document.getElementById("l_name").value = savedData.name;
+  document.getElementById("l_phone").value = savedData.phone;
+  document.getElementById("l_email").value = savedData.email;
 
   document.getElementById("onboardingOverlay").style.display = "none";
-  showSuccessMsg("Welcome to Khalsa Shop!");
-  updateGreeting(); 
-  checkAdminVisibility();
-  back(false);
+  showSuccessMsg(isHindiLanguage ? "खालसा शॉप में आपका स्वागत है!" : "Welcome to Khalsa Shop!"); updateGreeting(); checkAdminVisibility(); back(false);
 }
 
 function registerDeviceSession(phone) {
@@ -1039,104 +1326,44 @@ function registerDeviceSession(phone) {
       currentDeviceId = "DEV_" + Date.now();
       localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
   }
-  
   let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + phone)) || [];
   let existingDeviceIndex = devices.findIndex(d => d.id === currentDeviceId);
-  
   let now = new Date();
   let dateStr = formatDeviceDate(now);
-  
   if (existingDeviceIndex >= 0) {
       devices[existingDeviceIndex].lastUsed = dateStr;
   } else {
-      devices.push({
-          id: currentDeviceId,
-          name: getDeviceName(),
-          registered: dateStr,
-          lastUsed: dateStr
-      });
+      devices.push({ id: currentDeviceId, name: getDeviceName(), registered: dateStr, lastUsed: dateStr });
   }
   localStorage.setItem("khalsaDevices_" + phone, JSON.stringify(devices));
 }
 
-function showLoading(textEn, textHi) {
-  let el = document.getElementById("loadingText");
-  el.setAttribute("data-en", textEn);
-  el.setAttribute("data-hi", textHi);
-  el.innerText = isHindiLanguage ? textHi : textEn;
-  document.getElementById("loadingScreen").style.display = "flex";
-}
-function hideLoading() {
-  document.getElementById("loadingScreen").style.display = "none";
-}
-
+function showLoading(tEn, tHi) { document.getElementById("loadingText").innerText = isHindiLanguage ? tHi : tEn; document.getElementById("loadingScreen").style.display = "flex"; }
+function hideLoading() { document.getElementById("loadingScreen").style.display = "none"; }
 function showReviewCelebration() { document.getElementById("reviewSuccessModal").style.display = "flex"; }
 function closeReviewSuccess() { document.getElementById("reviewSuccessModal").style.display = "none"; }
 function showDeleteConfirmPopup(id) { reviewToDelete = id; document.getElementById("deleteConfirmModal").style.display = "flex"; }
 function closeDeleteConfirm() { reviewToDelete = null; document.getElementById("deleteConfirmModal").style.display = "none"; }
 
-document.getElementById("confirmDeleteBtn").onclick = function() {
-  if (reviewToDelete) { deleteReview(reviewToDelete); closeDeleteConfirm(); }
-};
-
-function checkBanStatus() {
-  let banTime = localStorage.getItem("khalsaOrderBan");
-  if (banTime) {
-    let diff = Date.now() - parseInt(banTime);
-    if (diff < 86400000) { 
-      let remainingHours = Math.ceil((86400000 - diff) / 3600000);
-      return remainingHours;
-    } else { localStorage.removeItem("khalsaOrderBan"); }
-  }
-  return 0;
-}
-function applyOrderBan() { localStorage.setItem("khalsaOrderBan", Date.now().toString()); }
-
-function filterText(text) {
-  let hasBadWord = false; let detectedWord = ""; let cleanText = text;
-  BANNED_WORDS.forEach(word => {
-    let patternStr = word.split('').map(char => char + '+\\s*\\W*').join('');
-    let regex = new RegExp(patternStr, 'gi');
-    if (regex.test(cleanText)) { hasBadWord = true; detectedWord = word; cleanText = cleanText.replace(regex, '****'); }
-  });
-  return { clean: cleanText, isBad: hasBadWord, word: detectedWord };
-}
-
-document.getElementById("reviewText").addEventListener("input", function() {
-  let result = filterText(this.value);
-  document.getElementById("itemReviewWarning").style.display = result.isBad ? "block" : "none";
-});
-
-// 🌟 DIGIT BOX AUTO-FOCUS LOGIC 🌟
 function setupDigitBoxes(containerId) {
     let boxes = document.querySelectorAll(`#${containerId} .digit-box`);
     boxes.forEach((box, index) => {
         box.addEventListener('input', function() {
-            if (this.value.length > 1) {
-                this.value = this.value.slice(0, 1);
-            }
-            if (this.value !== "" && index < boxes.length - 1) {
-                boxes[index + 1].focus();
-            }
+            if (this.value.length > 1) this.value = this.value.slice(0, 1);
+            if (this.value !== "" && index < boxes.length - 1) boxes[index + 1].focus();
         });
         box.addEventListener('keydown', function(e) {
-            if (e.key === "Backspace" && this.value === "" && index > 0) {
-                boxes[index - 1].focus();
-            }
+            if (e.key === "Backspace" && this.value === "" && index > 0) boxes[index - 1].focus();
         });
     });
 }
 
 window.onload = function() {
   history.replaceState({ page: 'menu' }, "", "#menu");
-  
-  setupDigitBoxes('testingPwdContainer');
-  setupDigitBoxes('adminPwdContainer');
-  
-  checkAdminVisibility();
-  updateGreeting();
-  updateHeadlineBanner(); 
-  setInterval(updateHeadlineBanner, 60000); 
+  initPricesAndStock();
+  setupDigitBoxes('testingPwdContainer'); setupDigitBoxes('adminPwdContainer');
+  checkAdminVisibility(); updateGreeting(); updateHeadlineBanner(); setInterval(updateHeadlineBanner, 60000);
+  setInterval(updateSaleTimerUI, 1000); updateSaleTimerUI(); updateMenuSaleBadges();
   
   let savedData = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (savedData) {
@@ -1146,21 +1373,15 @@ window.onload = function() {
     document.getElementById("l_live_loc").value = savedData.liveLoc || "";
     document.getElementById("l_pin").value = savedData.pin || "";
     document.getElementById("l_email").value = savedData.email || "";
-    
-    if (savedData.name && savedData.phone && savedData.address && savedData.liveLoc && savedData.pin) {
-       lockInputs(); 
-    }
+    if (savedData.name && savedData.phone && savedData.address && savedData.liveLoc && savedData.pin) { lockInputs(); }
   }
-  if(localStorage.getItem("khalsaTheme") === "dark") {
-    isDarkMode = true; document.body.classList.add("dark-mode");
-  }
-  updateTestingModeUI();
-  updateLanguageUI();
+  
+  if(localStorage.getItem("khalsaTheme") === "dark") { isDarkMode = true; document.body.classList.add("dark-mode"); }
+  updateTestingModeUI(); updateLanguageUI();
   
   if(localStorage.getItem("termsAccepted") === "true" && localStorage.getItem("khalsaUserData")) {
-    document.getElementById("onboardingOverlay").style.display = "none";
+      document.getElementById("onboardingOverlay").style.display = "none";
   }
-  
   document.getElementById('searchInput').addEventListener('input', doSearch);
 };
 
@@ -1179,13 +1400,11 @@ function updateTestingModeUI() {
     if(isTestingMode()) {
       btn.setAttribute("data-en", "🛠️ Testing Mode: ON (Click to Disable)");
       btn.setAttribute("data-hi", "🛠️ टेस्टिंग मोड: चालू (बंद करने के लिए क्लिक करें)");
-      btn.style.color = "#ff416c";
-      btn.style.fontWeight = "bold";
+      btn.style.color = "#ff416c"; btn.style.fontWeight = "bold";
     } else {
       btn.setAttribute("data-en", "🛠️ Testing Mode: OFF");
       btn.setAttribute("data-hi", "🛠️ टेस्टिंग मोड: बंद");
-      btn.style.color = "var(--text-muted)";
-      btn.style.fontWeight = "normal";
+      btn.style.color = "var(--text-muted)"; btn.style.fontWeight = "normal";
     }
     btn.innerHTML = btn.getAttribute('data-' + lang);
   }
@@ -1209,23 +1428,19 @@ function closeTestingModals() {
 function confirmDisableTestingMode() {
   localStorage.setItem("testingMode", "false");
   showSuccessMsg(isHindiLanguage ? "टेस्टिंग मोड बंद ✅" : "Testing Mode Deactivated ✅");
-  updateTestingModeUI();
-  closeTestingModals();
+  updateTestingModeUI(); closeTestingModals();
 }
 
 function submitTestingPassword() {
   let boxes = document.querySelectorAll('#testingPwdContainer .digit-box');
   let pwd = Array.from(boxes).map(b => b.value).join('');
-  
   if(pwd === "0276") {
     localStorage.setItem("testingMode", "true");
     showSuccessMsg(isHindiLanguage ? "टेस्टिंग मोड चालू ✅" : "Testing Mode Activated ✅");
-    updateTestingModeUI();
-    closeTestingModals();
+    updateTestingModeUI(); closeTestingModals();
   } else {
     showError(isHindiLanguage ? "गलत पासवर्ड ❌" : "Wrong Password ❌");
-    boxes.forEach(b => b.value = "");
-    boxes[0].focus();
+    boxes.forEach(b => b.value = ""); boxes[0].focus();
   }
 }
 
@@ -1233,8 +1448,8 @@ async function updateHeadlineBanner() {
   let marqueeEl = document.getElementById("mainMarqueeText");
   let today = new Date();
   
-  let defEn = "⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
-  let defHi = "⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
+  let defEn = "🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APK FILE; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢";
+  let defHi = "🌐 APK फ़ाइल डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢";
 
   if (today.getDate() === 1) {
     try {
@@ -1247,103 +1462,78 @@ async function updateHeadlineBanner() {
           if (!c.userName) return;
           let nameKey = c.userName.trim().toLowerCase();
           let spent = parseFloat(c.totalSpent) || parseFloat(c.total) || 0;
-          if(userTotals[nameKey]) {
-             userTotals[nameKey].totalSpent += spent;
-          } else {
-             userTotals[nameKey] = { userName: c.userName, totalSpent: spent };
-          }
+          if(userTotals[nameKey]) userTotals[nameKey].totalSpent += spent;
+          else userTotals[nameKey] = { userName: c.userName, totalSpent: spent };
         });
-        
         let uniqueCustomers = Object.values(userTotals);
         uniqueCustomers.sort((a, b) => b.totalSpent - a.totalSpent);
         let topNames = uniqueCustomers.slice(0, 5).map(c => c.userName).join(" ⭐ ");
-
-        let textEn = "⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 👑 TOP 5 HIGHEST BUYING CUSTOMERS OF THE MONTH 👑 — " + topNames;
-        let textHi = "⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 👑 इस महीने के टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
-        marqueeEl.setAttribute("data-en", textEn);
-        marqueeEl.setAttribute("data-hi", textHi);
+        let textEn = "👑 TOP 5 HIGHEST BUYING CUSTOMERS OF THE MONTH 👑 — " + topNames;
+        let textHi = "👑 इस महीने के टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
+        marqueeEl.setAttribute("data-en", textEn); marqueeEl.setAttribute("data-hi", textHi);
         marqueeEl.innerText = isHindiLanguage ? textHi : textEn;
-        return; // Exits to prevent it from resetting to default
+        return; 
       }
     } catch (e) { console.log("Error fetching headline", e); }
   }
-
   marqueeEl.setAttribute("data-en", defEn); marqueeEl.setAttribute("data-hi", defHi);
   marqueeEl.innerText = isHindiLanguage ? defHi : defEn;
 }
 
 function toggleLanguage() {
   isHindiLanguage = !isHindiLanguage; 
-  updateTestingModeUI();
-  updateLanguageUI();
-  updateGreeting();
-  updateAdminUI(); 
-  if(isHindiLanguage) { showSuccessMsg("🌐 Language set to Hindi"); } else { showSuccessMsg("🌐 Language set to English"); }
+  updateTestingModeUI(); updateLanguageUI(); updateGreeting();
+  if(isHindiLanguage) showSuccessMsg("🌐 Language set to Hindi"); else showSuccessMsg("🌐 Language set to English");
 }
 
 function updateLanguageUI() {
   let lang = isHindiLanguage ? 'hi' : 'en';
-  document.querySelectorAll('.translatable').forEach(el => { if(el.getAttribute('data-' + lang)) { el.innerHTML = el.getAttribute('data-' + lang); } });
-  document.querySelectorAll('.translatable-ph').forEach(el => { if(el.getAttribute('data-' + lang)) { el.placeholder = el.getAttribute('data-' + lang); } });
+  document.querySelectorAll('.translatable').forEach(el => { if(el.getAttribute('data-' + lang)) el.innerHTML = el.getAttribute('data-' + lang); });
+  document.querySelectorAll('.translatable-ph').forEach(el => { if(el.getAttribute('data-' + lang)) el.placeholder = el.getAttribute('data-' + lang); });
   if(document.getElementById("detail").style.display === "block" && internalItemName !== "") {
     let currentItemNode = document.querySelector(`.item h3[data-en="${internalItemName}"]`);
     if(currentItemNode) nameLabel.innerText = currentItemNode.getAttribute('data-' + lang);
     loadReviews(); 
   }
-  if(document.getElementById("cart").style.display === "block") { showCart(true); } 
-  
+  if(document.getElementById("cart").style.display === "block") showCart(true); 
   updateHeadlineBanner(); 
 }
 
 function doSearch() {
   let input = document.getElementById('searchInput').value.toLowerCase();
-  let items = document.querySelectorAll('.menu .item');
-  items.forEach(itemNode => {
-    let titleEn = itemNode.querySelector('h3').getAttribute('data-en').toLowerCase();
-    let titleHi = itemNode.querySelector('h3').getAttribute('data-hi').toLowerCase();
-    if(titleEn.includes(input) || titleHi.includes(input)) { itemNode.style.display = "block"; } 
-    else { itemNode.style.display = "none"; }
+  document.querySelectorAll('.menu .item').forEach(itemNode => {
+    let tEn = itemNode.querySelector('h3').getAttribute('data-en').toLowerCase();
+    let tHi = itemNode.querySelector('h3').getAttribute('data-hi').toLowerCase();
+    itemNode.style.display = (tEn.includes(input) || tHi.includes(input)) ? "block" : "none";
   });
 }
 
 function showTerms() { 
-  hideAll(); 
-  document.getElementById("termsModal").style.display = "flex"; 
-  
+  hideAll(); document.getElementById("termsModal").style.display = "flex"; 
   let cb = document.getElementById("tcCheckbox");
   if (localStorage.getItem("termsAccepted") === "true") {
-      cb.checked = true;
-      document.getElementById("tcCloseBtn").style.display = "block";
+      cb.checked = true; document.getElementById("tcCloseBtn").style.display = "block";
   } else {
-      cb.checked = false;
-      document.getElementById("tcCloseBtn").style.display = "block"; 
+      cb.checked = false; document.getElementById("tcCloseBtn").style.display = "block"; 
   }
 }
 
-function closeTerms() { 
-  document.getElementById("termsModal").style.display = "none"; 
-  showAccountPage(false); 
-}
+function closeTerms() { document.getElementById("termsModal").style.display = "none"; showAccountPage(false); }
 
 function handleTcCheck() {
   let cb = document.getElementById("tcCheckbox");
   if (localStorage.getItem("termsAccepted") === "true") {
       if (!cb.checked) {
-          cb.checked = true;
-          document.getElementById("tcWarningModal").style.display = "flex";
+          cb.checked = true; document.getElementById("tcWarningModal").style.display = "flex";
       }
       return;
   }
   if (cb.checked) {
       localStorage.setItem("termsAccepted", "true");
       if (isForcedTcMode) {
-          isForcedTcMode = false;
-          document.getElementById("termsModal").style.display = "none";
-          showSuccessMsg("YOU ARE READY FOR SHOPING ENJOY 😊");
-          setTimeout(() => { showAccountPage(false); }, 1500);
-      } else {
-          setTimeout(() => { closeTerms(); }, 500);
-      }
+          isForcedTcMode = false; document.getElementById("termsModal").style.display = "none";
+          showSuccessMsg(isHindiLanguage ? "अब आप खरीदारी के लिए तैयार हैं 😊" : "YOU ARE READY FOR SHOPING ENJOY 😊"); setTimeout(() => { showAccountPage(false); }, 1500);
+      } else { setTimeout(() => { closeTerms(); }, 500); }
   }
 }
 
@@ -1355,26 +1545,16 @@ async function showTopCustomers(fromPop = false) {
   
   try {
     let res = await fetch(NEW_FEATURES_API_URL + "?action=topCustomers");
-    let data = await res.json();
-    list.innerHTML = "";
-    
+    let data = await res.json(); list.innerHTML = "";
     if (data && data.length > 0) {
       let userTotals = {};
       data.forEach(c => {
         if (!c.userName) return;
-        let nameKey = c.userName.trim().toLowerCase();
-        let spent = parseFloat(c.totalSpent) || parseFloat(c.total) || 0;
-        if(userTotals[nameKey]) {
-           userTotals[nameKey].totalSpent += spent;
-        } else {
-           userTotals[nameKey] = { userName: c.userName, totalSpent: spent };
-        }
+        let nameKey = c.userName.trim().toLowerCase(); let spent = parseFloat(c.totalSpent) || parseFloat(c.total) || 0;
+        if(userTotals[nameKey]) userTotals[nameKey].totalSpent += spent; else userTotals[nameKey] = { userName: c.userName, totalSpent: spent };
       });
-      
-      let uniqueCustomers = Object.values(userTotals);
-      uniqueCustomers.sort((a, b) => b.totalSpent - a.totalSpent);
+      let uniqueCustomers = Object.values(userTotals); uniqueCustomers.sort((a, b) => b.totalSpent - a.totalSpent);
       let top5 = uniqueCustomers.slice(0, 5);
-
       if(top5.length > 0) {
         top5.forEach((c, index) => {
           let medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "⭐";
@@ -1384,22 +1564,8 @@ async function showTopCustomers(fromPop = false) {
           </div>`;
         });
       }
-    } else {
-      list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`; 
-    }
-  } catch (err) {
-    list.innerHTML = `<p style='text-align:center; color:red; font-weight:bold;'>Error loading data!</p>`;
-  }
-}
-
-function triggerReportAlert(word, fullText) {
-  showError("BAD WORDS DETECTED YOU CANNOT SHOP FOR 24 HOURS"); applyOrderBan();
-  setTimeout(() => { showError("YOUR REPORT DELETED IN 48 HOURS"); }, 2000);
-  let user = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
-  let reports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
-  reports.unshift({ date: new Date().toLocaleString(), timestamp: Date.now(), word: word, text: fullText });
-  localStorage.setItem("khalsaUserReports", JSON.stringify(reports));
-  fetch(GAS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: user.name || "Guest", phone: user.phone || "No Phone", word: word, review: fullText, uniqueId: new Date().getTime() }) }).catch(err => console.log("Report Error"));
+    } else { list.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold;'>${isHindiLanguage ? "अभी तक कोई खरीदारी नहीं हुई है!" : "No purchases yet!"}</p>`; }
+  } catch (err) { list.innerHTML = `<p style='text-align:center; color:red; font-weight:bold;'>Error loading data!</p>`; }
 }
 
 function showReportPage(fromPop = false) {
@@ -1420,49 +1586,32 @@ function showReportPage(fromPop = false) {
 function showManageDevicePage(fromPop = false) {
   hideAll(); document.getElementById("manageDevicePage").style.display = "block";
   if(!fromPop) pushNavState('manageDevice');
-
   let container = document.getElementById("deviceListContainer");
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  
-  if(!user || !user.phone) {
-      container.innerHTML = `<p style="text-align:center; color:var(--text-muted);">Please login to view devices.</p>`;
-      return;
-  }
+  if(!user || !user.phone) { container.innerHTML = `<p style="text-align:center; color:var(--text-muted);">${isHindiLanguage ? "उपकरण देखने के लिए कृपया लॉग इन करें।" : "Please login to view devices."}</p>`; return; }
 
   let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-  
-  let thisDeviceHtml = "";
-  let otherDevicesHtml = "";
+  let thisDeviceHtml = ""; let otherDevicesHtml = "";
 
   devices.forEach(d => {
       let isCurrent = (d.id === currentDeviceId);
-      
-      let outEn = "Log Out";
-      let outHi = "लॉग आउट";
-      
       let cardHtml = `
       <div class="device-card">
           <div class="device-header">
-              <div class="device-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-              </div>
+              <div class="device-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
               <div class="device-info">
                   <h4 class="device-name">${d.name}</h4>
                   <p class="device-meta" style="margin-bottom: 2px;">Last used on ${d.lastUsed}</p>
               </div>
-              <button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="${outEn}" data-hi="${outHi}">${isHindiLanguage ? outHi : outEn}</button>
+              <button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="Log Out" data-hi="लॉग आउट">${isHindiLanguage ? "लॉग आउट" : "Log Out"}</button>
           </div>
-          <div class="device-divider"></div>
-          <p class="device-meta" style="margin-left: 36px;">Registered on ${d.registered}</p>
+          <div class="device-divider"></div><p class="device-meta" style="margin-left: 36px;">Registered on ${d.registered}</p>
       </div>`;
-      
       if (isCurrent) {
           let tEn = "This device"; let tHi = "यह उपकरण";
           thisDeviceHtml += `<h3 style="font-size: 18px; margin-top: 10px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="${tEn}" data-hi="${tHi}">${isHindiLanguage ? tHi : tEn}</h3>` + cardHtml;
-      } else {
-          otherDevicesHtml += cardHtml;
-      }
+      } else { otherDevicesHtml += cardHtml; }
   });
 
   let fullHtml = thisDeviceHtml;
@@ -1470,29 +1619,19 @@ function showManageDevicePage(fromPop = false) {
       let oEn = "Other devices"; let oHi = "अन्य उपकरण";
       fullHtml += `<h3 style="font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="${oEn}" data-hi="${oHi}">${isHindiLanguage ? oHi : oEn}</h3>` + otherDevicesHtml;
   }
-  
-  if(devices.length === 0) {
-      fullHtml = `<p style="text-align:center; color:var(--text-muted);">No active devices found.</p>`;
-  }
-
+  if(devices.length === 0) fullHtml = `<p style="text-align:center; color:var(--text-muted);">${isHindiLanguage ? "कोई सक्रिय उपकरण नहीं मिला।" : "No active devices found."}</p>`;
   container.innerHTML = fullHtml;
 }
 
 function showAccountPage(fromPop = false) { hideAll(); document.getElementById("accountPage").style.display="block"; if(!fromPop) pushNavState('account'); }
 function showDeveloperPage(fromPop = false) { hideAll(); document.getElementById("developerPage").style.display="block"; if(!fromPop) pushNavState('developer'); }
 function showContactScreen(fromPop = false) { hideAll(); document.getElementById("contactSection").style.display="block"; if(!fromPop) pushNavState('contact'); }
-
-function showFunctionsGuidePage(fromPop = false) { 
-  hideAll(); 
-  document.getElementById("functionsGuidePage").style.display="block"; 
-  if(!fromPop) pushNavState('functionsGuide'); 
-}
+function showFunctionsGuidePage(fromPop = false) { hideAll(); document.getElementById("functionsGuidePage").style.display="block"; if(!fromPop) pushNavState('functionsGuide'); }
 
 function lockInputs() {
   document.querySelectorAll('#loginForm input:not(#l_live_loc), #loginForm textarea').forEach(el => { el.setAttribute('readonly', true); });
   document.getElementById("editBtn").style.display = "block"; document.getElementById("saveBtn").style.display = "none";
 }
-
 function enableEdit() {
   document.querySelectorAll('#loginForm input:not(#l_live_loc), #loginForm textarea').forEach(el => { el.removeAttribute('readonly'); });
   document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
@@ -1500,79 +1639,92 @@ function enableEdit() {
 
 function logoutSpecificDevice(id) {
     let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-    if (id === currentDeviceId) {
-        logoutUser();
-    } else {
+    if (id === currentDeviceId) { logoutUser(); } else {
         let user = JSON.parse(localStorage.getItem("khalsaUserData"));
         let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
         devices = devices.filter(d => d.id !== id);
         localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
-        showManageDevicePage(true);
-        showSuccessMsg("Device logged out successfully.");
+        showManageDevicePage(true); showSuccessMsg(isHindiLanguage ? "उपकरण सफलतापूर्वक लॉग आउट हो गया।" : "Device logged out successfully.");
     }
 }
-
 function logoutAllDevices() {
     let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-    if(user && user.phone) {
-        localStorage.removeItem("khalsaDevices_" + user.phone);
-    }
+    if(user && user.phone) localStorage.removeItem("khalsaDevices_" + user.phone);
     logoutUser();
 }
-
 function logoutUser() {
-  localStorage.removeItem("khalsaUserData");
-  localStorage.removeItem("termsAccepted");
-  localStorage.removeItem("khalsaCurrentDeviceId");
-  
-  document.getElementById("onboardName").value = "";
-  document.getElementById("onboardPhone").value = "";
-  document.getElementById("onboardEmail").value = "";
-  if(document.getElementById("onboardTcCheckbox")) { document.getElementById("onboardTcCheckbox").checked = false; }
-  
+  localStorage.removeItem("khalsaUserData"); localStorage.removeItem("termsAccepted"); localStorage.removeItem("khalsaCurrentDeviceId");
+  document.getElementById("onboardName").value = ""; document.getElementById("onboardPhone").value = ""; document.getElementById("onboardEmail").value = "";
+  if(document.getElementById("onboardTcCheckbox")) document.getElementById("onboardTcCheckbox").checked = false;
   document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
   document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
-  
   showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
-  updateGreeting();
-  checkAdminVisibility();
-  
-  document.getElementById("step2Terms").style.display = "none";
-  document.getElementById("step1Login").style.display = "block";
-  
-  hideAll();
-  document.getElementById("dashboardHeaderBox").style.display="block"; 
-  document.getElementById("categoryTitleBox").style.display="flex"; 
-  document.getElementById("menu").style.display="grid";
-  document.getElementById("onboardingOverlay").style.display = "flex"; 
+  updateGreeting(); checkAdminVisibility();
+  document.getElementById("step2Terms").style.display = "none"; document.getElementById("step1Login").style.display = "block";
+  hideAll(); document.getElementById("dashboardHeaderBox").style.display="block"; document.getElementById("categoryTitleBox").style.display="flex"; document.getElementById("menu").style.display="grid"; document.getElementById("onboardingOverlay").style.display = "flex"; 
 }
-
 function isUserLoggedIn() {
   let saved = localStorage.getItem("khalsaUserData");
-  if(saved) {
-    let data = JSON.parse(saved);
-    if(data.name && data.phone && data.address && data.liveLoc && data.pin) return true;
-  }
+  if(saved) { let data = JSON.parse(saved); if(data.name && data.phone && data.address && data.liveLoc && data.pin) return true; }
   return false;
 }
 
+// 🌟 FETCH DYNAMIC PRICE, APPLY SALE IF NAME MATCHES & CHECK STOCK 🌟
 function openDetail(n, i, fromPop = false){
   internalItemName = n; let lang = isHindiLanguage ? 'hi' : 'en';
   let node = document.querySelector(`.item h3[data-en="${n}"]`);
   item = node ? node.getAttribute('data-' + lang) : n; 
   img.src=i; nameLabel.innerText=item; qty=1; document.getElementById("qty").innerText = qty;
-  if(n=="Mango"||n=="Litchi"||n=="Blueberry"){price=60;} else{price=40;}
-  document.getElementById("price").innerText="₹"+price;
+
+  // DYNAMIC PRICING & SPECIFIC PRODUCT SALE LOGIC
+  let prices = JSON.parse(localStorage.getItem("khalsaPrices")) || {};
+  let basePrice = prices[n] || 40; 
+  let sale = getActiveSale();
+  
+  let priceEl = document.getElementById("price");
+  // Check if sale is active AND the specific product name matches what was typed in Admin
+  if (sale && sale.productName && sale.productName.toLowerCase() === n.toLowerCase()) {
+      price = Math.round(basePrice - (basePrice * (sale.discount / 100)));
+      priceEl.innerHTML = `<s style="color:var(--text-muted); font-size:16px;">₹${basePrice}</s> <span style="color:#00c853; font-size:24px;">₹${price}</span> <span style="background:#ff416c; color:white; padding:2px 6px; border-radius:4px; font-size:12px; vertical-align:middle; margin-left:5px;">${sale.discount}% OFF</span>`;
+  } else {
+      price = basePrice;
+      priceEl.innerHTML = "₹" + price;
+  }
+
+  // DYNAMIC STOCK LOGIC
+  let btn = document.getElementById("addToCartBtnDetail");
+  let stockObj = JSON.parse(localStorage.getItem("khalsaStock")) || {};
+  let inStock = stockObj[n] !== false; // Default to true if not explicitly set to false
+
+  if(inStock) {
+      btn.innerHTML = isHindiLanguage ? "🛒 कार्ट में डालें" : "🛒 Add to Cart";
+      btn.style.background = "#6f42c1";
+      btn.onclick = addToCart;
+  } else {
+      btn.innerHTML = isHindiLanguage ? "🚫 आउट ऑफ स्टॉक" : "🚫 Out of Stock";
+      btn.style.background = "#888";
+      btn.onclick = function() { document.getElementById("outOfStockModal").style.display = "flex"; };
+  }
+
   hideAll(); detail.style.display="block";
   rate(0); loadReviews();
   if(!fromPop) pushNavState('detail_' + internalItemName.replace(/\s+/g, ''));
 }
 
-function changeQty(v){ qty+=v; if(qty<1) qty=1; document.getElementById("qty").innerText=qty; }
+// 🌟 LIMIT 20 ITEMS 🌟
+function changeQty(v){ 
+  qty+=v; 
+  if(qty<1) qty=1; 
+  if(qty > 20) {
+      qty = 20;
+      showError(isHindiLanguage ? "⚠️ सीमा पहुँच गई: अधिकतम 20 आइटम की अनुमति है!" : "⚠️ Limit Reached: Maximum 20 items allowed!");
+  }
+  document.getElementById("qty").innerText=qty; 
+}
 
 function addToCart(){
   if(!isUserLoggedIn()){
-    showCustomError("PLEASE FILL FULL LOGIN DETAILS FIRST", 2500);
+    showCustomError(isHindiLanguage ? "कृपया पहले पूर्ण लॉगिन विवरण भरें" : "PLEASE FILL FULL LOGIN DETAILS FIRST", 2500);
     setTimeout(() => { showLogin(false); }, 1000);
     return;
   }
@@ -1582,28 +1734,35 @@ function addToCart(){
   let isShopOpen = ((hour >= 9 && hour < 18) && !manualClose) || isTestingMode();
 
   if (!isShopOpen) {
-      showCustomError("SHOP WAS CLOSED. ORDER WILL BE PROCESSED TOMORROW", 3500);
+      document.getElementById('shopClosedModal').style.display='flex';
+      return;
   } else {
       showSuccessMsg(isHindiLanguage ? "कार्ट में जोड़ा गया ✅" : "Added to Cart ✅");
   }
 
-  let imgSrc=img.src; let found=cartData.find(i=>i.internalName===internalItemName);
-  if(found){found.qty+=qty;} else{cartData.push({name:item, internalName:internalItemName, price:price, img:imgSrc, qty:qty});}
+  let imgSrc=img.src; 
+  let found=cartData.find(i=>i.internalName===internalItemName);
+  
+  // 🌟 EXTRA CHECK: Don't allow combined quantity over 20 in cart 🌟
+  if(found){
+      if ((found.qty + qty) > 20) {
+          showError(isHindiLanguage ? "⚠️ सीमा पहुँच गई: आप एक ही उत्पाद के 20 से अधिक आइटम ऑर्डर नहीं कर सकते हैं!" : "⚠️ Limit Reached: You cannot order more than 20 items of the same product!");
+          return;
+      }
+      found.qty+=qty;
+  } else {
+      cartData.push({name:item, internalName:internalItemName, price:price, img:imgSrc, qty:qty});
+  }
 }
 
-function removeFromCart(index) { cartData.splice(index, 1); showSuccessMsg("🗑️ Removed"); showCart(true); } 
+function removeFromCart(index) { cartData.splice(index, 1); showSuccessMsg(isHindiLanguage ? "🗑️ हटा दिया गया" : "🗑️ Removed"); showCart(true); } 
 
 function showCart(fromPop = false){
-  if(!isUserLoggedIn()){ 
-    showAccountPage(false); 
-    showCustomError("FIRST FILL INFORMATION SAVE AND ENJOY SHOPPING", 3000); 
-    return; 
-  }
+  if(!isUserLoggedIn()){ showAccountPage(false); showCustomError(isHindiLanguage ? "पहले जानकारी भरें और खरीदारी का आनंद लें" : "FIRST FILL INFORMATION SAVE AND ENJOY SHOPPING", 3000); return; }
   hideAll(); document.getElementById("cart").style.display="block";
   if(!fromPop) pushNavState('cart');
   
   let html="", totalPrice=0, totalQty=0;
-  
   cartData.forEach((i, index)=>{
     let t=i.price*i.qty; totalPrice+=t; totalQty+=i.qty;
     let displayItem = i.name; let node = document.querySelector(`.item h3[data-en="${i.internalName}"]`);
@@ -1620,12 +1779,10 @@ function showCart(fromPop = false){
 }
 
 function showLogin(fromPop = false){ hideAll(); document.getElementById("loginForm").style.display="block"; if(!fromPop) pushNavState('login'); }
-
 function showHistory(fromPop = false) {
   hideAll(); document.getElementById("historyView").style.display="block";
   if(!fromPop) pushNavState('history');
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || []; let html = "";
-  
   if(history.length === 0) { 
     html = `<p style='color:var(--text-muted); font-weight:bold; text-align:center; margin-top:20px;' class="translatable" data-en="No orders placed yet." data-hi="अभी तक कोई ऑर्डर नहीं दिया गया है।">${isHindiLanguage ? "अभी तक कोई ऑर्डर नहीं दिया गया है।" : "No orders placed yet."}</p>`; 
   } else { 
@@ -1651,10 +1808,7 @@ function deleteHistoryItem(index) {
 
 function clearAllHistory() {
   let history = JSON.parse(localStorage.getItem("khalsaOrderHistory")) || [];
-  if(history.length === 0) {
-     showError(isHindiLanguage ? "इतिहास पहले से ही खाली है!" : "History is already empty!");
-     return;
-  }
+  if(history.length === 0) { showError(isHindiLanguage ? "इतिहास पहले से ही खाली है!" : "History is already empty!"); return; }
   if(confirm(isHindiLanguage ? "क्या आप वाकई पूरा इतिहास मिटाना चाहते हैं?" : "Are you sure you want to clear all history?")) {
      localStorage.removeItem("khalsaOrderHistory");
      showSuccessMsg(isHindiLanguage ? "पूरा इतिहास मिटा दिया गया 🗑️" : "All history cleared 🗑️");
@@ -1665,22 +1819,17 @@ function clearAllHistory() {
 function showError(msg) { let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show"); setTimeout(() => { errPop.classList.remove("show"); }, 3500); }
 function showCustomError(msg, duration) { let errPop = document.getElementById("premiumError"); errPop.innerText = msg; errPop.classList.add("show"); setTimeout(() => { errPop.classList.remove("show"); }, duration); }
 function showSuccessMsg(msg) { let succPop = document.getElementById("premiumSuccess"); succPop.innerText = msg; succPop.classList.add("show"); setTimeout(() => { succPop.classList.remove("show"); }, 3500); }
-
 function triggerLocationPrompt() { document.getElementById("locationPromptModal").style.display = "flex"; }
-function denyLocation() { document.getElementById("locationPromptModal").style.display = "none"; showError("⚠️ Live Location is mandatory."); }
+function denyLocation() { document.getElementById("locationPromptModal").style.display = "none"; showError(isHindiLanguage ? "⚠️ लाइव लोकेशन अनिवार्य है।" : "⚠️ Live Location is mandatory."); }
 function allowLocation() {
   document.getElementById("locationPromptModal").style.display = "none";
   if (navigator.geolocation) {
-    document.getElementById("l_live_loc").value = "Fetching live location... Please wait.";
+    document.getElementById("l_live_loc").value = isHindiLanguage ? "लाइव लोकेशन प्राप्त कर रहा है... कृपया प्रतीक्षा करें।" : "Fetching live location... Please wait.";
     navigator.geolocation.getCurrentPosition(showPosition, showLocationError);
-  } else { showError("⚠️ Geolocation is not supported."); document.getElementById("l_live_loc").value = ""; }
+  } else { showError(isHindiLanguage ? "⚠️ जियोलोकेशन समर्थित नहीं है।" : "⚠️ Geolocation is not supported."); document.getElementById("l_live_loc").value = ""; }
 }
-
-function showPosition(position) {
-  document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`;
-  showSuccessMsg("📍 Location fetched! Now click Login & Save.");
-}
-function showLocationError(error) { document.getElementById("l_live_loc").value = ""; showError("⚠️ Error getting location."); }
+function showPosition(position) { document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`; showSuccessMsg(isHindiLanguage ? "📍 लोकेशन प्राप्त हो गई! अब लॉगिन और सेव पर क्लिक करें।" : "📍 Location fetched! Now click Login & Save."); }
+function showLocationError(error) { document.getElementById("l_live_loc").value = ""; showError(isHindiLanguage ? "⚠️ लोकेशन प्राप्त करने में त्रुटि।" : "⚠️ Error getting location."); }
 function closePinErrorPopup() { document.getElementById("pinErrorModal").style.display = "none"; }
 
 function processForm() {
@@ -1691,54 +1840,26 @@ function processForm() {
   let pinInput = document.getElementById("l_pin").value.trim();
   let emailInput = document.getElementById("l_email").value.trim();
 
-  if (nameInput === "" || phoneInput === "" || addressInput === "" || pinInput === "" || emailInput === "") {
-    showError("⚠️ Please fill all required details including Email!");
-    return;
-  }
-  
-  if (liveLocInput === "" || liveLocInput.includes("Fetching")) {
-    showError("⚠️ Please get your Live Location first!");
-    return;
-  }
-
-  if (!/^\d{10}$/.test(phoneInput)) {
-    showError("⚠️ Phone number must be exactly 10 digits!");
-    return;
-  }
+  if (nameInput === "" || phoneInput === "" || addressInput === "" || pinInput === "" || emailInput === "") { showError(isHindiLanguage ? "⚠️ कृपया ईमेल सहित सभी आवश्यक विवरण भरें!" : "⚠️ Please fill all required details including Email!"); return; }
+  if (liveLocInput === "" || liveLocInput.includes("Fetching") || liveLocInput.includes("प्राप्त")) { showError(isHindiLanguage ? "⚠️ कृपया पहले अपनी लाइव लोकेशन प्राप्त करें!" : "⚠️ Please get your Live Location first!"); return; }
+  if (!/^\d{10}$/.test(phoneInput)) { showError(isHindiLanguage ? "⚠️ फोन नंबर 10 अंकों का होना चाहिए!" : "⚠️ Phone number must be exactly 10 digits!"); return; }
 
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-  if (!currentDeviceId) {
-      currentDeviceId = "DEV_" + Date.now();
-      localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
-  }
+  if (!currentDeviceId) { currentDeviceId = "DEV_" + Date.now(); localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId); }
 
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-
-  if (regUsers[phoneInput] && regUsers[phoneInput].deviceId && regUsers[phoneInput].deviceId !== currentDeviceId) {
-    showCustomError("THIS NUMBER ALREADY REGISTER", 3000); 
-    return;
-  }
+  if (regUsers[phoneInput] && regUsers[phoneInput].deviceId && regUsers[phoneInput].deviceId !== currentDeviceId) { showCustomError(isHindiLanguage ? "यह नंबर पहले से पंजीकृत है" : "THIS NUMBER ALREADY REGISTER", 3000); return; }
 
   regUsers[phoneInput] = { name: nameInput, deviceId: currentDeviceId };
   localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
-  
-  localStorage.setItem("khalsaUserData", JSON.stringify({ 
-    name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, pin: pinInput, email: emailInput 
-  }));
-
-  registerDeviceSession(phoneInput);
-
-  lockInputs();
-  updateGreeting();
-  checkAdminVisibility();
+  localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, pin: pinInput, email: emailInput }));
+  registerDeviceSession(phoneInput); lockInputs(); updateGreeting(); checkAdminVisibility();
   
   if (localStorage.getItem("termsAccepted") !== "true") {
-      isForcedTcMode = true; 
-      document.getElementById("termsModal").style.display = "flex";
-      document.getElementById("tcCloseBtn").style.display = "none"; 
-      document.getElementById("tcCheckbox").checked = false; 
+      isForcedTcMode = true; document.getElementById("termsModal").style.display = "flex";
+      document.getElementById("tcCloseBtn").style.display = "none"; document.getElementById("tcCheckbox").checked = false; 
   } else {
-      showSuccessMsg("YOU ARE READY FOR SHOPING ENJOY 😊");
+      showSuccessMsg(isHindiLanguage ? "अब आप खरीदारी के लिए तैयार हैं 😊" : "YOU ARE READY FOR SHOPING ENJOY 😊");
       setTimeout(() => { showAccountPage(false); }, 1500);
   }
 }
@@ -1751,50 +1872,33 @@ function saveOrderToHistory(finalTotalAmt, orderDetails) {
 }
 
 function cleanUserName(name) {
-  if (!name) return "";
-  return name.trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+  if (!name) return ""; return name.trim().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
 
 function saveOrderToSheet(cartItems, userDetails) {
-  let orderId = "ORD" + Date.now();
-  let dateStr = new Date().toLocaleString();
-  let userName = cleanUserName(userDetails.name || "Guest");
-  let userPhone = userDetails.phone || "";
+  let orderId = "ORD" + Date.now(); let dateStr = new Date().toLocaleString();
+  let userName = cleanUserName(userDetails.name || "Guest"); let userPhone = userDetails.phone || "";
 
   cartItems.forEach(item => {
-    let payload = {
-      orderId: orderId,
-      date: dateStr,
-      userName: userName,
-      userPhone: userPhone,
-      productName: item.internalName || item.name,
-      qty: item.qty,
-      price: item.price,
-      total: item.price * item.qty
-    };
-    
-    fetch(NEW_FEATURES_API_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(err => console.log("Order Sheet Save Error:", err));
+    let payload = { orderId: orderId, date: dateStr, userName: userName, userPhone: userPhone, productName: item.internalName || item.name, qty: item.qty, price: item.price, total: item.price * item.qty };
+    fetch(NEW_FEATURES_API_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(err => console.log("Order Sheet Save Error:", err));
   });
 }
 
 function placeDirectOrder(){
-  let banHours = checkBanStatus(); if (banHours > 0) { showError(`🚫 You are blocked! Try again in ${banHours} hours.`); return; }
-  if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
+  let banHours = checkBanStatus(); if (banHours > 0) { showError(isHindiLanguage ? `🚫 आप ब्लॉक हैं! ${banHours} घंटे बाद प्रयास करें।` : `🚫 You are blocked! Try again in ${banHours} hours.`); return; }
+  if(cartData.length === 0){ showError(isHindiLanguage ? "⚠️ कार्ट खाली है!" : "⚠️ Cart is empty!"); return; }
   
   let hour = new Date().getHours();
   let manualClose = localStorage.getItem("khalsaShopManualClose") === "true";
-  if (!((hour >= 9 && hour < 18) && !manualClose) && !isTestingMode()) {
-      showCustomError("SHOP IS CLOSED NOW. ORDERS CAN BE PLACED BETWEEN 9 AM AND 6 PM.", 4000);
-      return;
+  let isShopOpen = ((hour >= 9 && hour < 18) && !manualClose) || isTestingMode();
+  if (!isShopOpen) {
+      document.getElementById('shopClosedModal').style.display='flex';
+      return; 
   }
 
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError("PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
+  if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError(isHindiLanguage ? "कृपया पहले लॉगिन करें और अपनी जानकारी भरें ℹ️" : "PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
 
   let orderDetails = ""; let totalPrice = 0; let totalQty = 0;
   let orderCounters = JSON.parse(localStorage.getItem("khalsaOrderCounters")) || {};
@@ -1804,25 +1908,54 @@ function placeDirectOrder(){
     let prefix = i.internalName.substring(0,2).toUpperCase();
     orderCounters[prefix] = (orderCounters[prefix] || 0) + 1;
     let specificId = prefix + orderCounters[prefix];
-    
     orderDetails += `▪️ ${i.internalName} (x${i.qty}) [ID: ${specificId}]\n`;
   });
 
   localStorage.setItem("khalsaOrderCounters", JSON.stringify(orderCounters)); 
 
   let deliveryCharge = totalQty > 6 ? 10 : 15; let finalTotal = totalPrice + deliveryCharge;
-  
   saveOrderToSheet(cartData, user);
   saveOrderToHistory(finalTotal, orderDetails.replace(/\n/g, ", "));
 
   let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nAddress: ${user.address}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
-  
   let targetPhone = isTestingMode() ? "917988300872" : "919416845322";
   
   showLoading("Processing Order...", "ऑर्डर प्रोसेस हो रहा है...");
-  setTimeout(() => {
-    hideLoading(); waitingForWhatsAppReturn = true; window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg);
-  }, 1500); 
+  setTimeout(() => { hideLoading(); waitingForWhatsAppReturn = true; window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg); }, 1500); 
+}
+
+function checkBanStatus() {
+  let banUntil = localStorage.getItem("khalsaUserBanUntil");
+  if (!banUntil) return 0;
+  let now = Date.now();
+  if (now > parseInt(banUntil)) { localStorage.removeItem("khalsaUserBanUntil"); return 0; }
+  return Math.ceil((parseInt(banUntil) - now) / (1000 * 60 * 60));
+}
+
+function filterText(text) {
+  let lower = text.toLowerCase();
+  for (let w of BANNED_WORDS) {
+    if (lower.includes(w)) return { isBad: true, clean: text, word: w };
+  }
+  return { isBad: false, clean: text };
+}
+
+function triggerReportAlert(badWord, fullText) {
+  let now = Date.now();
+  let banUntil = now + (24 * 60 * 60 * 1000);
+  localStorage.setItem("khalsaUserBanUntil", banUntil.toString());
+  
+  let reports = JSON.parse(localStorage.getItem("khalsaUserReports")) || [];
+  reports.unshift({
+      date: new Date().toLocaleString('en-IN'),
+      word: badWord,
+      text: fullText,
+      timestamp: now
+  });
+  localStorage.setItem("khalsaUserReports", JSON.stringify(reports));
+
+  document.getElementById("itemReviewWarning").innerText = isHindiLanguage ? `⚠️ आपत्तिजनक शब्द ('${badWord}') मिला! आपको 24 घंटे के लिए ब्लॉक कर दिया गया है।` : `⚠️ Unsafe word ('${badWord}') detected! You are blocked for 24 hours.`;
+  document.getElementById("itemReviewWarning").style.display = "block";
 }
 
 document.addEventListener("visibilitychange", function() {
@@ -1835,26 +1968,21 @@ document.addEventListener("visibilitychange", function() {
 function closeSuccessPopup() { document.getElementById("successPopup").style.display="none"; cartData = []; back(false); }
 
 function hideAll() {
-  document.getElementById("menu").style.display="none";
-  document.getElementById("contactSection").style.display="none"; document.getElementById("detail").style.display="none";
+  document.getElementById("menu").style.display="none"; document.getElementById("contactSection").style.display="none"; document.getElementById("detail").style.display="none";
   document.getElementById("cart").style.display="none"; document.getElementById("loginForm").style.display="none";
   document.getElementById("historyView").style.display="none"; document.getElementById("allReviewsPage").style.display="none";
   document.getElementById("accountPage").style.display="none"; document.getElementById("developerPage").style.display="none";
-  document.getElementById("manageDevicePage").style.display="none";
-  document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
-  document.getElementById("functionsGuidePage").style.display="none";
-  document.getElementById("adminPage").style.display="none";
-  
-  document.getElementById("dashboardHeaderBox").style.display="none";
-  document.getElementById("categoryTitleBox").style.display="none";
+  document.getElementById("manageDevicePage").style.display="none"; document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
+  document.getElementById("functionsGuidePage").style.display="none"; document.getElementById("adminPage").style.display="none";
+  document.getElementById("adminPricesPage").style.display="none"; document.getElementById("adminStockPage").style.display="none";
+  document.getElementById("adminSalePage").style.display="none";
+  document.getElementById("dashboardHeaderBox").style.display="none"; document.getElementById("categoryTitleBox").style.display="none";
 }
 
 function back(fromPop = false) {
   hideAll(); 
-  document.getElementById("dashboardHeaderBox").style.display="block"; 
-  document.getElementById("categoryTitleBox").style.display="flex"; 
-  document.getElementById("menu").style.display="grid";
-  document.getElementById("itemReviewWarning").style.display = "none";
+  document.getElementById("dashboardHeaderBox").style.display="block"; document.getElementById("categoryTitleBox").style.display="flex"; 
+  document.getElementById("menu").style.display="grid"; document.getElementById("itemReviewWarning").style.display = "none";
   if(!fromPop) pushNavState('menu');
 }
 
@@ -1866,61 +1994,38 @@ function rate(n){
 
 function saveReview(){
   let text = document.getElementById("reviewText").value;
-  if(text.trim() === ""){ showError("⚠️ Write a review first!"); return; }
-  if(rating == 0){ showError("⚠️ Select a star rating!"); return; }
+  if(text.trim() === ""){ showError(isHindiLanguage ? "⚠️ पहले एक समीक्षा लिखें!" : "⚠️ Write a review first!"); return; }
+  if(rating == 0){ showError(isHindiLanguage ? "⚠️ एक स्टार रेटिंग का चयन करें!" : "⚠️ Select a star rating!"); return; }
   let filterData = filterText(text);
-  if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("reviewText").value = filterData.clean; document.getElementById("itemReviewWarning").style.display = "none"; return; }
+  if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("reviewText").value = filterData.clean; return; }
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let reviewerName = (user && user.name) ? user.name : "Guest User"; let reviewerId = (user && user.phone) ? user.phone : "Guest";
   let payload = { id: new Date().getTime().toString(), action: "add", type: "ITEM", productId: internalItemName, rating: rating, reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN') };
   showLoading("Loading...", "लोड हो रहा है...");
   fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(() => {
     hideLoading(); document.getElementById("reviewText").value=""; rate(0); showReviewCelebration(); setTimeout(loadReviews, 1500);
-  }).catch(e => { hideLoading(); showError("Error saving. Please try again."); });
+  }).catch(e => { hideLoading(); showError(isHindiLanguage ? "सेव करने में त्रुटि। कृपया पुनः प्रयास करें।" : "Error saving. Please try again."); });
 }
 
 function deleteReview(id, skipMsg = false) {
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
   let currentUserId = user ? user.phone : "Guest";
-
   let reviewToDel = globalAllReviews.find(r => r.id === id);
-  if (currentUserId === "Guest" || (reviewToDel && String(reviewToDel.userId) !== String(currentUserId))) {
-      showError("You are not allowed to delete this review.");
-      closeDeleteConfirm();
-      return;
-  }
-
+  if (currentUserId === "Guest" || (reviewToDel && String(reviewToDel.userId) !== String(currentUserId))) { showError(isHindiLanguage ? "आपको इस समीक्षा को हटाने की अनुमति नहीं है।" : "You are not allowed to delete this review."); closeDeleteConfirm(); return; }
   if(!skipMsg) showLoading("Loading...", "लोड हो रहा है...");
-
   let payload = { action: "delete", id: id, userId: currentUserId };
-
-  fetch(REVIEWS_API_URL, { 
-      method: 'POST', 
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
-      body: JSON.stringify(payload) 
-  })
-  .then(res => {
-      return res.text().then(text => {
-          try { return JSON.parse(text); } catch(e) { return {}; }
-      });
-  })
+  fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+  .then(res => { return res.text().then(text => { try { return JSON.parse(text); } catch(e) { return {}; } }); })
   .then(data => {
       if(!skipMsg) { 
           hideLoading(); 
-          if (data && data.success === false) {
-              showError("You can only delete your own review.");
-          } else {
-              showSuccessMsg("Review deleted successfully."); 
-              setTimeout(reloadCurrentView, 1000); 
-          }
+          if (data && data.success === false) { showError(isHindiLanguage ? "आप केवल अपनी समीक्षा हटा सकते हैं।" : "You can only delete your own review."); } else { showSuccessMsg(isHindiLanguage ? "समीक्षा सफलतापूर्वक हटा दी गई।" : "Review deleted successfully."); setTimeout(reloadCurrentView, 1000); }
       } 
   })
-  .catch(e => {
-      if(!skipMsg) { hideLoading(); showError("Error deleting review."); }
-  });
+  .catch(e => { if(!skipMsg) { hideLoading(); showError(isHindiLanguage ? "समीक्षा हटाने में त्रुटि।" : "Error deleting review."); } });
 }
 
 function editReview(id, currentText, type, productId, currentRating) {
-  let newText = prompt("Edit your review:", currentText);
+  let newText = prompt(isHindiLanguage ? "अपनी समीक्षा संपादित करें:" : "Edit your review:", currentText);
   if (newText !== null && newText.trim() !== "") {
     let filterData = filterText(newText);
     if(filterData.isBad) { triggerReportAlert(filterData.word, newText); return; }
@@ -1938,11 +2043,7 @@ function editReview(id, currentText, type, productId, currentRating) {
 let pressTimer;
 function startPress(id) { pressTimer = setTimeout(() => { showDeleteConfirmPopup(id); }, 2000); }
 function cancelPress() { clearTimeout(pressTimer); }
-
-function reloadCurrentView() {
-  if(document.getElementById("detail").style.display === "block") loadReviews();
-  else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews(true);
-}
+function reloadCurrentView() { if(document.getElementById("detail").style.display === "block") loadReviews(); else if(document.getElementById("allReviewsPage").style.display === "block") showAllReviews(true); }
 
 let globalAllReviews = [];
 function fetchAllReviewsFromDB(callback) {
@@ -1951,46 +2052,36 @@ function fetchAllReviewsFromDB(callback) {
 
 function renderReviewHTML(r, currentUserId) {
   let starIcons = "⭐".repeat(parseInt(r.rating)); let color = r.type === "APP" ? "#9c27b0" : "gold"; let tag = r.type === "APP" ? "App Review" : `Item: ${r.productId}`;
-  
   let isMyReview = (String(r.userId) === String(currentUserId) && currentUserId !== "Guest"); 
   let actionBtns = ""; let longPressCode = "";
-  
-  if(isMyReview) {
-    actionBtns = ""; 
-    longPressCode = ""; 
-  }
-  
+  if(isMyReview) { actionBtns = ""; longPressCode = ""; }
   return `<div class="review-box" style="border-left: 4px solid ${color};" ${longPressCode}>${actionBtns}<div class="review-name-tag" style="color:${color};">👤 ${r.userName} <span style="color:var(--text-muted); font-weight:normal;">(${tag})</span></div><b>${starIcons}</b> <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:4px;">${r.createdAt}</span><span style="font-size:14px; display:block; margin-top:6px; color:var(--text-main);">${r.reviewText}</span></div>`;
 }
 
 function loadReviews(){
-  let box = document.getElementById("reviews"); let statsBox = document.getElementById("itemReviewStats"); box.innerHTML = "Loading reviews...";
+  let box = document.getElementById("reviews"); let statsBox = document.getElementById("itemReviewStats"); box.innerHTML = isHindiLanguage ? "समीक्षाएं लोड हो रही हैं..." : "Loading reviews...";
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
-    
     let itemReviews = globalAllReviews.filter(r => r.type === "ITEM" && r.productId === internalItemName); 
     itemReviews.reverse(); 
-    
     if (itemReviews.length > 0) {
       let sum = 0; itemReviews.forEach(r => { sum += parseInt(r.rating); box.innerHTML += renderReviewHTML(r, currentUserId); });
       let avg = (sum / itemReviews.length).toFixed(1); statsBox.innerText = isHindiLanguage ? `कुल समीक्षाएं: ${itemReviews.length} | औसत: ${avg} ⭐` : `Total Reviews: ${itemReviews.length} | Avg: ${avg} ⭐`; statsBox.style.display = "inline-block";
-    } else { box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none"; }
+    } else { box.innerHTML = `<p style='color:var(--text-muted); font-size:14px;'>${isHindiLanguage ? "अभी तक कोई समीक्षा नहीं है! पहले व्यक्ति बनें!" : "No reviews yet. Be the first!"}</p>`; statsBox.style.display = "none"; }
   });
 }
 
 function showAllReviews(fromPop = false) {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("allReviewsPage").style.display = "block";
   if(!fromPop) pushNavState('allReviews');
-  let box = document.getElementById("allReviewsContainer"); box.innerHTML = "Loading your reviews...";
+  let box = document.getElementById("allReviewsContainer"); box.innerHTML = isHindiLanguage ? "आपकी समीक्षाएं लोड हो रही हैं..." : "Loading your reviews...";
   let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = ""; 
-    
     let revs = globalAllReviews.filter(r => String(r.userId) === String(currentUserId)).reverse();
-    
     if(revs.length > 0) { revs.forEach(r => { box.innerHTML += renderReviewHTML(r, currentUserId); }); } 
-    else { box.innerHTML = "<p style='text-align:center; color:var(--text-muted); font-weight:bold; margin-top: 20px;'>आपने अभी तक कोई समीक्षा नहीं दी है! (No reviews yet!)</p>"; }
+    else { box.innerHTML = `<p style='text-align:center; color:var(--text-muted); font-weight:bold; margin-top: 20px;'>${isHindiLanguage ? "आपने अभी तक कोई समीक्षा नहीं दी है!" : "No reviews yet!"}</p>`; }
   });
 }
 </script>
