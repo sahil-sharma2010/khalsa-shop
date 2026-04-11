@@ -30,7 +30,7 @@
   --box-shadow: rgba(0,0,0,0.3);
 }
 
-body { margin:0; font-family:sans-serif; background:var(--bg-main); color:var(--text-main); padding-bottom: 80px; transition: 0.3s; }
+body { margin:0; font-family:sans-serif; background:var(--bg-main); color:var(--text-main); padding-bottom: 80px; transition: 0.2s; }
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -67,7 +67,7 @@ input[type=number] {
   background: linear-gradient(45deg, #ff4b2b, #ff416c);
   color: white; border: none; padding: 15px; width: 100%;
   border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer;
-  box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4); transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4); transition: 0.2s;
 }
 .premium-btn:active { transform: scale(0.95); }
 
@@ -79,7 +79,7 @@ input[type=number] {
   top: 0; 
   z-index: 900; 
   background: var(--bg-main);
-  transition: 0.3s; 
+  transition: 0.2s; 
   padding-bottom: 12px; 
   box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
 }
@@ -103,10 +103,10 @@ input[type=number] {
   letter-spacing: 0.5px;
 }
 .dashboard-search {
-  display: flex; gap: 8px; justify-content: center; transition: 0.3s; position: relative;
+  display: flex; gap: 8px; justify-content: center; transition: 0.2s; position: relative;
 }
 .dashboard-search .search-input {
-  flex-grow: 1; padding: 14px 20px 14px 45px; border: none; border-radius: 30px; font-size: 14px; font-family: sans-serif; outline: none; transition: 0.3s; background: white; color: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex-grow: 1; padding: 14px 20px 14px 45px; border: none; border-radius: 30px; font-size: 14px; font-family: sans-serif; outline: none; transition: 0.2s; background: white; color: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .dashboard-search .search-icon-left {
   position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #888;
@@ -154,7 +154,7 @@ input[type=number] {
 
 .marquee-wrapper {
   background: var(--bg-card); padding: 8px 0; overflow: hidden;
-  box-shadow: 0 4px 10px var(--box-shadow); border-bottom: 2px solid #ff416c; display: flex; align-items: center; transition: 0.3s; margin-top: 10px; border-radius: 10px; width: 90%; margin-left: auto; margin-right: auto; position: relative; z-index: 901;
+  box-shadow: 0 4px 10px var(--box-shadow); border-bottom: 2px solid #ff416c; display: flex; align-items: center; transition: 0.2s; margin-top: 10px; border-radius: 10px; width: 90%; margin-left: auto; margin-right: auto; position: relative; z-index: 901;
 }
 .marquee-text {
   display: inline-block; white-space: nowrap; font-weight: 800; font-size: 13px;
@@ -170,7 +170,7 @@ input[type=number] {
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-card);
   display: flex; justify-content: space-around; padding: 12px 0;
-  box-shadow: 0 -4px 15px var(--box-shadow); z-index: 1000; border-top-left-radius: 20px; border-top-right-radius: 20px; transition: 0.3s;
+  box-shadow: 0 -4px 15px var(--box-shadow); z-index: 1000; border-top-left-radius: 20px; border-top-right-radius: 20px; transition: 0.2s;
 }
 .nav-item {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -180,7 +180,7 @@ input[type=number] {
 .nav-item span { font-size: 24px; margin: 0; }
 
 .account-list-container {
-  background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px var(--box-shadow); overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; transition: 0.3s; padding: 0;
+  background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px var(--box-shadow); overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; transition: 0.2s; padding: 0;
 }
 .account-category-header {
   padding: 12px 16px; margin: 0; background: var(--bg-main); font-size: 13px;
@@ -194,7 +194,7 @@ input[type=number] {
 .account-list-container a:last-child { border-bottom: none; }
 
 .menu { display: grid; grid-template-columns: repeat(2,1fr); gap: 15px; padding: 15px; margin-top: 5px; }
-.item { position: relative; background: var(--bg-card); border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px var(--box-shadow); color: var(--text-main); border: 1px solid rgba(0,0,0,0.02); }
+.item { position: relative; background: var(--bg-card); border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px var(--box-shadow); color: var(--text-main); border: 1px solid rgba(0,0,0,0.02); }
 .item:active { transform: scale(0.95); opacity: 0.8; border-color: #6f42c1; }
 .item img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 15px; border-radius: 10px; }
 .item h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text-main); }
@@ -225,7 +225,7 @@ input[type=number] {
 .back-btn-solid { width: 100%; padding: 12px; background: #222; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; margin-bottom: 15px; }
 .qty-btn{padding:5px 15px;margin:5px;background:#222;color:white;border:none; border-radius: 5px; font-size: 18px;}
 
-.device-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px; position: relative; box-shadow: 0 2px 8px var(--box-shadow); transition: 0.3s; }
+.device-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px; position: relative; box-shadow: 0 2px 8px var(--box-shadow); transition: 0.2s; }
 .device-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
 .device-icon { color: #1e88e5; display: flex; align-items: center; justify-content: center; }
 .device-info { flex-grow: 1; text-align: left; }
@@ -236,20 +236,20 @@ input[type=number] {
 .logout-all-btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.2s;}
 .logout-all-btn:active { transform: scale(0.98); }
 
-.premium-popup { position: fixed; top: -80px; left: 50%; transform: translateX(-50%); color: white; padding: 15px 30px; border-radius: 30px; font-weight: bold; z-index: 3500; transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); text-align: center; width: 85%; max-width: 350px; }
+.premium-popup { position: fixed; top: -80px; left: 50%; transform: translateX(-50%); color: white; padding: 15px 30px; border-radius: 30px; font-weight: bold; z-index: 3500; transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); text-align: center; width: 85%; max-width: 350px; }
 .premium-error { background: linear-gradient(135deg, #ff0000, #990000); box-shadow: 0 10px 20px rgba(255,0,0,0.4); }
 .premium-success { background: linear-gradient(135deg, #00c853, #64dd17); box-shadow: 0 10px 20px rgba(0,200,83,0.4); }
 .premium-popup.show { top: 30px; }
 
-.premium-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 2000; animation: fadeIn 0.3s ease-in-out; }
-.premium-modal { background: var(--bg-card); color: var(--text-main); padding: 25px 20px; border-radius: 20px; text-align: center; width: 85%; max-width: 350px; box-shadow: 0 15px 35px var(--box-shadow); transform: scale(0.8); animation: popUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+.premium-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 2000; animation: fadeIn 0.2s ease-in-out; }
+.premium-modal { background: var(--bg-card); color: var(--text-main); padding: 25px 20px; border-radius: 20px; text-align: center; width: 85%; max-width: 350px; box-shadow: 0 15px 35px var(--box-shadow); transform: scale(0.8); animation: popUp 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
 .modal-icon { font-size: 50px; margin-bottom: 10px; animation: bounce 1.2s infinite alternate; }
 .premium-modal h2 { margin: 0 0 5px 0; font-size: 22px; }
 .premium-modal p { color: var(--text-muted); margin: 5px 0; font-size: 14px; }
 .highlight-text { font-weight: bold; font-size: 18px; margin-top: 15px; color: var(--text-main); }
-.black-modal-btn { background: #111; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px var(--box-shadow); }
-.modal-btn { background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px;  font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; }
-.premium-account { margin: 20px auto; padding: 20px; border: 2px solid var(--border-color); border-radius: 12px; background-color: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); transition: 0.3s; }
+.black-modal-btn { background: #111; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.2s; width: 100%; box-shadow: 0 5px 15px var(--box-shadow); }
+.modal-btn { background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px;  font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.2s; width: 100%; }
+.premium-account { margin: 20px auto; padding: 20px; border: 2px solid var(--border-color); border-radius: 12px; background-color: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); transition: 0.2s; }
 
 .digit-box-container { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
 .digit-box { 
@@ -262,26 +262,26 @@ input[type=number] {
 @keyframes popUp { to { transform: scale(1); } }
 @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
 
-.loader-spinner { border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #6f42c1; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin-bottom: 15px; }
+.loader-spinner { border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #6f42c1; border-radius: 50%; width: 60px; height: 60px; animation: spin 0.8s linear infinite; margin-bottom: 15px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-.history-card { background: var(--bg-card); margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #6f42c1; box-shadow: 0 4px 10px var(--box-shadow); text-align: left; transition: 0.3s; }
-.cart-card{display:flex;background:var(--bg-card);margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.3s; }
-.review-box { background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative; user-select: none; transition: transform 0.2s, opacity 0.2s, background 0.3s; }
+.history-card { background: var(--bg-card); margin: 15px 0; padding: 15px; border-radius: 12px; border-left: 5px solid #6f42c1; box-shadow: 0 4px 10px var(--box-shadow); text-align: left; transition: 0.2s; }
+.cart-card{display:flex;background:var(--bg-card);margin:10px 0;padding:10px;border-radius:10px; align-items:center; gap: 10px; box-shadow: 0 2px 5px var(--box-shadow); transition: 0.2s; }
+.review-box { background: var(--bg-card); margin: 10px 0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px var(--box-shadow); text-align: left; position: relative; user-select: none; transition: transform 0.2s, opacity 0.2s, background 0.2s; }
 .review-box:active { transform: scale(0.97); opacity: 0.8; }
 
-input, textarea{width:100%;padding:12px;margin:8px 0;border:1px solid var(--border-color);border-radius:8px; box-sizing: border-box; background:var(--input-bg); color: var(--text-main); font-family: sans-serif; transition: 0.3s;}
+input, textarea{width:100%;padding:12px;margin:8px 0;border:1px solid var(--border-color);border-radius:8px; box-sizing: border-box; background:var(--input-bg); color: var(--text-main); font-family: sans-serif; transition: 0.2s;}
 input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: var(--text-muted); border-color: var(--border-color);}
 
 .star-rating { font-size: 35px; cursor: pointer; color: #ccc; margin: 10px 0; }
 .star-rating span { transition: 0.2s; display: inline-block; }
 .star-rating span:hover { transform: scale(1.2); }
 
-.contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.3s; border-top: 5px solid #00c853;}
+.contact-section { background: var(--bg-card); margin: 20px 15px; padding: 25px 20px; border-radius: 20px; box-shadow: 0 10px 30px var(--box-shadow); text-align: center; transition: 0.2s; border-top: 5px solid #00c853;}
 .party-highlight { background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; padding: 12px; border-radius: 12px; font-weight: bold; margin-top: 15px; font-size: 15px; box-shadow: 0 4px 10px rgba(255,65,108,0.3); }
 .remove-btn { background: #ff4b2b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px; }
 
-.cart-summary-box { background: var(--bg-card); padding: 15px; border-radius: 12px; margin: 15px 0; box-shadow: 0 4px 15px var(--box-shadow); border: 1px solid var(--border-color); text-align: left; transition: 0.3s; }
+.cart-summary-box { background: var(--bg-card); padding: 15px; border-radius: 12px; margin: 15px 0; box-shadow: 0 4px 15px var(--box-shadow); border: 1px solid var(--border-color); text-align: left; transition: 0.2s; }
 .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 16px; color: var(--text-muted); }
 .delivery-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: #6f42c1; font-weight: bold; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
 .total-row { display: flex; justify-content: space-between; font-size: 22px; color: #00c853; font-weight: 900; }
@@ -289,7 +289,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 .review-name-tag { font-weight: bold; font-size: 13px; color: #2196F3; margin-bottom: 5px; padding-right: 60px; }
 .stats-box { font-weight: bold; font-size: 15px; padding: 5px; background: rgba(33, 150, 243, 0.1); border-radius: 8px; display: inline-block; margin-bottom: 10px; }
 .filter-warning { color: red; font-size: 12px; font-weight: bold; display: none; text-align: left; margin-bottom: 5px; }
-.premium-checkbox-container { display: flex; align-items: flex-start; gap: 12px; background: rgba(33, 150, 243, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(33, 150, 243, 0.3); cursor: pointer; text-align: left; margin-top: 15px; transition: 0.3s; box-shadow: 0 4px 10px rgba(33, 150, 243, 0.1); }
+.premium-checkbox-container { display: flex; align-items: flex-start; gap: 12px; background: rgba(33, 150, 243, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(33, 150, 243, 0.3); cursor: pointer; text-align: left; margin-top: 15px; transition: 0.2s; box-shadow: 0 4px 10px rgba(33, 150, 243, 0.1); }
 .premium-checkbox-container:hover { background: rgba(33, 150, 243, 0.1); }
 </style>
 </head>
@@ -317,7 +317,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
         <input type="number" id="otpInput" placeholder="Enter 4-digit OTP" style="text-align: center; letter-spacing: 5px; font-size: 18px;">
      </div>
 
-     <button onclick="verifyOTPAndContinue()" class="premium-btn" style="margin-top: 25px;">VERIFY & CONTINUE</button>
+     <button onclick="verifyOTPAndContinue()" class="premium-btn translatable" data-en="VERIFY & CONTINUE" data-hi="सत्यापित करें और आगे बढ़ें" style="margin-top: 20px;">VERIFY & CONTINUE</button>
   </div>
 
   <div id="step2Terms" class="onboarding-card" style="display:none; text-align:left;">
@@ -385,7 +385,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;"><div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;"><div class="modal-icon">📄</div><h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
 <div id="tcContentBox" class="translatable" style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 13px; line-height: 1.6; color: var(--text-muted);" 
      data-en="<ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>"
-     data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित हो सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
+     data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित হতে सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
      <ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>
 </div>
 <label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
@@ -519,13 +519,14 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <div class="account-category-header translatable" data-en="📞 Support" data-hi="📞 सहायता">📞 Support</div>
     <a onclick="showContactScreen()" class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</a>
     <a onclick="showReportPage()" style="color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
+    <a onclick="showComplaintsPage()" style="color: #ff9800; font-weight: bold;" class="translatable" data-en="📝 Complaints" data-hi="📝 शिकायतें">📝 Complaints</a>
     <a onclick="showFunctionsGuidePage()" style="color: #ff4b2b; font-weight: bold;" class="translatable" data-en="⭐ Functions Guide (Premium)" data-hi="⭐ फंक्शन्स गाइड">⭐ Functions Guide (Premium)</a>
 
     <div class="account-category-header translatable" data-en="⭐ Community" data-hi="⭐ समुदाय">⭐ Community</div>
     <a onclick="showAllReviews()" class="translatable" data-en="⭐ Our Reviews" data-hi="⭐ हमारी समीक्षाएं">⭐ Our Reviews</a>
     <a onclick="showTopCustomers()" class="translatable" data-en="👑 Highest Buying Customer" data-hi="👑 सबसे ज्यादा खरीदने वाले ग्राहक">👑 Highest Buying Customer</a>
 
-    <div class="account-category-header translatable" data-en="🛠 Developer" data-hi="🛠 डेवलपर">🛠 Developer</div>
+    <div class="account-category-header translatable" data-en="🛠 Developer" data-hi="🛠 डेवलपर">🛠 डेवलपर</div>
     <a onclick="showDeveloperPage()" class="translatable" data-en="👨‍💻 Developer Details" data-hi="👨‍💻 डेवलपर विवरण">👨‍💻 Developer Details</a>
     <a onclick="toggleTestingModePrompt()" id="testingModeBtn" class="translatable" data-en="🛠️ Testing Mode: OFF" data-hi="🛠️ टेस्टिंग मोड: बंद">🛠️ Testing Mode: OFF</a>
 
@@ -535,6 +536,16 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
 
   <button class="back-btn-solid translatable" onclick="goToHome()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+</div>
+
+<div class="detail" id="complaintsPage" style="padding: 15px;">
+  <h2 style="text-align: center; color: #ff9800;" class="translatable" data-en="📝 Complaints" data-hi="📝 शिकायतें">📝 Complaints</h2>
+  <p style="text-align: center; font-size: 14px; color: var(--text-muted);" class="translatable" data-en="Write your complaint below. It will be sent directly to our support team." data-hi="नीचे अपनी शिकायत लिखें। इसे सीधे हमारी सहायता टीम को भेजा जाएगा।">Write your complaint below. It will be sent directly to our support team.</p>
+  
+  <textarea id="complaintText" rows="6" class="translatable-ph" data-en="Explain your issue in detail here..." data-hi="अपनी समस्या को यहाँ विस्तार से समझाएँ..." placeholder="Explain your issue in detail here..." style="margin-top: 15px; border: 1px solid #ff9800; border-radius: 10px;"></textarea>
+  
+  <button class="full-btn translatable" onclick="submitComplaint()" style="background:#ff9800; color:white; font-weight:bold; margin-top: 15px; box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);" data-en="📨 Send Complaint" data-hi="📨 शिकायत भेजें">📨 Send Complaint</button>
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं" style="margin-top: 15px;">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="adminPage" style="padding: 15px;">
@@ -987,6 +998,7 @@ window.addEventListener('popstate', function(event) {
     else if (page === 'allReviews') showAllReviews(true);
     else if (page === 'topCustomers') showTopCustomers(true);
     else if (page === 'report') showReportPage(true);
+    else if (page === 'complaints') showComplaintsPage(true);
     else if (page === 'functionsGuide') showFunctionsGuidePage(true);
     else if (page === 'adminPage') showAdminPage(true);
     else if (page === 'adminPricesPage') showAdminPricesPage(true);
@@ -1141,7 +1153,7 @@ function showAdminStockPage(fromPop = false) {
         container.innerHTML += `
         <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 12px 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--box-shadow);">
             <span style="font-weight: bold; font-size: 15px; color: var(--text-main);">${p}</span>
-            <button id="stockBtn_${safeId}" onclick="toggleStock('${p}', '${safeId}')" style="background: ${btnBg}; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;">${btnText}</button>
+            <button id="stockBtn_${safeId}" onclick="toggleStock('${p}', '${safeId}')" style="background: ${btnBg}; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;">${btnText}</button>
         </div>`;
     }
 }
@@ -1160,7 +1172,7 @@ function toggleStock(productName, safeId) {
     }
 }
 
-// 🌟 ADMIN FLASH SALE LOGIC (UPDATED WITH AUTO-PREVIEW) 🌟
+// 🌟 ADMIN FLASH SALE LOGIC 🌟
 function showAdminSalePage(fromPop = false) {
     hideAll(); 
     document.getElementById("adminSalePage").style.display = "block";
@@ -1192,7 +1204,6 @@ function startFlashSale() {
     }
     
     let endTime = Date.now() + (dur * 60 * 1000);
-    // Include the specific product name in the saved config
     let saleConfig = { active: true, productName: prodName, discount: disc, endTime: endTime };
     localStorage.setItem("khalsaSaleConfig", JSON.stringify(saleConfig));
     
@@ -1208,7 +1219,7 @@ function stopFlashSale() {
     setTimeout(() => showAdminPage(false), 1500);
 }
 
-// 🌟 NEW: EMAILJS OTP LOGIC 🌟
+// 🌟 EMAILJS OTP LOGIC 🌟
 let generatedOTP = "";
 let otpAttempts = 0;
 const MAX_ATTEMPTS = 3;
@@ -1227,18 +1238,14 @@ function sendOTP() {
         return; 
     }
 
-    // Generate random 4-digit OTP
     generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
     otpAttempts = 0;
 
     showLoading("Sending OTP...", "OTP भेजा जा रहा है...");
 
-    let templateParams = {
-        email: email,
-        otp: generatedOTP
-    };
+    let templateParams = { email: email, otp: generatedOTP };
 
-    // Your EmailJS Configuration
+    // EmailJS Configuration
     const SERVICE_ID = "service_zvy3re2";
     const TEMPLATE_ID = "template_tacgskq"; 
     const PUBLIC_KEY = "K6cs_matxXu2begVg";   
@@ -1284,7 +1291,7 @@ function verifyOTPAndContinue() {
     }
 }
 
-// ONBOARDING FUNCTIONS
+// 🌟 ONBOARDING FUNCTIONS (2 STEP PROCESS) 🌟
 function goToTermsStep() {
   let phone = document.getElementById("onboardPhone").value.trim();
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
@@ -1293,21 +1300,30 @@ function goToTermsStep() {
       localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
   }
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  if (regUsers[phone] && regUsers[phone].deviceId && regUsers[phone].deviceId !== currentDeviceId) {
-      showError(isHindiLanguage ? "यह नंबर पहले से पंजीकृत है" : "THIS NUMBER ALREADY REGISTER"); 
-      return;
-  }
+  
+  // HIDE STEP 1, SHOW STEP 2
   document.getElementById("step1Login").style.display = "none";
   document.getElementById("step2Terms").style.display = "block";
 }
+
 function backToLoginStep() {
   document.getElementById("step2Terms").style.display = "none";
   document.getElementById("step1Login").style.display = "block";
 }
+
 function finishOnboarding() {
   let cb = document.getElementById("onboardTcCheckbox");
-  if(!cb.checked) { showError(isHindiLanguage ? "⚠️ कृपया नियम और शर्तें स्वीकार करें!" : "⚠️ Please accept Terms & Conditions!"); return; }
-  let savedData = { name: document.getElementById("onboardName").value, phone: document.getElementById("onboardPhone").value, email: document.getElementById("onboardEmail").value };
+  if(!cb.checked) { 
+      showError(isHindiLanguage ? "⚠️ कृपया नियम और शर्तें स्वीकार करें!" : "⚠️ Please accept Terms & Conditions!"); 
+      return; 
+  }
+  
+  let phone = document.getElementById("onboardPhone").value.trim();
+  let savedData = { 
+      name: document.getElementById("onboardName").value.trim(), 
+      phone: phone, 
+      email: document.getElementById("onboardEmail").value.trim() 
+  };
   localStorage.setItem("khalsaUserData", JSON.stringify(savedData));
   localStorage.setItem("termsAccepted", "true");
   registerDeviceSession(savedData.phone);
@@ -1316,8 +1332,12 @@ function finishOnboarding() {
   document.getElementById("l_phone").value = savedData.phone;
   document.getElementById("l_email").value = savedData.email;
 
+  // HIDE OVERLAY COMPLETELY & ENTER WEBSITE
   document.getElementById("onboardingOverlay").style.display = "none";
-  showSuccessMsg(isHindiLanguage ? "खालसा शॉप में आपका स्वागत है!" : "Welcome to Khalsa Shop!"); updateGreeting(); checkAdminVisibility(); back(false);
+  showSuccessMsg(isHindiLanguage ? "खालसा शॉप में आपका स्वागत है!" : "Welcome to Khalsa Shop!"); 
+  updateGreeting(); 
+  checkAdminVisibility(); 
+  back(false);
 }
 
 function registerDeviceSession(phone) {
@@ -1383,6 +1403,22 @@ window.onload = function() {
       document.getElementById("onboardingOverlay").style.display = "none";
   }
   document.getElementById('searchInput').addEventListener('input', doSearch);
+
+  // 🌟 Realtime Session Checking (For Manage Devices sync logout) 🌟
+  setInterval(() => {
+      if(isUserLoggedIn()) {
+          let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+          let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+          if (user && currentDeviceId) {
+              let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+              let stillExists = devices.some(d => d.id === currentDeviceId);
+              if (!stillExists) {
+                  alert(isHindiLanguage ? "आपके खाते को किसी अन्य उपकरण से लॉग आउट कर दिया गया है।" : "Your account was logged out from another device.");
+                  logoutUser(true);
+              }
+          }
+      }
+  }, 3000);
 };
 
 function toggleTheme() {
@@ -1583,6 +1619,32 @@ function showReportPage(fromPop = false) {
   }
 }
 
+// 🌟 SHOW COMPLAINTS PAGE 🌟
+function showComplaintsPage(fromPop = false) {
+    hideAll();
+    document.getElementById("complaintsPage").style.display = "block";
+    if(!fromPop) pushNavState('complaints');
+}
+
+// 🌟 SUBMIT COMPLAINT VIA EMAIL APP 🌟
+function submitComplaint() {
+    let text = document.getElementById("complaintText").value.trim();
+    if(text === "") {
+        showError(isHindiLanguage ? "⚠️ कृपया अपनी शिकायत लिखें!" : "⚠️ Please write your complaint!");
+        return;
+    }
+    
+    let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+    let userStr = user ? `${user.name} (Phone: ${user.phone})` : "Guest User";
+    let subject = encodeURIComponent("Khalsa Shop Complaint - " + userStr);
+    let body = encodeURIComponent("Customer Details:\n" + userStr + "\n\nComplaint Message:\n" + text);
+
+    window.location.href = `mailto:sahilvats0009@gmail.com?subject=${subject}&body=${body}`;
+    
+    document.getElementById("complaintText").value = "";
+    showSuccessMsg(isHindiLanguage ? "ईमेल ऐप खोला जा रहा है 📨" : "Opening Email App 📨");
+}
+
 function showManageDevicePage(fromPop = false) {
   hideAll(); document.getElementById("manageDevicePage").style.display = "block";
   if(!fromPop) pushNavState('manageDevice');
@@ -1652,17 +1714,30 @@ function logoutAllDevices() {
     if(user && user.phone) localStorage.removeItem("khalsaDevices_" + user.phone);
     logoutUser();
 }
-function logoutUser() {
+
+function logoutUser(isSilent = false) {
+  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+  if(user && user.phone) {
+      let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+      devices = devices.filter(d => d.id !== currentDeviceId);
+      localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
+  }
+  
   localStorage.removeItem("khalsaUserData"); localStorage.removeItem("termsAccepted"); localStorage.removeItem("khalsaCurrentDeviceId");
   document.getElementById("onboardName").value = ""; document.getElementById("onboardPhone").value = ""; document.getElementById("onboardEmail").value = "";
   if(document.getElementById("onboardTcCheckbox")) document.getElementById("onboardTcCheckbox").checked = false;
   document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
   document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
-  showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
+  
+  if(!isSilent) showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
   updateGreeting(); checkAdminVisibility();
-  document.getElementById("step2Terms").style.display = "none"; document.getElementById("step1Login").style.display = "block";
+  
+  document.getElementById("step2Terms").style.display = "none"; 
+  document.getElementById("step1Login").style.display = "block";
   hideAll(); document.getElementById("dashboardHeaderBox").style.display="block"; document.getElementById("categoryTitleBox").style.display="flex"; document.getElementById("menu").style.display="grid"; document.getElementById("onboardingOverlay").style.display = "flex"; 
 }
+
 function isUserLoggedIn() {
   let saved = localStorage.getItem("khalsaUserData");
   if(saved) { let data = JSON.parse(saved); if(data.name && data.phone && data.address && data.liveLoc && data.pin) return true; }
@@ -1848,7 +1923,6 @@ function processForm() {
   if (!currentDeviceId) { currentDeviceId = "DEV_" + Date.now(); localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId); }
 
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  if (regUsers[phoneInput] && regUsers[phoneInput].deviceId && regUsers[phoneInput].deviceId !== currentDeviceId) { showCustomError(isHindiLanguage ? "यह नंबर पहले से पंजीकृत है" : "THIS NUMBER ALREADY REGISTER", 3000); return; }
 
   regUsers[phoneInput] = { name: nameInput, deviceId: currentDeviceId };
   localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
@@ -1973,7 +2047,7 @@ function hideAll() {
   document.getElementById("historyView").style.display="none"; document.getElementById("allReviewsPage").style.display="none";
   document.getElementById("accountPage").style.display="none"; document.getElementById("developerPage").style.display="none";
   document.getElementById("manageDevicePage").style.display="none"; document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
-  document.getElementById("functionsGuidePage").style.display="none"; document.getElementById("adminPage").style.display="none";
+  document.getElementById("complaintsPage").style.display="none"; document.getElementById("functionsGuidePage").style.display="none"; document.getElementById("adminPage").style.display="none";
   document.getElementById("adminPricesPage").style.display="none"; document.getElementById("adminStockPage").style.display="none";
   document.getElementById("adminSalePage").style.display="none";
   document.getElementById("dashboardHeaderBox").style.display="none"; document.getElementById("categoryTitleBox").style.display="none";
