@@ -227,6 +227,15 @@ input[type=number] {
 .modal-btn { background: linear-gradient(45deg, #1e88e5, #42a5f5); color: white; border: none; padding: 12px 25px; border-radius: 30px;  font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; transition: 0.3s; width: 100%; }
 .premium-account { margin: 20px auto; padding: 20px; border: 2px solid var(--border-color); border-radius: 12px; background-color: var(--bg-card); box-shadow: 0 4px 8px var(--box-shadow); transition: 0.3s; }
 
+/* 🌟 NEW: DIGIT BOX UI CSS 🌟 */
+.digit-box-container { display: flex; justify-content: center; gap: 8px; margin-top: 15px; }
+.digit-box { 
+    width: 45px; height: 55px; text-align: center; font-size: 24px; font-weight: bold; 
+    border-radius: 10px; border: 2px solid var(--border-color); 
+    background: var(--input-bg); color: var(--text-main); transition: 0.2s;
+}
+.digit-box:focus { border-color: #2196F3; outline: none; box-shadow: 0 0 8px rgba(33, 150, 243, 0.4); }
+
 @keyframes popUp { to { transform: scale(1); } }
 @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
 
@@ -317,7 +326,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <div id="reviewSuccessModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff9800;"><div class="modal-icon">🎊</div><h2 style="color: #ff9800;" class="translatable" data-en="THANKS FOR REVIEW" data-hi="समीक्षा के लिए धन्यवाद">THANKS FOR REVIEW</h2><p class="highlight-text translatable" style="font-size: 16px; color: var(--text-main);" data-en="Your feedback means a lot to us! 🌟" data-hi="आपकी प्रतिक्रिया हमारे लिए बहुत मायने रखती है! 🌟">Your feedback means a lot to us! 🌟</p><button class="black-modal-btn translatable" onclick="closeReviewSuccess()" data-en="Awesome!" data-hi="बहुत बढ़िया!">Awesome!</button></div></div>
 <div id="deleteConfirmModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #d32f2f;"><div class="modal-icon">🗑️</div><h2 style="color: #d32f2f;" class="translatable" data-en="Delete Review?" data-hi="समीक्षा हटाएं?">Delete Review?</h2><p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to delete your review?" data-hi="क्या आप वाकई अपनी समीक्षा हटाना चाहते हैं?">Are you sure you want to delete your review?</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeDeleteConfirm()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#d32f2f; margin-top:0;" id="confirmDeleteBtn" data-en="Delete" data-hi="हटाएं">Delete</button></div></div></div>
-<div id="pinErrorModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff0000;"><div class="modal-icon" style="animation: none;">🚫</div><h2 style="color: #ff0000; font-size: 22px;" class="translatable" data-en="DELIVERY UNAVAILABLE" data-hi="डिलीवरी उपलब्ध नहीं है">DELIVERY UNAVAILABLE</h2><p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);"><span class="translatable" data-en="ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER" data-hi="केवल 127041 और 125033 पिन कोड ही मान्य हैं">ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER</span><br><br><span style="color:#ff0000; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span></p><button class="black-modal-btn translatable" onclick="closePinErrorPopup()" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
+<div id="pinErrorModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff0000;"><div class="modal-icon" style="animation: none;">🚫</div><h2 style="color: #ff0000; font-size: 22px;" class="translatable" data-en="DELIVERY UNAVAILABLE" data-hi="डिलीवरी उपलब्ध नहीं है">DELIVERY UNAVAILABLE</h2><p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);"><span class="translatable" data-en="ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER" data-hi="केवल 127041 और 125033 PIN कोड ही मान्य हैं">ONLY 127041 & 125033 PIN CODES ARE VALID FOR ORDER</span><br><br><span style="color:#ff0000; font-size: 18px;" class="translatable" data-en="[ THANKS ]" data-hi="[ धन्यवाद ]">[ THANKS ]</span></p><button class="black-modal-btn translatable" onclick="closePinErrorPopup()" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
 <div id="locationPromptModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">📍</div><h2 style="color: #2196F3;" class="translatable" data-en="Location Access" data-hi="लोकेशन एक्सेस">Location Access</h2><p style="font-weight: bold;" class="translatable" data-en="We need your live location for accurate delivery." data-hi="सटीक डिलीवरी के लिए हमें आपकी लाइव लोकेशन चाहिए।">We need your live location for accurate delivery.</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="denyLocation()" data-en="Deny" data-hi="मना करें">Deny</button><button class="modal-btn translatable" style="margin-top:0;" onclick="allowLocation()" data-en="Allow" data-hi="अनुमति दें">Allow</button></div></div></div>
 <div id="successPopup" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #00c853;"><div class="modal-icon" id="successIcon">🎉</div><h2 style="font-size: 22px; text-transform: uppercase;" id="successHeading" class="translatable" data-en="ORDER SUCCESSFULLY" data-hi="ऑर्डर सफलतापूर्वक प्राप्त हुआ">ORDER SUCCESSFULLY</h2><p class="highlight-text" style="color: #ff416c;" class="translatable" data-en="HAVE A NICE DAY 🌟😊" data-hi="आपका दिन शुभ हो 🌟😊">HAVE A NICE DAY 🌟😊</p><button class="black-modal-btn translatable" onclick="closeSuccessPopup()" id="successBtn" style="display:none;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button></div></div>
 <div id="tcWarningModal" class="premium-modal-overlay" style="z-index: 3000;"><div class="premium-modal" style="border-top: 5px solid #d32f2f;"><div class="modal-icon" style="animation: none;">⚠️</div><h2 style="color: #d32f2f; font-size: 20px;" class="translatable" data-en="Action Denied" data-hi="कार्रवाई अस्वीकृत">Action Denied</h2><p class="translatable" style="color: var(--text-main); font-weight: bold; margin-top: 10px;" data-en="I have approved my first terms and conditions, now I cannot do anything." data-hi="मैंने अपनी पहली नियम और शर्तें स्वीकार कर ली हैं, अब मैं कुछ नहीं कर सकता।">I have approved my first terms and conditions, now I cannot do anything.</p><button class="black-modal-btn translatable" style="background: #111;" onclick="document.getElementById('tcWarningModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button></div></div>
@@ -330,7 +339,46 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
 
 <div id="testingModeDisableModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #ff416c;"><div class="modal-icon" style="animation: none;">🛠️</div><h2 style="color: #ff416c;" class="translatable" data-en="Disable Testing Mode?" data-hi="टेस्टिंग मोड बंद करें?">Disable Testing Mode?</h2><p class="translatable" style="color: var(--text-main);" data-en="Are you sure you want to disable testing mode?" data-hi="क्या आप वाकई टेस्टिंग मोड बंद करना चाहते हैं?">Are you sure you want to disable testing mode?</p><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#ff416c; margin-top:0;" onclick="confirmDisableTestingMode()" data-en="Disable" data-hi="बंद करें">Disable</button></div></div></div>
-<div id="testingModePasswordModal" class="premium-modal-overlay"><div class="premium-modal" style="border-top: 5px solid #2196F3;"><div class="modal-icon" style="animation: none;">🔑</div><h2 style="color: #2196F3;" class="translatable" data-en="PASSWORD REQUIRED" data-hi="पासवर्ड आवश्यक है">PASSWORD REQUIRED</h2><input type="password" id="testingModePwdInput" class="translatable-ph" data-en="Enter Password..." data-hi="पासवर्ड दर्ज करें..." placeholder="Enter Password..." style="margin-top: 15px; text-align: center; font-size: 16px; letter-spacing: 2px;"><div style="display: flex; gap: 10px; margin-top: 15px;"><button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button><button class="modal-btn translatable" style="background:#2196F3; margin-top:0;" onclick="submitTestingPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button></div></div></div>
+
+<div id="testingModePasswordModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #2196F3;">
+    <div class="modal-icon" style="animation: none;">🔑</div>
+    <h2 style="color: #2196F3;" class="translatable" data-en="TESTING MODE PWD" data-hi="पासवर्ड आवश्यक है">TESTING MODE PWD</h2>
+    
+    <div class="digit-box-container" id="testingPwdContainer">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 20px;">
+      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="closeTestingModals()" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
+      <button class="modal-btn translatable" style="background:#2196F3; margin-top:0;" onclick="submitTestingPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button>
+    </div>
+  </div>
+</div>
+
+<div id="adminPasswordModal" class="premium-modal-overlay">
+  <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
+    <div class="modal-icon" style="animation: none;">🔐</div>
+    <h2 style="color: #d32f2f;" class="translatable" data-en="ADMIN LOGIN" data-hi="एडमिन लॉगिन">ADMIN LOGIN</h2>
+    
+    <div class="digit-box-container" id="adminPwdContainer">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+        <input type="number" class="digit-box">
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 20px;">
+      <button class="modal-btn translatable" style="background:#ddd; color:#333; margin-top:0;" onclick="document.getElementById('adminPasswordModal').style.display='none'" data-en="Cancel" data-hi="रद्द करें">Cancel</button>
+      <button class="modal-btn translatable" style="background:#d32f2f; margin-top:0;" onclick="submitAdminPassword()" data-en="Submit" data-hi="सबमिट करें">Submit</button>
+    </div>
+  </div>
+</div>
 
 <div class="top-sticky-bar" id="dashboardHeaderBox">
   <div class="dashboard-header">
@@ -348,7 +396,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <div class="marquee-wrapper" id="homeMarquee">
     <div class="marquee-text translatable" id="mainMarqueeText" 
          data-en="⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢" 
-         data-hi="⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 जब आप अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
+         data-hi="⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 🌐 ऐप डाउनलोड करने के लिए खाते में जाएं; यह सुरक्षित है, डाउनलोड होने में थोड़ा समय लगेगा। 🚨 याद रखें 🚨 प्रवासी श्रमिक, जो अपनी लाइव लोकेशन और पता बदलते हैं, तो लॉगिन विवरण में नया स्थान जोड़ें | शादियों, पार्टी और अन्य कार्यों के लिए हमसे संपर्क करें +91 94168 45322 🎂 🟢">
       ⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 🌐 GO TO THE ACCOUNT TO DOWNLOAD THE APP; IT IS SAFE, IT WILL TAKE A LITTLE TIME TO DOWNLOAD. 🚨 REMEMBER 🚨 WHEN YOU CHANGE YOUR LIVE LOCATION AND ADDRESS, ADD THE NEW LOCATION TO THE LOGIN DETAILS | CONTACT US FOR WEDDINGS, PARTY AND OTHER FUNCTIONS +91 94168 45322 🎂 🟢
     </div>
   </div>
@@ -398,6 +446,11 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   
   <div class="account-list-container" style="padding: 0;">
     
+    <div id="adminControlsSection" style="display: none;">
+        <div class="account-category-header translatable" data-en="👑 Admin Controls" data-hi="👑 एडमिन कंट्रोल्स">👑 Admin Controls</div>
+        <a onclick="attemptAdminAccess()" style="color: #d32f2f; font-weight: bold;" class="translatable" data-en="⚙️ Admin Panel" data-hi="⚙️ एडमिन पैनल">⚙️ Admin Panel</a>
+    </div>
+
     <div class="account-category-header translatable" data-en="👤 Account" data-hi="👤 खाता">👤 Account</div>
     <a onclick="showLogin()" class="translatable" data-en="🔑 Login" data-hi="🔑 लॉगिन">🔑 Login</a>
     <a onclick="showHistory()" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</a>
@@ -410,7 +463,6 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     <div class="account-category-header translatable" data-en="📞 Support" data-hi="📞 सहायता">📞 Support</div>
     <a onclick="showContactScreen()" class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</a>
     <a onclick="showReportPage()" style="color: #d32f2f;" class="translatable" data-en="🚨 Your Report" data-hi="🚨 आपकी रिपोर्ट">🚨 Your Report</a>
-    
     <a onclick="showFunctionsGuidePage()" style="color: #ff4b2b; font-weight: bold;" class="translatable" data-en="⭐ Functions Guide (Premium)" data-hi="⭐ फंक्शन्स गाइड">⭐ Functions Guide (Premium)</a>
 
     <div class="account-category-header translatable" data-en="⭐ Community" data-hi="⭐ समुदाय">⭐ Community</div>
@@ -427,6 +479,19 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
 
   <button class="back-btn-solid translatable" onclick="uiBack('menu')" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+</div>
+
+<div class="detail" id="adminPage" style="padding: 15px;">
+  <h2 style="text-align: center; color: #d32f2f;" class="translatable" data-en="⚙️ Admin Panel" data-hi="⚙️ एडमिन पैनल">⚙️ Admin Panel</h2>
+  
+  <div class="premium-account" style="border-top: 4px solid #d32f2f; text-align: left; padding: 20px;">
+      <h3 style="margin-top:0; color: var(--text-main);" class="translatable" data-en="Shop Status Control" data-hi="शॉप स्टेटस कंट्रोल">Shop Status Control</h3>
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;" class="translatable" data-en="Manually override the shop status. If closed manually, the shop will remain closed regardless of the time (9 AM - 6 PM)." data-hi="शॉप के स्टेटस को मैन्युअली कंट्रोल करें। अगर मैन्युअली बंद किया गया, तो शॉप समय (9 AM - 6 PM) की परवाह किए बिना बंद रहेगी।">Manually override the shop status. If closed manually, the shop will remain closed regardless of the time (9 AM - 6 PM).</p>
+      
+      <button id="adminShopToggleBtn" onclick="toggleManualShopStatus()" class="premium-btn" style="background: #d32f2f; margin-bottom: 10px;">CLOSE SHOP NOW</button>
+  </div>
+  
+  <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
 
 <div class="detail" id="functionsGuidePage" style="padding: 15px;">
@@ -704,12 +769,30 @@ let isDarkMode = false;
 let reviewToDelete = null;
 let isForcedTcMode = false; 
 
+// 🌟 CHECK ADMIN VISIBILITY 🌟
+function checkAdminVisibility() {
+    let adminSection = document.getElementById("adminControlsSection");
+    if(adminSection) {
+        let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+        if (user && (user.phone === "7988300872" || user.phone === "9416845322")) {
+            adminSection.style.display = "block";
+        } else {
+            adminSection.style.display = "none";
+        }
+    }
+}
+
 // 🌟 OS DETECTION FOR MANAGE DEVICE 🌟
 function getDeviceName() {
     let ua = navigator.userAgent;
     if (/Android/i.test(ua)) {
-        let match = ua.match(/Android.*?; (.*?) Build/);
-        return match ? match[1] : "Android Device";
+        let match = ua.match(/Android[^;]*; ([^;]+) Build/i);
+        if (match && match[1]) {
+            let model = match[1].trim();
+            if(model.includes(";")) model = model.split(";").pop().trim();
+            return model;
+        }
+        return "Android Device";
     } else if (/iPhone/i.test(ua)) return "Apple iPhone";
     else if (/iPad/i.test(ua)) return "Apple iPad";
     else if (/Windows/i.test(ua)) return "Windows PC";
@@ -754,6 +837,7 @@ window.addEventListener('popstate', function(event) {
     else if (page === 'topCustomers') showTopCustomers(true);
     else if (page === 'report') showReportPage(true);
     else if (page === 'functionsGuide') showFunctionsGuidePage(true);
+    else if (page === 'adminPage') showAdminPage(true);
     else if (page.startsWith('detail_')) {
         hideAll(); document.getElementById("detail").style.display="block";
     }
@@ -779,14 +863,23 @@ function uiBack(fallback) {
 // 🌟 DYNAMIC GREETING & SHOP BADGE LOGIC 🌟
 function updateGreeting() {
   let hour = new Date().getHours();
+  let manualClose = localStorage.getItem("khalsaShopManualClose") === "true";
+  let isTimeValid = (hour >= 9 && hour < 18);
+  let isShopOpen = isTimeValid && !manualClose;
+  
   let greetEn = ""; let greetHi = "";
   
-  if (hour >= 5 && hour < 12) { 
-      greetEn = "🌤️ Good Morning"; greetHi = "🌤️ शुभ प्रभात"; 
-  } else if (hour >= 12 && hour < 18) { 
-      greetEn = "🌆 Good Evening"; greetHi = "🌆 शुभ संध्या"; 
-  } else { 
-      greetEn = "🚫 SHOP WAS CLOSED NOW"; greetHi = "🚫 दुकान अब बंद है"; 
+  if (isShopOpen) {
+      if (hour >= 5 && hour < 12) { 
+          greetEn = "🌤️ Good Morning"; greetHi = "🌤️ शुभ प्रभात"; 
+      } else if (hour >= 12 && hour < 17) { 
+          greetEn = "☀️ Good Afternoon"; greetHi = "☀️ शुभ दोपहर"; 
+      } else { 
+          greetEn = "🌆 Good Evening"; greetHi = "🌆 शुभ संध्या"; 
+      }
+  } else {
+      greetEn = "<span style='color:#d32f2f; font-size:16px;'>🚫 SHOP WAS CLOSED NOW</span>"; 
+      greetHi = "<span style='color:#d32f2f; font-size:16px;'>🚫 दुकान अब बंद है</span>"; 
   }
   
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
@@ -796,23 +889,82 @@ function updateGreeting() {
   let el = document.getElementById("dynamicGreeting");
   if(el) {
     if(nameEn !== "") {
-        el.setAttribute("data-en", `Hello ${nameEn},<br>${greetEn}!`);
-        el.setAttribute("data-hi", `नमस्ते ${nameHi},<br>${greetHi}!`);
+        el.setAttribute("data-en", `Hello ${nameEn},<br>${greetEn}`);
+        el.setAttribute("data-hi", `नमस्ते ${nameHi},<br>${greetHi}`);
     } else {
-        el.setAttribute("data-en", `Hello,<br>${greetEn}!`);
-        el.setAttribute("data-hi", `नमस्ते,<br>${greetHi}!`);
+        el.setAttribute("data-en", `Hello,<br>${greetEn}`);
+        el.setAttribute("data-hi", `नमस्ते,<br>${greetHi}`);
     }
     el.innerHTML = isHindiLanguage ? el.getAttribute("data-hi") : el.getAttribute("data-en");
   }
 
   let shopBadge = document.getElementById("shopStatusBadge");
   if(shopBadge) {
-      if (hour >= 9 && hour < 18) {
+      if (isShopOpen) {
           shopBadge.style.display = "block";
       } else {
           shopBadge.style.display = "none";
       }
   }
+}
+
+// 🌟 ADMIN CONTROLS LOGIC 🌟
+function attemptAdminAccess() {
+    let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+    if (!user || (user.phone !== "7988300872" && user.phone !== "9416845322")) {
+        showError(isHindiLanguage ? "केवल एडमिन को अनुमति है 🚫" : "Only Admins are allowed 🚫");
+        return;
+    }
+    
+    document.querySelectorAll('#adminPwdContainer .digit-box').forEach(b => b.value = "");
+    document.getElementById("adminPasswordModal").style.display = "flex";
+    setTimeout(() => document.querySelector('#adminPwdContainer .digit-box').focus(), 100);
+}
+
+function submitAdminPassword() {
+    let boxes = document.querySelectorAll('#adminPwdContainer .digit-box');
+    let pwd = Array.from(boxes).map(b => b.value).join('');
+    if (pwd === "125042") {
+        document.getElementById("adminPasswordModal").style.display = "none";
+        showAdminPage();
+    } else {
+        showError(isHindiLanguage ? "गलत पासवर्ड ❌" : "Wrong Password ❌");
+        boxes.forEach(b => b.value = "");
+        boxes[0].focus();
+    }
+}
+
+function showAdminPage(fromPop = false) {
+    hideAll();
+    document.getElementById("adminPage").style.display = "block";
+    if(!fromPop) pushNavState('adminPage');
+    updateAdminUI();
+}
+
+function updateAdminUI() {
+    let isManualClosed = localStorage.getItem("khalsaShopManualClose") === "true";
+    let btn = document.getElementById("adminShopToggleBtn");
+    
+    if (isManualClosed) {
+        btn.innerText = isHindiLanguage ? "SHOP OPEN KAREN" : "OPEN SHOP NOW";
+        btn.style.background = "#00c853";
+    } else {
+        btn.innerText = isHindiLanguage ? "SHOP CLOSE KAREN" : "CLOSE SHOP NOW";
+        btn.style.background = "#d32f2f";
+    }
+}
+
+function toggleManualShopStatus() {
+    let isManualClosed = localStorage.getItem("khalsaShopManualClose") === "true";
+    if (isManualClosed) {
+        localStorage.setItem("khalsaShopManualClose", "false");
+        showSuccessMsg(isHindiLanguage ? "दुकान खुल गई ✅" : "Shop Opened Successfully ✅");
+    } else {
+        localStorage.setItem("khalsaShopManualClose", "true");
+        showError(isHindiLanguage ? "दुकान मैन्युअली बंद की गई 🚫" : "Shop Closed Manually 🚫");
+    }
+    updateAdminUI();
+    updateGreeting(); 
 }
 
 // 🌟 ONBOARDING FUNCTIONS 🌟
@@ -824,9 +976,14 @@ function goToTermsStep() {
   if(name === "" || phone === "" || email === "") { showError("⚠️ Please fill Name, Phone and Email"); return; }
   if (!/^\d{10}$/.test(phone)) { showError("⚠️ Phone number must be exactly 10 digits!"); return; }
   
-  let currentDevice = navigator.userAgent;
+  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+  if (!currentDeviceId) {
+      currentDeviceId = "DEV_" + Date.now();
+      localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
+  }
+  
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  if (regUsers[phone] && regUsers[phone].device !== currentDevice) {
+  if (regUsers[phone] && regUsers[phone].deviceId && regUsers[phone].deviceId !== currentDeviceId) {
       showError("THIS NUMBER ALREADY REGISTER"); 
       return;
   }
@@ -872,6 +1029,7 @@ function finishOnboarding() {
   document.getElementById("onboardingOverlay").style.display = "none";
   showSuccessMsg("Welcome to Khalsa Shop!");
   updateGreeting(); 
+  checkAdminVisibility();
   back(false);
 }
 
@@ -949,9 +1107,33 @@ document.getElementById("reviewText").addEventListener("input", function() {
   document.getElementById("itemReviewWarning").style.display = result.isBad ? "block" : "none";
 });
 
+// 🌟 DIGIT BOX AUTO-FOCUS LOGIC 🌟
+function setupDigitBoxes(containerId) {
+    let boxes = document.querySelectorAll(`#${containerId} .digit-box`);
+    boxes.forEach((box, index) => {
+        box.addEventListener('input', function() {
+            if (this.value.length > 1) {
+                this.value = this.value.slice(0, 1);
+            }
+            if (this.value !== "" && index < boxes.length - 1) {
+                boxes[index + 1].focus();
+            }
+        });
+        box.addEventListener('keydown', function(e) {
+            if (e.key === "Backspace" && this.value === "" && index > 0) {
+                boxes[index - 1].focus();
+            }
+        });
+    });
+}
+
 window.onload = function() {
   history.replaceState({ page: 'menu' }, "", "#menu");
   
+  setupDigitBoxes('testingPwdContainer');
+  setupDigitBoxes('adminPwdContainer');
+  
+  checkAdminVisibility();
   updateGreeting();
   updateHeadlineBanner(); 
   setInterval(updateHeadlineBanner, 60000); 
@@ -1013,8 +1195,9 @@ function toggleTestingModePrompt() {
   if(isTestingMode()) {
     document.getElementById("testingModeDisableModal").style.display = "flex";
   } else {
-    document.getElementById("testingModePwdInput").value = "";
+    document.querySelectorAll('#testingPwdContainer .digit-box').forEach(b => b.value = "");
     document.getElementById("testingModePasswordModal").style.display = "flex";
+    setTimeout(() => document.querySelector('#testingPwdContainer .digit-box').focus(), 100);
   }
 }
 
@@ -1031,15 +1214,18 @@ function confirmDisableTestingMode() {
 }
 
 function submitTestingPassword() {
-  let pwd = document.getElementById("testingModePwdInput").value;
+  let boxes = document.querySelectorAll('#testingPwdContainer .digit-box');
+  let pwd = Array.from(boxes).map(b => b.value).join('');
+  
   if(pwd === "0276") {
     localStorage.setItem("testingMode", "true");
     showSuccessMsg(isHindiLanguage ? "टेस्टिंग मोड चालू ✅" : "Testing Mode Activated ✅");
     updateTestingModeUI();
     closeTestingModals();
-  } else if (pwd.trim() !== "") {
+  } else {
     showError(isHindiLanguage ? "गलत पासवर्ड ❌" : "Wrong Password ❌");
-    document.getElementById("testingModePwdInput").value = "";
+    boxes.forEach(b => b.value = "");
+    boxes[0].focus();
   }
 }
 
@@ -1072,12 +1258,12 @@ async function updateHeadlineBanner() {
         uniqueCustomers.sort((a, b) => b.totalSpent - a.totalSpent);
         let topNames = uniqueCustomers.slice(0, 5).map(c => c.userName).join(" ⭐ ");
 
-        let textEn = "⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 👑 TOP 5 HIGHEST BUYING CUSTOMERS 👑 — " + topNames;
-        let textHi = "⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 👑 टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
+        let textEn = "⏰ SHOP OPEN AND CLOSED TIME IS 9 AM TO 6 PM | 👑 TOP 5 HIGHEST BUYING CUSTOMERS OF THE MONTH 👑 — " + topNames;
+        let textHi = "⏰ दुकान खुलने और बंद होने का समय सुबह 9 बजे से शाम 6 बजे तक है | 👑 इस महीने के टॉप 5 सबसे ज्यादा खरीदने वाले ग्राहक 👑 — " + topNames;
         marqueeEl.setAttribute("data-en", textEn);
         marqueeEl.setAttribute("data-hi", textHi);
         marqueeEl.innerText = isHindiLanguage ? textHi : textEn;
-        return; 
+        return; // Exits to prevent it from resetting to default
       }
     } catch (e) { console.log("Error fetching headline", e); }
   }
@@ -1091,6 +1277,7 @@ function toggleLanguage() {
   updateTestingModeUI();
   updateLanguageUI();
   updateGreeting();
+  updateAdminUI(); 
   if(isHindiLanguage) { showSuccessMsg("🌐 Language set to Hindi"); } else { showSuccessMsg("🌐 Language set to English"); }
 }
 
@@ -1104,7 +1291,7 @@ function updateLanguageUI() {
     loadReviews(); 
   }
   if(document.getElementById("cart").style.display === "block") { showCart(true); } 
-  if(document.getElementById("manageDevicePage").style.display === "block") { showManageDevicePage(true); }
+  
   updateHeadlineBanner(); 
 }
 
@@ -1250,6 +1437,10 @@ function showManageDevicePage(fromPop = false) {
 
   devices.forEach(d => {
       let isCurrent = (d.id === currentDeviceId);
+      
+      let outEn = "Log Out";
+      let outHi = "लॉग आउट";
+      
       let cardHtml = `
       <div class="device-card">
           <div class="device-header">
@@ -1260,14 +1451,15 @@ function showManageDevicePage(fromPop = false) {
                   <h4 class="device-name">${d.name}</h4>
                   <p class="device-meta" style="margin-bottom: 2px;">Last used on ${d.lastUsed}</p>
               </div>
-              <button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="Log Out" data-hi="लॉग आउट">Log Out</button>
+              <button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="${outEn}" data-hi="${outHi}">${isHindiLanguage ? outHi : outEn}</button>
           </div>
           <div class="device-divider"></div>
           <p class="device-meta" style="margin-left: 36px;">Registered on ${d.registered}</p>
       </div>`;
       
       if (isCurrent) {
-          thisDeviceHtml += `<h3 style="font-size: 18px; margin-top: 10px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="This device" data-hi="यह उपकरण">This device</h3>` + cardHtml;
+          let tEn = "This device"; let tHi = "यह उपकरण";
+          thisDeviceHtml += `<h3 style="font-size: 18px; margin-top: 10px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="${tEn}" data-hi="${tHi}">${isHindiLanguage ? tHi : tEn}</h3>` + cardHtml;
       } else {
           otherDevicesHtml += cardHtml;
       }
@@ -1275,7 +1467,8 @@ function showManageDevicePage(fromPop = false) {
 
   let fullHtml = thisDeviceHtml;
   if(otherDevicesHtml !== "") {
-      fullHtml += `<h3 style="font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="Other devices" data-hi="अन्य उपकरण">Other devices</h3>` + otherDevicesHtml;
+      let oEn = "Other devices"; let oHi = "अन्य उपकरण";
+      fullHtml += `<h3 style="font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="${oEn}" data-hi="${oHi}">${isHindiLanguage ? oHi : oEn}</h3>` + otherDevicesHtml;
   }
   
   if(devices.length === 0) {
@@ -1283,7 +1476,6 @@ function showManageDevicePage(fromPop = false) {
   }
 
   container.innerHTML = fullHtml;
-  updateLanguageUI(); 
 }
 
 function showAccountPage(fromPop = false) { hideAll(); document.getElementById("accountPage").style.display="block"; if(!fromPop) pushNavState('account'); }
@@ -1343,6 +1535,7 @@ function logoutUser() {
   
   showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
   updateGreeting();
+  checkAdminVisibility();
   
   document.getElementById("step2Terms").style.display = "none";
   document.getElementById("step1Login").style.display = "block";
@@ -1385,7 +1578,8 @@ function addToCart(){
   }
   
   let hour = new Date().getHours();
-  let isShopOpen = (hour >= 9 && hour < 18) || isTestingMode();
+  let manualClose = localStorage.getItem("khalsaShopManualClose") === "true";
+  let isShopOpen = ((hour >= 9 && hour < 18) && !manualClose) || isTestingMode();
 
   if (!isShopOpen) {
       showCustomError("SHOP WAS CLOSED. ORDER WILL BE PROCESSED TOMORROW", 3500);
@@ -1512,15 +1706,20 @@ function processForm() {
     return;
   }
 
-  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  let currentDevice = navigator.userAgent;
+  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+  if (!currentDeviceId) {
+      currentDeviceId = "DEV_" + Date.now();
+      localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
+  }
 
-  if (regUsers[phoneInput] && regUsers[phoneInput].device !== currentDevice) {
-    showCustomError("THIS NUMBER IS ALREADY REGISTER CHOOSE ANOTHER NUMBER", 2000); 
+  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
+
+  if (regUsers[phoneInput] && regUsers[phoneInput].deviceId && regUsers[phoneInput].deviceId !== currentDeviceId) {
+    showCustomError("THIS NUMBER ALREADY REGISTER", 3000); 
     return;
   }
 
-  regUsers[phoneInput] = { name: nameInput, device: currentDevice };
+  regUsers[phoneInput] = { name: nameInput, deviceId: currentDeviceId };
   localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
   
   localStorage.setItem("khalsaUserData", JSON.stringify({ 
@@ -1531,6 +1730,7 @@ function processForm() {
 
   lockInputs();
   updateGreeting();
+  checkAdminVisibility();
   
   if (localStorage.getItem("termsAccepted") !== "true") {
       isForcedTcMode = true; 
@@ -1587,7 +1787,8 @@ function placeDirectOrder(){
   if(cartData.length === 0){ showError("⚠️ Cart is empty!"); return; }
   
   let hour = new Date().getHours();
-  if ((hour < 9 || hour >= 18) && !isTestingMode()) {
+  let manualClose = localStorage.getItem("khalsaShopManualClose") === "true";
+  if (!((hour >= 9 && hour < 18) && !manualClose) && !isTestingMode()) {
       showCustomError("SHOP IS CLOSED NOW. ORDERS CAN BE PLACED BETWEEN 9 AM AND 6 PM.", 4000);
       return;
   }
@@ -1642,6 +1843,7 @@ function hideAll() {
   document.getElementById("manageDevicePage").style.display="none";
   document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
   document.getElementById("functionsGuidePage").style.display="none";
+  document.getElementById("adminPage").style.display="none";
   
   document.getElementById("dashboardHeaderBox").style.display="none";
   document.getElementById("categoryTitleBox").style.display="none";
