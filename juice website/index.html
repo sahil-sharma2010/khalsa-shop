@@ -63,7 +63,6 @@ input[type=number] {
 .input-group input { flex-grow: 1; padding: 15px; background: transparent; border: none; color: white; outline: none; font-size: 16px; font-family: sans-serif;}
 .input-group input::placeholder { color: #888; }
 
-/* 🌟 NEW OTP BUTTON ANIMATION 🌟 */
 .send-otp-btn {
   background: transparent; color: #ff416c; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.1s;
 }
@@ -361,6 +360,17 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <h2 id="loadingText" style="color: white; font-family: sans-serif; letter-spacing: 1px;" class="translatable" data-en="Loading..." data-hi="लोड हो रहा है...">Loading...</h2>
 </div>
 
+<div id="deviceLimitModal" class="premium-modal-overlay" style="z-index: 5000;">
+  <div class="premium-modal" style="border-top: 5px solid #ff9800;">
+    <div class="modal-icon" style="animation: none;">📱</div>
+    <h2 style="color: #ff9800;" class="translatable" data-en="DEVICE LIMIT REACHED" data-hi="डिवाइस सीमा पूरी हो गई">DEVICE LIMIT REACHED</h2>
+    <p class="highlight-text" style="font-size: 15px; line-height: 1.5; color: var(--text-main);" class="translatable" data-en="You can only log into a maximum of 2 devices with the same number. Please log out from another device first!" data-hi="आप एक ही नंबर से अधिकतम 2 डिवाइस में लॉग इन कर सकते हैं। कृपया पहले किसी अन्य डिवाइस से लॉग आउट करें!">
+      You can only log into a maximum of 2 devices with the same number. Please log out from another device first!
+    </p>
+    <button class="black-modal-btn translatable" onclick="document.getElementById('deviceLimitModal').style.display='none'" data-en="Okay" data-hi="ठीक है">Okay</button>
+  </div>
+</div>
+
 <div id="shopClosedModal" class="premium-modal-overlay">
   <div class="premium-modal" style="border-top: 5px solid #d32f2f;">
     <div class="modal-icon" style="animation: none;">🚫</div>
@@ -395,7 +405,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;"><div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;"><div class="modal-icon">📄</div><h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
 <div id="tcContentBox" class="translatable" style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 13px; line-height: 1.6; color: var(--text-muted);" 
      data-en="<ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>"
-     data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित হতে सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
+     data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित हो सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
      <ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>
 </div>
 <label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
@@ -690,15 +700,23 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
           <li>Enforces a strict 24-hour ban from placing orders to maintain app rules.</li>
       </ul>
 
-      <h3 class="translatable" data-en="8. OUR REVIEW ⭐" data-hi="8. हमारी समीक्षा ⭐" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">8. OUR REVIEW ⭐</h3>
-      <ul class="translatable" data-en="<li>A personal dashboard showing all the product reviews you have ever posted.</li><li>Easily keep track of the ratings and positive feedback you have shared.</li><li>Edit your past reviews if you change your mind about a specific product.</li><li>Delete any review you no longer want to be visible to the shopping community.</li>" data-hi="<li>एक व्यक्तिगत डैशबोर्ड जो आपके द्वारा पोस्ट की गई सभी उत्पाद समीक्षाओं को दिखाता है।</li><li>आपके द्वारा साझा की गई रेटिंग और सकारात्मक प्रतिक्रिया पर आसानी से नज़र रखें।</li><li>यदि आप किसी विशिष्ट उत्पाद के बारे value में अपना विचार बदलते हैं तो अपनी पिछली समीक्षाओं को संपादित करें।</li><li>कोई भी ऐसी समीक्षा हटाएं जिसे आप अब खरीदारी समुदाय को नहीं दिखाना चाहते।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+      <h3 class="translatable" data-en="8. COMPLAINTS 📝" data-hi="8. शिकायतें 📝" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">8. COMPLAINTS 📝</h3>
+      <ul class="translatable" data-en="<li>Submit direct complaints regarding products or services to our dedicated support team.</li><li>Your complaints are formatted securely and sent directly to the official admin email.</li><li>Helps in tracking the status of your queries and ensuring faster resolutions.</li><li>Dedicated to providing 100% customer satisfaction and quick problem-solving.</li>" data-hi="<li>उत्पादों या सेवाओं से संबंधित सीधी शिकायतें हमारी समर्पित सहायता टीम को जमा करें।</li><li>आपकी शिकायतें सुरक्षित रूप से स्वरूपित की जाती हैं और सीधे आधिकारिक व्यवस्थापक ईमेल पर भेजी जाती हैं।</li><li>आपके प्रश्नों की स्थिति को ट्रैक करने और तेजी से समाधान सुनिश्चित करने में मदद करता है।</li><li>100% ग्राहकों की संतुष्टि और त्वरित समस्या-समाधान प्रदान करने के लिए समर्पित।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Submit direct complaints regarding products or services to our dedicated support team.</li>
+          <li>Your complaints are formatted securely and sent directly to the official admin email.</li>
+          <li>Helps in tracking the status of your queries and ensuring faster resolutions.</li>
+          <li>Dedicated to providing 100% customer satisfaction and quick problem-solving.</li>
+      </ul>
+
+      <h3 class="translatable" data-en="9. OUR REVIEW ⭐" data-hi="9. हमारी समीक्षा ⭐" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">9. OUR REVIEW ⭐</h3>
+      <ul class="translatable" data-en="<li>A personal dashboard showing all the product reviews you have ever posted.</li><li>Easily keep track of the ratings and positive feedback you have shared.</li><li>Edit your past reviews if you change your mind about a specific product.</li><li>Delete any review you no longer want to be visible to the shopping community.</li>" data-hi="<li>एक व्यक्तिगत डैशबोर्ड जो आपके द्वारा पोस्ट की गई सभी उत्पाद समीक्षाओं को दिखाता है।</li><li>आपके द्वारा साझा की गई रेटिंग और सकारात्मक प्रतिक्रिया पर आसानी से नज़र रखें।</li><li>यदि आप किसी विशिष्ट उत्पाद के बारे में अपना विचार बदलते हैं तो अपनी पिछली समीक्षाओं को संपादित करें।</li><li>कोई भी ऐसी समीक्षा हटाएं जिसे आप अब खरीदारी समुदाय को नहीं दिखाना चाहते।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
           <li>A personal dashboard showing all the product reviews you have ever posted.</li>
           <li>Easily keep track of the ratings and positive feedback you have shared.</li>
           <li>Edit your past reviews if you change your mind about a specific product.</li>
           <li>Delete any review you no longer want to be visible to the shopping community.</li>
       </ul>
 
-      <h3 class="translatable" data-en="9. HIGHEST BUYING CUSTOMER 👑" data-hi="9. सबसे ज्यादा खरीदने वाले ग्राहक 👑" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">9. HIGHEST BUYING CUSTOMER 👑</h3>
+      <h3 class="translatable" data-en="10. HIGHEST BUYING CUSTOMER 👑" data-hi="10. सबसे ज्यादा खरीदने वाले ग्राहक 👑" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">10. HIGHEST BUYING CUSTOMER 👑</h3>
       <ul class="translatable" data-en="<li>A live, automatic leaderboard of our top 5 most loyal and active shoppers.</li><li>See exactly who has spent the most money overall on the Khalsa Shop platform.</li><li>Ranks update in real-time based purely on the total value of approved orders.</li><li>A fun and exciting way to recognize and appreciate our best community members.</li>" data-hi="<li>हमारे शीर्ष 5 सबसे वफादार और सक्रिय खरीदारों का एक लाइव, स्वचालित लीडरबोर्ड।</li><li>देखें कि खालसा शॉप प्लेटफॉर्म पर कुल मिलाकर सबसे अधिक पैसा किसने खर्च किया है।</li><li>अनुमोदित आदेशों के कुल मूल्य के आधार पर वास्तविक समय में रैंक अपडेट होती है।</li><li>हमारे सर्वश्रेष्ठ समुदाय के सदस्यों को पहचानने और उनकी सराहना करने का एक मजेदार और रोमांचक तरीका।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
           <li>A live, automatic leaderboard of our top 5 most loyal and active shoppers.</li>
           <li>See exactly who has spent the most money overall on the Khalsa Shop platform.</li>
@@ -706,7 +724,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
           <li>A fun and exciting way to recognize and appreciate our best community members.</li>
       </ul>
 
-      <h3 class="translatable" data-en="10. DEVELOPER DETAILS 👨‍💻" data-hi="10. डेवलपर विवरण 👨‍💻" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">10. DEVELOPER DETAILS 👨‍💻</h3>
+      <h3 class="translatable" data-en="11. DEVELOPER DETAILS 👨‍💻" data-hi="11. डेवलपर विवरण 👨‍💻" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">11. DEVELOPER DETAILS 👨‍💻</h3>
       <ul class="translatable" data-en="<li>Complete technical and creator information about the Khalsa Shop application.</li><li>View the professional bio and creative vision of the developer, Sahil Sharma.</li><li>Learn about the specific technologies used (HTML, CSS, JS) to build the app.</li><li>Find official developer contact information for reporting technical bugs.</li>" data-hi="<li>खालसा शॉप एप्लिकेशन के बारे में संपूर्ण तकनीकी और निर्माता जानकारी।</li><li>डेवलपर साहिल शर्मा का पेशेवर बायो और रचनात्मक दृष्टिकोण देखें।</li><li>ऐप बनाने के लिए उपयोग की जाने वाली विशिष्ट तकनीकों (HTML, CSS, JS) के बारे में जानें।</li><li>तकनीकी बग रिपोर्ट करने के लिए आधिकारिक डेवलपर संपर्क जानकारी प्राप्त करें।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
           <li>Complete technical and creator information about the Khalsa Shop application.</li>
           <li>View the professional bio and creative vision of the developer, Sahil Sharma.</li>
@@ -714,13 +732,13 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
           <li>Find official developer contact information for reporting technical bugs.</li>
       </ul>
 
-      <h3 class="translatable" data-en="11. TESTING MODE 🛠️" data-hi="11. टेस्टिंग मोड 🛠️" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">11. TESTING MODE 🛠️</h3>
+      <h3 class="translatable" data-en="12. TESTING MODE 🛠️" data-hi="12. टेस्टिंग मोड 🛠️" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">12. TESTING MODE 🛠️</h3>
       <ul style="font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
           <li class="translatable" data-en="THE DEVELOPER HAS KEPT THE TESTING MODE PRIVATE." data-hi="डेवलपर ने टेस्टिंग मोड को प्राइवेट रखा है।" style="color: red; font-weight: bold;">THE DEVELOPER HAS KEPT THE TESTING MODE PRIVATE.</li>
           <li class="translatable" data-en="Only authorized accounts can bypass limits." data-hi="केवल अधिकृत खाते ही सीमाओं को बायपास कर सकते हैं।" style="color: red; font-weight: bold;">Only authorized accounts can bypass limits.</li>
       </ul>
 
-      <h3 class="translatable" data-en="12. TERMS AND CONDITIONS 📄" data-hi="12. नियम और शर्तें 📄" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">12. TERMS AND CONDITIONS 📄</h3>
+      <h3 class="translatable" data-en="13. TERMS AND CONDITIONS 📄" data-hi="13. नियम और शर्तें 📄" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">13. TERMS AND CONDITIONS 📄</h3>
       <ul class="translatable" data-en="<li>The official rules, privacy guidelines, and policies for using the Khalsa Shop platform.</li><li>Explains our exact order confirmation processes and WhatsApp data handling.</li><li>Details all your customer rights, responsibilities, and strict cancellation rules.</li><li>You must read and voluntarily accept these terms to use the application securely.</li>" data-hi="<li>खालसा शॉप प्लेटफॉर्म का उपयोग करने के लिए आधिकारिक नियम, गोपनीयता दिशानिर्देश और नीतियां।</li><li>हमारी सटीक ऑर्डर पुष्टि प्रक्रियाओं और व्हाट्सएप डेटा हैंडलिंग की व्याख्या करता है।</li><li>आपके सभी ग्राहक अधिकारों, जिम्मेदारियों और सख्त रद्दीकरण नियमों का विवरण देता है।</li><li>एप्लिकेशन का सुरक्षित रूप से उपयोग करने के लिए आपको इन शर्तों को पढ़ना चाहिए और स्वेच्छा से स्वीकार करना चाहिए।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 10px;">
           <li>The official rules, privacy guidelines, and policies for using the Khalsa Shop platform.</li>
           <li>Explains our exact order confirmation processes and WhatsApp data handling.</li>
@@ -1362,7 +1380,7 @@ function registerDeviceSession(phone) {
 
   // MAX 2 DEVICES LIMIT LOGIC (POPUP FOR 3RD DEVICE)
   if (existingDeviceIndex === -1 && devices.length >= 2) {
-      showError(isHindiLanguage ? "⚠️ डिवाइस लिमिट पूरी हो गई! अधिकतम 2 डिवाइस।" : "⚠️ Device limit reached! Maximum 2 devices.");
+      document.getElementById("deviceLimitModal").style.display = "flex";
       return false; // Blocks the login
   }
 
@@ -1698,7 +1716,7 @@ function showManageDevicePage(fromPop = false) {
       if (isCurrent || amIPrimary) {
           logoutBtnHtml = `<button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="Log Out" data-hi="लॉग आउट">${isHindiLanguage ? "लॉग आउट" : "Log Out"}</button>`;
       } else {
-          logoutBtnHtml = `<span style="font-size: 12px; color: #888;">🔒 No Access</span>`;
+          logoutBtnHtml = `<span style="font-size: 12px; color: #888;" class="translatable" data-en="🔒 No Access" data-hi="🔒 नो एक्सेस">${isHindiLanguage ? "🔒 नो एक्सेस" : "🔒 No Access"}</span>`;
       }
 
       let cardHtml = `
