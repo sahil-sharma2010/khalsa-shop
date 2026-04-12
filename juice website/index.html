@@ -63,6 +63,14 @@ input[type=number] {
 .input-group input { flex-grow: 1; padding: 15px; background: transparent; border: none; color: white; outline: none; font-size: 16px; font-family: sans-serif;}
 .input-group input::placeholder { color: #888; }
 
+/* 🌟 NEW OTP BUTTON ANIMATION 🌟 */
+.send-otp-btn {
+  background: transparent; color: #ff416c; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.1s;
+}
+.send-otp-btn:active {
+  transform: scale(0.85); 
+}
+
 .premium-btn {
   background: linear-gradient(45deg, #ff4b2b, #ff416c);
   color: white; border: none; padding: 15px; width: 100%;
@@ -199,7 +207,6 @@ input[type=number] {
 .item img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 15px; border-radius: 10px; }
 .item h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text-main); }
 
-/* Sale Badge for Menu Pictures */
 .menu-sale-badge {
   position: absolute;
   top: 8px;
@@ -230,6 +237,9 @@ input[type=number] {
 .device-icon { color: #1e88e5; display: flex; align-items: center; justify-content: center; }
 .device-info { flex-grow: 1; text-align: left; }
 .device-name { font-weight: bold; font-size: 15px; color: var(--text-main); margin: 0 0 4px 0; }
+.device-role { font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
+.role-primary { background: rgba(255, 152, 0, 0.2); color: #ff9800; }
+.role-secondary { background: rgba(33, 150, 243, 0.2); color: #2196f3; }
 .device-meta { font-size: 12px; color: var(--text-muted); margin: 0; text-align: left;}
 .device-logout-btn { color: #1e88e5; background: none; border: none; font-weight: bold; font-size: 14px; cursor: pointer; padding: 0; outline: none;}
 .device-divider { border-top: 1px solid var(--border-color); margin: 10px 0; }
@@ -310,7 +320,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
      <div class="input-group" style="margin-bottom: 10px; display: flex;">
         <input type="email" id="onboardEmail" placeholder="Email Address" style="flex-grow: 1; border-right: 1px solid #444; border-radius: 0;">
-        <button type="button" onclick="sendOTP()" style="background: transparent; color: #ff416c; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.2s;">Send OTP</button>
+        <button type="button" class="send-otp-btn" onclick="sendOTP()">Send OTP</button>
      </div>
 
      <div class="input-group" id="otpGroup" style="display: none; margin-bottom: 10px;">
@@ -732,7 +742,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <div class="detail" id="manageDevicePage" style="padding: 15px; text-align: left;">
   <h2 style="color: #1e88e5; margin-bottom: 5px;" class="translatable" data-en="Manage Devices" data-hi="उपकरण प्रबंधित करें">Manage Devices</h2>
   <div id="deviceListContainer"></div>
-  <button class="logout-all-btn translatable" onclick="logoutAllDevices()" data-en="Log out from all devices" data-hi="सभी उपकरणों से लॉग आउट करें">Log out from all devices</button>
+  <button class="logout-all-btn translatable" onclick="logoutAllDevices()" data-en="Log out from all devices" data-hi="सभी उपकरणों से लॉग आउट करें" style="display:none;">Log out from all devices</button>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं" style="margin-top: 10px;">⬅ Back to Account</button>
 </div>
 
@@ -1280,13 +1290,16 @@ function verifyOTPAndContinue() {
         goToTermsStep(); 
     } else {
         otpAttempts++;
+        // 🌟 INVALID OTP ERROR ADDED 🌟
+        showError(isHindiLanguage ? "❌ अमान्य OTP (INVALID OTP)!" : "❌ INVALID OTP!");
+        
         if (otpAttempts >= MAX_ATTEMPTS) {
-            showError(isHindiLanguage ? "🚫 अधिकतम प्रयास पूरे हुए। कृपया OTP फिर से भेजें।" : "🚫 Maximum attempts reached. Please resend OTP.");
+            setTimeout(() => {
+                showError(isHindiLanguage ? "🚫 अधिकतम प्रयास पूरे हुए। OTP फिर से भेजें।" : "🚫 Maximum attempts reached. Resend OTP.");
+            }, 1500);
             document.getElementById("otpGroup").style.display = "none";
             document.getElementById("otpInput").value = "";
             generatedOTP = ""; 
-        } else {
-            showError(isHindiLanguage ? `❌ गलत OTP! ${MAX_ATTEMPTS - otpAttempts} प्रयास शेष।` : `❌ Incorrect OTP! ${MAX_ATTEMPTS - otpAttempts} attempts left.`);
         }
     }
 }
@@ -1294,12 +1307,8 @@ function verifyOTPAndContinue() {
 // 🌟 ONBOARDING FUNCTIONS (2 STEP PROCESS) 🌟
 function goToTermsStep() {
   let phone = document.getElementById("onboardPhone").value.trim();
-  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-  if (!currentDeviceId) {
-      currentDeviceId = "DEV_" + Date.now();
-      localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
-  }
-  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
+  
+  if (!registerDeviceSession(phone)) return; // Check limit BEFORE showing terms
   
   // HIDE STEP 1, SHOW STEP 2
   document.getElementById("step1Login").style.display = "none";
@@ -1324,9 +1333,9 @@ function finishOnboarding() {
       phone: phone, 
       email: document.getElementById("onboardEmail").value.trim() 
   };
+  
   localStorage.setItem("khalsaUserData", JSON.stringify(savedData));
   localStorage.setItem("termsAccepted", "true");
-  registerDeviceSession(savedData.phone);
   
   document.getElementById("l_name").value = savedData.name;
   document.getElementById("l_phone").value = savedData.phone;
@@ -1340,22 +1349,43 @@ function finishOnboarding() {
   back(false);
 }
 
+// 🌟 NEW DEVICE REGISTRATION LOGIC WITH PRIMARY DEVICE FEATURE 🌟
 function registerDeviceSession(phone) {
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
   if (!currentDeviceId) {
       currentDeviceId = "DEV_" + Date.now();
       localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
   }
+  
   let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + phone)) || [];
   let existingDeviceIndex = devices.findIndex(d => d.id === currentDeviceId);
+
+  // MAX 2 DEVICES LIMIT LOGIC (POPUP FOR 3RD DEVICE)
+  if (existingDeviceIndex === -1 && devices.length >= 2) {
+      showError(isHindiLanguage ? "⚠️ डिवाइस लिमिट पूरी हो गई! अधिकतम 2 डिवाइस।" : "⚠️ Device limit reached! Maximum 2 devices.");
+      return false; // Blocks the login
+  }
+
   let now = new Date();
   let dateStr = formatDeviceDate(now);
+
   if (existingDeviceIndex >= 0) {
       devices[existingDeviceIndex].lastUsed = dateStr;
   } else {
-      devices.push({ id: currentDeviceId, name: getDeviceName(), registered: dateStr, lastUsed: dateStr });
+      // If array is empty, this first device becomes Primary
+      let isPrimary = (devices.length === 0);
+      
+      devices.push({ 
+          id: currentDeviceId, 
+          name: getDeviceName(), 
+          registered: dateStr, 
+          lastUsed: dateStr, 
+          isPrimary: isPrimary 
+      });
   }
+  
   localStorage.setItem("khalsaDevices_" + phone, JSON.stringify(devices));
+  return true; // Login successful
 }
 
 function showLoading(tEn, tHi) { document.getElementById("loadingText").innerText = isHindiLanguage ? tHi : tEn; document.getElementById("loadingScreen").style.display = "flex"; }
@@ -1413,7 +1443,7 @@ window.onload = function() {
               let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
               let stillExists = devices.some(d => d.id === currentDeviceId);
               if (!stillExists) {
-                  alert(isHindiLanguage ? "आपके खाते को किसी अन्य उपकरण से लॉग आउट कर दिया गया है।" : "Your account was logged out from another device.");
+                  alert(isHindiLanguage ? "मालिक द्वारा इस डिवाइस को हटा दिया गया है।" : "This device was removed by the primary user.");
                   logoutUser(true);
               }
           }
@@ -1619,14 +1649,12 @@ function showReportPage(fromPop = false) {
   }
 }
 
-// 🌟 SHOW COMPLAINTS PAGE 🌟
 function showComplaintsPage(fromPop = false) {
     hideAll();
     document.getElementById("complaintsPage").style.display = "block";
     if(!fromPop) pushNavState('complaints');
 }
 
-// 🌟 SUBMIT COMPLAINT VIA EMAIL APP 🌟
 function submitComplaint() {
     let text = document.getElementById("complaintText").value.trim();
     if(text === "") {
@@ -1654,22 +1682,39 @@ function showManageDevicePage(fromPop = false) {
 
   let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+  
+  // Find current device context
+  let currentDevice = devices.find(d => d.id === currentDeviceId);
+  let amIPrimary = currentDevice ? currentDevice.isPrimary : false;
+
   let thisDeviceHtml = ""; let otherDevicesHtml = "";
 
   devices.forEach(d => {
       let isCurrent = (d.id === currentDeviceId);
+      let roleClass = d.isPrimary ? "role-primary" : "role-secondary";
+      let roleText = d.isPrimary ? "👑 Primary Device" : "📱 Secondary Device";
+      
+      let logoutBtnHtml = "";
+      if (isCurrent || amIPrimary) {
+          logoutBtnHtml = `<button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="Log Out" data-hi="लॉग आउट">${isHindiLanguage ? "लॉग आउट" : "Log Out"}</button>`;
+      } else {
+          logoutBtnHtml = `<span style="font-size: 12px; color: #888;">🔒 No Access</span>`;
+      }
+
       let cardHtml = `
       <div class="device-card">
           <div class="device-header">
               <div class="device-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
               <div class="device-info">
                   <h4 class="device-name">${d.name}</h4>
+                  <span class="device-role ${roleClass}">${roleText}</span>
                   <p class="device-meta" style="margin-bottom: 2px;">Last used on ${d.lastUsed}</p>
               </div>
-              <button class="device-logout-btn translatable" onclick="logoutSpecificDevice('${d.id}')" data-en="Log Out" data-hi="लॉग आउट">${isHindiLanguage ? "लॉग आउट" : "Log Out"}</button>
+              ${logoutBtnHtml}
           </div>
           <div class="device-divider"></div><p class="device-meta" style="margin-left: 36px;">Registered on ${d.registered}</p>
       </div>`;
+
       if (isCurrent) {
           let tEn = "This device"; let tHi = "यह उपकरण";
           thisDeviceHtml += `<h3 style="font-size: 18px; margin-top: 10px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="${tEn}" data-hi="${tHi}">${isHindiLanguage ? tHi : tEn}</h3>` + cardHtml;
@@ -1681,8 +1726,17 @@ function showManageDevicePage(fromPop = false) {
       let oEn = "Other devices"; let oHi = "अन्य उपकरण";
       fullHtml += `<h3 style="font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: var(--text-main);" class="translatable" data-en="${oEn}" data-hi="${oHi}">${isHindiLanguage ? oHi : oEn}</h3>` + otherDevicesHtml;
   }
+  
   if(devices.length === 0) fullHtml = `<p style="text-align:center; color:var(--text-muted);">${isHindiLanguage ? "कोई सक्रिय उपकरण नहीं मिला।" : "No active devices found."}</p>`;
   container.innerHTML = fullHtml;
+  
+  // Show "Logout from all" ONLY to the primary user
+  let logoutAllBtn = document.querySelector('.logout-all-btn');
+  if(amIPrimary && devices.length > 1) {
+      logoutAllBtn.style.display = "block";
+  } else {
+      logoutAllBtn.style.display = "none";
+  }
 }
 
 function showAccountPage(fromPop = false) { hideAll(); document.getElementById("accountPage").style.display="block"; if(!fromPop) pushNavState('account'); }
@@ -1701,41 +1755,76 @@ function enableEdit() {
 
 function logoutSpecificDevice(id) {
     let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-    if (id === currentDeviceId) { logoutUser(); } else {
+    if (id === currentDeviceId) { 
+        logoutUser(); 
+    } else {
         let user = JSON.parse(localStorage.getItem("khalsaUserData"));
         let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
         devices = devices.filter(d => d.id !== id);
         localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
-        showManageDevicePage(true); showSuccessMsg(isHindiLanguage ? "उपकरण सफलतापूर्वक लॉग आउट हो गया।" : "Device logged out successfully.");
+        showManageDevicePage(true); 
+        showSuccessMsg(isHindiLanguage ? "उपकरण सफलतापूर्वक लॉग आउट हो गया।" : "Device logged out successfully.");
     }
 }
 function logoutAllDevices() {
     let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-    if(user && user.phone) localStorage.removeItem("khalsaDevices_" + user.phone);
-    logoutUser();
+    let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+    if(user && user.phone) {
+        let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+        // Keep ONLY the current device
+        devices = devices.filter(d => d.id === currentDeviceId);
+        localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
+    }
+    showManageDevicePage(true);
+    showSuccessMsg(isHindiLanguage ? "सभी अन्य डिवाइस लॉग आउट हो गए।" : "All other devices logged out.");
 }
 
+// 🌟 REDIRECT TO LOGIN / ONBOARDING WHEN LOGGED OUT 🌟
 function logoutUser(isSilent = false) {
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
+  
   if(user && user.phone) {
       let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+      let myDevice = devices.find(d => d.id === currentDeviceId);
+      
       devices = devices.filter(d => d.id !== currentDeviceId);
+      
+      // If I was primary and there are still devices, give primary to the next one
+      if (myDevice && myDevice.isPrimary && devices.length > 0) {
+          devices[0].isPrimary = true;
+      }
       localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
   }
   
-  localStorage.removeItem("khalsaUserData"); localStorage.removeItem("termsAccepted"); localStorage.removeItem("khalsaCurrentDeviceId");
-  document.getElementById("onboardName").value = ""; document.getElementById("onboardPhone").value = ""; document.getElementById("onboardEmail").value = "";
+  localStorage.removeItem("khalsaUserData"); 
+  localStorage.removeItem("termsAccepted"); 
+  localStorage.removeItem("khalsaCurrentDeviceId");
+  
+  document.getElementById("onboardName").value = ""; 
+  document.getElementById("onboardPhone").value = ""; 
+  document.getElementById("onboardEmail").value = "";
   if(document.getElementById("onboardTcCheckbox")) document.getElementById("onboardTcCheckbox").checked = false;
   document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
-  document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
+  document.getElementById("editBtn").style.display = "none"; 
+  document.getElementById("saveBtn").style.display = "block";
   
   if(!isSilent) showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
-  updateGreeting(); checkAdminVisibility();
   
+  updateGreeting(); 
+  checkAdminVisibility();
+  
+  // REDIRECT TO STARTING PAGE (OVERLAY)
+  hideAll(); 
   document.getElementById("step2Terms").style.display = "none"; 
   document.getElementById("step1Login").style.display = "block";
-  hideAll(); document.getElementById("dashboardHeaderBox").style.display="block"; document.getElementById("categoryTitleBox").style.display="flex"; document.getElementById("menu").style.display="grid"; document.getElementById("onboardingOverlay").style.display = "flex"; 
+  
+  // Reset OTP fields
+  document.getElementById("otpGroup").style.display = "none";
+  document.getElementById("otpInput").value = "";
+  generatedOTP = "";
+  
+  document.getElementById("onboardingOverlay").style.display = "flex"; 
 }
 
 function isUserLoggedIn() {
@@ -1919,15 +2008,17 @@ function processForm() {
   if (liveLocInput === "" || liveLocInput.includes("Fetching") || liveLocInput.includes("प्राप्त")) { showError(isHindiLanguage ? "⚠️ कृपया पहले अपनी लाइव लोकेशन प्राप्त करें!" : "⚠️ Please get your Live Location first!"); return; }
   if (!/^\d{10}$/.test(phoneInput)) { showError(isHindiLanguage ? "⚠️ फोन नंबर 10 अंकों का होना चाहिए!" : "⚠️ Phone number must be exactly 10 digits!"); return; }
 
-  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-  if (!currentDeviceId) { currentDeviceId = "DEV_" + Date.now(); localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId); }
+  // 🌟 Enforce Max 2 Devices Limit on Login Form 🌟
+  if (!registerDeviceSession(phoneInput)) return; // Checks limit and sets primary/secondary
 
   let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
+  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
 
   regUsers[phoneInput] = { name: nameInput, deviceId: currentDeviceId };
   localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
   localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, pin: pinInput, email: emailInput }));
-  registerDeviceSession(phoneInput); lockInputs(); updateGreeting(); checkAdminVisibility();
+  
+  lockInputs(); updateGreeting(); checkAdminVisibility();
   
   if (localStorage.getItem("termsAccepted") !== "true") {
       isForcedTcMode = true; document.getElementById("termsModal").style.display = "flex";
