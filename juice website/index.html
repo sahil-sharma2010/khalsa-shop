@@ -34,10 +34,12 @@ body { margin:0; font-family:sans-serif; background:var(--bg-main); color:var(--
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
+  appearance: none;
   -webkit-appearance: none; 
   margin: 0; 
 }
 input[type=number] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
@@ -52,23 +54,18 @@ input[type=number] {
   box-shadow: 0 15px 35px rgba(0,0,0,0.8);
   border: 1px solid #333; color: white;
 }
-.premium-title {
-  background: linear-gradient(45deg, #ff4b2b, #ff416c);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  font-weight: 900; letter-spacing: 2px; margin: 0 0 10px 0; font-size: 28px;
-}
-.subtitle { color: #aaa; margin-bottom: 25px; font-size: 14px; letter-spacing: 1px; }
+
+/* Authentication Module Styles */
+.auth-view { display: none; }
+.auth-view.active { display: block; animation: fadeIn 0.3s ease; }
+.error-msg { color: #ff416c; font-size: 13px; font-weight: bold; margin-bottom: 10px; display: none; }
+.link-btn { background: transparent; border: none; color: #1e88e5; cursor: pointer; font-size: 13px; font-weight: bold; margin-top: 10px; }
+.auth-header { font-size: 22px; font-weight: 900; color: white; margin-bottom: 5px; }
+.auth-sub { color: #aaa; font-size: 13px; margin-bottom: 20px; }
 
 .input-group { display: flex; background: #2a2a2a; border-radius: 10px; overflow: hidden; border: 1px solid #444; }
 .input-group input { flex-grow: 1; padding: 15px; background: transparent; border: none; color: white; outline: none; font-size: 16px; font-family: sans-serif;}
 .input-group input::placeholder { color: #888; }
-
-.send-otp-btn {
-  background: transparent; color: #ff416c; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.1s;
-}
-.send-otp-btn:active {
-  transform: scale(0.85); 
-}
 
 .premium-btn {
   background: linear-gradient(45deg, #ff4b2b, #ff416c);
@@ -194,11 +191,11 @@ input[type=number] {
   color: var(--text-muted); text-transform: uppercase; font-weight: 900;
   border-bottom: 1px solid var(--border-color); letter-spacing: 1px;
 }
-.account-list-container a {
-  display: block; padding: 16px; border-bottom: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; font-size: 15px; transition: 0.2s; text-decoration: none;
+.account-list-container a, .account-list-container button.action-link {
+  display: block; width: 100%; text-align: left; background: none; border: none; padding: 16px; border-bottom: 1px solid var(--border-color); color: var(--text-main); cursor: pointer; font-size: 15px; transition: 0.2s; text-decoration: none; font-family: sans-serif;
 }
-.account-list-container a:active { background-color: rgba(111, 66, 193, 0.1); }
-.account-list-container a:last-child { border-bottom: none; }
+.account-list-container a:active, .account-list-container button.action-link:active { background-color: rgba(111, 66, 193, 0.1); }
+.account-list-container a:last-child, .account-list-container button.action-link:last-child { border-bottom: none; }
 
 .menu { display: grid; grid-template-columns: repeat(2,1fr); gap: 15px; padding: 15px; margin-top: 5px; }
 .item { position: relative; background: var(--bg-card); border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px var(--box-shadow); color: var(--text-main); border: 1px solid rgba(0,0,0,0.02); }
@@ -270,6 +267,7 @@ input[type=number] {
 
 @keyframes popUp { to { transform: scale(1); } }
 @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .loader-spinner { border: 6px solid rgba(255, 255, 255, 0.3); border-top: 6px solid #6f42c1; border-radius: 50%; width: 60px; height: 60px; animation: spin 0.8s linear infinite; margin-bottom: 15px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -305,44 +303,81 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 
 <body>
 
-<div id="onboardingOverlay" class="premium-dark-overlay">
-  <div id="step1Login" class="onboarding-card">
-     <h1 class="premium-title">LOGIN DETAILS</h1>
-     <p class="subtitle">KHALSA SHOP</p>
-     
-     <div class="input-group" style="margin-bottom: 10px;">
-        <input type="text" id="onboardName" placeholder="Full Name">
-     </div>
-     <div class="input-group" style="margin-bottom: 10px;">
-        <input type="number" id="onboardPhone" placeholder="Phone Number">
-     </div>
+<div id="authOverlay" class="premium-dark-overlay">
+  <div class="onboarding-card">
+    
+    <div id="viewLogin" class="auth-view active">
+      <div class="auth-header">WELCOME BACK</div>
+      <div class="auth-sub">Login to Khalsa Shop</div>
+      <div id="loginError" class="error-msg"></div>
+      <div class="input-group" style="margin-bottom: 10px;">
+        <input type="email" id="loginEmail" placeholder="Email Address">
+      </div>
+      <div class="input-group" style="margin-bottom: 15px;">
+        <input type="password" id="loginPassword" placeholder="Password">
+      </div>
+      <button onclick="handleLogin()" class="premium-btn">LOGIN</button>
+      <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+        <button onclick="switchAuthView('viewSignup')" class="link-btn">Create Account</button>
+        <button onclick="switchAuthView('viewForgot')" class="link-btn" style="color: #ff416c;">Forgot Password?</button>
+      </div>
+    </div>
 
-     <div class="input-group" style="margin-bottom: 10px; display: flex;">
-        <input type="email" id="onboardEmail" placeholder="Email Address" style="flex-grow: 1; border-right: 1px solid #444; border-radius: 0;">
-        <button type="button" class="send-otp-btn" onclick="sendOTP()">Send OTP</button>
-     </div>
+    <div id="viewSignup" class="auth-view">
+      <div class="auth-header">REGISTER</div>
+      <div class="auth-sub">Create your account</div>
+      <div id="signupError" class="error-msg"></div>
+      <div class="input-group" style="margin-bottom: 10px;">
+        <input type="text" id="signupName" placeholder="Full Name">
+      </div>
+      <div class="input-group" style="margin-bottom: 10px;">
+        <input type="number" id="signupPhone" placeholder="Phone Number (10 Digits)">
+      </div>
+      <div class="input-group" style="margin-bottom: 10px;">
+        <input type="email" id="signupEmail" placeholder="Email Address">
+      </div>
+      <div class="input-group" style="margin-bottom: 15px;">
+        <input type="password" id="signupPassword" placeholder="Create Password">
+      </div>
+      <button onclick="handleSignup()" class="premium-btn">VERIFY & REGISTER</button>
+      <button onclick="switchAuthView('viewLogin')" class="link-btn" style="width: 100%; margin-top: 15px;">Already have an account? Login</button>
+    </div>
 
-     <div class="input-group" id="otpGroup" style="display: none; margin-bottom: 10px;">
-        <input type="number" id="otpInput" placeholder="Enter 4-digit OTP" style="text-align: center; letter-spacing: 5px; font-size: 18px;">
-     </div>
+    <div id="viewOTP" class="auth-view">
+      <div class="auth-header">VERIFY OTP</div>
+      <div class="auth-sub" id="otpSubText">Enter the OTP sent to your email</div>
+      <div id="otpError" class="error-msg"></div>
+      <div class="input-group" style="margin-bottom: 15px;">
+        <input type="number" id="authOTP" placeholder="Enter 4-digit OTP" style="text-align: center; letter-spacing: 5px; font-size: 18px;">
+      </div>
+      <button onclick="verifyAuthOTP()" class="premium-btn">VERIFY</button>
+      <button onclick="switchAuthView('viewLogin')" class="link-btn" style="width: 100%; margin-top: 15px;">Cancel</button>
+    </div>
 
-     <button onclick="verifyOTPAndContinue()" class="premium-btn translatable" data-en="VERIFY & CONTINUE" data-hi="सत्यापित करें और आगे बढ़ें" style="margin-top: 20px;">VERIFY & CONTINUE</button>
-  </div>
+    <div id="viewForgot" class="auth-view">
+      <div class="auth-header">RESET PASSWORD</div>
+      <div class="auth-sub">Enter email to receive reset OTP</div>
+      <div id="forgotError" class="error-msg"></div>
+      <div class="input-group" style="margin-bottom: 15px;">
+        <input type="email" id="forgotEmail" placeholder="Registered Email">
+      </div>
+      <button onclick="handleForgotPass()" class="premium-btn">SEND OTP</button>
+      <button onclick="switchAuthView('viewLogin')" class="link-btn" style="width: 100%; margin-top: 15px;">Back to Login</button>
+    </div>
 
-  <div id="step2Terms" class="onboarding-card" style="display:none; text-align:left;">
-     <h1 class="premium-title" style="text-align:center; font-size:24px;">TERMS & CONDITIONS</h1>
-     <p class="subtitle" style="text-align:center;">KHALSA SHOP</p>
-     <div id="onboardTcContentBox" class="translatable" style="max-height: 150px; overflow-y: auto; font-size: 13px; color: #bbb; margin-bottom: 15px; padding-right: 5px; line-height: 1.6; border-bottom: 1px solid #333; padding-bottom: 10px;"
-        data-en="<ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>"
-        data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित हो सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
-        <ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>
-     </div>
-     <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; margin-bottom: 20px;">
-        <input type="checkbox" id="onboardTcCheckbox" style="min-width: 20px; min-height: 20px; accent-color: #ff416c; margin-top: 2px;">
-        <span style="font-size: 14px; font-weight: bold; color: #ddd;" class="translatable" data-en="I have read all terms and conditions, and I accept them." data-hi="मैंने सभी नियम और शर्तें पढ़ ली हैं, और मैं उन्हें स्वीकार करता हूँ।">I have read all terms and conditions, and I accept them.</span>
-     </label>
-     <button onclick="finishOnboarding()" class="premium-btn translatable" data-en="AGREE & ENTER" data-hi="सहमत हूँ और दर्ज करें">AGREE & ENTER</button>
-     <button onclick="backToLoginStep()" class="back-btn translatable" style="background: transparent; color: #888; box-shadow: none; margin-top: 10px; text-align:center;" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
+    <div id="viewResetPassword" class="auth-view">
+      <div class="auth-header">NEW PASSWORD</div>
+      <div class="auth-sub">Enter your new password</div>
+      <div id="resetPassError" class="error-msg"></div>
+      <div class="input-group" style="margin-bottom: 10px;">
+        <input type="password" id="resetPass1" placeholder="New Password">
+      </div>
+      <div class="input-group" style="margin-bottom: 15px;">
+        <input type="password" id="resetPass2" placeholder="Confirm Password">
+      </div>
+      <button onclick="saveResetPassword()" class="premium-btn">UPDATE PASSWORD</button>
+    </div>
+
   </div>
 </div>
 
@@ -405,7 +440,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 <div id="termsModal" class="premium-modal-overlay" style="z-index: 2500;"><div class="premium-modal" style="border-top: 5px solid #2196F3; width: 90%; max-width: 400px; padding: 25px 20px;"><div class="modal-icon">📄</div><h2 style="color: #2196F3;" class="translatable" data-en="Terms & Conditions" data-hi="नियम और शर्तें">Terms & Conditions</h2>
 <div id="tcContentBox" class="translatable" style="max-height: 200px; overflow-y: auto; text-align: justify; margin-bottom: 10px; padding-right: 5px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 13px; line-height: 1.6; color: var(--text-muted);" 
      data-en="<ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>"
-     data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित हो सकता है।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
+     data-hi="<ul style='margin:0; padding-left:15px;'><li>खालसा शॉप का उपयोग करके, आप हमारे सभी नियमों और शर्तों का पालन करने के लिए सहमत हैं।</li><li>ऑर्डर देते समय उपयोगकर्ताओं को सटीक और पूर्ण विवरण प्रदान करना होगा।</li><li>सभी ऑर्डर व्हाट्सएप के माध्यम से पुष्ट किए जाते हैं; गलत विवरण के कारण देरी या रद्दीकरण हो सकता है।</li><li>गलत उपयोगकर्ता जानकारी के कारण होने वाली समस्याओं के लिए हम जिम्मेदार नहीं हैं।</li><li>उत्पादों की कीमतें बिना किसी पूर्व सूचना के किसी भी समय बदल सकती हैं।</li><li>हम किसी भी संदिग्ध या अमान्य ऑर्डर को रद्द या अस्वीकार करने का अधिकार सुरक्षित रखते हैं।</li><li>नकली, अधूरे या डुप्लिकेट ऑर्डर स्वचालित रूप से अस्वीकार किए जा सकते हैं।</li><li>उपयोगकर्ताओं को अपना लॉगिन विवरण सुरक्षित रखना चाहिए; हम अनधिकृत पहुंच के लिए जिम्मेदार नहीं हैं।</li><li>ऑर्डर इतिहास और खाता डेटा केवल उपयोगकर्ता की सुविधा के लिए प्रदान किए जाते हैं।</li><li>डिवाइस प्रबंधन सुविधाओं का जिम्मेदारी से उपयोग किया जाना चाहिए; दुरुपयोग से खाता प्रतिबंधित মহাসकों को सुरक्षित रूप से हटा दें।</li><li>उपयोगकर्ताओं द्वारा प्रस्तुत समीक्षाएं वास्तविक और सम्मानजनक होनी चाहिए।</li><li>सबसे ज्यादा खरीदने वाले ग्राहक जैसी सुविधाएं सिस्टम डेटा पर आधारित हैं और बदल सकती हैं।</li><li>उपयोगकर्ता अपनी पसंद के अनुसार भाषा (हिंदी/अंग्रेजी) और थीम (डार्क/लाइट) बदल सकते हैं।</li><li>किसी भी समस्या के लिए, उपयोगकर्ता हमसे संपर्क करें अनुभाग के माध्यम से हमसे संपर्क कर सकते हैं या रिपोर्ट जमा कर सकते हैं।</li><li>हमारी सेवाओं का उपयोग जारी रखकर, आप इन शर्तों को पूरी तरह से स्वीकार करते हैं।</li></ul>">
      <ul style='margin:0; padding-left:15px;'><li>By using Khalsa Shop, you agree to comply with all our terms and conditions.</li><li>Users must provide accurate and complete details while placing orders.</li><li>All orders are confirmed through WhatsApp; incorrect details may cause delays or cancellation.</li><li>We are not responsible for issues caused due to wrong user information.</li><li>Prices of products may change at any time without prior notice.</li><li>We reserve the right to cancel or reject any suspicious or invalid order.</li><li>Fake, incomplete, or duplicate orders may be automatically rejected.</li><li>Users must keep their login details secure; we are not responsible for unauthorized access.</li><li>Order history and account data are provided for user convenience only.</li><li>Device management features should be used responsibly; misuse may lead to account restriction.</li><li>Reviews submitted by users must be genuine and respectful.</li><li>Features like highest buying customer are based on system data and may change.</li><li>Users can switch language (Hindi/English) and theme (dark/light) as per preference.</li><li>For any issues, users can contact us through the “Contact Us” section or submit reports.</li><li>By continuing to use our services, you fully accept these terms.</li></ul>
 </div>
 <label class="premium-checkbox-container"><input type="checkbox" id="tcCheckbox" style="min-width: 20px; min-height: 20px; margin-top: 2px; accent-color: #2196F3;" onchange="handleTcCheck()"><span style="font-size: 14px; font-weight: bold; color: var(--text-main);" class="translatable" data-en="I have read all your terms and conditions, and I voluntarily accept them." data-hi="मैंने आपके सभी नियम और शर्तें पढ़ ली हैं, और मैं स्वेच्छा से उन्हें स्वीकार करता हूँ।">I have read all your terms and conditions, and I voluntarily accept them.</span></label><button id="tcCloseBtn" class="black-modal-btn translatable" style="display:none; margin-top: 20px;" onclick="closeTerms()" data-en="⬅ Go Back" data-hi="⬅ वापस जाएं">⬅ Go Back</button></div></div>
@@ -528,10 +563,10 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
     </div>
 
     <div class="account-category-header translatable" data-en="👤 Account" data-hi="👤 खाता">👤 Account</div>
-    <a onclick="showLogin()" class="translatable" data-en="🔑 Login" data-hi="🔑 लॉगिन">🔑 Login</a>
+    <a onclick="showLogin()" class="translatable" data-en="🔑 Profile Details" data-hi="🔑 प्रोफाइल विवरण">🔑 Profile Details</a>
+    <a onclick="document.getElementById('changePasswordPage').style.display='block'; document.getElementById('accountPage').style.display='none';" class="translatable" data-en="🔐 Change Password" data-hi="🔐 पासवर्ड बदलें">🔐 Change Password</a>
     <a onclick="showHistory()" class="translatable" data-en="📜 Order History" data-hi="📜 ऑर्डर इतिहास">📜 Order History</a>
     <a onclick="showManageDevicePage()" class="translatable" data-en="📱 Manage Devices" data-hi="📱 उपकरण प्रबंधित करें">📱 Manage Devices</a>
-
     <div class="account-category-header translatable" data-en="⚙️ Settings" data-hi="⚙️ सेटिंग्स">⚙️ Settings</div>
     <a onclick="toggleLanguage()" class="translatable" data-en="🌐 Language (Hindi/English)" data-hi="🌐 भाषा (Hindi/English)">🌐 Language (Hindi/English)</a>
     <a onclick="toggleTheme()" class="translatable" data-en="🌙 Theme (Dark/Light)" data-hi="🌙 थीम (डार्क/लाइट)">🌙 Theme (Dark/Light)</a>
@@ -556,6 +591,16 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
 
   <button class="back-btn-solid translatable" onclick="goToHome()" data-en="⬅ Back to Menu" data-hi="⬅ मेनू पर वापस जाएं">⬅ Back to Menu</button>
+</div>
+
+<div class="detail" id="changePasswordPage" style="display:none; padding: 15px;">
+  <h2 style="text-align: center; color: #1e88e5;">🔐 Change Password</h2>
+  <div id="changePassError" class="error-msg" style="text-align:center;"></div>
+  <input type="password" id="cpCurrent" placeholder="Current Password">
+  <input type="password" id="cpNew1" placeholder="New Password">
+  <input type="password" id="cpNew2" placeholder="Confirm Password">
+  <button class="full-btn" onclick="handleChangePassword()" style="background:#1e88e5; color:white;">Update Password</button>
+  <button class="back-btn-solid" onclick="document.getElementById('changePasswordPage').style.display='none'; document.getElementById('accountPage').style.display='block';">⬅ Back</button>
 </div>
 
 <div class="detail" id="complaintsPage" style="padding: 15px;">
@@ -644,12 +689,12 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <h2 style="text-align: center; color: #ff4b2b; margin-bottom: 20px;" class="translatable" data-en="⭐ Functions Guide" data-hi="⭐ फंक्शन्स गाइड">⭐ Functions Guide</h2>
   <div class="premium-account" style="text-align: left; margin-bottom: 15px; border-top: 4px solid #ff4b2b; padding: 20px; line-height: 1.8;">
 
-      <h3 class="translatable" data-en="1. LOGIN 🔑" data-hi="1. लॉगिन 🔑" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">1. LOGIN 🔑</h3>
-      <ul class="translatable" data-en="<li>Securely save your delivery details for faster checkout.</li><li>No need to enter your address repeatedly for every order.</li><li>Automatically captures and links your accurate Live Location.</li><li>Protects your account with phone number and email verification.</li>" data-hi="<li>तेज़ चेकआउट के लिए अपनी डिलीवरी जानकारी सुरक्षित रूप से सेव करें।</li><li>हर ऑर्डर के लिए बार-बार पता डालने की आवश्यकता नहीं है।</li><li>स्वचालित रूप से आपकी सटीक लाइव लोकेशन कैप्चर और लिंक करता है।</li><li>फ़ोन नंबर और ईमेल सत्यापन के साथ आपके खाते की सुरक्षा करता है।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
-          <li>Securely save your delivery details for faster checkout.</li>
-          <li>No need to enter your address repeatedly for every order.</li>
-          <li>Automatically captures and links your accurate Live Location.</li>
-          <li>Protects your account with phone number and email verification.</li>
+      <h3 class="translatable" data-en="1. LOGIN & PASSWORD SAFETY 🔑" data-hi="1. लॉगिन और पासवर्ड सुरक्षा 🔑" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">1. LOGIN & PASSWORD SAFETY 🔑</h3>
+      <ul class="translatable" data-en="<li>Your account is secured with a personal password to prevent unauthorized access.</li><li>You must create a strong password during your first registration.</li><li>Every time you log in, your password and an OTP will be required.</li><li>If you forget your password, you can easily recover it using the Forgot Password option.</li>" data-hi="<li>अनाधिकृत पहुंच को रोकने के लिए आपका खाता एक व्यक्तिगत पासवर्ड से सुरक्षित है।</li><li>आपको अपने पहले पंजीकरण के दौरान एक मजबूत पासवर्ड बनाना होगा।</li><li>हर बार जब आप लॉग इन करते हैं, तो आपका पासवर्ड और एक ओटीपी आवश्यक होगा।</li><li>यदि आप अपना पासवर्ड भूल जाते हैं, तो आप 'पासवर्ड भूल गए' विकल्प का उपयोग करके इसे आसानी से पुनर्प्राप्त कर सकते हैं।</li>" style="color: var(--text-muted); font-size: 14px; padding-left: 20px; margin-bottom: 25px;">
+          <li>Your account is secured with a personal password to prevent unauthorized access.</li>
+          <li>You must create a strong password during your first registration.</li>
+          <li>Every time you log in, your password and an OTP will be required.</li>
+          <li>If you forget your password, you can easily recover it using the Forgot Password option.</li>
       </ul>
 
       <h3 class="translatable" data-en="2. ORDER HISTORY 📜" data-hi="2. ऑर्डर इतिहास 📜" style="color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">2. ORDER HISTORY 📜</h3>
@@ -800,7 +845,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   <h2 class="translatable" data-en="📞 Contact Us" data-hi="📞 हमसे संपर्क करें">📞 Contact Us</h2>
   <div class="contact-card">
     <p>👤 <strong class="translatable" data-en="Name:" data-hi="नाम:">Name:</strong> SURESH KUMAR</p>
-    <p>📧 <strong class="translatable" data-en="Email:" data-hi="ईमेल:">Email:</strong> <a href="mailto:sureshkumar803@gmail.com" style="color: #2196F3;">sureshkumar803@gmail.com</a></p>
+    <p>📧 <strong class="translatable" data-en="Email:" data-hi="ईमेल:">Email:</strong> <a href="mailto:XYZ@gmail.com" style="color: #2196F3;">XYZ@gmail.com</a></p>
   </div>
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back" data-hi="⬅ पीछे">⬅ Back</button>
 </div>
@@ -865,7 +910,7 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
 </div>
 
 <div class="detail" id="loginForm">
-  <h2 style="text-align: center; font-weight: 900; letter-spacing: 1px;" class="translatable" data-en="👤 LOGIN DETAILS" data-hi="👤 लॉगिन विवरण">👤 LOGIN DETAILS</h2>
+  <h2 style="text-align: center; font-weight: 900; letter-spacing: 1px;" class="translatable" data-en="👤 PROFILE DETAILS" data-hi="👤 प्रोफाइल विवरण">👤 PROFILE DETAILS</h2>
   
   <input type="text" id="l_name" class="translatable-ph" data-en="Name (Required)" data-hi="नाम (आवश्यक)" placeholder="Name (Required)">
   <input type="number" id="l_phone" class="translatable-ph" data-en="Phone Number (10 digits only)" data-hi="फ़ोन नंबर (केवल 10 अंक)" placeholder="Phone Number (10 digits only)">
@@ -877,10 +922,10 @@ input[readonly], textarea[readonly] {background: rgba(136,136,136,0.1); color: v
   </div>
 
   <input type="number" id="l_pin" class="translatable-ph" data-en="Pincode (Required)" data-hi="पिनकोड (आवश्यक)" placeholder="Pincode (Required)">
-  <input type="email" id="l_email" class="translatable-ph" data-en="Gmail (Required)" data-hi="जीमेल (आवश्यक)" placeholder="Gmail (Required)">
+  <input type="email" id="l_email" class="translatable-ph" data-en="Gmail (Required)" data-hi="जीमेल (आवश्यक)" placeholder="Gmail (Required)" readonly>
 
   <button class="full-btn translatable" id="editBtn" onclick="enableEdit()" style="background:#ff9800; color:white; display:none; margin-bottom:10px;" data-en="✏️ Edit Details" data-hi="✏️ विवरण संपादित करें">✏️ Edit Details</button>
-  <button class="full-btn translatable" id="saveBtn" onclick="processForm()" style="background:#00c853; color:white;" data-en="Login & Save" data-hi="लॉगिन और सहेजें">Login & Save</button>
+  <button class="full-btn translatable" id="saveBtn" onclick="processForm()" style="background:#00c853; color:white;" data-en="Save Profile" data-hi="प्रोफाइल सहेजें">Save Profile</button>
   
   <button class="back-btn-solid translatable" onclick="uiBack('account')" data-en="⬅ Back to Account" data-hi="⬅ खाते में वापस जाएं">⬅ Back to Account</button>
 </div>
@@ -905,6 +950,260 @@ let isHindiLanguage = false;
 let isDarkMode = false;
 let reviewToDelete = null;
 let isForcedTcMode = false; 
+
+// 🌟 AUTHENTICATION SYSTEM 🌟
+// UPDATED: Added phone and password to AUTH_STATE
+const AUTH_STATE = { email: '', name: '', phone: '', password: '', purpose: '' }; 
+
+function switchAuthView(viewId) {
+  document.querySelectorAll('.auth-view').forEach(v => v.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  document.querySelectorAll('.error-msg').forEach(e => e.style.display = 'none');
+}
+
+function showAuthError(id, msg) {
+  let el = document.getElementById(id);
+  el.innerText = msg;
+  el.style.display = 'block';
+}
+
+function getAuthUsers() {
+  return JSON.parse(localStorage.getItem('khalsaAuthUsers')) || {};
+}
+
+function saveAuthUsers(users) {
+  localStorage.setItem('khalsaAuthUsers', JSON.stringify(users));
+}
+
+function handleSignup() {
+  let name = document.getElementById('signupName').value.trim();
+  let phone = document.getElementById('signupPhone').value.trim();
+  let email = document.getElementById('signupEmail').value.trim().toLowerCase();
+  let pass = document.getElementById('signupPassword').value;
+  
+  if (!name || !phone || !email || !pass) return showAuthError('signupError', 'Please fill all fields');
+  if (!/^\d{10}$/.test(phone)) return showAuthError('signupError', 'Phone must be exactly 10 digits');
+  if (pass.length < 4) return showAuthError('signupError', 'Password must be 4+ chars');
+  
+  let users = getAuthUsers();
+  if (users[email]) return showAuthError('signupError', 'Email is already registered');
+
+  AUTH_STATE.email = email;
+  AUTH_STATE.name = name;
+  AUTH_STATE.phone = phone;
+  AUTH_STATE.password = pass;
+  AUTH_STATE.purpose = 'signup';
+  sendEmailJS_OTP(email);
+}
+
+function handleForgotPass() {
+  let email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+  if (!email) return showAuthError('forgotError', 'Please enter your email');
+  
+  let users = getAuthUsers();
+  if (!users[email]) return showAuthError('forgotError', 'Email not found');
+
+  AUTH_STATE.email = email;
+  AUTH_STATE.purpose = 'forgot';
+  sendEmailJS_OTP(email);
+}
+
+function sendEmailJS_OTP(email) {
+  let otp = Math.floor(1000 + Math.random() * 9000).toString();
+  
+  sessionStorage.setItem('khalsa_otp_data', JSON.stringify({
+    otp: otp,
+    email: email,
+    expiresAt: Date.now() + (5 * 60 * 1000),
+    attempts: 0
+  }));
+
+  showLoading("Sending OTP...", "OTP भेजा जा रहा है...");
+  emailjs.send("service_zvy3re2", "template_tacgskq", { email: email, otp: otp }, "K6cs_matxXu2begVg")
+    .then(() => {
+      hideLoading();
+      document.getElementById('otpSubText').innerText = `Sent to ${email}`;
+      switchAuthView('viewOTP');
+    }).catch(err => {
+      hideLoading();
+      showError("Failed to send OTP. Try again.");
+    });
+}
+
+function verifyAuthOTP() {
+  let inputOtp = document.getElementById('authOTP').value.trim();
+  let sessionData = JSON.parse(sessionStorage.getItem('khalsa_otp_data'));
+
+  if (!sessionData || sessionData.email !== AUTH_STATE.email) {
+    return showAuthError('otpError', 'Session invalid. Please request OTP again.');
+  }
+
+  if (Date.now() > sessionData.expiresAt) {
+    sessionStorage.removeItem('khalsa_otp_data');
+    return showAuthError('otpError', 'OTP Expired. Please request a new one.');
+  }
+
+  if (sessionData.attempts >= 5) {
+    sessionStorage.removeItem('khalsa_otp_data');
+    return showAuthError('otpError', 'Max attempts reached. Request a new OTP.');
+  }
+
+  if (inputOtp === sessionData.otp) {
+    sessionStorage.removeItem('khalsa_otp_data'); 
+    sessionStorage.setItem('khalsa_otp_verified', 'true');
+    
+    // UPDATED: Create account, save details, and go straight to Home
+    if (AUTH_STATE.purpose === 'signup') {
+      let users = getAuthUsers();
+      users[AUTH_STATE.email] = { 
+          name: AUTH_STATE.name, 
+          email: AUTH_STATE.email, 
+          phone: AUTH_STATE.phone,
+          password: AUTH_STATE.password, 
+          isFirstLogin: false 
+      };
+      saveAuthUsers(users);
+
+      // Auto save into profile
+      let userData = {
+          name: AUTH_STATE.name,
+          email: AUTH_STATE.email,
+          phone: AUTH_STATE.phone,
+          address: "",
+          liveLoc: "",
+          pin: ""
+      };
+      localStorage.setItem("khalsaUserData", JSON.stringify(userData));
+      localStorage.setItem("khalsaUserData_" + AUTH_STATE.email, JSON.stringify(userData));
+
+      showSuccessMsg("Account Created & Logged In!");
+      finalizeLogin(users[AUTH_STATE.email]);
+    } else if (AUTH_STATE.purpose === 'forgot') {
+      sessionStorage.setItem('khalsa_reset_allowed', 'true');
+      switchAuthView('viewResetPassword');
+    }
+  } else {
+    sessionData.attempts++;
+    sessionStorage.setItem('khalsa_otp_data', JSON.stringify(sessionData));
+    showAuthError('otpError', `Incorrect OTP. Attempts left: ${5 - sessionData.attempts}`);
+  }
+}
+
+function handleLogin() {
+  let email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  let pass = document.getElementById('loginPassword').value;
+  
+  if (!email) return showAuthError('loginError', 'Enter your email');
+  
+  let users = getAuthUsers();
+  let user = users[email];
+
+  if (!user) return showAuthError('loginError', 'Account not found');
+  if (user.password !== pass) return showAuthError('loginError', 'Incorrect Password');
+
+  finalizeLogin(user);
+}
+
+function saveResetPassword() {
+  if (sessionStorage.getItem('khalsa_reset_allowed') !== 'true') {
+    return showAuthError('resetPassError', 'Unauthorized action');
+  }
+
+  let p1 = document.getElementById('resetPass1').value;
+  let p2 = document.getElementById('resetPass2').value;
+  
+  if (p1.length < 4) return showAuthError('resetPassError', 'Password must be 4+ chars');
+  if (p1 !== p2) return showAuthError('resetPassError', 'Passwords do not match');
+
+  let users = getAuthUsers();
+  users[AUTH_STATE.email].password = p1;
+  saveAuthUsers(users);
+  
+  sessionStorage.removeItem('khalsa_reset_allowed');
+  showSuccessMsg("Password Updated! Please Login.");
+  switchAuthView('viewLogin');
+}
+
+function handleChangePassword() {
+  let cpCurrent = document.getElementById('cpCurrent').value;
+  let cpNew1 = document.getElementById('cpNew1').value;
+  let cpNew2 = document.getElementById('cpNew2').value;
+  
+  let loggedInEmail = localStorage.getItem('khalsaLoggedInUser');
+  if (!loggedInEmail) return;
+
+  let users = getAuthUsers();
+  let user = users[loggedInEmail];
+
+  if (user.password !== cpCurrent) return showAuthError('changePassError', 'Current password incorrect');
+  if (cpNew1.length < 4) return showAuthError('changePassError', 'New password must be 4+ chars');
+  if (cpNew1 !== cpNew2) return showAuthError('changePassError', 'New passwords do not match');
+
+  user.password = cpNew1;
+  saveAuthUsers(users);
+  showSuccessMsg("Password Changed Successfully ✅");
+  document.getElementById('cpCurrent').value = '';
+  document.getElementById('cpNew1').value = '';
+  document.getElementById('cpNew2').value = '';
+  document.getElementById('changePasswordPage').style.display = 'none';
+  document.getElementById('accountPage').style.display = 'block';
+}
+
+function finalizeLogin(userObj) {
+  localStorage.setItem('khalsaLoggedInUser', userObj.email);
+  
+  let existingData = JSON.parse(localStorage.getItem("khalsaUserData_" + userObj.email)) || {};
+  
+  // Save profile Data. It populates Login Page auto details.
+  let userData = {
+      name: existingData.name || userObj.name,
+      email: userObj.email,
+      phone: existingData.phone || userObj.phone || "",
+      address: existingData.address || "",
+      liveLoc: existingData.liveLoc || "",
+      pin: existingData.pin || ""
+  };
+  
+  localStorage.setItem("khalsaUserData", JSON.stringify(userData));
+  localStorage.setItem("khalsaUserData_" + userObj.email, JSON.stringify(userData));
+
+  document.getElementById("authOverlay").style.display = "none";
+  showSuccessMsg(`Welcome, ${userObj.name}!`);
+  
+  if(!userData.phone || !userData.address) {
+     setTimeout(() => { showCustomError("Please complete your profile details for delivery.", 3000); }, 1500);
+  }
+  
+  updateGreeting();
+  checkAdminVisibility();
+  
+  // Directly opens the Menu/Home page
+  goToHome();
+}
+
+function performLogout() {
+  sessionStorage.clear(); 
+  localStorage.removeItem('khalsaLoggedInUser');
+  localStorage.removeItem("khalsaUserData"); // Resets profile view for current session safely
+  
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+  
+  hideAll();
+  switchAuthView('viewLogin');
+  document.getElementById("authOverlay").style.display = "flex";
+  showSuccessMsg("Logged out successfully 🚪");
+}
+
+function checkAuthOnLoad() {
+  if (!localStorage.getItem('khalsaLoggedInUser')) {
+    hideAll();
+    switchAuthView('viewLogin');
+    document.getElementById("authOverlay").style.display = "flex";
+  } else {
+    document.getElementById("authOverlay").style.display = "none";
+  }
+}
 
 // 🌟 PRODUCT PRICING & STOCK SYSTEM (INIT) 🌟
 function initPricesAndStock() {
@@ -982,7 +1281,8 @@ function checkAdminVisibility() {
     let adminSection = document.getElementById("adminControlsSection");
     if(adminSection) {
         let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-        if (user && (user.phone === "7988300872" || user.phone === "9416845322")) {
+        let email = localStorage.getItem('khalsaLoggedInUser');
+        if (email === "sahilvats0009@gmail.com" || (user && (user.phone === "7988300872" || user.phone === "7988300872"))) {
             adminSection.style.display = "block";
         } else {
             adminSection.style.display = "none";
@@ -1085,8 +1385,10 @@ function updateGreeting() {
 
 // 🌟 ADMIN CONTROLS LOGIC 🌟
 function attemptAdminAccess() {
+    let email = localStorage.getItem('khalsaLoggedInUser');
     let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-    if (!user || (user.phone !== "7988300872" && user.phone !== "9416845322")) {
+    
+    if (email !== "sahilvats0009@gmail.com" && (!user || (user.phone !== "7988300872" && user.phone !== "7988300872"))) {
         showError(isHindiLanguage ? "केवल एडमिन को अनुमति है 🚫" : "Only Admins are allowed 🚫");
         return;
     }
@@ -1247,141 +1549,20 @@ function stopFlashSale() {
     setTimeout(() => showAdminPage(false), 1500);
 }
 
-// 🌟 EMAILJS OTP LOGIC 🌟
-let generatedOTP = "";
-let otpAttempts = 0;
-const MAX_ATTEMPTS = 3;
-
-function sendOTP() {
-    let name = document.getElementById("onboardName").value.trim();
-    let phone = document.getElementById("onboardPhone").value.trim();
-    let email = document.getElementById("onboardEmail").value.trim();
-
-    if(name === "" || phone === "" || email === "") { 
-        showError(isHindiLanguage ? "⚠️ कृपया पहले नाम, फोन और ईमेल भरें" : "⚠️ Please fill Name, Phone and Email first"); 
-        return; 
-    }
-    if (!/^\d{10}$/.test(phone)) { 
-        showError(isHindiLanguage ? "⚠️ फोन नंबर 10 अंकों का होना चाहिए!" : "⚠️ Phone number must be exactly 10 digits!"); 
-        return; 
-    }
-
-    generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
-    otpAttempts = 0;
-
-    showLoading("Sending OTP...", "OTP भेजा जा रहा है...");
-
-    let templateParams = { email: email, otp: generatedOTP };
-
-    // EmailJS Configuration
-    const SERVICE_ID = "service_zvy3re2";
-    const TEMPLATE_ID = "template_tacgskq"; 
-    const PUBLIC_KEY = "K6cs_matxXu2begVg";   
-
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
-        .then(function(response) {
-            hideLoading();
-            showSuccessMsg(isHindiLanguage ? "✅ OTP सफलतापूर्वक भेजा गया!" : "✅ OTP Sent Successfully!");
-            document.getElementById("otpGroup").style.display = "flex"; 
-            document.getElementById("otpInput").focus();
-        }, function(error) {
-            hideLoading();
-            showError(isHindiLanguage ? "⚠️ OTP भेजने में विफल। कंसोल जांचें।" : "⚠️ Failed to send OTP. Check console.");
-            console.log("EmailJS Error:", error);
-        });
-}
-
-function verifyOTPAndContinue() {
-    let userOTP = document.getElementById("otpInput").value.trim();
-
-    if (document.getElementById("otpGroup").style.display === "none") {
-        showError(isHindiLanguage ? "⚠️ कृपया पहले 'OTP भेजें' पर क्लिक करें!" : "⚠️ Please click 'Send OTP' first!");
-        return;
-    }
-    if (userOTP === "") {
-        showError(isHindiLanguage ? "⚠️ कृपया OTP दर्ज करें!" : "⚠️ Please enter the OTP!");
-        return;
-    }
-
-    if (userOTP === generatedOTP) {
-        showSuccessMsg(isHindiLanguage ? "✅ ईमेल सत्यापित!" : "✅ Email Verified!");
-        goToTermsStep(); 
-    } else {
-        otpAttempts++;
-        // 🌟 INVALID OTP ERROR ADDED 🌟
-        showError(isHindiLanguage ? "❌ अमान्य OTP (INVALID OTP)!" : "❌ INVALID OTP!");
-        
-        if (otpAttempts >= MAX_ATTEMPTS) {
-            setTimeout(() => {
-                showError(isHindiLanguage ? "🚫 अधिकतम प्रयास पूरे हुए। OTP फिर से भेजें।" : "🚫 Maximum attempts reached. Resend OTP.");
-            }, 1500);
-            document.getElementById("otpGroup").style.display = "none";
-            document.getElementById("otpInput").value = "";
-            generatedOTP = ""; 
-        }
-    }
-}
-
-// 🌟 ONBOARDING FUNCTIONS (2 STEP PROCESS) 🌟
-function goToTermsStep() {
-  let phone = document.getElementById("onboardPhone").value.trim();
-  
-  if (!registerDeviceSession(phone)) return; // Check limit BEFORE showing terms
-  
-  // HIDE STEP 1, SHOW STEP 2
-  document.getElementById("step1Login").style.display = "none";
-  document.getElementById("step2Terms").style.display = "block";
-}
-
-function backToLoginStep() {
-  document.getElementById("step2Terms").style.display = "none";
-  document.getElementById("step1Login").style.display = "block";
-}
-
-function finishOnboarding() {
-  let cb = document.getElementById("onboardTcCheckbox");
-  if(!cb.checked) { 
-      showError(isHindiLanguage ? "⚠️ कृपया नियम और शर्तें स्वीकार करें!" : "⚠️ Please accept Terms & Conditions!"); 
-      return; 
-  }
-  
-  let phone = document.getElementById("onboardPhone").value.trim();
-  let savedData = { 
-      name: document.getElementById("onboardName").value.trim(), 
-      phone: phone, 
-      email: document.getElementById("onboardEmail").value.trim() 
-  };
-  
-  localStorage.setItem("khalsaUserData", JSON.stringify(savedData));
-  localStorage.setItem("termsAccepted", "true");
-  
-  document.getElementById("l_name").value = savedData.name;
-  document.getElementById("l_phone").value = savedData.phone;
-  document.getElementById("l_email").value = savedData.email;
-
-  // HIDE OVERLAY COMPLETELY & ENTER WEBSITE
-  document.getElementById("onboardingOverlay").style.display = "none";
-  showSuccessMsg(isHindiLanguage ? "खालसा शॉप में आपका स्वागत है!" : "Welcome to Khalsa Shop!"); 
-  updateGreeting(); 
-  checkAdminVisibility(); 
-  back(false);
-}
-
-// 🌟 NEW DEVICE REGISTRATION LOGIC WITH PRIMARY DEVICE FEATURE 🌟
-function registerDeviceSession(phone) {
+// 🌟 DEVICE REGISTRATION LOGIC (BASED ON EMAIL NOW) 🌟
+function registerDeviceSession(email) {
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
   if (!currentDeviceId) {
       currentDeviceId = "DEV_" + Date.now();
       localStorage.setItem("khalsaCurrentDeviceId", currentDeviceId);
   }
   
-  let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + phone)) || [];
+  let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + email)) || [];
   let existingDeviceIndex = devices.findIndex(d => d.id === currentDeviceId);
 
-  // MAX 2 DEVICES LIMIT LOGIC (POPUP FOR 3RD DEVICE)
   if (existingDeviceIndex === -1 && devices.length >= 2) {
       document.getElementById("deviceLimitModal").style.display = "flex";
-      return false; // Blocks the login
+      return false; 
   }
 
   let now = new Date();
@@ -1390,7 +1571,6 @@ function registerDeviceSession(phone) {
   if (existingDeviceIndex >= 0) {
       devices[existingDeviceIndex].lastUsed = dateStr;
   } else {
-      // If array is empty, this first device becomes Primary
       let isPrimary = (devices.length === 0);
       
       devices.push({ 
@@ -1402,8 +1582,8 @@ function registerDeviceSession(phone) {
       });
   }
   
-  localStorage.setItem("khalsaDevices_" + phone, JSON.stringify(devices));
-  return true; // Login successful
+  localStorage.setItem("khalsaDevices_" + email, JSON.stringify(devices));
+  return true; 
 }
 
 function showLoading(tEn, tHi) { document.getElementById("loadingText").innerText = isHindiLanguage ? tHi : tEn; document.getElementById("loadingScreen").style.display = "flex"; }
@@ -1433,6 +1613,7 @@ window.onload = function() {
   checkAdminVisibility(); updateGreeting(); updateHeadlineBanner(); setInterval(updateHeadlineBanner, 60000);
   setInterval(updateSaleTimerUI, 1000); updateSaleTimerUI(); updateMenuSaleBadges();
   
+  // LOGIN FORM DATA POPULATION (Auto-Save Display)
   let savedData = JSON.parse(localStorage.getItem("khalsaUserData"));
   if (savedData) {
     document.getElementById("l_name").value = savedData.name || "";
@@ -1440,29 +1621,28 @@ window.onload = function() {
     document.getElementById("l_address").value = savedData.address || "";
     document.getElementById("l_live_loc").value = savedData.liveLoc || "";
     document.getElementById("l_pin").value = savedData.pin || "";
-    document.getElementById("l_email").value = savedData.email || "";
+    document.getElementById("l_email").value = savedData.email || localStorage.getItem('khalsaLoggedInUser') || "";
     if (savedData.name && savedData.phone && savedData.address && savedData.liveLoc && savedData.pin) { lockInputs(); }
   }
   
   if(localStorage.getItem("khalsaTheme") === "dark") { isDarkMode = true; document.body.classList.add("dark-mode"); }
   updateTestingModeUI(); updateLanguageUI();
   
-  if(localStorage.getItem("termsAccepted") === "true" && localStorage.getItem("khalsaUserData")) {
-      document.getElementById("onboardingOverlay").style.display = "none";
-  }
+  checkAuthOnLoad();
+  
   document.getElementById('searchInput').addEventListener('input', doSearch);
 
   // 🌟 Realtime Session Checking (For Manage Devices sync logout) 🌟
   setInterval(() => {
       if(isUserLoggedIn()) {
-          let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+          let email = localStorage.getItem("khalsaLoggedInUser");
           let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-          if (user && currentDeviceId) {
-              let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+          if (email && currentDeviceId) {
+              let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + email)) || [];
               let stillExists = devices.some(d => d.id === currentDeviceId);
               if (!stillExists) {
                   alert(isHindiLanguage ? "मालिक द्वारा इस डिवाइस को हटा दिया गया है।" : "This device was removed by the primary user.");
-                  logoutUser(true);
+                  performLogout();
               }
           }
       }
@@ -1681,7 +1861,7 @@ function submitComplaint() {
     }
     
     let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-    let userStr = user ? `${user.name} (Phone: ${user.phone})` : "Guest User";
+    let userStr = user ? `${user.name} (Email: ${user.email})` : "Guest User";
     let subject = encodeURIComponent("Khalsa Shop Complaint - " + userStr);
     let body = encodeURIComponent("Customer Details:\n" + userStr + "\n\nComplaint Message:\n" + text);
 
@@ -1695,13 +1875,12 @@ function showManageDevicePage(fromPop = false) {
   hideAll(); document.getElementById("manageDevicePage").style.display = "block";
   if(!fromPop) pushNavState('manageDevice');
   let container = document.getElementById("deviceListContainer");
-  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  if(!user || !user.phone) { container.innerHTML = `<p style="text-align:center; color:var(--text-muted);">${isHindiLanguage ? "उपकरण देखने के लिए कृपया लॉग इन करें।" : "Please login to view devices."}</p>`; return; }
+  let email = localStorage.getItem('khalsaLoggedInUser');
+  if(!email) { container.innerHTML = `<p style="text-align:center; color:var(--text-muted);">${isHindiLanguage ? "उपकरण देखने के लिए कृपया लॉग इन करें।" : "Please login to view devices."}</p>`; return; }
 
-  let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+  let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + email)) || [];
   let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
   
-  // Find current device context
   let currentDevice = devices.find(d => d.id === currentDeviceId);
   let amIPrimary = currentDevice ? currentDevice.isPrimary : false;
 
@@ -1748,7 +1927,6 @@ function showManageDevicePage(fromPop = false) {
   if(devices.length === 0) fullHtml = `<p style="text-align:center; color:var(--text-muted);">${isHindiLanguage ? "कोई सक्रिय उपकरण नहीं मिला।" : "No active devices found."}</p>`;
   container.innerHTML = fullHtml;
   
-  // Show "Logout from all" ONLY to the primary user
   let logoutAllBtn = document.querySelector('.logout-all-btn');
   if(amIPrimary && devices.length > 1) {
       logoutAllBtn.style.display = "block";
@@ -1769,85 +1947,38 @@ function lockInputs() {
 function enableEdit() {
   document.querySelectorAll('#loginForm input:not(#l_live_loc), #loginForm textarea').forEach(el => { el.removeAttribute('readonly'); });
   document.getElementById("editBtn").style.display = "none"; document.getElementById("saveBtn").style.display = "block";
+  document.getElementById("l_email").setAttribute('readonly', true); // Keep email readonly as it's the primary key
 }
 
 function logoutSpecificDevice(id) {
     let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
     if (id === currentDeviceId) { 
-        logoutUser(); 
+        performLogout(); 
     } else {
-        let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-        let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
+        let email = localStorage.getItem("khalsaLoggedInUser");
+        let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + email)) || [];
         devices = devices.filter(d => d.id !== id);
-        localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
+        localStorage.setItem("khalsaDevices_" + email, JSON.stringify(devices));
         showManageDevicePage(true); 
         showSuccessMsg(isHindiLanguage ? "उपकरण सफलतापूर्वक लॉग आउट हो गया।" : "Device logged out successfully.");
     }
 }
 function logoutAllDevices() {
-    let user = JSON.parse(localStorage.getItem("khalsaUserData"));
+    let email = localStorage.getItem("khalsaLoggedInUser");
     let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-    if(user && user.phone) {
-        let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
-        // Keep ONLY the current device
+    if(email) {
+        let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + email)) || [];
         devices = devices.filter(d => d.id === currentDeviceId);
-        localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
+        localStorage.setItem("khalsaDevices_" + email, JSON.stringify(devices));
     }
     showManageDevicePage(true);
     showSuccessMsg(isHindiLanguage ? "सभी अन्य डिवाइस लॉग आउट हो गए।" : "All other devices logged out.");
 }
 
-// 🌟 REDIRECT TO LOGIN / ONBOARDING WHEN LOGGED OUT 🌟
-function logoutUser(isSilent = false) {
-  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-  
-  if(user && user.phone) {
-      let devices = JSON.parse(localStorage.getItem("khalsaDevices_" + user.phone)) || [];
-      let myDevice = devices.find(d => d.id === currentDeviceId);
-      
-      devices = devices.filter(d => d.id !== currentDeviceId);
-      
-      // If I was primary and there are still devices, give primary to the next one
-      if (myDevice && myDevice.isPrimary && devices.length > 0) {
-          devices[0].isPrimary = true;
-      }
-      localStorage.setItem("khalsaDevices_" + user.phone, JSON.stringify(devices));
-  }
-  
-  localStorage.removeItem("khalsaUserData"); 
-  localStorage.removeItem("termsAccepted"); 
-  localStorage.removeItem("khalsaCurrentDeviceId");
-  
-  document.getElementById("onboardName").value = ""; 
-  document.getElementById("onboardPhone").value = ""; 
-  document.getElementById("onboardEmail").value = "";
-  if(document.getElementById("onboardTcCheckbox")) document.getElementById("onboardTcCheckbox").checked = false;
-  document.querySelectorAll('#loginForm input, #loginForm textarea').forEach(el => { el.value = ""; el.removeAttribute('readonly'); });
-  document.getElementById("editBtn").style.display = "none"; 
-  document.getElementById("saveBtn").style.display = "block";
-  
-  if(!isSilent) showSuccessMsg(isHindiLanguage ? "🚪 लॉगआउट सफल!" : "🚪 Logged out successfully!");
-  
-  updateGreeting(); 
-  checkAdminVisibility();
-  
-  // REDIRECT TO STARTING PAGE (OVERLAY)
-  hideAll(); 
-  document.getElementById("step2Terms").style.display = "none"; 
-  document.getElementById("step1Login").style.display = "block";
-  
-  // Reset OTP fields
-  document.getElementById("otpGroup").style.display = "none";
-  document.getElementById("otpInput").value = "";
-  generatedOTP = "";
-  
-  document.getElementById("onboardingOverlay").style.display = "flex"; 
-}
-
 function isUserLoggedIn() {
+  let email = localStorage.getItem('khalsaLoggedInUser');
   let saved = localStorage.getItem("khalsaUserData");
-  if(saved) { let data = JSON.parse(saved); if(data.name && data.phone && data.address && data.liveLoc && data.pin) return true; }
+  if(email && saved) { let data = JSON.parse(saved); if(data.name && data.phone && data.address && data.liveLoc && data.pin) return true; }
   return false;
 }
 
@@ -1858,13 +1989,11 @@ function openDetail(n, i, fromPop = false){
   item = node ? node.getAttribute('data-' + lang) : n; 
   img.src=i; nameLabel.innerText=item; qty=1; document.getElementById("qty").innerText = qty;
 
-  // DYNAMIC PRICING & SPECIFIC PRODUCT SALE LOGIC
   let prices = JSON.parse(localStorage.getItem("khalsaPrices")) || {};
   let basePrice = prices[n] || 40; 
   let sale = getActiveSale();
   
   let priceEl = document.getElementById("price");
-  // Check if sale is active AND the specific product name matches what was typed in Admin
   if (sale && sale.productName && sale.productName.toLowerCase() === n.toLowerCase()) {
       price = Math.round(basePrice - (basePrice * (sale.discount / 100)));
       priceEl.innerHTML = `<s style="color:var(--text-muted); font-size:16px;">₹${basePrice}</s> <span style="color:#00c853; font-size:24px;">₹${price}</span> <span style="background:#ff416c; color:white; padding:2px 6px; border-radius:4px; font-size:12px; vertical-align:middle; margin-left:5px;">${sale.discount}% OFF</span>`;
@@ -1873,10 +2002,9 @@ function openDetail(n, i, fromPop = false){
       priceEl.innerHTML = "₹" + price;
   }
 
-  // DYNAMIC STOCK LOGIC
   let btn = document.getElementById("addToCartBtnDetail");
   let stockObj = JSON.parse(localStorage.getItem("khalsaStock")) || {};
-  let inStock = stockObj[n] !== false; // Default to true if not explicitly set to false
+  let inStock = stockObj[n] !== false; 
 
   if(inStock) {
       btn.innerHTML = isHindiLanguage ? "🛒 कार्ट में डालें" : "🛒 Add to Cart";
@@ -1893,7 +2021,6 @@ function openDetail(n, i, fromPop = false){
   if(!fromPop) pushNavState('detail_' + internalItemName.replace(/\s+/g, ''));
 }
 
-// 🌟 LIMIT 20 ITEMS 🌟
 function changeQty(v){ 
   qty+=v; 
   if(qty<1) qty=1; 
@@ -1906,7 +2033,7 @@ function changeQty(v){
 
 function addToCart(){
   if(!isUserLoggedIn()){
-    showCustomError(isHindiLanguage ? "कृपया पहले पूर्ण लॉगिन विवरण भरें" : "PLEASE FILL FULL LOGIN DETAILS FIRST", 2500);
+    showCustomError(isHindiLanguage ? "कृपया पहले पूर्ण प्रोफाइल विवरण भरें" : "PLEASE FILL FULL PROFILE DETAILS FIRST", 2500);
     setTimeout(() => { showLogin(false); }, 1000);
     return;
   }
@@ -1925,7 +2052,6 @@ function addToCart(){
   let imgSrc=img.src; 
   let found=cartData.find(i=>i.internalName===internalItemName);
   
-  // 🌟 EXTRA CHECK: Don't allow combined quantity over 20 in cart 🌟
   if(found){
       if ((found.qty + qty) > 20) {
           showError(isHindiLanguage ? "⚠️ सीमा पहुँच गई: आप एक ही उत्पाद के 20 से अधिक आइटम ऑर्डर नहीं कर सकते हैं!" : "⚠️ Limit Reached: You cannot order more than 20 items of the same product!");
@@ -2010,7 +2136,7 @@ function allowLocation() {
     navigator.geolocation.getCurrentPosition(showPosition, showLocationError);
   } else { showError(isHindiLanguage ? "⚠️ जियोलोकेशन समर्थित नहीं है।" : "⚠️ Geolocation is not supported."); document.getElementById("l_live_loc").value = ""; }
 }
-function showPosition(position) { document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`; showSuccessMsg(isHindiLanguage ? "📍 लोकेशन प्राप्त हो गई! अब लॉगिन और सेव पर क्लिक करें।" : "📍 Location fetched! Now click Login & Save."); }
+function showPosition(position) { document.getElementById("l_live_loc").value = `https://www.google.com/maps?q=$${position.coords.latitude},${position.coords.longitude}`; showSuccessMsg(isHindiLanguage ? "📍 लोकेशन प्राप्त हो गई! अब लॉगिन और सेव पर क्लिक करें।" : "📍 Location fetched! Now click Save Profile."); }
 function showLocationError(error) { document.getElementById("l_live_loc").value = ""; showError(isHindiLanguage ? "⚠️ लोकेशन प्राप्त करने में त्रुटि।" : "⚠️ Error getting location."); }
 function closePinErrorPopup() { document.getElementById("pinErrorModal").style.display = "none"; }
 
@@ -2022,19 +2148,15 @@ function processForm() {
   let pinInput = document.getElementById("l_pin").value.trim();
   let emailInput = document.getElementById("l_email").value.trim();
 
-  if (nameInput === "" || phoneInput === "" || addressInput === "" || pinInput === "" || emailInput === "") { showError(isHindiLanguage ? "⚠️ कृपया ईमेल सहित सभी आवश्यक विवरण भरें!" : "⚠️ Please fill all required details including Email!"); return; }
+  if (nameInput === "" || phoneInput === "" || addressInput === "" || pinInput === "" || emailInput === "") { showError(isHindiLanguage ? "⚠️ कृपया सभी आवश्यक विवरण भरें!" : "⚠️ Please fill all required details!"); return; }
   if (liveLocInput === "" || liveLocInput.includes("Fetching") || liveLocInput.includes("प्राप्त")) { showError(isHindiLanguage ? "⚠️ कृपया पहले अपनी लाइव लोकेशन प्राप्त करें!" : "⚠️ Please get your Live Location first!"); return; }
   if (!/^\d{10}$/.test(phoneInput)) { showError(isHindiLanguage ? "⚠️ फोन नंबर 10 अंकों का होना चाहिए!" : "⚠️ Phone number must be exactly 10 digits!"); return; }
 
-  // 🌟 Enforce Max 2 Devices Limit on Login Form 🌟
-  if (!registerDeviceSession(phoneInput)) return; // Checks limit and sets primary/secondary
+  if (!registerDeviceSession(emailInput)) return; 
 
-  let regUsers = JSON.parse(localStorage.getItem("khalsaRegisteredUsers")) || {};
-  let currentDeviceId = localStorage.getItem("khalsaCurrentDeviceId");
-
-  regUsers[phoneInput] = { name: nameInput, deviceId: currentDeviceId };
-  localStorage.setItem("khalsaRegisteredUsers", JSON.stringify(regUsers));
-  localStorage.setItem("khalsaUserData", JSON.stringify({ name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, pin: pinInput, email: emailInput }));
+  let userDataObj = { name: nameInput, phone: phoneInput, address: addressInput, liveLoc: liveLocInput, pin: pinInput, email: emailInput };
+  localStorage.setItem("khalsaUserData", JSON.stringify(userDataObj));
+  localStorage.setItem("khalsaUserData_" + emailInput, JSON.stringify(userDataObj));
   
   lockInputs(); updateGreeting(); checkAdminVisibility();
   
@@ -2042,7 +2164,7 @@ function processForm() {
       isForcedTcMode = true; document.getElementById("termsModal").style.display = "flex";
       document.getElementById("tcCloseBtn").style.display = "none"; document.getElementById("tcCheckbox").checked = false; 
   } else {
-      showSuccessMsg(isHindiLanguage ? "अब आप खरीदारी के लिए तैयार हैं 😊" : "YOU ARE READY FOR SHOPING ENJOY 😊");
+      showSuccessMsg(isHindiLanguage ? "अब आप खरीदारी के लिए तैयार हैं 😊" : "PROFILE UPDATED SUCCESSFULLY 😊");
       setTimeout(() => { showAccountPage(false); }, 1500);
   }
 }
@@ -2081,7 +2203,7 @@ function placeDirectOrder(){
   }
 
   let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError(isHindiLanguage ? "कृपया पहले लॉगिन करें और अपनी जानकारी भरें ℹ️" : "PLEASE LOGIN FIRST AND FILL YOUR INFORMATION ℹ️"); setTimeout(showLogin, 2000); return; }
+  if (!user || !user.liveLoc || user.liveLoc.trim() === "") { showError(isHindiLanguage ? "कृपया पहले लॉगिन करें और अपनी जानकारी भरें ℹ️" : "PLEASE COMPLETE PROFILE INFORMATION FIRST ℹ️"); setTimeout(showLogin, 2000); return; }
 
   let orderDetails = ""; let totalPrice = 0; let totalQty = 0;
   let orderCounters = JSON.parse(localStorage.getItem("khalsaOrderCounters")) || {};
@@ -2100,8 +2222,8 @@ function placeDirectOrder(){
   saveOrderToSheet(cartData, user);
   saveOrderToHistory(finalTotal, orderDetails.replace(/\n/g, ", "));
 
-  let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nAddress: ${user.address}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
-  let targetPhone = isTestingMode() ? "917988300872" : "919416845322";
+  let msg = `🛍️ *NEW ORDER (CASH ON DELIVERY)*\n\n*Items:*\n${orderDetails}\n*Subtotal:* ₹${totalPrice}\n*Delivery Charge:* ₹${deliveryCharge}\n*Final Total:* ₹${finalTotal}\n\n*Customer Details:*\nName: ${user.name}\nPhone: ${user.phone}\nEmail: ${user.email}\nAddress: ${user.address}\nPincode: ${user.pin}\nLive Loc: ${user.liveLoc}`;
+  let targetPhone = isTestingMode() ? "917988300872" : "917988300872";
   
   showLoading("Processing Order...", "ऑर्डर प्रोसेस हो रहा है...");
   setTimeout(() => { hideLoading(); waitingForWhatsAppReturn = true; window.location.href = `https://wa.me/${targetPhone}?text=` + encodeURIComponent(msg); }, 1500); 
@@ -2158,7 +2280,7 @@ function hideAll() {
   document.getElementById("manageDevicePage").style.display="none"; document.getElementById("topCustomersPage").style.display="none"; document.getElementById("reportPage").style.display="none";
   document.getElementById("complaintsPage").style.display="none"; document.getElementById("functionsGuidePage").style.display="none"; document.getElementById("adminPage").style.display="none";
   document.getElementById("adminPricesPage").style.display="none"; document.getElementById("adminStockPage").style.display="none";
-  document.getElementById("adminSalePage").style.display="none";
+  document.getElementById("adminSalePage").style.display="none"; document.getElementById("changePasswordPage").style.display="none";
   document.getElementById("dashboardHeaderBox").style.display="none"; document.getElementById("categoryTitleBox").style.display="none";
 }
 
@@ -2181,7 +2303,7 @@ function saveReview(){
   if(rating == 0){ showError(isHindiLanguage ? "⚠️ एक स्टार रेटिंग का चयन करें!" : "⚠️ Select a star rating!"); return; }
   let filterData = filterText(text);
   if(filterData.isBad) { triggerReportAlert(filterData.word, text); document.getElementById("reviewText").value = filterData.clean; return; }
-  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let reviewerName = (user && user.name) ? user.name : "Guest User"; let reviewerId = (user && user.phone) ? user.phone : "Guest";
+  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let reviewerName = (user && user.name) ? user.name : "Guest User"; let reviewerId = localStorage.getItem('khalsaLoggedInUser') || "Guest";
   let payload = { id: new Date().getTime().toString(), action: "add", type: "ITEM", productId: internalItemName, rating: rating, reviewText: filterData.clean, userName: reviewerName, userId: reviewerId, createdAt: new Date().toLocaleString('en-IN') };
   showLoading("Loading...", "लोड हो रहा है...");
   fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(() => {
@@ -2190,8 +2312,7 @@ function saveReview(){
 }
 
 function deleteReview(id, skipMsg = false) {
-  let user = JSON.parse(localStorage.getItem("khalsaUserData"));
-  let currentUserId = user ? user.phone : "Guest";
+  let currentUserId = localStorage.getItem('khalsaLoggedInUser') || "Guest";
   let reviewToDel = globalAllReviews.find(r => r.id === id);
   if (currentUserId === "Guest" || (reviewToDel && String(reviewToDel.userId) !== String(currentUserId))) { showError(isHindiLanguage ? "आपको इस समीक्षा को हटाने की अनुमति नहीं है।" : "You are not allowed to delete this review."); closeDeleteConfirm(); return; }
   if(!skipMsg) showLoading("Loading...", "लोड हो रहा है...");
@@ -2216,7 +2337,8 @@ function editReview(id, currentText, type, productId, currentRating) {
     fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: "delete", id: id }) })
     .then(() => {
       let user = JSON.parse(localStorage.getItem("khalsaUserData")) || {};
-      let payload = { id: id, action: "add", type: type, productId: productId, rating: currentRating, reviewText: filterData.clean, userName: user.name || "Guest", userId: user.phone || "Guest", createdAt: new Date().toLocaleString('en-IN') + " (Edited)" };
+      let currentEmail = localStorage.getItem('khalsaLoggedInUser') || "Guest";
+      let payload = { id: id, action: "add", type: type, productId: productId, rating: currentRating, reviewText: filterData.clean, userName: user.name || "Guest", userId: currentEmail, createdAt: new Date().toLocaleString('en-IN') + " (Edited)" };
       fetch(REVIEWS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
       .then(() => { hideLoading(); showSuccessMsg("✏️ Edited Successfully"); setTimeout(reloadCurrentView, 1000); });
     });
@@ -2243,7 +2365,7 @@ function renderReviewHTML(r, currentUserId) {
 
 function loadReviews(){
   let box = document.getElementById("reviews"); let statsBox = document.getElementById("itemReviewStats"); box.innerHTML = isHindiLanguage ? "समीक्षाएं लोड हो रही हैं..." : "Loading reviews...";
-  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
+  let currentUserId = localStorage.getItem('khalsaLoggedInUser') || "Guest";
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = "";
     let itemReviews = globalAllReviews.filter(r => r.type === "ITEM" && r.productId === internalItemName); 
@@ -2259,7 +2381,7 @@ function showAllReviews(fromPop = false) {
   hideAll(); document.getElementById("searchContainerBox").style.display="none"; document.getElementById("allReviewsPage").style.display = "block";
   if(!fromPop) pushNavState('allReviews');
   let box = document.getElementById("allReviewsContainer"); box.innerHTML = isHindiLanguage ? "आपकी समीक्षाएं लोड हो रही हैं..." : "Loading your reviews...";
-  let user = JSON.parse(localStorage.getItem("khalsaUserData")); let currentUserId = user ? user.phone : "Guest";
+  let currentUserId = localStorage.getItem('khalsaLoggedInUser') || "Guest";
   fetchAllReviewsFromDB((error) => {
     if(error) { box.innerHTML = "<p>Error loading reviews.</p>"; return; } box.innerHTML = ""; 
     let revs = globalAllReviews.filter(r => String(r.userId) === String(currentUserId)).reverse();
